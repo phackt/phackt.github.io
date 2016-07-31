@@ -8,10 +8,10 @@ HZV, Hackademy Mag & School, NDH, ... Si ces acronymes ont bercé votre adolesce
 Time to go back to the basics!
 
 ```
-  _____        _             _ _ 
+  _____        _             _ _
  | ____|_ __  (_) ___  _   _| | |
  |  _| | '_ \ | |/ _ \| | | | | |
  | |___| | | || | (_) | |_| |_|_|
  |_____|_| |_|/ |\___/ \__, (_|_)
-            |__/       |___/                                                                                          
-```                                                                                                   
+            |__/       |___/
+```
