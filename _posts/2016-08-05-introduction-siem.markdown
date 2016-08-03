@@ -18,7 +18,7 @@ Notez que la Commission européenne a également adopté, en février 2013, une 
   
 Les OIV se retrouvent donc avec l'obligation de mettre en œuvre des systèmes qualifiés de détection des évènements susceptibles d’affecter la sécurité de leurs systèmes d’information. En cas de manquement, ceci peut coûter cher : la LPM 2014-2019 sanctionne les manquements à la loi d’une amende de 150.000€, s’élevant à 750.000€ pour les personnes morales. La loi française ne distingue pas selon que le manquement est ou non intentionnel. La simple négligence est donc en principe condamnable.  
 
-Nous voyons donc qu’au-delà du réel besoin, le cadre réglementaire concernant la supervision de la sécurité des entreprises est posé.  
+Nous voyons donc qu’en sus d'un réel besoin, le cadre réglementaire concernant la supervision de la sécurité des entreprises est posé.  
 
 **Mais en quoi consiste ce monitoring de la sécurité ?**  
 
@@ -52,7 +52,7 @@ Selon le Gartner Magic Quadrant 2015 :
 
 
 And the winner is…. IBM Security QRadar, suivi de HP ArcSight et de Splunk.  
-Ces solutions sont commerciales, mais le geek qui est en vous se demande déjà ce qu’il en est des solutions libres ? Effectivement il existe une solution d’agrégation de logs, ou plutôt une stack de produits Elastic open source, la stack **ELK (ElasticSearch, Logstash, Kibana)** :
+Ces solutions sont commerciales, mais le geek qui est en vous se demande déjà ce qu’il en est des solutions libres ? Effectivement il existe une solution d’agrégation de logs, ou plutôt une stack open source de produits Elastic, la stack **ELK (ElasticSearch, Logstash, Kibana)** :
 
  - [ElasticSearch](https://www.elastic.co/fr/products/elasticsearch "https://www.elastic.co/fr/products/elasticsearch") : moteur de stockage et d’indexation de documents et moteur de requête/d’analyse de ceux-ci.
  - [Logstash](https://www.elastic.co/products/logstash "https://www.elastic.co/products/logstash"): analyse, filtrage et découpage des logs pour les transformer en documents, parfaitement formatés notamment pour ElasticSearch.
