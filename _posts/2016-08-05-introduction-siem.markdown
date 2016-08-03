@@ -11,12 +11,12 @@ Nous avons vu dans un précédent article quel était le contexte réglementaire
 
 **Que dites-vous d’une petite révision ?**  
 
-La LPM impose aux OIV (Opérateurs d’Importance Vitale) de renforcer la sécurité des systèmes d’information critiques qu’ils exploitent et de notifier les incidents de sécurité à l’ANSSI.  
+La LPM impose aux OIV (Opérateurs d’Importance Vitale) de renforcer la sécurité des systèmes d’information critiques qu’ils exploitent et de notifier les incidents de sécurité à l’ANSSI (Agence Nationale de la Sécurité des Systèmes d'Information).  
 Une première vague d’arrêtés a été publiée le 1er juillet 2016. Ces arrêtés concernent les secteurs d’activité des produits de santé, la gestion de l’eau et l’alimentation. Plusieurs autres arrêtés, concernant d’autres secteurs d’activité, devraient paraître d’ici la fin de cette année.  
 
 Notez que la Commission européenne a également adopté, en février 2013, une proposition de directive visant à assurer un niveau élevé commun de sécurité des réseaux et de l’information dans l’Union.  
   
-Nous savons donc que les OIV ont l’obligation de mettre en œuvre des systèmes qualifiés de détection des évènements susceptibles d’affecter la sécurité de leurs systèmes d’information. En cas de manquement, ceci peut coûter cher : la LPM 2014-2019 sanctionne les manquements à la loi d’une amende de 150.000€, s’élevant à 750.000€ pour les personnes morales. La loi française ne distingue pas selon que le manquement est ou non intentionnel. La simple négligence est donc en principe condamnable.  
+Les OIV se retrouvent donc avec l'obligation de mettre en œuvre des systèmes qualifiés de détection des évènements susceptibles d’affecter la sécurité de leurs systèmes d’information. En cas de manquement, ceci peut coûter cher : la LPM 2014-2019 sanctionne les manquements à la loi d’une amende de 150.000€, s’élevant à 750.000€ pour les personnes morales. La loi française ne distingue pas selon que le manquement est ou non intentionnel. La simple négligence est donc en principe condamnable.  
 
 Nous voyons donc qu’au-delà du réel besoin, le cadre réglementaire concernant la supervision de la sécurité des entreprises est posé.  
 
