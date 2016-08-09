@@ -2,7 +2,7 @@
 layout: post
 title:  "Introduction au SIEM"
 date:   2016-08-05
-categories: siem introduction
+categories: siem
 ---
 SIEM, le monitoring de la sécurité
 ===================

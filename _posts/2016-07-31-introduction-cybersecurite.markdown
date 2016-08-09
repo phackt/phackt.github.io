@@ -2,7 +2,7 @@
 layout: post
 title:  "Introduction à la cybersécurité"
 date:   2016-07-31
-categories: general introduction
+categories: general
 ---
 Cybersécurité, un enjeu bien réel
 ===================
