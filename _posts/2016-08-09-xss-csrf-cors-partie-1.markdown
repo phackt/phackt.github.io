@@ -74,7 +74,7 @@ Des outils pour vos développements sécurisés
   
 Il est également important de parler de l’api d’OWASP [ESAPI (The OWASP Enterprise Security API)](https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API "https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API") qui est une API libre, open source, qui facilite le développement sécurisé d’applications, facilement intégrable à une application existante ou pour de nouveaux développements. Cette API offre de nombreuses implémentations permettant les validations des entrées, l'authentification, l'encoding, l'échappement, ... l'API existe pour différents langages, JAVA EE, .NET, PHP, Python, Javascript, ASP, Coldfusion & CFML.
   
-Il existe également d’autres projets OWASP qui peuvent répondre à vos besoins :  
+Il existe également d’autres projets qui peuvent répondre à vos besoins :  
  
  - Output encoding: [OWASP Java Encoder Project](https://www.owasp.org/index.php/OWASP_Java_Encoder_Project "https://www.owasp.org/index.php/OWASP_Java_Encoder_Project")  
  - General HTML sanitization: [OWASP Java HTML Sanitizer](https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project "https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project")
