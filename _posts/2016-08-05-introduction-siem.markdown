@@ -39,7 +39,7 @@ collecter, stocker, sécuriser et archiver les journaux d’information provenan
 
 Ce besoin fait très souvent suite à des contraintes légales de conservation et de non-répudiation des informations. Un exemple est l’analyse post incident et la visualisation de requêtes d’exfiltration de données par le hacker. La brique d’indexation et de recherche est assurée par un système d’indexation très rapide (exemple ElasticSearch en open source).  
 
-*La supervision de la sécurité* quant à elle, relève d’un réel besoin des entreprises de suivre en temps réel l’activité de leur SI, de corréler tous les évènements qui s’y passent et d’être alertés en cas de problème de sécurité. Cette partie sera assurée par une une surcouche à notre technologie d’agrégation de log, une couche HIDS (Host Based Intrusion Detection System). Des règles (expressions régulières, lois de corrélation, analyses comportementales, signaux forts/faibles) permettent de détecter certains comportements suspicieux, et ainsi d’anticiper une attaque (exemple de scan de ports – voir [nmap](https://nmap.org/book/man-port-scanning-techniques.html "https://nmap.org/book/man-port-scanning-techniques.html")), ou de remonter une alerte sur une attaque en cours.  
+*La supervision de la sécurité* quant à elle, relève d’un réel besoin des entreprises de suivre en temps réel l’activité de leur SI, de corréler tous les évènements qui s’y passent et d’être alertés en cas de problème de sécurité. Cette partie sera assurée par une une surcouche à notre technologie d’agrégation de log, une couche HIDS (Host Based Intrusion Detection System - ex: OSSEC) / NIDS (Network Intrusion Detection System - ex: SNORT). Des règles (expressions régulières, lois de corrélation, analyses comportementales, signaux forts/faibles) permettent de détecter certains comportements suspicieux, et ainsi d’anticiper une attaque (exemple de scan de ports – voir [nmap](https://nmap.org/book/man-port-scanning-techniques.html "https://nmap.org/book/man-port-scanning-techniques.html")), ou de remonter une alerte sur une attaque en cours.  
  
 Ensuite apparait la partie graphique de reporting et dashboard pour la remontée des Key Risk Indicators.
 Ces composantes sont donc intimement liées. Les solutions doivent faire appel à des technologies de Big Data pour assurer la rapidité de traitement et garantir l’intégrité de ces gros volumes de données qui transitent par le SIEM. 
@@ -52,7 +52,9 @@ Selon le Gartner Magic Quadrant 2015 :
 
 
 And the winner is…. IBM Security QRadar, suivi de HP ArcSight et de Splunk.  
-Ces solutions sont commerciales, mais le geek qui est en vous se demande déjà ce qu’il en est des solutions libres ? Effectivement il existe une solution d’agrégation de logs, ou plutôt une stack open source de produits Elastic, la stack **ELK (ElasticSearch, Logstash, Kibana)** :
+Ces solutions sont commerciales, mais le geek qui est en vous se demande déjà ce qu’il en est des solutions libres ? Effectivement il existe des solutions comme [OSSIM](https://www.alienvault.com/products/ossim "https://www.alienvault.com/products/ossim") qui se veut être un SIEM open source, mais cependant limité (absence de règles de corrélations, reporting basique, ...).  
+
+Il existe également une solution d’agrégation de logs, ou plutôt une stack open source de produits Elastic, la stack **ELK (ElasticSearch, Logstash, Kibana)** :
 
  - [ElasticSearch](https://www.elastic.co/fr/products/elasticsearch "https://www.elastic.co/fr/products/elasticsearch") : moteur de stockage et d’indexation de documents et moteur de requête/d’analyse de ceux-ci.
  - [Logstash](https://www.elastic.co/products/logstash "https://www.elastic.co/products/logstash"): analyse, filtrage et découpage des logs pour les transformer en documents, parfaitement formatés notamment pour ElasticSearch.
@@ -60,9 +62,9 @@ Ces solutions sont commerciales, mais le geek qui est en vous se demande déjà 
 
 Notre premier besoin est couvert, mais concernant notre supervision de la sécurité ?
 
-Pour notre HIDS, vous trouverez la solution open source [OSSEC](http://ossec.github.io/ "http://ossec.github.io/").  
+Pour notre HIDS, vous trouverez la solution open source [OSSEC](http://ossec.github.io/ "http://ossec.github.io/"). Concernant le NIDS, voici [SNORT](https://www.snort.org/ "https://www.snort.org/").
 
-Notre prochain article consacré au SIEM se concentrera donc sur la mise en place de cette solution ELK + surcouche OSSEC. Nous ferons également le parallèle avec les enjeux [Big Data](http://www.bgfi-groupe.com/ "http://www.bgfi-groupe.com/") concernant ces solutions.  
+Notre prochain article consacré au SIEM se concentrera donc sur la mise en place de cette solution ELK + surcouche OSSEC dans un premier temps. Nous ferons également le parallèle avec les enjeux [Big Data](http://www.bgfi-groupe.com/ "http://www.bgfi-groupe.com/") concernant ces solutions.  
 
 ```
 A bientôt et surtout Keep the positive attitude ;)
