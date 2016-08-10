@@ -32,16 +32,16 @@ En somme, il faudra créer un SOC ([Security Operation Center](https://fr.wikipe
 
 **Quel rapport entre journaux et sécurité ?**  
  
-Il est important de bien distinguer deux besoins : __la gestion des logs et la supervision de la sécurité__.  
+Le monitoring du SI implique deux besoins : __la gestion des logs et la supervision de la sécurité__.  
 
 *La gestion des logs*, plus souvent appelée « Log Management », consiste en la mise en place d’une ou plusieurs solutions permettant à une entreprise de
 collecter, stocker, sécuriser et archiver les journaux d’information provenant des différents équipements de sécurité, d’authentification, réseaux...  
 
 Ce besoin fait très souvent suite à des contraintes légales de conservation et de non-répudiation des informations. Un exemple est l’analyse post incident et la visualisation de requêtes d’exfiltration de données par le hacker. La brique d’indexation et de recherche est assurée par un système d’indexation très rapide (exemple ElasticSearch en open source).  
 
-*La supervision de la sécurité* quant à elle, relève d’un réel besoin des entreprises de suivre en temps réel l’activité de leur SI, de corréler tous les évènements qui s’y passent et d’être alertés en cas de problème de sécurité. Cette partie sera assurée par une une surcouche à notre technologie d’agrégation de log, une couche HIDS (Host Based Intrusion Detection System - ex: OSSEC) / NIDS (Network Intrusion Detection System - ex: SNORT). Des règles (expressions régulières, lois de corrélation, analyses comportementales, signaux forts/faibles) permettent de détecter certains comportements suspicieux, et ainsi d’anticiper une attaque (exemple de scan de ports – voir [nmap](https://nmap.org/book/man-port-scanning-techniques.html "https://nmap.org/book/man-port-scanning-techniques.html")), ou de remonter une alerte sur une attaque en cours.  
+*La supervision de la sécurité* quant à elle, relève d’un réel besoin des entreprises de suivre en temps réel l’activité de leur SI, de corréler tous les évènements qui s’y passent et d’être alertés en cas de problème de sécurité. Cette partie sera assurée par une couche HIDS (Host Based Intrusion Detection System - ex: OSSEC) / NIDS (Network Intrusion Detection System - ex: SNORT). Les alertes de ces systèmes seront remontées au SIEM qui effectuera des corrélations (expressions régulières, analyses comportementales, signaux forts/faibles) permettant de détecter des comportements suspicieux probants, et ainsi d’anticiper une attaque (exemple de scan de ports – voir [nmap](https://nmap.org/book/man-port-scanning-techniques.html "https://nmap.org/book/man-port-scanning-techniques.html")), ou de remonter une alerte sur une attaque en cours.  
  
-Ensuite apparait la partie graphique de reporting et dashboard pour la remontée des Key Risk Indicators.
+Ensuite, apparaît la partie graphique de reporting et dashboard pour la remontée des Key Risk Indicators.
 Ces composantes sont donc intimement liées. Les solutions doivent faire appel à des technologies de Big Data pour assurer la rapidité de traitement et garantir l’intégrité de ces gros volumes de données qui transitent par le SIEM. 
  
 **Quelles sont donc ces solutions ?**  
@@ -76,3 +76,5 @@ Références:
 [https://www.itrust.fr/SIEM](https://www.itrust.fr/SIEM)   
 [http://www.itrmanager.com/articles/164117/siem-element-incontournable-oiv.html](http://www.itrmanager.com/articles/164117/siem-element-incontournable-oiv.html)  
 [http://www.village-justice.com/articles/Quelles-obligations-pour-les-OIV,16739.html](http://www.village-justice.com/articles/Quelles-obligations-pour-les-OIV,16739.html)
+[http://www.wazuh.com/elk-stack/](http://www.wazuh.com/elk-stack/)
+[http://connect.ed-diamond.com/MISC/MISC-069/SIEM-IDS-l-union-fait-elle-la-force](http://connect.ed-diamond.com/MISC/MISC-069/SIEM-IDS-l-union-fait-elle-la-force)
