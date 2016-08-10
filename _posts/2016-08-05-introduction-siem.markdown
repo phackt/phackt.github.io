@@ -75,6 +75,6 @@ Références:
 [http://www.orange-business.com/fr/blogs/securite/securite-organisationnelle-et-humaine/securite-siem-ou-pas-siem-](http://www.orange-business.com/fr/blogs/securite/securite-organisationnelle-et-humaine/securite-siem-ou-pas-siem-)  
 [https://www.itrust.fr/SIEM](https://www.itrust.fr/SIEM)   
 [http://www.itrmanager.com/articles/164117/siem-element-incontournable-oiv.html](http://www.itrmanager.com/articles/164117/siem-element-incontournable-oiv.html)  
-[http://www.village-justice.com/articles/Quelles-obligations-pour-les-OIV,16739.html](http://www.village-justice.com/articles/Quelles-obligations-pour-les-OIV,16739.html)
-[http://www.wazuh.com/elk-stack/](http://www.wazuh.com/elk-stack/)
+[http://www.village-justice.com/articles/Quelles-obligations-pour-les-OIV,16739.html](http://www.village-justice.com/articles/Quelles-obligations-pour-les-OIV,16739.html)  
+[http://www.wazuh.com/elk-stack/](http://www.wazuh.com/elk-stack/)  
 [http://connect.ed-diamond.com/MISC/MISC-069/SIEM-IDS-l-union-fait-elle-la-force](http://connect.ed-diamond.com/MISC/MISC-069/SIEM-IDS-l-union-fait-elle-la-force)
