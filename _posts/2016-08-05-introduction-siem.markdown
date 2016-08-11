@@ -39,16 +39,20 @@ collecter, stocker, sécuriser et archiver les journaux d’information provenan
 
 Ce besoin fait très souvent suite à des contraintes légales de conservation et de non-répudiation des informations. Un exemple est l’analyse post incident et la visualisation de requêtes d’exfiltration de données par le hacker. La brique d’indexation et de recherche est assurée par un système d’indexation très rapide (exemple ElasticSearch en open source).  
 
-*La supervision de la sécurité* quant à elle, relève d’un réel besoin des entreprises de suivre en temps réel l’activité de leur SI, de corréler tous les évènements qui s’y passent et d’être alertés en cas de problème de sécurité. Cette partie sera assurée par une couche HIDS (Host Based Intrusion Detection System - ex: OSSEC) / NIDS (Network Intrusion Detection System - ex: SNORT). Les alertes de ces systèmes seront remontées au SIEM qui effectuera des corrélations (expressions régulières, analyses comportementales, signaux forts/faibles) permettant de détecter des comportements suspicieux probants, et ainsi d’anticiper une attaque (exemple de scan de ports – voir [nmap](https://nmap.org/book/man-port-scanning-techniques.html "https://nmap.org/book/man-port-scanning-techniques.html")), ou de remonter une alerte sur une attaque en cours.  
- 
-Ensuite, apparaît la partie graphique de reporting et dashboard pour la remontée des Key Risk Indicators.
+*La supervision de la sécurité* quant à elle, relève d’un réel besoin des entreprises de suivre en temps réel l’activité de leur SI, de corréler tous les évènements qui s’y passent et d’être alertés en cas de problème de sécurité. Cette partie sera assurée par une couche **HIDS** (Host Based Intrusion Detection System - ex: OSSEC) / **NIDS** (Network Intrusion Detection System - ex: SNORT). Les alertes de ces systèmes seront remontées au SIEM qui effectuera des **corrélations** (règles de détection mises à jours régulièrement, expressions régulières) permettant de détecter des comportements suspicieux probants, et ainsi d’anticiper une attaque (exemple de scan de ports – voir [nmap](https://nmap.org/book/man-port-scanning-techniques.html "https://nmap.org/book/man-port-scanning-techniques.html")), ou de remonter une alerte sur une attaque en cours.  De surcroît, les informations remontées par les NIDS et HIDS sont **complémentaires** : le NIDS remontera la source de l'attaque (IP) et le payload envoyé, le HIDS alertera sur l'action effectuée sur le système ciblé et si cette dernière a abouti.  
+  
+Ainsi des règles de corrélations pourront être mises en place pour déterminer la criticité d'une alerte (évitez les règles trop génériques pouvant mener à des faux positifs). Voici un exemple de règle de corrélation d'un SIEM impliquant des alertes de SNORT et d'OSSEC sur une attaque LFI ([Local File Inclusion](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion)):
+
+![Corrélation LFI]({{ site.url }}/assets/images/introduction-siem/events_flowchart1.png)  
+  
+Le SIEM dispose d'une partie graphique pour l'affichage des Key Risk Indicators(reportings et dashboards).  
 Ces composantes sont donc intimement liées. Les solutions doivent faire appel à des technologies de Big Data pour assurer la rapidité de traitement et garantir l’intégrité de ces gros volumes de données qui transitent par le SIEM. 
  
 **Quelles sont donc ces solutions ?**  
 
 Selon le Gartner Magic Quadrant 2015 :  
 
-![Gartner Magic Quadrant SIEM 2015](http://www.splunk.com/web_assets/images/2015-siem-mq-LG.png)  
+![Gartner Magic Quadrant SIEM 2015]({{ site.url }}/assets/images/introduction-siem/2015-siem-mq-LG.png)  
 
 
 And the winner is…. IBM Security QRadar, suivi de HP ArcSight et de Splunk.  
