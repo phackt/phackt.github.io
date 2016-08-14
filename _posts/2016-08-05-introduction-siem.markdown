@@ -43,7 +43,7 @@ Ce besoin fait très souvent suite à des contraintes légales de conservation e
   
 Ainsi des règles de corrélations pourront être mises en place pour déterminer la criticité d'une alerte (évitez les règles trop génériques pouvant mener à des faux positifs). Voici un exemple de règle de corrélation d'un SIEM impliquant des alertes de SNORT et d'OSSEC sur une attaque LFI ([Local File Inclusion](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion)):
 
-![Corrélation LFI]({{ site.url }}/assets/images/introduction-siem/events_flowchart1.png)  
+![Corrélation LFI]({{ site.url }}/public/images/introduction-siem/events_flowchart1.png)  
   
 Le SIEM dispose d'une partie graphique pour l'affichage des Key Risk Indicators(reportings et dashboards).  
 Ces composantes sont donc intimement liées. Les solutions doivent faire appel à des technologies de Big Data pour assurer la rapidité de traitement et garantir l’intégrité de ces gros volumes de données qui transitent par le SIEM. 
@@ -52,7 +52,7 @@ Ces composantes sont donc intimement liées. Les solutions doivent faire appel �
 
 Selon le Gartner Magic Quadrant 2015 :  
 
-![Gartner Magic Quadrant SIEM 2015]({{ site.url }}/assets/images/introduction-siem/2015-siem-mq-LG.png)  
+![Gartner Magic Quadrant SIEM 2015]({{ site.url }}/public/images/introduction-siem/2015-siem-mq-LG.png)  
 
 
 And the winner is…. IBM Security QRadar, suivi de HP ArcSight et de Splunk.  

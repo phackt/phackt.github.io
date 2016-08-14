@@ -1,0 +1,30 @@
+/**
+ * Footer
+ */
+$grey-color:       #828282;
+.social-media-list {
+    list-style: none;
+    margin-left: 0;
+}
+
+.footer-col1 {
+  text-align: left;
+}
+
+.footer-col2 {
+  text-align: justify;
+}
+
+.icon {
+
+    > svg {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+
+        path {
+            fill: $grey-color;
+        }
+    }
+}
