@@ -238,11 +238,14 @@ dl,
 /*============================================================================*/
 #logo {
   display: inline-block;
-  height: 115px;
-  width: 115px;
+  height: 105px;
+  width: 105px;
   background-size: 105px 105px;
   background-position: left center;
   background-repeat: no-repeat;
+  box-shadow: 2px 2px 2px #aaa;
+  margin-top: 3px;
+  border-radius: 100%;
 }
 
 /*============================================================================*/
