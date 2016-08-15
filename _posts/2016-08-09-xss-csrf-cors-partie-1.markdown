@@ -4,13 +4,14 @@ title:  "XSS, CSRF, CORS - Partie 1"
 date:   2016-08-09
 categories: web
 ---
-XSS, CSRF, CORS
+XSS, CSRF, CORS - Le XSS Késako?
 ----------
-**Que se cache-t-il derrière tous ces acronymes et quel lien pouvons-nous faire entre eux ?**  
+**Que se cache-t-il derrière ces acronymes barbares ?**  
   
+Bienvenue dans cette saga qui traitera des notions de XSS, CORS, CSRF et du lien entre elles.  
 Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB "cas d’école" en Java [https://github.com/lepicte/DemoWebApp](https://github.com/lepicte/DemoWebApp). La question que nous nous posons est la suivante : **quelles sont les bonnes pratiques pour sécuriser une application WEB ?**  
   
-Ici nous traiterons des attaques de cross-site scripting. Nous ferons le lien par la suite avec les protections CSRF (Cross Site Request Forgery) et les requêtes CORS (Cross Origin Ressource Sharing).    
+Dans ce premier volet, nous traiterons des attaques de cross-site scripting. Nous ferons le lien par la suite avec les protections CSRF (Cross Site Request Forgery) et les requêtes CORS (Cross Origin Ressource Sharing).    
   
 XSS 
 ====
@@ -65,7 +66,9 @@ Si vous utilisez la couche **Spring Security**, le framework inclut par défaut 
   
 Ces headers, ainsi que HTTP **Strict-Transport-Security** (abrégé HSTS – oblige le navigateur à requêter sur du HTTPS, utile pour lutter contre le blocage des connexions sécurisées HTTPS avec des outils comme sslstrip lors d'attaques "Man In The Middle"), ou **Content-Security-Policy** (requêtes Cross-Origin) sont par défaut inclus et activés dans la couche Spring Security (voir [Spring Security Headers](http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html "http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html")).  
   
-Si vous utilisez une autre technologie ou framework, pensez à inclure ces response headers en fonction de vos besoins. 
+Si vous utilisez une autre technologie ou framework, pensez à inclure ces response headers en fonction de vos besoins.  
+  
+Pensez également à sécuriser vos **cookies session**. Les requêtes XSS ont pour objectif le vol de ces cookies. Stipulez au navigateur que ce dernier ne peut pas y accéder via javascript (flag **HttpOnly**). Pour un site HTTPS, ces derniers ne doivent pas être accessibles sur des connexions non cryptées (flag **Secure**): [https://tools.ietf.org/html/rfc6265#section-5.2.4](https://tools.ietf.org/html/rfc6265#section-5.2.4).
 
 Des outils pour vos développements sécurisés 
 ====
@@ -83,7 +86,9 @@ Il existe également d’autres projets qui peuvent répondre à vos besoins :
  - Authentication / authorization: [Apache Shiro](https://shiro.apache.org/ "https://shiro.apache.org/")
  - CSRF protection: [OWASP CSRFGuard Project](https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project "https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project") or [OWASP CSRFProtector Project](https://www.owasp.org/index.php/CSRFProtector_Project "https://www.owasp.org/index.php/CSRFProtector_Project").  
   
-Les attaques possibles sont nombreuses sur une application web, nous avons mis en avant celles de type XSS. Nous verrons dans un prochain article comment ces attaques peuvent détourner les protections CSRF et dans quelle mesure les requêtes Cross-Origin impactent la sécurité d’une application web.
+Les attaques possibles sont nombreuses sur une application web, nous avons mis en avant celles de type XSS. Nous verrons dans un prochain article comment ces attaques peuvent détourner les protections CSRF et dans quelle mesure les requêtes Cross-Origin impactent la sécurité d’une application web.  
+  
+A bientôt dans un second volet du XSS et CORS par la pratique!  
 
 ```
 Keep the positive attitude ;) !
