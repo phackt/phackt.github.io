@@ -25,8 +25,14 @@ body {
   color: $contrast-color;
   font-weight: 400;
   line-height: 1.5;
+  margin: 0 0 100px; /* bottom = footer height */
 
   -webkit-font-smoothing: antialiased;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6, p, ul, ol, dl,
@@ -104,11 +110,6 @@ dd {
   width: 70%;
 }
 
-footer {
-  font-size: .9rem;
-  border-top: 1px solid #e8e8e8; 
-  padding: 20px 0;
-}
 
 /*============================================================================*/
 .azul { a { color: $azul-accent-color;
@@ -190,11 +191,6 @@ footer {
       background-color: $contrast-color;
     }
   }
-}
-
-.archive,
-.single {
-  margin-bottom: 100px;
 }
 
 .single {

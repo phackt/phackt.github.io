@@ -2,9 +2,17 @@
  * Footer
  */
 $grey-color:       #828282;
-.social-media-list {
-    list-style: none;
-    margin-left: 0;
+
+footer {
+  font-size: .9rem;
+  border-top: 2px solid #e8e8e8; 
+  padding: 25px 24% 0px 24%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  background-color: #C5DADB;
 }
 
 .footer-col1 {
@@ -13,6 +21,11 @@ $grey-color:       #828282;
 
 .footer-col2 {
   text-align: justify;
+}
+
+.social-media-list {
+    list-style: none;
+    margin-left: 0;
 }
 
 .icon {
