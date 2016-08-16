@@ -9,7 +9,7 @@ Le XSS, CORS, CSRF... Késako?
 **Que se cache-t-il derrière ces acronymes barbares ?**  
   
 Bienvenue dans cette saga qui traitera des notions de XSS, CORS, CSRF et du lien entre elles.  
-Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB "cas d’école" en Java [https://github.com/lepicte/DemoWebApp](https://github.com/lepicte/DemoWebApp). La question que nous nous posons est la suivante : **quelles sont les bonnes pratiques pour sécuriser une application WEB ?**  
+Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB "cas d’école" en Java [https://github.com/phackt/DemoWebApp](https://github.com/phackt/DemoWebApp). La question que nous nous posons est la suivante : **quelles sont les bonnes pratiques pour sécuriser une application WEB ?**  
   
 Dans ce premier volet, nous traiterons des attaques de cross-site scripting. Nous ferons le lien par la suite avec les protections CSRF (Cross Site Request Forgery) et les requêtes CORS (Cross Origin Ressource Sharing).    
   
@@ -39,12 +39,12 @@ Employee name: <%= name %>
    
 Si vous appelez ```/index?name=<script>prompt(1)</script>```, votre navigateur interprétera la balise ```<script>``` et affichera un donc un prompt. Aucun intérêt ici mais on vous laisse deviner la portée d’une telle attaque : un payload javascript pourra voler vos informations de session (*document.cookie*), envoyer des requêtes à votre insu sur le site vulnérable ou faire de la redirection dans un but d’hameçonnage. Les attaques XSS Reflected sont souvent associées à de l’ingénierie sociale car l’utilisateur doit accéder à un lien provoquant l’exécution du code. 
   
-Cependant ce code peut être stocké de façon permanente dans les attaques XSS Stored. Le principe est le même sauf que le code est inséré en base de données sur le serveur, le cas classique étant un forum vulnérable qui sauvegarde les messages infectés - voir [OWASP (Open Web Application Security Project) Cross-Site Scripting](https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29 "https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29").
+Cependant ce code peut être stocké de façon permanente dans les attaques XSS Stored. Le principe est le même sauf que le code est stocké sur le serveur, le cas classique étant un forum vulnérable qui sauvegarde les messages infectés ([OWASP (Open Web Application Security Project) Cross-Site Scripting](https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29)).
    
 Comment s’en prémunir ? 
 ====
   
-Il faut traiter coté serveurs les variables d’entrées des requêtes et échapper les caractères spéciaux HTML.  
+Il faut traiter coté serveur les paramètres passés aux requêtes HTTP et échapper les caractères spéciaux HTML.  
   
 Si vous codez des pages JSP :  
 
@@ -56,15 +56,15 @@ Autre exemple si vous codez en PHP, utilisez les fonctions ```htmlentities``` (a
   
 Vous pouvez également protéger votre application derrière un **Web Application Firewall** (ex: [ModSecurity](http://www.modsecurity.org/ "http://www.modsecurity.org/")). ModSecurity met à disposition une [page](https://www.modsecurity.org/crs-demo.html "https://www.modsecurity.org/crs-demo.html") permettant d’éprouver leur moteur de détection d’injection XSS.
 
-Si vous utilisez la couche **Spring Security**, le framework inclut par défaut de nombreux headers dans la réponse HTTP:  
+Si vous utilisez la couche **Spring Security** (ce qui a été mon cas ;)), le framework inclut par défaut de nombreux headers dans la réponse HTTP:  
 
  - **X-Content-Type-Options**: Stipule de ne pas deviner le MIME-Type si mal renseigné (spécifique à certaines attaques XSS) – voir [OWASP XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet).  
  
- - **X-XSS-Protection**: Stipule d'activer le filtre XSS du navigateur. Si votre site est vulnérable au XSS, mais que votre réponse contient le header ```X-XSS-Protection: 1; mode=block```, vous aurez le message suivant dans la console de votre navigateur (ici Chrome): <span style="color: red">```Refused to execute inline script because it violates the following Content Security Policy Directive```</span>.
+ - **X-XSS-Protection**: Stipule d'activer l'auditeur XSS du navigateur. Si votre site est vulnérable au XSS, mais que votre réponse contient le header ```X-XSS-Protection: 1; mode=block```, vous aurez le message suivant dans la console de votre navigateur (ici Chrome): <span style="color: red">```Refused to execute inline script because it violates the following Content Security Policy Directive```</span>.
   
  - **X-Frame-Options**: Spécifie au navigateur qu'une page ne peut être rendue dans un ```<frame>```, ```<iframe>``` ou ```<object>```.  
   
-Ces headers, ainsi que HTTP **Strict-Transport-Security** (abrégé HSTS – oblige le navigateur à requêter sur du HTTPS, utile pour lutter contre le blocage des connexions sécurisées HTTPS avec des outils comme sslstrip lors d'attaques "Man In The Middle"), ou **Content-Security-Policy** (requêtes Cross-Origin) sont par défaut inclus et activés dans la couche Spring Security (voir [Spring Security Headers](http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html "http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html")).  
+Ces headers, ainsi que HTTP **Strict-Transport-Security** (abrégé HSTS – oblige le navigateur à requêter sur du HTTPS, utile pour lutter contre le blocage des connexions sécurisées HTTPS avec des outils comme sslstrip lors d'attaques "Man In The Middle"), ou **Content-Security-Policy** (requêtes Cross-Origin) sont par défaut inclus et activés dans la couche Spring Security ([Spring Security Headers](http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html "http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html")).  
   
 Si vous utilisez une autre technologie ou framework, pensez à inclure ces response headers en fonction de vos besoins.  
   
@@ -88,7 +88,7 @@ Il existe également d’autres projets qui peuvent répondre à vos besoins :
   
 Les attaques possibles sont nombreuses sur une application web, nous avons mis en avant celles de type XSS. Nous verrons dans un prochain article comment ces attaques peuvent détourner les protections CSRF, voler les cookies de session et dans quelle mesure les requêtes Cross-Origin impactent la sécurité d’une application web.  
   
-A bientôt dans un second volet du XSS et CORS par la pratique!  
+A bientôt!  
 
 ```
 Keep the positive attitude ;) !

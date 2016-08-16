@@ -28,7 +28,7 @@ Juste un petit coucou !
   
 Pour notre test nous partirons sur le postulat que *www.site-a.com* est notre *localhost*, et que *www.site-b.com* (le site du pirate qui récupère les infos) correspond au site *http://requestb.in*.  
 
-> Le site **http://requestb.in** est très utile pour analyser les requêtes http.  
+> Le site **http://requestb.in** est très utile pour analyser les requêtes HTTP.  
 
 Lorsque le script est exécuté, ce dernier accède au **document.cookie** qui correspond au cookie du document HTML courant contenant l’id de session. Ce dernier peut ressembler à ceci :  
 
@@ -58,7 +58,7 @@ Les champs [Domain, Path, HTTP et Secure](https://tools.ietf.org/html/rfc6265) s
 **domain** : le domaine racine concerné par le cookie  
 **path** : détermine pour quelle arborescence à partir du domaine racine le cookie sera accessible  
 **session.cookie_httponly** : empêche un cookie d’être accessible via javascript (XSS ;))  
-**session.cookie_secure** : accède au cookie uniquement sur des connexions HTTPS (empêche les informations de transiter en clair – voir également la solution HSTS (lien vers article précédent))    
+**session.cookie_secure** : accède au cookie uniquement sur des connexions HTTPS (empêche les informations de transiter en clair – voir également la solution [HSTS](https://developer.mozilla.org/fr/docs/S%C3%A9curit%C3%A9/HTTP_Strict_Transport_Security))    
   
  - Une page vulnérable *http://localhost/xss.php* qui contient le payload vu précédemment.  
   
@@ -121,7 +121,7 @@ N’y-a-t-il pas une autre méthode que notre XHR pour charger cookie.php?
 </script>
 ```  
   
-Bingo, même avec un path défini pour ce cookie, nous avons pu le récupérer, et si vous avez bien retenu votre leçon dans le [volet 1](https://phackt.github.io/xss-cors-csrf-partie-1) de notre saga XSS, vous connaissez la contre-mesure à ce payload : le response header **X-Frame-Options** qui interdit qu’une page soit rendue dans un ```<frame>```, ```<iframe>``` ou ```<object>```. Bien évidemment il est préférable en amont de toujours positionner le flag **HttpOnly**. L’accès au cookie par javascript est peu justifiable dans les développements Web.  
+Bingo, même avec un path défini pour ce cookie, nous avons pu le récupérer, et si vous avez bien retenu votre leçon dans le [volet 1](https://phackt.github.io/xss-cors-csrf-partie-1-xss) de notre saga XSS, vous connaissez la contre-mesure à ce payload : le response header **X-Frame-Options** qui interdit qu’une page soit rendue dans un ```<frame>```, ```<iframe>``` ou ```<object>```. Bien évidemment il est préférable en amont de toujours positionner le flag **HttpOnly**. L’accès au cookie par javascript est peu justifiable dans les développements Web.  
   
 > *"J’ai activé la console de mon navigateur et je remarque cependant un warning:"*  
 
