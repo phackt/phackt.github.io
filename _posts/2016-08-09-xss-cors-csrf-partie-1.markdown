@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "XSS, CSRF, CORS - Partie 1"
+title:  "XSS, CORS, CSRF - Partie 1"
 date:   2016-08-09
 categories: web
 ---
-XSS, CSRF, CORS - Le XSS Késako?
+XSS, CORS, CSRF - Le XSS Késako?
 ----------
 **Que se cache-t-il derrière ces acronymes barbares ?**  
   
@@ -86,7 +86,7 @@ Il existe également d’autres projets qui peuvent répondre à vos besoins :
  - Authentication / authorization: [Apache Shiro](https://shiro.apache.org/ "https://shiro.apache.org/")
  - CSRF protection: [OWASP CSRFGuard Project](https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project "https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project") or [OWASP CSRFProtector Project](https://www.owasp.org/index.php/CSRFProtector_Project "https://www.owasp.org/index.php/CSRFProtector_Project").  
   
-Les attaques possibles sont nombreuses sur une application web, nous avons mis en avant celles de type XSS. Nous verrons dans un prochain article comment ces attaques peuvent détourner les protections CSRF et dans quelle mesure les requêtes Cross-Origin impactent la sécurité d’une application web.  
+Les attaques possibles sont nombreuses sur une application web, nous avons mis en avant celles de type XSS. Nous verrons dans un prochain article comment ces attaques peuvent détourner les protections CSRF, voler les cookies de session et dans quelle mesure les requêtes Cross-Origin impactent la sécurité d’une application web.  
   
 A bientôt dans un second volet du XSS et CORS par la pratique!  
 
