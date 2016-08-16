@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "XSS, CORS, CSRF - Partie 1"
+title:  "XSS, CORS, CSRF - Cross-site scripting - Partie 1 "
 date:   2016-08-09
 categories: web
 ---
-XSS, CORS, CSRF - Le XSS Késako?
+Le XSS Késako?
 ----------
 **Que se cache-t-il derrière ces acronymes barbares ?**  
   
@@ -62,7 +62,7 @@ Si vous utilisez la couche **Spring Security**, le framework inclut par défaut 
  
  - **X-XSS-Protection**: Stipule d'activer le filtre XSS du navigateur. Si votre site est vulnérable au XSS, mais que votre réponse contient le header ```X-XSS-Protection: 1; mode=block```, vous aurez le message suivant dans la console de votre navigateur (ici Chrome): <span style="color: red">```Refused to execute inline script because it violates the following Content Security Policy Directive```</span>.
   
- - **X-Frame-Options**: Permet d’interdire l’inclusion d’une page dans une frame.  
+ - **X-Frame-Options**: Spécifie au navigateur qu'une page ne peut être rendue dans un ```<frame>```, ```<iframe>``` ou ```<object>```.  
   
 Ces headers, ainsi que HTTP **Strict-Transport-Security** (abrégé HSTS – oblige le navigateur à requêter sur du HTTPS, utile pour lutter contre le blocage des connexions sécurisées HTTPS avec des outils comme sslstrip lors d'attaques "Man In The Middle"), ou **Content-Security-Policy** (requêtes Cross-Origin) sont par défaut inclus et activés dans la couche Spring Security (voir [Spring Security Headers](http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html "http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html")).  
   

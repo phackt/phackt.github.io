@@ -84,6 +84,14 @@ p code {
   white-space: nowrap;
 }
 
+pre {
+  overflow: auto;
+}
+
+.alert {
+  color: red;
+}
+
 table {
   border-collapse: collapse;
   border: 1px solid $contrast-color;
