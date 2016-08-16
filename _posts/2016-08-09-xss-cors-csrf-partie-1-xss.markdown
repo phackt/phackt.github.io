@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Cross-site scripting (Partie 1) "
+title:  "XSS: Cross-site scripting (Partie 1) "
 date:   2016-08-09
 categories: web
 ---
