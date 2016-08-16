@@ -4,9 +4,9 @@ title:  "Cross-site scripting (Partie 1) "
 date:   2016-08-09
 categories: web
 ---
-Le XSS Késako?
+Le XSS, CORS, CSRF... Késako?
 ----------
-**Que se cache-t-il derrière les acronymes de XSS, CORS et CSRF ?**  
+**Que se cache-t-il derrière ces acronymes barbares ?**  
   
 Bienvenue dans cette saga qui traitera des notions de XSS, CORS, CSRF et du lien entre elles.  
 Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB "cas d’école" en Java [https://github.com/lepicte/DemoWebApp](https://github.com/lepicte/DemoWebApp). La question que nous nous posons est la suivante : **quelles sont les bonnes pratiques pour sécuriser une application WEB ?**  
