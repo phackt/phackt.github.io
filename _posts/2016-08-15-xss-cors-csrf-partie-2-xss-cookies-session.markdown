@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "XSS, CORS, CSRF - XSS et vol de cookies - Partie 2"
+title:  "XSS, CORS, CSRF - XSS et vol de cookies (Partie 2)"
 date:   2016-08-15
 categories: web
 ---
