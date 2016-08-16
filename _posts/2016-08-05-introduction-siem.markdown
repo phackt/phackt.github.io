@@ -68,7 +68,7 @@ Notre premier besoin est couvert, mais concernant notre supervision de la sécur
 
 Pour notre HIDS, vous trouverez la solution open source [OSSEC](http://ossec.github.io/ "http://ossec.github.io/"). Concernant le NIDS, voici [SNORT](https://www.snort.org/ "https://www.snort.org/").
 
-Notre prochain article consacré au SIEM se concentrera donc sur la mise en place de cette solution ELK + surcouche OSSEC dans un premier temps. Nous ferons également le parallèle avec les enjeux [Big Data](http://www.bgfi-groupe.com/ "http://www.bgfi-groupe.com/") concernant ces solutions.  
+Notre prochain article consacré au SIEM se concentrera donc sur la mise en place de cette solution ELK + surcouche OSSEC. Nous ferons également le parallèle avec les enjeux [Big Data](http://www.bgfi-groupe.com/ "http://www.bgfi-groupe.com/") concernant ces solutions.  
   
 A bientôt.  
 
