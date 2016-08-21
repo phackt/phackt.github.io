@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "XSS et vol de cookies (Partie 2)"
+title:  "XSS: Vol de cookies (Partie 2)"
 date:   2016-08-15
 categories: web
 ---
@@ -9,7 +9,7 @@ XSS  et vol de cookies par la pratique.
 
 **Vous reprendrez bien un cookie ?**
   
-Dans le premier volet de notre saga, nous traitions des attaques XSS et des moyens de s’en prémunir. Ces vulnérabilités peuvent être utilisées pour voler vos informations de session ou vous rediriger vers un site frauduleux. Vous vous dîtes sûrement : "ok coco en théorie c’est bien sympa tout ça, mais en quoi consiste le vol d’une session, quelles informations sont envoyées et où part la requête ?".  
+Dans le [premier volet]({{ site.url }}/xss-cors-csrf-partie-1-xss) de notre saga, nous traitions des attaques XSS et des moyens de s’en prémunir. Ces vulnérabilités peuvent être utilisées pour voler vos informations de session ou vous rediriger vers un site frauduleux. Vous vous dîtes sûrement : "ok coco en théorie c’est bien sympa tout ça, mais en quoi consiste le vol d’une session, quelles informations sont envoyées et où part la requête ?".  
   
 Imaginons la configuration suivante :
   
@@ -48,7 +48,8 @@ Pour nos tests voici la configuration mise en place :
 	setcookie('PHPSESSID_unsecured', 'jm5mah0a9uuf4g344096nled73', 0, '/', $_SERVER['SERVER_NAME'], false, false);
 ?>
 ```  
-  
+> Vous ne pouvez pas définir de cookie pour un autre domaine.  
+
 Les cookies générés (deux cookies à des fins de test):  
   
 ![Configuration cookies test]({{ site.url }}/public/images/xss-cors-csrf/cors_4.png)  
@@ -103,7 +104,7 @@ Malheureusement nous obtenons : <span style="color: red">```Refused to get unsaf
   
 La spécification **XMLHttpRequest** interdit l’accès à certains response headers pour des raisons de sécurité. Les navigateurs chrome / firefox / IE retourneront donc null ([https://fetch.spec.whatwg.org/#forbidden-header-name]( https://fetch.spec.whatwg.org/#forbidden-header-name)).  
   
-N’y-a-t-il pas une autre méthode que notre XHR pour charger cookie.php?  
+<a name="iframe"></a>N’y-a-t-il pas une autre méthode que notre XHR pour charger cookie.php?  
   
 ```html
 <script>    

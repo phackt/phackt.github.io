@@ -2,7 +2,9 @@
 <div class="container">
   <div class="footer-col1 col span_4">
 	<ul class="social-media-list">
-	  <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+	  <li>
+	    {% include icon-email.html %}
+	  </li>
 	  {% if site.github_username %}
 	  <li>
 		{% include icon-github.html username=site.github_username %}
@@ -17,7 +19,11 @@
 	</ul>
   </div>
   <div class="footer-col2 col span_8">
-	<p>{{ site.description }}</p>
+	<p>
+		{{ site.description }}
+		<br />
+		<a href="{{ site.url }}/feed.xml"><span class="icon icon--twitter">{% include icon-rss.svg %}</span>Abonnez vous au feed RSS</a>
+	</p>
   </div>
 </div>
 </footer>
