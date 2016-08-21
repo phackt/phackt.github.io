@@ -10,7 +10,7 @@ Nous avons vu dans un précédent article quel était le contexte réglementaire
 
 **Que dites-vous d’une petite révision ?**  
 
-La LPM impose aux OIV (Opérateurs d’Importance Vitale) de renforcer la sécurité des systèmes d’information critiques qu’ils exploitent et de notifier les incidents de sécurité à l’ANSSI (Agence Nationale de la Sécurité des Systèmes d'Information).  
+La LPM impose aux **OIV** (Opérateurs d’Importance Vitale) de renforcer la sécurité des systèmes d’information critiques qu’ils exploitent et de notifier les incidents de sécurité à l’[ANSSI](http://www.ssi.gouv.fr/) (Agence Nationale de la Sécurité des Systèmes d'Information).  
 Une première vague d’arrêtés a été publiée le 1er juillet 2016. Ces arrêtés concernent les secteurs d’activité des produits de santé, la gestion de l’eau et l’alimentation. Plusieurs autres arrêtés, concernant d’autres secteurs d’activité, devraient paraître d’ici la fin de cette année.  
 
 Notez que la Commission européenne a également adopté, en février 2013, une proposition de directive visant à assurer un niveau élevé commun de sécurité des réseaux et de l’information dans l’Union.  
@@ -21,7 +21,7 @@ Nous voyons donc qu’en sus d'un réel besoin, le cadre réglementaire concerna
 
 **Mais en quoi consiste ce monitoring de la sécurité ?**  
 
-Nous allons aborder la notion de SIEM : *Security Information and Event Management*.  
+Nous allons aborder la notion de **SIEM** : Security Information and Event Management.  
 Le SIEM est le résultat de la volonté de superviser l’activité de son système d’information.  
 Il a donc pour objectif de collecter les fichiers d’évènements (logs) de différentes sources, de les uniformiser, et de les corréler. On parle de corrélation car ces solutions sont munies de moteurs de corrélation qui permettent de relier plusieurs évènements à une même cause.  
 
