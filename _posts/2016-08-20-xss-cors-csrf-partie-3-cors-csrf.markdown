@@ -157,7 +157,7 @@ Keep the positive attitude ;) !
 <br />
 <br />
 Références :  
-[https://developer.mozilla.org/fr/docs/HTTP/Access_control_CORS](https://developer.mozilla.org/fr/docs/HTTP/Access_control_CORS)
-[https://www.w3.org/TR/cors/](https://www.w3.org/TR/cors/)
-[https://fr.wikipedia.org/wiki/Cross-Site_Request_Forgery](https://fr.wikipedia.org/wiki/Cross-Site_Request_Forgery)
+[https://developer.mozilla.org/fr/docs/HTTP/Access_control_CORS](https://developer.mozilla.org/fr/docs/HTTP/Access_control_CORS)  
+[https://www.w3.org/TR/cors/](https://www.w3.org/TR/cors/)  
+[https://fr.wikipedia.org/wiki/Cross-Site_Request_Forgery](https://fr.wikipedia.org/wiki/Cross-Site_Request_Forgery)  
 [https://tomcat.apache.org/tomcat-8.0-doc/config/filter.html](https://tomcat.apache.org/tomcat-8.0-doc/config/filter.html)
