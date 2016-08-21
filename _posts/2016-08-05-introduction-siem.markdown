@@ -6,8 +6,7 @@ categories: siem
 ---
 SIEM, le monitoring de la sécurité
 ===================
-Nous avons vu dans un précédent article quel était le contexte réglementaire de la LPM française  
-([Loi de Programmation Militaire](https://lepicte.github.io/general/introduction/2016/07/31/introduction-cybersecurite.html "https://lepicte.github.io/general/introduction/2016/07/31/introduction-cybersecurite.html")).  
+Nous avons vu dans un précédent article quel était le contexte réglementaire de la [Loi de Programmation Militaire]({{ site.url }}/introduction-cybersecurite) française.  
 
 **Que dites-vous d’une petite révision ?**  
 
