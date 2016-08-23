@@ -65,11 +65,8 @@ La première chose pour un site souhaitant faire du CORS est de bien positionner
 
 ![Schema attaque CORS]({{ site.url }}/public/images/cors-csrf/cors_2.png)  
   
-Comme nous l’avons vu, en l’absence de ce header, le navigateur bloquera l’accès à la ressource. Une première requête pourra donc être envoyée, le serveur interprètera cette requête si simple Cross-Origin, mais le navigateur interdira l’accès à la ressource renvoyée et bloquera les prochaines XHR du script pirate sur ce domaine. 
-
-> *Une astuce pour chainer les XHR (vous n’aurez cependant toujours pas accès à la ressource requêtée) est d’utiliser document.implementation : un exemple [ici](https://github.com/grutz/xssless)*.
-
-Nous savons donc qu’une première **requête simple CORS POST withCredentials** sera interprétée sur le serveur si ce dernier ne possède pas de filtre CORS explicite.  
+Comme nous l’avons vu, en l’absence de ce header, le navigateur bloquera l’accès à la réponse. Cependant cette **requête simple CORS POST withCredentials** sera interprétée sur le serveur si ce dernier ne possède pas de filtre CORS explicite.  
+  
 Pour cet exemple, nous avons créé une page **http://localhost/secu/cookie.html**:  
 
 ```html
@@ -148,8 +145,11 @@ Vous trouvez le flowchart du filtre [ici](http://tomcat.apache.org/tomcat-8.0-do
 <br />
 **Conclusion :**  
   
-Nous avons vu que les vecteurs d’attaques sont multiples sur les applications Web. Vous devez mettre en place toutes les mesures pour sécuriser les sessions de vos utilisateurs (assainissement des input, response headers de sécurité, token CSRF, bannissement du CORS côté serveur). Eprouvez votre application avec les outils nécessaires ([Xenotix](https://www.owasp.org/index.php/OWASP_Xenotix_XSS_Exploit_Framework)), regardez quels sont les headers envoyés et reçus directement dans votre navigateur ou grâce à un proxy comme [Burp Suite](https://portswigger.net/burp/) ou [Owasp ZAP]( https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project).
-Et surtout..  
+Nous avons vu que les vecteurs d’attaques sont multiples sur les applications Web. Vous devez mettre en place toutes les mesures pour sécuriser les sessions de vos utilisateurs (assainissement des input, response headers de sécurité, sécurisation des cookies, token CSRF, bannissement du CORS côté serveur). Eprouvez votre application avec les outils nécessaires ([Xenotix](https://www.owasp.org/index.php/OWASP_Xenotix_XSS_Exploit_Framework)), regardez quels sont les headers envoyés et reçus directement dans votre navigateur ou grâce à un proxy comme [Burp Suite](https://portswigger.net/burp/) ou [Owasp ZAP]( https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project).  
+  
+Nous verrons dans un prochain article comment utiliser les techniques vu précédemment dans une attaque Man In The Middle. Imaginez qu'un pirate se positionne entre vous et le site web : toutes les protections abordées précédemment seront indispensables pour éviter l'interception en clair de votre trafic et le vol de vos sessions. Pensez à l'injection d'un payload Javascript dans une ressource quelconque non sécurisée qui effectuerait une requête **cross-site withCredentials** sur du **HTTP** (non over SSL - ceci possible si cookie avec le flag **Secure** absent)...  
+  
+A bientôt et surtout...   
 
 ```
 Keep the positive attitude ;) !
