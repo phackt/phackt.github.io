@@ -148,4 +148,5 @@ Keep the positive attitude ;) !
 Références:  
 [http://php.net/manual/fr/session.security.php](http://php.net/manual/fr/session.security.php)  
 [https://geekflare.com/httponly-secure-cookie-apache/](https://geekflare.com/httponly-secure-cookie-apache/)  
-[https://fetch.spec.whatwg.org/](https://fetch.spec.whatwg.org/)
+[https://fetch.spec.whatwg.org/](https://fetch.spec.whatwg.org/)  
+[https://geekflare.com/secure-cookie-flag-in-tomcat/](https://geekflare.com/secure-cookie-flag-in-tomcat/)
