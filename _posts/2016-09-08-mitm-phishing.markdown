@@ -5,7 +5,6 @@ date:   2016-09-08
 categories: mitm
 ---
 <br />
-<br />
 Hi Everybody,
 
 Je me suis dit qu'il était intéressant de partager avec vous un petit script **Bash** que j'ai créé pour automatiser une attaque MITM et rediriger vers une fausse page web que nous allons héberger ([https://github.com/phackt/Workshops/tree/master/mitm/phishing](https://github.com/phackt/Workshops/tree/master/mitm/phishing)). L'objectif est pour une attaque ciblée de rendre l'obtention des credentials la plus transparente possible. Cependant il n'existe pas de solution miracle, à chaque combat sa stratégie.  
