@@ -20,9 +20,9 @@ Cette attaque se base sur la corruption du cache ARP enregistrant les correspond
   
 Le site web a été falsifié grâce à l'outil [setoolkit](https://github.com/trustedsec/social-engineer-toolkit) (Social-Engineer Toolkit). Concernant la redirection du domaine, j'ai simplement effectué une règle iptables PREROUTING DNAT au lieu d'effectuer un DNS SPOOFING qui aurait demandé que le cache DNS soit vidé.   
   
-Mais venons-en au cas pratique concernant l'exécution du script **phishing.ksh**:  
+Mais venons-en au cas pratique, voici l'exécution du script **phishing.ksh**:  
   
-```ini
+```
 -----------------------------------------------
    --==MITM attack with website phishing==--   
 -----------------------------------------------
