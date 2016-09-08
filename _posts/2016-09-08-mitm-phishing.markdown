@@ -24,15 +24,15 @@ Le site web a été falsifié grâce à l'outil [setoolkit](https://github.com/t
   
 Mais venons-en au cas pratique concernant l'exécution du script **phishing.ksh**:  
   
-```bash
-----------------------------------------------
-   <span style="color: white">--==MITM attack with website phishing==--</span>   
-----------------------------------------------
+```
+-----------------------------------------------
+   --==MITM attack with website phishing==--   
+-----------------------------------------------
 
 [+] Flushing ip forwarding
 [+] Flushing iptables
 
-<span style="color: red">#HERE SET THE NAME OF THE LOG DIR THAT WILL BE CREATED</span>
+#HERE SET THE NAME OF THE LOG DIR THAT WILL BE CREATED
 Name of 'Session'? (name of the folder that will be created with all the log files): test
 
 #CHOOSE YOUR INTERFACE UP
@@ -106,7 +106,7 @@ Les outils MITM peuvent également forger dynamiquement un certificat pour inter
 
  > <span style="color: red">Cliquez sur 'Back to safety'!!</span>
   
-Dans notre exemple, la connexion au site falsifié est non sécurisée (évitant les alertes de certificats). Donc vérifier toujours le cadenas vert dans la barre url et que votre connexion soit sécurisée, sinon COURREZZZZZ:runner::runner:!!!!. Nous voyons aussi l'importance du HSTS (Strict-Transport-Security) abordé dans les [précédents articles]({{ site.url }}/xss-cors-csrf-partie-3-cors-csrf#hsts) pour forcer les connexions HTTPS et bannir tout certificat non valide. Des méthodes de détection d'ARP spoofing existent, la plus contraignante étant l'ajout statique d'une correspondance dans la table ARP. Certains firewall (ex [Symantec](https://www.symantec.com/security_response/glossary/define.jsp?letter=a&word=anti-mac-spoofing)) empêchent les ARP Reply non légitimes. Réfléchissez donc deux fois avant de vous connecter à un HotSpot.
+Dans notre exemple, la connexion au site falsifié est non sécurisée (évitant les alertes de certificats). Donc vérifier toujours le cadenas vert dans la barre url et que votre connexion soit sécurisée, sinon COURREZZZZZ :runner::runner:!!!!. Nous voyons aussi l'importance du HSTS (Strict-Transport-Security) abordé dans les [précédents articles]({{ site.url }}/xss-cors-csrf-partie-3-cors-csrf#hsts) pour forcer les connexions HTTPS et bannir tout certificat non valide. Des méthodes de détection d'ARP spoofing existent, la plus contraignante étant l'ajout statique d'une correspondance dans la table ARP. Certains firewall (ex [Symantec](https://www.symantec.com/security_response/glossary/define.jsp?letter=a&word=anti-mac-spoofing)) empêchent les ARP Reply non légitimes. Réfléchissez donc deux fois avant de vous connecter à un HotSpot.
   
 A bientôt et surtout...   
 
