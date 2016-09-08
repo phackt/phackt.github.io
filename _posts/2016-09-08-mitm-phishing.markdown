@@ -24,9 +24,9 @@ Le site web a été falsifié grâce à l'outil [setoolkit](https://github.com/t
   
 Mais venons-en au cas pratique concernant l'exécution du script **phishing.ksh**:  
   
-```xml
+```bash
 ----------------------------------------------
-   --==MITM attack with website phishing==--   
+   <span style="color: white">--==MITM attack with website phishing==--</span>   
 ----------------------------------------------
 
 [+] Flushing ip forwarding
