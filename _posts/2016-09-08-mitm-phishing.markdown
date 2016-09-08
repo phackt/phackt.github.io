@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Phising website lors d'une attaque MITM"
+title:  "Phising d'un site web avec attaque MITM"
 date:   2016-09-08
 categories: mitm
 ---
@@ -14,17 +14,17 @@ Je me suis dit qu'il était intéressant de partager avec vous un petit script *
 Ici nous allons donc cibler un site possédant une page d'accueil non sécurisée (HTTP), permettant l'interception en clair des liens HTTPS et de les transformer en liens HTTP classiques. Certains outils comme [sslstrip](https://github.com/moxie0/sslstrip) permettent ce genre d'opérations, en éliminant le caching des pages et en traitant également les headers response **Location** lors des redirections. De notre coté nous utiliserons un simple filtre [ettercap](https://github.com/Ettercap/ettercap) que nous compilerons avec etterfilter.  
   
 Pour petit rappel:  
+
  > L'attaque de l'homme du milieu ou man-in-the-middle attack (MITM) est une attaque qui a pour but d'intercepter les communications entre deux parties, sans que ni l'une ni l'autre ne puisse se douter que le canal de communication entre elles a été compromis.  
   
 ![Mitm]({{ site.url }}/public/images/mitm-phishing/owasp-man_in_the_middle.jpg)  
-  
 Cette attaque se base sur la corruption du cache ARP enregistrant les correspondances @IP <-> @MAC sur un réseau local. Vous regarderez les HotSpot et autres Wifi gratuits d'un autre oeil ;). Il existe plusieurs outils pour effectuer une [attaque MITM](https://www.information-security.fr/attaque-man-in-the-middle-via-arp-spoofing/) et nous utiliserons Ettercap.  
   
 Le site web a été falsifié grâce à l'outil [setoolkit](https://github.com/trustedsec/social-engineer-toolkit) (Social-Engineer Toolkit). Concernant la redirection du domaine, j'ai simplement effectué une règle iptables PREROUTING DNAT au lieu d'effectuer un DNS SPOOFING qui aurait demandé que le cache DNS soit vidé.   
   
 Mais venons-en au cas pratique concernant l'exécution du script **phishing.ksh**:  
   
-```bash
+```shell
 ----------------------------------------------
    --==MITM attack with website phishing==--   
 ----------------------------------------------
@@ -102,10 +102,10 @@ After the job please close this script and clean up properly by hitting 'qQ'
 
 Les outils MITM peuvent également forger dynamiquement un certificat pour interception des connexions TLS/SSL. Cependant ce dernier n'étant pas signé par une autorité de certification, un warning dans votre navigateur affichera que le certificat est non valide (assez discret sous Safari cependant)...  
 
- > Ne cliquer pas sur continuer!!
-  
 ![Certificat]({{ site.url }}/public/images/mitm-phishing/alerte-certificat.png)  
 
+ > <span style="color: red">Ne cliquer pas sur continuer!!</span>
+  
 Dans notre exemple, la connexion au site falsifié est non sécurisée (évitant les alertes de certificats). Donc vérifier toujours le cadenas vert dans la barre url et que votre connexion soit sécurisée, sinon COURREZZZZZ!!!!. Nous voyons aussi l'importance du HSTS (Strict-Transport-Security) abordé dans les [précédents articles]({{ site.url }}/xss-cors-csrf-partie-3-cors-csrf#hsts) pour forcer les connexions HTTPS et bannir tout certificat non valide. Des méthodes de détection d'ARP spoofing existent, la plus contraignante étant l'ajout statique d'une correspondance dans la table ARP. Certains firewall (ex [Symantec](https://www.symantec.com/security_response/glossary/define.jsp?letter=a&word=anti-mac-spoofing)) empêchent les ARP Reply non légitimes. Réfléchissez donc deux fois avant de vous connecter à un HotSpot.
   
 A bientôt et surtout...   
@@ -116,5 +116,5 @@ Keep the positive attitude ;) !
 <br />
 <br />
 Références :  
-https://www.owasp.org/index.php/Man-in-the-middle_attack  
-https://www.information-security.fr/attaque-man-in-the-middle-via-arp-spoofing/
+[https://www.owasp.org/index.php/Man-in-the-middle_attack](https://www.owasp.org/index.php/Man-in-the-middle_attack)  
+[https://www.information-security.fr/attaque-man-in-the-middle-via-arp-spoofing/](https://www.owasp.org/index.php/Man-in-the-middle_attack)
