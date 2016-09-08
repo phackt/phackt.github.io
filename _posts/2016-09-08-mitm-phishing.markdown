@@ -4,8 +4,6 @@ title:  "Phising d'un site web avec attaque MITM"
 date:   2016-09-08
 categories: mitm
 ---
-Comment sniffer en toute impunité.
-----------
 
 Hi Everybody,
 
