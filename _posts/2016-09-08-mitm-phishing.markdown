@@ -32,7 +32,7 @@ Mais venons-en au cas pratique concernant l'exécution du script **phishing.ksh*
 [+] Flushing ip forwarding
 [+] Flushing iptables
 
-#HERE SET THE NAME OF THE LOG DIR THAT WILL BE CREATED
+<span style="color: red">#HERE SET THE NAME OF THE LOG DIR THAT WILL BE CREATED</span>
 Name of 'Session'? (name of the folder that will be created with all the log files): test
 
 #CHOOSE YOUR INTERFACE UP
