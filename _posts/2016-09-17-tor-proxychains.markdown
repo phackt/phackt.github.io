@@ -115,14 +115,14 @@ socks5 	127.0.0.1 9050
   
 **dynamic_chain**: pertinent surtout si vous chainez plusieurs proxies, les proxies down ne seront simplement pas pris en compte.  
 **quiet_mode**: sortie non verbeuse.  
-**proxy_dns**: demandera au proxy d'effectuer les résolutions DNS (SOCKS4a et SOCKS5)  
+**proxy_dns**: demandera au proxy d'effectuer les résolutions DNS (SOCKS4a et SOCKS5).  
 **tcp_read_time_out 15000, tcp_connect_time_out 8000**: socket timeout.  
 **socks5 127.0.0.1 9050**: ici nous utilisons le réseau TOR.  
   
 J'ai eu perso une erreur du type:  
 ``ERROR: ld.so: object 'libproxychains.so.3' from LD_PRELOAD cannot be preloaded: ignored.```  
-     
-La librairie partagée *libproxychains.so.3* n'est pas trouvée. La variable d'environnement *LD_PRELOAD* n'est pas correctement initialisée (variable qui permet d'effectuer le hook des appels aux sockets).  Editez le fichier */usr/bin/proxychains* et remplacez  
+  
+La librairie partagée *libproxychains.so.3* n'a pas été trouvée. La variable d'environnement *LD_PRELOAD* n'est donc pas correctement initialisée (variable qui permet d'effectuer le hook des appels aux sockets).  Editez le fichier */usr/bin/proxychains* et remplacez  
 ```export LD_PRELOAD=libproxychains.so.3```  
 par  
 ```export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libproxychains.so.3```.  
