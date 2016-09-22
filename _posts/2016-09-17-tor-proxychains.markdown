@@ -122,7 +122,9 @@ socks5 	127.0.0.1 9050
 J'ai eu perso une erreur du type:  
 <code>ERROR: ld.so: object 'libproxychains.so.3' from LD_PRELOAD cannot be preloaded: ignored.</code>  
   
-La librairie partagée *libproxychains.so.3* n'a pas été trouvée. La variable d'environnement *LD_PRELOAD* n'est donc pas correctement initialisée (variable qui permet d'effectuer le hook des appels aux sockets).  Editez le fichier */usr/bin/proxychains* et remplacez  
+La librairie partagée *libproxychains.so.3* n'a pas été trouvée. La variable d'environnement *LD_PRELOAD* n'est donc pas correctement initialisée (variable qui permet d'effectuer le hook des appels aux sockets).  
+  
+Editez le fichier */usr/bin/proxychains* et remplacez  
 ```export LD_PRELOAD=libproxychains.so.3```  
 par  
 ```export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libproxychains.so.3```.  
