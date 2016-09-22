@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Etre anonyme avec TOR et Proxychains sous Kali"
+title:  "Anonymat avec TOR et Proxychains sous Kali"
 date:   2016-09-17
 categories: web
 ---
 <br />
 Salut à tous,
 
-Après m'être demandé comment lancer toutes mes commandes derrière un proxy [SOCKS](https://fr.wikipedia.org/wiki/SOCKS) pour masquer mon ip (certaines ne proposent pas d'option pour vous abriter derrière un proxy SOCKS), vous pouvez vous en sortir grâce au réseau [TOR](https://fr.wikipedia.org/wiki/Tor_(r%C3%A9seau)) et un outil appelé [Proxychains](https://github.com/haad/proxychains/blob/master/src/proxychains.conf).  
+Après m'être demandé comment lancer toutes mes commandes derrière un proxy [SOCKS](https://fr.wikipedia.org/wiki/SOCKS) pour masquer mon ip (certaines commandes ne proposent pas d'option pour rediriger vers un proxy SOCKS), vous pouvez vous en sortir grâce au réseau [TOR](https://fr.wikipedia.org/wiki/Tor_(r%C3%A9seau)) et un outil appelé [Proxychains](https://github.com/haad/proxychains/blob/master/src/proxychains.conf).  
   
 Installez tor et proxychains:  
 
@@ -16,7 +16,7 @@ apt-get install tor
 apt-get install proxychains
 ```
   
-Tor écoute par défaut sur le port **9050**. Editer le fichier /etc/tor/torrc et décommenter la ligne ```SOCKSPort 9050```.  
+Tor écoute par défaut sur le port **9050**. Editer le fichier */etc/tor/torrc* et décommentez la ligne ```SOCKSPort 9050```.  
   
 Lancer ensuite TOR as a service:  ```service tor start```  
   
@@ -27,10 +27,14 @@ Proto Recv-Q Send-Q Adresse locale          Adresse distante        Etat        
 tcp        0      0 127.0.0.1:9050          0.0.0.0:*               LISTEN      -
 ```
   
-Maintenant comment linker nos commandes sur TOR? Proxychains va prendre en paramètre notre commande et linker le processus vers le(s) proxy(ies) de votre choix.  
+**Maintenant comment linker nos commandes sur TOR?**  
   
- > ProxyChains is a UNIX program, that hooks network-related libc functions in dynamically linked programs via a preloaded DLL and redirects the
-   connections through SOCKS4a/5 or HTTP proxies.
+Proxychains va prendre en paramètre notre commande et linker le processus vers le(s) proxy(ies) de votre choix.  
+  
+ > *ProxyChains is a UNIX program, that hooks network-related libc functions in dynamically linked programs via a preloaded DLL and redirects the
+   connections through SOCKS4a/5 or HTTP proxies.*  
+  
+Utilisation:  
 
 ```
 ProxyChains-3.1 (http://proxychains.sf.net)
@@ -38,9 +42,7 @@ ProxyChains-3.1 (http://proxychains.sf.net)
 		proxychains <prog> [args]
 ```
   
-Proxychains demande de modifier sa configuration:
-
-```gedit /etc/proxychains.conf```
+Proxychains demande de modifier sa configuration: ```gedit /etc/proxychains.conf```
   
 Voici ma configuration:
 
@@ -111,14 +113,20 @@ tcp_connect_time_out 8000
 socks5 	127.0.0.1 9050
 ```
   
-**dynamic_chain**, est pertinent surtout si vous chainez plusieurs proxies, les proxies down ne seront simplement pas pris en compte.  
-**quiet_mode**, sortie non verbeuse.  
-**proxy_dns**, demandera au proxy d'effectuer les résolutions DNS (SOCKS4a et SOCKS5)  
-**tcp_read_time_out 15000, tcp_connect_time_out 8000**, socket timeout.  
-**socks5 127.0.0.1 9050**, ici nous utilisons le réseau TOR.  
+**dynamic_chain**: pertinent surtout si vous chainez plusieurs proxies, les proxies down ne seront simplement pas pris en compte.  
+**quiet_mode**: sortie non verbeuse.  
+**proxy_dns**: demandera au proxy d'effectuer les résolutions DNS (SOCKS4a et SOCKS5)  
+**tcp_read_time_out 15000, tcp_connect_time_out 8000**: socket timeout.  
+**socks5 127.0.0.1 9050**: ici nous utilisons le réseau TOR.  
   
-J'ai eu perso une erreur du type ``ERROR: ld.so: object 'libproxychains.so.3' from LD_PRELOAD cannot be preloaded: ignored.```  
-   
-La librairie partagée *libproxychains.so.3* n'est pas trouvée. La variable d'environnement *LD_PRELOAD* n'est pas correctement initialisée (variable qui permet d'effectuer le hook des appels aux sockets).  Editez le fichier */usr/bin/proxychains* et remplacez ```export LD_PRELOAD=libproxychains.so.3``` par  ```export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libproxychains.so.3```.  Au besoin effectuez un ```locate libproxychains.so.3```.
+J'ai eu perso une erreur du type:  
+``ERROR: ld.so: object 'libproxychains.so.3' from LD_PRELOAD cannot be preloaded: ignored.```  
+     
+La librairie partagée *libproxychains.so.3* n'est pas trouvée. La variable d'environnement *LD_PRELOAD* n'est pas correctement initialisée (variable qui permet d'effectuer le hook des appels aux sockets).  Editez le fichier */usr/bin/proxychains* et remplacez  
+```export LD_PRELOAD=libproxychains.so.3```  
+par  
+```export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libproxychains.so.3```.  
+  
+Au besoin effectuez un ```locate libproxychains.so.3```.  
   
 Je vous dis à très bientôt!
