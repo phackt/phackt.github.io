@@ -15,13 +15,13 @@ Toujours dans un contexte MITM, l'objectif est d'identifier les liens sécurisé
 victim <-- HTTPS --> mitmproxy <-- HTTPS --> website
 ```
   
-Le but est qu'à partir d'une page non sécurisée d'un site nous puissions continuer en proposant à notre victime une connexion en clair (http) pour analyser son trafic, mais que notre proxy rétablisse la connexion sécurisée avec le site concerné. Cette attaque ne pourra pas aboutir sur des sites implémentant le [HSTS](https://https.cio.gov/hsts/) (sauf si l'utilisateur ne s'est jamais connecté au site et que le HSTS n'est pas préchargé).  
+Le but est, qu'à partir d'une page non sécurisée d'un site, nous puissions continuer en proposant à notre victime une connexion en clair (http) pour analyser son trafic, mais que notre proxy rétablisse la connexion sécurisée avec le site concerné. Cette attaque ne pourra pas aboutir sur des sites implémentant le [HSTS](https://https.cio.gov/hsts/) (sauf si l'utilisateur ne s'est jamais connecté au site et que le HSTS n'est pas préchargé).  
   
-Tout ceci sera possible grâce au script [sslstrip.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/sslstrip.py), qui permet également de supprimer d'autres headers de sécurité, notamment les fameux cookies **secure** que nous avons abordés dans un [article précédent]({{ site.url }}/xss-cors-csrf-partie-2-xss-cookies-session).  
+Le stripping est effectué par le script [sslstrip.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/sslstrip.py), qui permet également de supprimer d'autres headers de sécurité, notamment les fameux cookies **secure** que nous avons abordés dans un [article précédent]({{ site.url }}/xss-cors-csrf-partie-2-xss-cookies-session).  
   
 Vous trouverez le projet full sur mon [github](https://github.com/phackt/Workshops/tree/master/mitm/http_proxy).  
   
-J'ai également créé un petit script python, [chk_poison.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/chk_poison.py), qui va vérifier que votre ARP poisoning est effectif dans les deux sens (Victime \<-\> Passerelle). N'oubliez pas que certaines protections filtrent les résolutions ARP non sollicitées.  
+J'ai également créé un petit script python, [chk_poison.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/chk_poison.py), qui va vérifier que votre ARP poisoning est opérationnel dans les deux sens (Victime \<-\> Passerelle). N'oubliez pas que certaines protections filtrent les résolutions ARP non sollicitées.  
   
 Vous pouvez tester mitmproxy sans attaque MITM, en l'utilisant en mode [Regular](http://docs.mitmproxy.org/en/stable/modes.html). La commande sera la suivante:  
 
@@ -29,8 +29,8 @@ Vous pouvez tester mitmproxy sans attaque MITM, en l'utilisant en mode [Regular]
 mitmproxy --anticache --host --anticomp --noapp --script ./sslstrip.py --eventlog
 ```
   
-Ensuite configurez votre navigateur avec le proxy http 127.0.0.1:8080. **Ne mettez rien pour le proxy https**, l'objectif ici n'est pas de générer à la volée de faux certificats.  
+Il convient ensuite de configurer votre navigateur avec le proxy http **127.0.0.1:8080**. **Ne mettez rien pour le proxy https**, l'objectif ici n'est pas de générer à la volée de faux certificats et donc nous ne souhaitons pas capturer le trafic chiffré.  
   
-N'hésitez pas à soumettre vos idées, à contribuer au github, et à partager.
+**N'hésitez pas à soumettre vos idées, à contribuer au github, et à partager.**
   
 Je vous dis à très bientôt!
