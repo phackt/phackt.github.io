@@ -31,6 +31,10 @@ mitmproxy --anticache --host --anticomp --noapp --script ./sslstrip.py --eventlo
   
 Il convient ensuite de configurer votre navigateur avec le proxy http **127.0.0.1:8080**. **Ne mettez rien pour le proxy https**, l'objectif ici n'est pas de générer à la volée de faux certificats et donc nous ne souhaitons pas capturer le trafic chiffré.  
   
+**CONCLUSION:**  
+  
+**Sur vos sites web sécurisez toutes vos pages (domaines et sous domaines). Ne laissez aucune opportunité à un assaillant de manipuler le trafic.**
+  
 **N'hésitez pas à soumettre vos idées, à contribuer au github, et à partager.**
   
 Je vous dis à très bientôt!
