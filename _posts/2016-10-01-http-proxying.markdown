@@ -1,0 +1,32 @@
+---
+layout: post
+title:  "HTTP Proxying"
+date:   2016-10-01
+categories: mitm
+---
+<br />
+Bonjour à tous,
+  
+Pour faire suite à l'[article]({{ site.url }}/mitm-phishing) que j'avais rédigé sur une attaque MITM redirigeant vers un site web spoofé, je me suis penché sur une autre méthode plus générique qui utilise l'outil [mitmproxy](https://mitmproxy.org/).  
+  
+Toujours dans un contexte MITM, l'objectif est d'identifier les liens sécurisés et redirections (**https**), de les 'stripper' en **http**, dans le but de maintenir le type de connexion suivante:  
+  
+```
+VICTIM <-- http --> MITMPROXY <-- https --> WEBSITE
+```
+  
+Cette attaque est possible grâce au script [sslstrip.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/sslstrip.py), qui permet également de supprimer de nombreux autres headers de sécurité, notamment les fameux cookies **secure** que nous avons abordé dans un [article précédent]({{ site.url }}/xss-cors-csrf-partie-2-xss-cookies-session).  
+  
+Vous trouverez le projet full sur mon [github](https://github.com/phackt/Workshops/tree/master/mitm/http_proxy).  
+  
+J'ai également créé un petit script python, [chk_poison.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/chk_poison.py), qui va vérifier que votre ARP poisoning est effectif dans les deux sens (Victim1 \<-\> Victim2). N'oubliez pas que certaines protections filtrent les résolutions ARP non sollicitées.  
+  
+Vous pouvez tester mitmproxy sans attaque MITM, en l'utilisant en mode [Regular](http://docs.mitmproxy.org/en/stable/modes.html). La commande sera la suivante:  
+
+```bash
+mitmproxy --anticache --host --anticomp --noapp --script ./sslstrip.py --eventlog
+```
+  
+N'hésitez pas à soumettre vos idées, à contribuer au github, et à partager.
+  
+Je vous dis à très bientôt!
