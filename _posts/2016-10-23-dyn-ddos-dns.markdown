@@ -49,7 +49,7 @@ twitter.com.	5469	IN	NS	ns1.p34.dynect.net.
 twitter.com.	5469	IN	NS	ns3.p34.dynect.net.
 ```  
   
-Et qui retrouvons nous? Avec un petit whois: ```whois dynect.net```  
+Et qui retrouvons-nous? Avec un petit whois: ```whois dynect.net```  
   
 ```
 Admin Name: Dynamic Network Services
