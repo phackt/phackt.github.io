@@ -25,7 +25,7 @@ Certains avancent l'hypothèse qu'un état testerait la cyberdéfense de compagn
   
 **Comment pouvons-nous identifier que le DNS est tombé?**  
   
-Les commandes DNS nslookup ou dig. Un exemple avec dig:
+Les commandes DNS nslookup ou dig. Un exemple avec dig pour nous permettre de connaitre l'ip associéé à un nom de domaine:
 
 ```bash
 dig twitter.com +noall +answer
@@ -36,7 +36,7 @@ twitter.com.	 1005	 IN	A	104.244.42.1
 twitter.com.	 1005	 IN	A	104.244.42.65
 ```  
   
-Cette commande nous permet de connaitre l'ip associéé à un nom de domaine.  
+Regardons qui sont les serveurs ayant autorité, donc à contacter pour résoudre le domaine twitter.com:  
   
 ```bash
 dig twitter.com NS +noall +answer
@@ -49,9 +49,7 @@ twitter.com.	5469	IN	NS	ns1.p34.dynect.net.
 twitter.com.	5469	IN	NS	ns3.p34.dynect.net.
 ```  
   
-Cette dernière commande nous montre qui sont les serveurs ayant autorité, donc à contacter pour résoudre le domaine twitter.com. Et qui retrouvons nous?  
-  
-Avec un petit whois: ```whois dynect.net```  
+Et qui retrouvons nous? Avec un petit whois: ```whois dynect.net```  
   
 ```
 Admin Name: Dynamic Network Services
