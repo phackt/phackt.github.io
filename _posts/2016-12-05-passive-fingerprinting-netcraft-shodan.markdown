@@ -39,10 +39,37 @@ Selon Wikipedia: *Each registrar must maintain a Whois database containing all c
 Outil complet de prise d'empreinte: [https://bitbucket.org/LaNMaSteR53/recon-ng/wiki/Home](https://bitbucket.org/LaNMaSteR53/recon-ng/wiki/Home)
   
 ```
-use recon/domains-contacts/whois_pocs (récupère les contacts d'une base whois)
-use recon/domains-hosts/google_site_web (récupération des sous-domaines)
-use recon/domains-vulnerabilities/xssed (cherche dans la database http://xssed.com, sites vulnérables au XSS)
+recon-ng
+[recon-ng][default] > use recon/domains-contacts/whois_pocs
+[recon-ng][default][whois_pocs] > show options
+
+  Name    Current Value  Required  Description
+  ------  -------------  --------  -----------
+  SOURCE  cisco.com      yes       source of input (see 'show info' for details)
+
+[recon-ng][default][whois_pocs] > set SOURCE cisco.com
+SOURCE => cisco.com
+[recon-ng][default][whois_pocs] > run
+
+---------
+CISCO.COM
+---------
+[*] URL: http://whois.arin.net/rest/pocs;domain=cisco.com
+[*] URL: http://whois.arin.net/rest/poc/GAB42-ARIN
+[*] [contact] Gary Abbott (gabbott@cisco.com) - Whois contact
+[*] URL: http://whois.arin.net/rest/poc/SMA-ARIN
+[*] [contact] Steve Acheson (satch@cisco.com) - Whois contact
+[*] URL: http://whois.arin.net/rest/poc/ACKER5-ARIN
+[*] [contact] Barry Ackerman (backerma@cisco.com) - Whois contact
+...
 ```  
+  
+```
+show modules (pour lister tous les modules)
+recon/domains-hosts/google_site_web (récupération des sous-domaines)
+recon/domains-vulnerabilities/xssed (cherche dans la database http://xssed.com, sites vulnérables au XSS)
+...
+```
   
 **theharvester**  
   
