@@ -12,6 +12,7 @@ Une période un peu creuse pour les articles en ce moment cause [OSCP](https://w
 Aujourd'hui nous parlerons de la prise d'empreinte passive et des plateformes [netcraft](https://www.netcraft.com/) et [shodan](https://www.shodan.io/). La prise d'empreinte passive consiste en l'agrégation d'informations publiques concernant une cible (sans requêtage direct de ses serveurs).  
   
 La prise d'empreinte au sens large devra être la plus exhaustive possible pour maximiser la probabilité de réussite d'une attaque:  
+ 
  - prise d'informations sur l'entreprise et son activité (énumération des employés et adresses mail - un outil trés sympa est [theharvester](https://code.google.com/archive/p/theharvester/))
  - base de données Whois
  - Google dorks
@@ -19,11 +20,12 @@ La prise d'empreinte au sens large devra être la plus exhaustive possible pour 
  - Scan des services et des bannières
  - Scan des vulnérabilités (metasploit, nikto, OpenVAS, NSE vuln)
   
-Concernant la prise d'empreinte passive, il est possible de collecter beaucoup d'informations via les moteurs de recherche. Pour cela je vous redirige vers l'excellent site d'Offensive Security qui est [https://www.exploit-db.com/google-hacking-database/](https://www.exploit-db.com/google-hacking-database/) et la Google Cheat Sheet du SANS [https://www.sans.org/security-resources/GoogleCheatSheet.pdf](https://www.sans.org/security-resources/GoogleCheatSheet.pdf).  
+Il est possible de collecter beaucoup d'informations via les moteurs de recherche. Pour cela je vous redirige vers l'excellent site d'Offensive Security [https://www.exploit-db.com/google-hacking-database/](https://www.exploit-db.com/google-hacking-database/) et la Google Cheat Sheet du SANS [https://www.sans.org/security-resources/GoogleCheatSheet.pdf](https://www.sans.org/security-resources/GoogleCheatSheet.pdf).  
   
-Quelques exemples de recherches:
-```site:microsoft.com -site:www.microsoft.com``` (tous les sous domaines de microsoft)
-```site:ameli.fr inurl:phpinfo.php``` (version de php)
+Quelques exemples de recherches:  
+
+```site:microsoft.com -site:www.microsoft.com``` (tous les sous domaines de microsoft)  
+```site:ameli.fr inurl:phpinfo.php``` (version de php)  
 ```site:ameli.fr inurl:(cgi|api|webservice|private|portail) | (login OR pass OR admin)``` (potentielles pages de login)  
   
 D'autres informations sur la prise d'empreinte passive:  
@@ -39,7 +41,7 @@ Selon Wikipedia: *Each registrar must maintain a Whois database containing all c
 Outil complet de prise d'empreinte: [https://bitbucket.org/LaNMaSteR53/recon-ng/wiki/Home](https://bitbucket.org/LaNMaSteR53/recon-ng/wiki/Home)
   
 ```
-recon-ng
+$ recon-ng
 [recon-ng][default] > use recon/domains-contacts/whois_pocs
 [recon-ng][default][whois_pocs] > show options
 
@@ -64,6 +66,7 @@ CISCO.COM
 ...
 ```  
   
+recon-ng modules:  
 ```
 show modules (pour lister tous les modules)
 recon/domains-hosts/google_site_web (récupération des sous-domaines)
@@ -73,7 +76,7 @@ recon/domains-vulnerabilities/xssed (cherche dans la database http://xssed.com, 
   
 **theharvester**  
   
-*The objective of this program is to gather emails, subdomains, hosts, employee names, open ports and banners from different public sources like    search engines, PGP key servers and SHODAN computer database.* - [http://www.edge-security.com/theharvester.php](http://www.edge-security.com/theharvester.php).  
+*The objective of this program is to gather emails, subdomains, hosts, employee names, open ports and banners from different public sources like    search engines, PGP key servers and SHODAN computer database* - [http://www.edge-security.com/theharvester.php](http://www.edge-security.com/theharvester.php).  
   
 ```
 *******************************************************************
@@ -127,19 +130,23 @@ L'option -h utilise la base de données Shodan.io [https://www.shodan.io/](https
   
 *Shodan is a search engine that lets the user find specific types of computers (web cams, routers, servers, etc.) connected to the internet using a variety of filters. Some have also described it as a search engine of service banners, which are meta-data the server sends back to the client.[1] This can be information about the server software, what options the service supports, a welcome message or anything else that the client can find out before interacting with the server.*  
   
-Shodan est un site de Data Mining dont les informations proviennent du scan des différentes classes d'adresses ip publiques. Il agrége toutes les informations sur les services exposés et leurs bannières. In introduit donc un sujet qui fera l'objet d'un prochain article et au coeur de l'actualité: [les IoT](https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project).  
+Shodan est un site de Data Mining dont les informations proviennent du scan d'adresses ip publiques. Leur service agrége toutes les informations sur les services exposés et leurs bannières. Shodan.io permet de détecter de nombreux [IoT](https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project).  
   
 Voici par exemple une capture d'écran d'une recherche sur les Caméras connectées ayant une ip géolocalisée sur Paris:
+  
 ![shodan]({{ site.url }}/public/images/passive-fingerprinting/shodan.png)  
   
 **www.netcraft.com**  
   
 *Netcraft provides web server and web hosting market-share analysis, including web server and operating system detection. Netcraft also provides security testing, and publishes news releases about the state of various networks that make up the Internet.*  
   
-Si vous souhaitez rechercher par nom de domaine: [https://searchdns.netcraft.com/](https://searchdns.netcraft.com/).Cliquer ensuite sur *Site Report*:  
+Si vous souhaitez rechercher par nom de domaine: [https://searchdns.netcraft.com/](https://searchdns.netcraft.com/).  
+Cliquez ensuite sur *Site Report*:  
   
 ![netcraft]({{ site.url }}/public/images/passive-fingerprinting/netcraft.png)  
   
-Ces bases de connaissance sont utiles pour qu'une entreprise puisse prendre connaissance des informations à disposition d'un assaillant. Un simple mail pro utilisé dans un forum peut être utilisé pour effectuer du phising ciblé.  
+Ces bases de connaissance sont utiles pour qu'une entreprise puisse prendre connaissance des informations à disposition d'un assaillant. Exemple un simple mail pro utilisé dans un forum peut être utilisé pour du phising ciblé.  
   
-Je vous dis à très bientôt!
+Nous verrons dans un prochain article l'énumération de services et la cartographie réseau.  
+  
+A bientôt.
