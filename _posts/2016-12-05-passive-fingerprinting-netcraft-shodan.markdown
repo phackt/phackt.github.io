@@ -1,0 +1,118 @@
+---
+layout: post
+title:  "Passive Gathering Information - Netcraft and Shodan"
+date:   2016-12-05
+categories: fingerprinting
+---
+<br />
+Bonjour à tous,
+  
+Une période un peu creuse pour les articles en ce moment cause [OSCP](https://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/), mais cela permettra de réunir d'autant plus d'idées pour de futurs articles.  
+  
+Aujourd'hui nous parlerons de la prise d'empreinte passive et des plateformes [netcraft](https://www.netcraft.com/) et [shodan](https://www.shodan.io/). La prise d'empreinte passive consiste en l'agrégation d'informations publiques concernant une cible (sans requêtage direct de ses serveurs).  
+  
+La prise d'empreinte au sens large devra être la plus exhaustive possible pour maximiser la probabilité de réussite d'une attaque:  
+ - prise d'informations sur l'entreprise et son activité (énumération des employés et adresses mail - un outil trés sympa est [theharvester](https://code.google.com/archive/p/theharvester/))
+ - base de données Whois
+ - Google dorks
+ - SMTP, SMB, SNMP, DNS enumeration (recon-ng, dnsrecon, nbtscan, enum4linux, snmpwalk)
+ - Scan des services et des bannières
+ - Scan des vulnérabilités (metasploit, nikto, OpenVAS, NSE vuln)
+  
+Concernant la prise d'empreinte passive, il est possible de collecter beaucoup d'informations via les moteurs de recherche. Pour cela je vous redirige vers l'excellent site d'Offensive Security qui est [https://www.exploit-db.com/google-hacking-database/](https://www.exploit-db.com/google-hacking-database/) et la Google Cheat Sheet du SANS [https://www.sans.org/security-resources/GoogleCheatSheet.pdf](https://www.sans.org/security-resources/GoogleCheatSheet.pdf).  
+  
+Quelques exemples de recherches:
+```site:microsoft.com -site:www.microsoft.com``` (tous les sous domaines de microsoft)
+```site:ameli.fr inurl:phpinfo.php``` (version de php)
+```site:ameli.fr inurl:(cgi|api|webservice|private|portail) | (login OR pass OR admin)``` (potentielles pages de login)  
+  
+D'autres informations sur la prise d'empreinte passive:  
+  
+**Base de données Whois:**  
+  
+Selon Wikipedia: *Each registrar must maintain a Whois database containing all contact information for the domains they host. These databases are     usually published by a Whois server over TCP port 43. The whois client can also perform reverse lookups. Rather than inputting a domain name, you can provide an IP address.*  
+  
+```whois microsoft.com```  
+  
+**recon-ng:**  
+  
+Outil complet de prise d'empreinte: [https://bitbucket.org/LaNMaSteR53/recon-ng/wiki/Home](https://bitbucket.org/LaNMaSteR53/recon-ng/wiki/Home)
+  
+```
+use recon/domains-contacts/whois_pocs (récupère les contacts d'une base whois)
+use recon/domains-hosts/google_site_web (récupération des sous-domaines)
+use recon/domains-vulnerabilities/xssed (cherche dans la database http://xssed.com, sites vulnérables au XSS)
+```  
+  
+**theharvester**  
+  
+*The objective of this program is to gather emails, subdomains, hosts, employee names, open ports and banners from different public sources like    search engines, PGP key servers and SHODAN computer database.* - [http://www.edge-security.com/theharvester.php](http://www.edge-security.com/theharvester.php).  
+  
+```
+*******************************************************************
+*                                                                 *
+* | |_| |__   ___    /\  /\__ _ _ ____   _____  ___| |_ ___ _ __  *
+* | __| '_ \ / _ \  / /_/ / _` | '__\ \ / / _ \/ __| __/ _ \ '__| *
+* | |_| | | |  __/ / __  / (_| | |   \ V /  __/\__ \ ||  __/ |    *
+*  \__|_| |_|\___| \/ /_/ \__,_|_|    \_/ \___||___/\__\___|_|    *
+*                                                                 *
+* TheHarvester Ver. 2.7                                           *
+* Coded by Christian Martorella                                   *
+* Edge-Security Research                                          *
+* cmartorella@edge-security.com                                   *
+*******************************************************************
+
+
+Usage: theharvester options 
+
+       -d: Domain to search or company name
+       -b: data source: google, googleCSE, bing, bingapi, pgp, linkedin,
+                        google-profiles, jigsaw, twitter, googleplus, all
+
+       -s: Start in result number X (default: 0)
+       -v: Verify host name via dns resolution and search for virtual hosts
+       -f: Save the results into an HTML and XML file (both)
+       -n: Perform a DNS reverse query on all ranges discovered
+       -c: Perform a DNS brute force for the domain name
+       -t: Perform a DNS TLD expansion discovery
+       -e: Use this DNS server
+       -l: Limit the number of results to work with(bing goes from 50 to 50 results,
+            google 100 to 100, and pgp doesn't use this option)
+       -h: use SHODAN database to query discovered hosts
+
+Examples:
+        theharvester -d microsoft.com -l 500 -b google -h myresults.html
+        theharvester -d microsoft.com -b pgp
+        theharvester -d microsoft -l 200 -b linkedin
+        theharvester -d apple.com -b googleCSE -l 500 -s 300
+```  
+  
+Exemples de commandes:  
+  
+```
+theharvester -d adneom.com -l 500 -b google -t -h -f results_google.html
+theharvester -d adneom.com -l 500 -b linkedin > results_linkedin.txt
+```
+  
+L'option -h utilise la base de données Shodan.io [https://www.shodan.io/](https://www.shodan.io/).  
+  
+**www.shodan.io**  
+  
+*Shodan is a search engine that lets the user find specific types of computers (web cams, routers, servers, etc.) connected to the internet using a variety of filters. Some have also described it as a search engine of service banners, which are meta-data the server sends back to the client.[1] This can be information about the server software, what options the service supports, a welcome message or anything else that the client can find out before interacting with the server.*  
+  
+Shodan est un site de Data Mining dont les informations proviennent du scan des différentes classes d'adresses ip publiques. Il agrége toutes les informations sur les services exposés et leurs bannières. In introduit donc un sujet qui fera l'objet d'un prochain article et au coeur de l'actualité: [les IoT](https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project).  
+  
+Voici par exemple une capture d'écran d'une recherche sur les Caméras connectées ayant une ip géolocalisée sur Paris:
+![shodan]({{ site.url }}/public/images/passive-fingerprinting/shodan.png)  
+  
+**www.netcraft.com**  
+  
+*Netcraft provides web server and web hosting market-share analysis, including web server and operating system detection. Netcraft also provides security testing, and publishes news releases about the state of various networks that make up the Internet.*  
+  
+Si vous souhaitez rechercher par nom de domaine: [https://searchdns.netcraft.com/](https://searchdns.netcraft.com/).Cliquer ensuite sur *Site Report*:  
+  
+![netcraft]({{ site.url }}/public/images/passive-fingerprinting/netcraft.png)  
+  
+Ces bases de connaissance sont utiles pour qu'une entreprise puisse prendre connaissance des informations à disposition d'un assaillant. Un simple mail pro utilisé dans un forum peut être utilisé pour effectuer du phising ciblé.  
+  
+Je vous dis à très bientôt!
