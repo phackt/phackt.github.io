@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "OSCP, hautement addictif"
+title:  "OSCP: hautement addictif"
 date:   2017-02-17
 categories: certification
 ---
