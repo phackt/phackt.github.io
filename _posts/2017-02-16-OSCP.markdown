@@ -11,7 +11,7 @@ Premier article de l'année, cependant ces derniers mois furent bien remplis ave
   
 **Qu'est-ce que l'OSCP?**
   
-![oscp]({{ site.url }}/public/images/oscp/oscp1.png)  
+![oscp]({{ site.url }}/public/images/oscp/oscp1.png)
 
 L'OSCP est une certification en sécurité offensive (pentesting) délivrée par [Offensive Security](https://www.offensive-security.com/), acteur majeur de la scène infosec puisqu'ils sont derrière plusieurs projets comme la distribution [Kali](https://www.kali.org/), [The Exploit Database](https://www.exploit-db.com/), ou encore la [Google Hacking Database](https://www.exploit-db.com/google-hacking-database/).  L'OSCP permet de valider vos compétences concernant la formation PWK (Penetration testing With Kali).
   
