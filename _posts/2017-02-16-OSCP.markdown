@@ -11,6 +11,8 @@ Premier article de l'année, cependant ces derniers mois furent bien remplis ave
   
 **Qu'est-ce que l'OSCP?**
   
+![oscp]({{ site.url }}/public/images/oscp/oscp1.png)  
+
 L'OSCP est une certification en sécurité offensive (pentesting) délivrée par [Offensive Security](https://www.offensive-security.com/), acteur majeur de la scène infosec puisqu'ils sont derrière plusieurs projets comme la distribution [Kali](https://www.kali.org/), [The Exploit Database](https://www.exploit-db.com/), ou encore la [Google Hacking Database](https://www.exploit-db.com/google-hacking-database/).  L'OSCP permet de valider vos compétences concernant la formation PWK (Penetration testing With Kali).
   
 Le gros plus de cette formation est qu'elle va vous permettre de pratiquer dans un lab qui simule un réseau d'entreprise. On est donc loin de la classique certif QCM uniquement basée sur du bachotage. Ici vous passerez par toutes les étapes d'un pentest, et on ne vous répètera jamais assez... Enumerate, enumerate, enumerate!!!!!! Effectivement la prise d'empreinte est la première étape primordiale sur laquelle vous devrez mettre l'accent.
@@ -68,7 +70,9 @@ Vous pouvez rendre un rapport sur les exercices du PDF et sur les machines compr
  - N'abandonnez-pas, échangez, discutez avec la communauté mais évitez de vous faire spoiler des indices. Vous en tirerez d'autant plus de gratitude en ayant **try harder** :)
  - Le jour de l'exam, éviter les 'rabbit-holes'. Si vous explorez une piste trop longtemps passez à autre chose. On ne vous demandera jamais de bruteforcer plus de 30 mins. Et ne négligez aucun détail de votre énumeration. **keep calm and enumerate!**.
   
+![tryharder]({{ site.url }}/public/images/oscp/tryharder.png)  
   
+
 **Conclusion**
   
 l'OSCP fût une excellente expérience et hautement addictive. Les 24h d'exams sont bien saignants, mais vous verrez ce ne sera que du bonheur, rien d'impossible. Next step en route pour l'OSCE? Pour les fans de pentest de webapp ils ont une formation qui a l'air bien coquette, l'[OSWE](https://www.offensive-security.com/information-security-certifications/oswe-offensive-security-web-expert/) mais c'est du live, aux US, et pendant la blackhat, c'est fort dommage... 
