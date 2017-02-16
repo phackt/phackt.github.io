@@ -17,7 +17,7 @@ L'OSCP est une certification en sécurité offensive (pentesting) délivrée par
   
 Le gros plus de cette formation est qu'elle va vous permettre de pratiquer dans un lab qui simule un réseau d'entreprise. On est donc loin de la classique certif QCM uniquement basée sur du bachotage. Ici vous passerez par toutes les étapes d'un pentest, et on ne vous répètera jamais assez... Enumerate, enumerate, enumerate!!!!!! Effectivement la prise d'empreinte est la première étape primordiale sur laquelle vous devrez mettre l'accent.
   
-Mais l'OSCP c'est également une communauté de passionnés, d'entraide, de chans slack ou IRC. Une belle aventure vous attend.
+Mais l'OSCP c'est également une communauté de passionnés, d'entraide, de chans slack ou IRC. Une belle aventure vous attend.  
   
   
 **Déroulement**
@@ -33,16 +33,16 @@ Certains exploits fonctionneront out-of-the-box, d'autres demanderont plus d'att
   
 Un point sur les BO: vous appréhenderez un stack overflow classique sur un exe sans protection DEP ou ASLR (ceci sera pour les autres certifs OSCE, OSEE). Ce fût une section kiff++, ce qui me fait me pencher sérieusement sur l'[OSCE](https://www.offensive-security.com/information-security-certifications/osce-offensive-security-certified-expert/).
   
-Si vous souhaitez rallonger la durée du lab, vous pourrez le faire avant l'expiration de ce dernier. Le lab vous préparera au mieux pour l'exam de 24h.
-   
-
+Si vous souhaitez rallonger la durée du lab, vous pourrez le faire avant l'expiration de ce dernier. Le lab vous préparera au mieux pour l'exam de 24h.  
+  
+  
 **Durée / Tarifs**  
   
 ![prices]({{ site.url }}/public/images/oscp/prices.png)  
   
 Tout dépend du temps que vous pourrez allouer à la formation. Je vous conseillerais, étant donné que vous pouvez étendre la durée du lab (cela vous reviendra un poil plus cher cependant), de ne pas viser une durée trop importante si vous avez une bonne capacité de travail.  
   
-Personnellement, je bossais en moyenne 3h par jour en parallèle de mon job et full les week-end. Mais comme on dit quand on aime on ne compte pas. Au final j'étais parti sur un lab de 3 mois, et j'ai pu bouclé la certif en 2 mois. Il me reste donc un mois de lab pour quelques petites douceurs à savoir les dernières machines du réseau Admin :).
+Personnellement, je bossais en moyenne 3h par jour en parallèle de mon job et full les week-end. Mais comme on dit quand on aime on ne compte pas. Au final j'étais parti sur un lab de 3 mois, et j'ai pu bouclé la certif en 2 mois. Il me reste donc un mois de lab pour quelques petites douceurs à savoir les dernières machines du réseau Admin :).  
   
   
 **Exam / Livrables**
@@ -58,7 +58,7 @@ Vous aurez ensuite à nouveau 24h pour rendre un rapport détaillé et professio
   
 __Point bonus__:  
   
-Vous pouvez rendre un rapport sur les exercices du PDF et sur les machines compromises du lab. Chaque rapport peut vous rapporter 5 points (un total de 10 points bonus).
+Vous pouvez rendre un rapport sur les exercices du PDF et sur les machines compromises du lab. Chaque rapport peut vous rapporter 5 points (un total de 10 points bonus).  
   
   
 **Conseils**
@@ -72,7 +72,7 @@ Vous pouvez rendre un rapport sur les exercices du PDF et sur les machines compr
   
 ![tryharder]({{ site.url }}/public/images/oscp/tryharder.png)  
   
-
+  
 **Conclusion**
   
 l'OSCP fût une excellente expérience et hautement addictive. Les 24h d'exams sont bien saignants, mais vous verrez ce ne sera que du bonheur, rien d'impossible. Next step en route pour l'OSCE? Pour les fans de pentest de webapp ils ont une formation qui a l'air bien coquette, l'[OSWE](https://www.offensive-security.com/information-security-certifications/oswe-offensive-security-web-expert/) mais c'est du live, aux US, et pendant la blackhat, c'est fort dommage... 
