@@ -5,9 +5,7 @@ date:   2016-12-05
 categories: fingerprinting
 ---
 <br />
-Bonjour à tous,
-  
-Une période un peu creuse pour les articles en ce moment cause [OSCP](https://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/), mais cela permettra de réunir d'autant plus d'idées pour de futurs articles.  
+Bonjour à tous, 
   
 Aujourd'hui nous parlerons de la prise d'empreinte passive et des plateformes [netcraft](https://www.netcraft.com/) et [shodan](https://www.shodan.io/). La prise d'empreinte passive consiste en l'agrégation d'informations publiques concernant une cible (sans requêtage direct de ses serveurs).  
   
