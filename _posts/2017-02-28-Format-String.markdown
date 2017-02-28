@@ -247,4 +247,8 @@ Nous pouvons donc en conclure qu'à partir d'un simple appel *printf*, il a ét�
 Pour conclure, si vous rencontrez un souci entre l'exécution dans l'environnement gdb et votre shell, voici une réponse: [https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it](https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it). Assurez-vous que l'environnement soit strictement identique.
   
 N'hésitez pas à me contacter ou à laisser un com.  
-See Ya!
+See Ya!  
+  
+
+Références:
+ - [https://www.owasp.org/index.php/Format_string_attack](https://www.owasp.org/index.php/Format_string_attack)
