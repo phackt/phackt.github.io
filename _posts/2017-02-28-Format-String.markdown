@@ -252,4 +252,3 @@ See Ya!
 
 Références:
  - [https://www.owasp.org/index.php/Format_string_attack](https://www.owasp.org/index.php/Format_string_attack)
- - [https://www.amazon.fr/Hacking-Art-Exploitation-Jon-Erickson/dp/1593271441](https://www.amazon.fr/Hacking-Art-Exploitation-Jon-Erickson/dp/1593271441)
