@@ -49,7 +49,7 @@ int main(int argc, char const *argv[])
 }
 ```  
   
-L'exécution est simple: 
+L'exécution est simple:  
 
 ![fmt1]({{ site.url }}/public/images/fmt/fmt1.png)
   
@@ -239,7 +239,7 @@ Here we go, essayons de nous connecter:
 ![fmt15]({{ site.url }}/public/images/fmt/fmt15.png)
 
 Du coté de notre shellcode:  
-   
+
 ![fmt16]({{ site.url }}/public/images/fmt/fmt16.png)
 
 Nous pouvons donc en conclure qu'à partir d'un simple printf, il a été possible d'exécuter un bind shell. Bien évidemment ceci est un cas d'école et a été possible grâce à la désactivation de l'ASLR, rendant ainsi nos adresses prédictibles.
