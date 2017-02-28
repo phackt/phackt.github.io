@@ -77,7 +77,7 @@ Au revoir
   
 Avec ```printf(argument);```, vous pouvez injecter des formateurs qui demanderont à la fonction printf de dépiler de la stack autant d'arguments que de formateurs. Ceci nous permettra de lire la mémoire de notre exécutable et nous le verrons d'écraser des adresses pour rediriger vers notre flot d'exécution.  
   
-Avez-vous remarqué la suite **25782578257825782578** affichée avec le formateur **%x**?:
+Avez-vous remarqué la suite **25782578257825782578** affichée avec le formateur **%x** ?:
 ```
 echo -n 2578 | xxd -p -r
 %x
