@@ -244,7 +244,7 @@ Du coté de notre shellcode:
   
 Nous pouvons donc en conclure qu'à partir d'un simple appel *printf*, il a été possible d'exécuter un bind shell. Bien évidemment ceci est un cas d'école et a été possible grâce à la désactivation de l'ASLR, rendant ainsi nos adresses prédictibles.
 
-Pour conclure, si vous rencontrez un souci entre l'exécution dans l'environnement gdb et votre shell, voici une réponse: [https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it](https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it). Assurez-vous que l'environnement soit strictement identique.
+Pour conclure, si vous rencontrez un souci entre l'exécution dans l'environnement gdb et votre shell, voici une réponse: [https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it](https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it). Assurez-vous que les environnements soient strictement identiques.
   
 N'hésitez pas à me contacter ou à laisser un com.  
 See Ya!  
