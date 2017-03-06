@@ -16,7 +16,7 @@ Voici la liste qui sera amenée à évoluer:
  - **[https://www.hackthis.co.uk/](https://www.hackthis.co.uk/)**
  - **[Hack.me](https://hack.me/)**
  - **[OWASP Hacking Lab](https://www.hacking-lab.com/index.html)**: Hacking Lab project de l'OWASP.
-  - **[Damn Vulnerable Web Application](http://www.dvwa.co.uk/)**: Web App regroupant le top 10 des vulnérabilités de l'OWASP. Pratiquez avec différents degrés de difficultés pour chaque faille: level/medium/high.
+ - **[Damn Vulnerable Web Application](http://www.dvwa.co.uk/)**: Web App regroupant le top 10 des vulnérabilités de l'OWASP. Pratiquez avec différents degrés de difficultés pour chaque faille: level/medium/high.
  - **[OWASP Mutillidae 2](https://www.owasp.org/index.php/OWASP_Mutillidae_2_Project)**: Vulnerable Web App project.
  - **[OWASP WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)**: Vulnerable Web App project.
  - **[CTFtime](https://ctftime.org/)**: montez votre team et participez aux différents CTFs à travers le monde.
