@@ -23,7 +23,7 @@ Voici la liste qui sera amenée à évoluer:
  - **[CodingGame](https://www.codingame.com/)**: plateforme avec des challs en développement.
   
 Si vous souhaitez une image qui regroupe la majorité des applications vulnérables de l'OWASP, ainsi que des version obsolètes de CMS comme Wordpress, Joomla, et j'en passe... voici le lien:  
-[https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project](https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project).
+**[https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project](https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project)**.
   
 Voici une liste de machines OSCP-like que vous trouverez sur Vulnhub et que vous pouvez faire avant de vous lancer dans la certif:
 - [Kioptrix: Level 1 (#1)](https://www.vulnhub.com/entry/kioptrix-level-1-1,22/)
