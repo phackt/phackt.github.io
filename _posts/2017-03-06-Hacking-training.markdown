@@ -25,7 +25,7 @@ Voici la liste qui sera amenée à évoluer:
 Si vous souhaitez une image qui regroupe la majorité des applications vulnérables de l'OWASP, ainsi que des version obsolètes de CMS comme Wordpress, Joomla, et j'en passe... voici le lien: [https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project](https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project).
   
 Voici une liste de machines OSCP-like que vous trouverez sur Vulnhub et que vous pouvez faire avant de vous lancer dans la certif:
-  [Kioptrix: Level 1 (#1)](https://www.vulnhub.com/entry/kioptrix-level-1-1,22/)
+- [Kioptrix: Level 1 (#1)](https://www.vulnhub.com/entry/kioptrix-level-1-1,22/)
 - [Kioptrix: Level 1 (#1)](https://www.vulnhub.com/entry/kioptrix-level-1-1,22/)
 - [Kioptrix: Level 1.1 (#2)](https://www.vulnhub.com/entry/kioptrix-level-11-2,23/)
 - [Kioptrix: Level 1.2 (#3)](https://www.vulnhub.com/entry/kioptrix-level-12-3,24/)
@@ -46,10 +46,10 @@ Voici une liste de machines OSCP-like que vous trouverez sur Vulnhub et que vous
   
 Autres liens:  
  - **[How to create vulnerable Windows machines](https://github.com/g0tmi1k/VulnInjector)**
- - **[Télécharger des VMs Windows officielles](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)
+ - **[Télécharger des VMs Windows officielles](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)**
   
 Vous avez déjà pas mal de ressources pour vous affûter!  
   
 N'hésitez pas à commenter si vous en voyez d'autres et à partager.  
-See Ya.  
+A bientôt.  
 [Phackt](https://github.com/phackt)
