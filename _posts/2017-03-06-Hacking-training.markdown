@@ -19,7 +19,7 @@ Voici la liste qui sera amenée à évoluer:
  - **[OWASP Mutillidae 2](https://www.owasp.org/index.php/OWASP_Mutillidae_2_Project)**: Vulnerable Web App project.
  - **[OWASP Hacking Lab](https://www.hacking-lab.com/index.html)**: Hacking Lab project de l'OWASP.
  - **[OWASP WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)**: Vulnerable Web App project.
- - **[CTFtime](https://ctftime.org/)**: montez votre team et participez aux events.
+ - **[CTFtime](https://ctftime.org/)**: montez votre team et participez aux différents CTFs à travers le monde.
  - **[CodingGame](https://www.codingame.com/)**: plateforme avec des challs en développement.
   
 Si vous souhaitez une image qui regroupe la majorité des applications vulnérables de l'OWASP, ainsi que des version obsolètes de CMS comme Wordpress, Joomla, et j'en passe... voici le lien: [https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project](https://www.owasp.org/index.php/OWASP_Broken_Web_Applications_Project).
