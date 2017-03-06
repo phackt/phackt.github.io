@@ -10,7 +10,7 @@ Hello infosec boys & girls,
 Un petit article aujourd'hui pour parler des plateformes d'entrainement à l'infosec que j'ai pu trouver jusqu'à présent. Tous ces challenges et CTF touchent à plusieurs domaines comme le pentest, le reverse, la stégano, forensic, et la programmation.
   
 Voici la liste qui sera amenée à évoluer:  
- - **[RootMe](https://www.root-me.org/)**: une plateforme historique française qui traite de tous les sujets. RootMe est au coeur du hack français car fondée à l'époque d'HZV (HackerzVoice). HZV donna ensuite the Hackademy Journal & School. Tous ces protagonistes (dont le regretté crashFr) sont à l'initiative de la Nuit Du Hack et de l'entreprise Sysdreams.
+ - **[Root-Me](https://www.root-me.org/)**: une plateforme historique française qui traite de tous les sujets. RootMe est au coeur du hack français car fondée à l'époque d'HZV (HackerzVoice). HZV donna ensuite the Hackademy Journal & School. Tous ces protagonistes (dont le regretté crashFr) sont à l'initiative de la Nuit Du Hack et de l'entreprise Sysdreams.
  - **[Vulnhub](https://www.vulnhub.com/)**: l'auteur est [g0tmi1k](https://blog.g0tmi1k.com/), également membre du crew d'Offensive Security. Vulnhub propose des images de distrib Linux vulnérables pour vous exercer.
  - **[https://exploit-exercises.com/](https://exploit-exercises.com/)**: également une liste de VMs vulnérables avec des challs de corruption mémoires (Protostar / Fusion). Ces derniers sont pertinents pour s'exercer à l'OSCE.
  - **[https://www.hackthis.co.uk/](https://www.hackthis.co.uk/)**
