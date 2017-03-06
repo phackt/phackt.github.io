@@ -46,8 +46,8 @@ Voici une liste de machines OSCP-like que vous trouverez sur Vulnhub et que vous
 - [IMF](https://www.vulnhub.com/entry/imf-1,162/)
   
 Autres liens:  
- - **[How to create vulnerable Windows machines](https://github.com/g0tmi1k/VulnInjector)**
- - **[Télécharger des VMs Windows officielles](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)**
+ - [How to create vulnerable Windows machines](https://github.com/g0tmi1k/VulnInjector)
+ - [Télécharger des VMs Windows officielles](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)
   
 Vous avez déjà pas mal de ressources pour vous affûter!  
   
