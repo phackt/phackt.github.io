@@ -12,10 +12,10 @@ Un petit article aujourd'hui pour parler des plateformes d'entrainement à l'inf
 Voici la liste qui sera amenée à évoluer:  
  - **[RootMe](https://www.root-me.org/)**: une plateforme historique française qui traite de tous les sujets. RootMe est au coeur du hack français car fondée à l'époque d'HZV (HackerzVoice). HZV donna ensuite the Hackademy Journal & School. Tous ces protagonistes (dont le regretté crashFr) sont à l'initiative de la Nuit Du Hack et de l'entreprise Sysdreams.
  - **[Vulnhub](https://www.vulnhub.com/)**: l'auteur est [g0tmi1k](https://blog.g0tmi1k.com/), également membre du crew d'Offensive Security. Vulnhub propose des images de distrib Linux vulnérables pour vous exercer.
- - **[https://exploit-exercises.com/](https://exploit-exercises.com/)**: Egalement une liste de VMs vulnérables avec des challs de corruption mémoires (Protostar / Fusion). Ces derniers sont pertinents pour s'exercer à l'OSCE.
+ - **[https://exploit-exercises.com/](https://exploit-exercises.com/)**: également une liste de VMs vulnérables avec des challs de corruption mémoires (Protostar / Fusion). Ces derniers sont pertinents pour s'exercer à l'OSCE.
  - **[https://www.hackthis.co.uk/](https://www.hackthis.co.uk/)**
  - **[Hack.me](https://hack.me/)**
- - **[Damn Vulnerable Web Application](http://www.dvwa.co.uk/)**: Web app regroupant le top 10 des vulnérabilités de l'OWASP. Pratiquez avec différents degrés de difficultés pour chaque faille: level/medium/high.
+ - **[Damn Vulnerable Web Application](http://www.dvwa.co.uk/)**: Web App regroupant le top 10 des vulnérabilités de l'OWASP. Pratiquez avec différents degrés de difficultés pour chaque faille: level/medium/high.
  - **[OWASP Mutillidae 2](https://www.owasp.org/index.php/OWASP_Mutillidae_2_Project)**: Vulnerable Web App project.
  - **[OWASP Hacking Lab](https://www.hacking-lab.com/index.html)**: Hacking Lab project de l'OWASP.
  - **[OWASP WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)**: Vulnerable Web App project.
