@@ -51,7 +51,7 @@ int main(int argc, char const *argv[])
   
 L'exécution est simple:  
 
-![fmt1]({{ site.url }}/public/images/fmt/fmt1.png)
+![fmt1]({{ site.url }}/public/images/fmt/fmt1.png)  
 Fuzzons juste pour vérifier que le fgets fait bien son boulot et que nous évitons un débordement classique:  
 
 ![fmt2]({{ site.url }}/public/images/fmt/fmt2.png)
