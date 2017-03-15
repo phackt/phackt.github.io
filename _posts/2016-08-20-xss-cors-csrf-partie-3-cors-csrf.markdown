@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "XSS: CORS et CSRF (Partie 3)"
+title:  "XSS, CORS, CSRF (Partie 3)"
 date:   2016-08-20
 categories: web
 ---
@@ -153,9 +153,6 @@ Nous verrons dans un prochain article comment utiliser les techniques vu précé
   
 A bientôt et surtout...   
 
-```
-Keep the positive attitude ;) !
-```
 <br />
 <br />
 Références :  
