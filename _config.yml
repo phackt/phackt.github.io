@@ -12,7 +12,7 @@ description: > # this means to ignore newlines until "baseurl:"
   Ce site est le blog d'un passionné ayant pour but de proposer des articles autour du développement et de la sécurité informatique.
   
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://phackt.github.io" # the base hostname & protocol for your site
+url: "http://phackt.fr" # the base hostname & protocol for your site
 #url: "http://localhost:4000" # testing for localhost
 
 #S ocial network
@@ -43,7 +43,7 @@ permalink: /:title
 # Allowing post in the future (back to the future baby)
 future: true
 
-# Syntactically Awesome Style Sheets
+Syntactically Awesome Style Sheets
 sass:
-  sass_dir: public/css
+  sass_dir: css
   style: :compressed
