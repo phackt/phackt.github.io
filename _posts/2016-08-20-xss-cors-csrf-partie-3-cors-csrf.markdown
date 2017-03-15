@@ -151,8 +151,7 @@ Nous verrons dans un prochain article comment utiliser les techniques vu précé
   
 <a name="hsts"></a>C'est à ce niveau que le response header [HSTS](https://https.cio.gov/hsts/) est primordial, car une ressource en cache dans le navigateur ayant le HSTS de positionné indiquera au navigateur que toute requête sur le domaine de cette ressource fera l'objet d'une redirection interne (307 Internal Redirect). Nous aborderons ce cas pratique identifié sur un site pour montrer que la protection HSTS est ici le dernier recours au vol de session lors d'une attaque MITM si le cookie n'est pas sécurisé (flag **Secure**). Ceci nous prouve que chaque protection doit être mise en place pour contrecarrer toutes les combinaisons d'attaques.  
   
-A bientôt et surtout...   
-
+A bientôt.
 <br />
 <br />
 Références :  
