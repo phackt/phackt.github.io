@@ -40,7 +40,3 @@ Nous reviendrons sur ces différents domaines de compétences dans de prochains 
 Nous nourrissons le souhait de vous fournir des articles aussi bien généralistes que beaucoup plus techniques.
 
 N’hésitez pas à nous soumettre vos suggestions.
-
-```
-Keep the positive attitude ;) !
-```
