@@ -108,9 +108,6 @@ Dans notre exemple, la connexion au site falsifié est non sécurisée (évitant
   
 A bientôt et surtout...   
 
-```
-Keep the positive attitude ;) !
-```
 <br />
 <br />
 Références :  
