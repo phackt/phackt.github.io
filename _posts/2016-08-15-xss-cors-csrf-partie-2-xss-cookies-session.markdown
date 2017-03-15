@@ -139,7 +139,7 @@ Et bien je vous remercie d’avoir posé la question :). Nous sommes typiquement
 Imaginez que vous surfiez sur un site frauduleux qui puisse soumettre à votre insu des requêtes sur un de vos sites préférés en incluant vos informations de session et poster des formulaires à votre place... C’est à ce niveau qu’il est essentiel de bien configurer le Cross-Origin Resource Sharing et de définir un **token de sécurité** pour éviter les attaques **Cross-Site Request Forgery**. Ceci nous montre bien que les vecteurs d'attaques sont multiples.  
   
 A très bientôt et surtout...  
-  
+
 <br />
 <br />
 Références:  
