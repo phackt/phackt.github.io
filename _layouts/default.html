@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    {% include head.html %}
-  </head>
+
+  {% include head.html %}
+
   <body>
-    <div class="container azul">
-      {% include header.html %}
-
-      {{ content }}
-	     
-      {% include footer.html %}
-    </div>
-
-    <!-- scripts -->
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script src="{{site.baseurl}}/public/js/jquery.fitvids.js"></script>
-    <script>
-      $(document).ready(function(){
-        $("article").fitVids();
-      });
-    </script>
+{% include header.html %}
+<section>
+{{content}}
+</section>
+{% include footer.html %}
   </body>
+
 </html>
