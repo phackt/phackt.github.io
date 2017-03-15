@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "XSS: Vol de cookies (Partie 2)"
+title:  "XSS, CORS, CSRF (Partie 2)"
 date:   2016-08-15
 categories: web
 ---
@@ -140,9 +140,6 @@ Imaginez que vous surfiez sur un site frauduleux qui puisse soumettre à votre i
   
 A très bientôt et surtout...  
   
-```
-Keep the positive attitude ;) !
-```
 <br />
 <br />
 Références:  
