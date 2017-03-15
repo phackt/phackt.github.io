@@ -71,9 +71,6 @@ Notre prochain article consacré au SIEM se concentrera donc sur la mise en plac
   
 A bientôt.  
 
-```
-Keep the positive attitude ;) !
-```
 <br />
 <br />
 Références:  
