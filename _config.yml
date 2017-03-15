@@ -6,13 +6,12 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: Développement et sécurité informatique
+title: Phackt.fr
 email: phackt[AT]protonmail.com
-description: > # this means to ignore newlines until "baseurl:"
-  Ce site est le blog d'un passionné ayant pour but de proposer des articles autour du développement et de la sécurité informatique.
+description: "<h2>Development and infosec stuff here!</h2>Enjoy!"
   
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://phackt.fr" # the base hostname & protocol for your site
+url: "https://phackt.github.io" # the base hostname & protocol for your site
 #url: "http://localhost:4000" # testing for localhost
 
 #S ocial network
@@ -43,7 +42,7 @@ permalink: /:title
 # Allowing post in the future (back to the future baby)
 future: true
 
-Syntactically Awesome Style Sheets
-sass:
-  sass_dir: css
-  style: :compressed
+# Syntactically Awesome Style Sheets
+# sass:
+#   sass_dir: public/css
+#   style: :compressed

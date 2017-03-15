@@ -10,14 +10,14 @@
 }
 
 .navbar-default .navbar-nav > li > a{
-    color:#abc0ca !important;
+  color:#abc0ca !important;
 }
 .navbar-default .navbar-nav > li > a:hover{
-    color:#03a4fb !important;
+  color:#03a4fb !important;
 
 }
 .navbar-default .navbar-nav > li > a:focus{
-    color:#03a4fb !important;
+  color:#03a4fb !important;
 }
 .navbar-default .navbar-brand{
   color:#abc0ca !important;
@@ -55,8 +55,8 @@ body{
   background: #093750 !important;
 }
 a {
-    color: #03a4fb;
-    text-decoration: none;
+  color: #03a4fb;
+  text-decoration: none;
 }
 a:hover{
   color:#03a4fb !important;
@@ -64,26 +64,34 @@ a:hover{
   border-bottom: 1px dotted #03a4fb;
 
 }
+.post{
+  p {
+    padding-top: 0.5em;
+  }
 
+  div {
+    padding-bottom: 1.5em;
+  }
+}
 .post-list{
 
-    text-align: center;
+ text-align: center;
 
 }
 .post-box{
   padding-top: 2em;
-padding-bottom: 2em;
+  padding-bottom: 2em;
 }
 
 .post-title{
   font-size: 20px !important;
-color:  #abc0ca !important;
+  color:  #abc0ca !important;
 }
 
 .post-excerpt{
   color: white !important;
-padding-top: 0.5em;
-padding-bottom: 0.3em;
+  padding-top: 0.5em;
+  padding-bottom: 0.3em;
 }
 .post-title-main{
   text-align: center;
@@ -93,14 +101,15 @@ padding-bottom: 0.3em;
   font-size: 19px;
   text-align: justify;
   padding-bottom: 5em;
+  margin-bottom: 1em
 }
 pre{
-background-color: black !important;
-border:none !important;
-border-radius: 0px !important;
-font-size: 20px !important;
-padding: 1.5em !important;
-color:white !important;
+  background-color: black !important;
+  border:none !important;
+  border-radius: 0px !important;
+  font-size: 20px !important;
+  padding: 10px !important;
+  color:white !important;
 }
 .post-meta{
   color: skyblue !important;
@@ -184,14 +193,14 @@ $on-laptop:        800px;
 //     }
 // }
 @mixin media-query($device) {
-    @media screen and (max-width: $device) {
-        @content;
-    }
+  @media screen and (max-width: $device) {
+      @content;
+  }
 }
 
 
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
-        "syntax-highlighting"
+  "syntax-highlighting"
 ;
