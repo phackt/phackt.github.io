@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "XSS: Cross-site scripting (Partie 1) "
+title:  "XSS, CORS, CSRF (Partie 1)"
 date:   2016-08-09
 categories: web
 ---
@@ -90,6 +90,3 @@ Les attaques possibles sont nombreuses sur une application web, nous avons mis e
   
 A bientôt!  
 
-```
-Keep the positive attitude ;) !
-```
