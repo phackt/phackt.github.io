@@ -69,8 +69,7 @@ Pour notre HIDS, vous trouverez la solution open source [OSSEC](http://ossec.git
 
 Notre prochain article consacré au SIEM se concentrera donc sur la mise en place de cette solution ELK + surcouche OSSEC. Nous ferons également le parallèle avec les enjeux [Big Data](http://www.bgfi-groupe.com/ "http://www.bgfi-groupe.com/") concernant ces solutions.  
   
-A bientôt.  
-
+A bientôt.
 <br />
 <br />
 Références:  
