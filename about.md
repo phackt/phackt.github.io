@@ -6,7 +6,7 @@ permalink: /about/
 
 Bienvenue sur ce blog qui a pour objectif de proposer des articles généralistes et techniques autour du développement et de la sécurité informatique.  
   
-HZV, Hackademy Mag & School, NDH, ... Si ces acronymes ont bercé votre adolescence, alors vous êtes au bon endroit.
+HZV, Hackademy Mag & School, NDH, ... Si ces acronymes ont bercé votre adolescence, alors vous êtes au bon endroit.  
 Time to go back to basics!
 
 ```
