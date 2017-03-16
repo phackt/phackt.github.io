@@ -111,10 +111,9 @@ Positionnons un breakpoint juste avant notre appel printf:
 
 Maintenant injectons à nouveau le buffer de 100 caractères et examinons la mémoire juste après l'exécution de notre printf. Pour rappel une cheatsheet sympa en matière de BOs et de fonctionnement de la pile se trouve ici: [https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png](https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png).  
 ![fmt4]({{ site.url }}/public/images/fmt/fmt4.png)  
-Il est logique de voir apparaitre notre buffer dans des adresses plus hautes sur la stack, les segments de cette dernière étant alloués sur des adresses décroissantes (les plus hautes vers les plus basses) et **printf** étant appelée après l'initialisation de notre buffer.   
+Il est logique de voir apparaitre notre buffer dans des adresses plus hautes sur la stack, les segments de cette dernière étant alloués sur des adresses décroissantes (les plus hautes vers les plus basses) et **printf** étant appelée après l'initialisation de notre buffer.  
   
 Nous pouvons en déduire l'adresse de début de notre buffer. Cependant pour avoir des adresses continues, nous prendrons un byte plus loin: **0xbffff24c**.  
-  
 ![fmt5]({{ site.url }}/public/images/fmt/fmt5.png)  
 Maintenant revenons sur le formateur **%n**:  
 *%n Print nothing, but writes the number of characters successfully written so far into an integer pointer parameter.*
@@ -135,6 +134,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Relocation_%28computing%29): *The
 ![fmt8]({{ site.url }}/public/images/fmt/fmt8.png)  
 Let's check in gdb:  
 ![fmt9]({{ site.url }}/public/images/fmt/fmt9.png)  
+  
 Il semblerait que nous puissions écrire sur ce segment mémoire. Comment allons-nous procéder?  
 D'abord injectons l'adresse mémoire à laquelle nous souhaitons écrire:  
 ![fmt10]({{ site.url }}/public/images/fmt/fmt10.png)  
