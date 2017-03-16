@@ -107,10 +107,9 @@ cf [Wikipédia](https://fr.wikipedia.org/wiki/Address_space_layout_randomization
 *L’Address Space Layout Randomization (ASLR) ou distribution aléatoire de l'espace d'adressage est une technique permettant de placer de façon aléatoire les zones de données dans la mémoire virtuelle. Il s'agit en général de la position du tas, de la pile, des bibliothèques. Ce procédé permet de limiter les effets des attaques de type dépassement de tampon.*  
   
 Positionnons un breakpoint juste avant notre appel printf:  
-
 ![fmt3]({{ site.url }}/public/images/fmt/fmt3.png)  
-Maintenant injectons à nouveau le buffer de 100 caractères et examinons la mémoire juste après l'exécution de notre printf. Pour rappel une cheatsheet sympa en matière de BOs et de fonctionnement de la pile se trouve ici: [https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png](https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png).  
 
+Maintenant injectons à nouveau le buffer de 100 caractères et examinons la mémoire juste après l'exécution de notre printf. Pour rappel une cheatsheet sympa en matière de BOs et de fonctionnement de la pile se trouve ici: [https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png](https://www.0x0ff.info/wp-content/uploads/2014/02/cheat-sheet.png).  
 ![fmt4]({{ site.url }}/public/images/fmt/fmt4.png)  
 Il est logique de voir apparaitre notre buffer dans des adresses plus hautes sur la stack, les segments de cette dernière étant alloués sur des adresses décroissantes (les plus hautes vers les plus basses) et **printf** étant appelée après l'initialisation de notre buffer.   
   
@@ -126,26 +125,20 @@ Maintenant il nous faut trouver l'adresse d'une fonction sur laquelle notre exé
 Nous prendrons la fonction puts. Pourquoi ? car cette dernière est appelée juste après la fonction printf.
   
 **[objdump](https://linux.die.net/man/1/objdump)** est une command qui nous fournit diverses informations sur les fichiers objet.  
-*-R : Print the dynamic relocation entries of the file.*
-  
+*-R : Print the dynamic relocation entries of the file.*  
 ![fmt6]({{ site.url }}/public/images/fmt/fmt6.png)  
 L'adresse peut également être trouvée de cette façon:  
-
 ![fmt7]({{ site.url }}/public/images/fmt/fmt7.png)  
 From [Wikipedia](https://en.wikipedia.org/wiki/Relocation_%28computing%29): *The relocation table is a list of pointers created by the compiler or assembler and stored in the object or executable file. Each entry in the table, or "fixup", is a pointer to an absolute address in the object code that must be changed when the loader relocates the program so that it will refer to the correct location.*
   
-```jmp *0x804a014``` nous montre que l'on va faire un jump à l'adresse contenue à l'adresse *0x804a014*.  
-
+```jmp *0x804a014``` nous montre que l'on va faire un jump à l'adresse contenue à l'adresse *0x804a014*.   
 ![fmt8]({{ site.url }}/public/images/fmt/fmt8.png)  
 Let's check in gdb:  
-
 ![fmt9]({{ site.url }}/public/images/fmt/fmt9.png)  
 Il semblerait que nous puissions écrire sur ce segment mémoire. Comment allons-nous procéder?  
 D'abord injectons l'adresse mémoire à laquelle nous souhaitons écrire:  
-
 ![fmt10]({{ site.url }}/public/images/fmt/fmt10.png)  
 On définit maintenant un point d'arrêt cette fois juste avant l'appel à la fonction printf:  
-
 ![fmt11]({{ site.url }}/public/images/fmt/fmt11.png)  
 Bingo. On voit bien que l'adresse a été écrasée et que nous avons une **segmentation fault**.  
   
