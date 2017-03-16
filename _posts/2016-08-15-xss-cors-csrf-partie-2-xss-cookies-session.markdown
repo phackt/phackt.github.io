@@ -32,7 +32,7 @@ Pour notre test nous partirons sur le postulat que *www.site-a.com* est notre *l
 
 Lorsque le script est exécuté, ce dernier accède au **document.cookie** qui correspond au cookie du document HTML courant contenant l’id de session. Ce dernier peut ressembler à ceci :  
 
-![Exemple cookie 1]({{ site.url }}/public/images/xss-cors-csrf/cors_2.png)
+![Exemple cookie 1]({{ site.url }}/public/images/xss-cors-csrf/cors_2.png)  
 Ou bien ceci :  
 
 ![Exemple cookie 2]({{ site.url }}/public/images/xss-cors-csrf/cors_3.png)  
@@ -53,7 +53,6 @@ Pour nos tests voici la configuration mise en place :
 Les cookies générés (deux cookies à des fins de test):  
   
 ![Configuration cookies test]({{ site.url }}/public/images/xss-cors-csrf/cors_4.png)  
-  
 Les champs [Domain, Path, HTTP et Secure](https://tools.ietf.org/html/rfc6265) sont les champs qui permettront de sécuriser notre cookie:  
 
 **domain** : le domaine racine concerné par le cookie  
@@ -64,8 +63,7 @@ Les champs [Domain, Path, HTTP et Secure](https://tools.ietf.org/html/rfc6265) s
  - Une page vulnérable *http://localhost/xss.php* qui contient le payload vu précédemment.  
   
 Ce cookie est envoyé via une requête **XMLHttpRequest** sur *requestb.in*. Regardons quelles informations sont réceptionnées :  
-  
-![Requestb.in get data]({{ site.url }}/public/images/xss-cors-csrf/cors_5.png) 
+![Requestb.in get data]({{ site.url }}/public/images/xss-cors-csrf/cors_5.png)
   
 Nous récupérons bien l’id de session de notre cookie non sécurisé uniquement. Ceci a été possible car :  
 
@@ -129,9 +127,8 @@ Bingo, même avec un path défini pour ce cookie, nous avons pu le récupérer, 
 <pre class="alert">
 XMLHttpRequest cannot load http://requestb.in/w7iy5sw7?cookie=PHPSESSID_unsecured=jm5mah0a9uuf4g344096nled73.  
 No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost' is therefore not allowed access.
-</pre>   
-<br /> 
-
+</pre>  
+  
 > *"Nous requêtons depuis une ressource du domaine http://localhost:80 vers le domaine http://requestb.in:80, et nous avons ce message, comment se fait-il que la requête ait abouti ?"*  
   
 Et bien je vous remercie d’avoir posé la question :). Nous sommes typiquement dans le cas d’une requête Cross Origin. Aujourd'hui AJAX  est omniprésent dans les développements de par l'essor des frameworks client riches comme AngularJS. Je réserve le détail du **Cross-Origin Resource Sharing** pour le dernier volet de cette saga. La connaissance du CORS est essentielle pour les développeurs WEB.  
