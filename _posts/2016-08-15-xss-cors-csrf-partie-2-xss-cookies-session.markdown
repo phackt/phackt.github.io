@@ -119,7 +119,7 @@ La spécification **XMLHttpRequest** interdit l’accès à certains response he
 </script>
 ```  
   
-Bingo, même avec un path défini pour ce cookie, nous avons pu le récupérer, et si vous avez bien retenu votre leçon dans le [volet 1](https://phackt.github.io/xss-cors-csrf-partie-1-xss) de notre saga XSS, vous connaissez la contre-mesure à ce payload : le response header **X-Frame-Options** qui interdit qu’une page soit rendue dans un ```<frame>```, ```<iframe>``` ou ```<object>```. Bien évidemment il est préférable en amont de toujours positionner le flag **HttpOnly**. L’accès au cookie par javascript est peu justifiable dans les développements Web.  
+Bingo, même avec un path défini pour ce cookie, nous avons pu le récupérer, et si vous avez bien retenu votre leçon dans le [volet 1]({{ site.url }}/xss-cors-csrf-partie-1-xss) de notre saga XSS, vous connaissez la contre-mesure à ce payload : le response header **X-Frame-Options** qui interdit qu’une page soit rendue dans un ```<frame>```, ```<iframe>``` ou ```<object>```. Bien évidemment il est préférable en amont de toujours positionner le flag **HttpOnly**. L’accès au cookie par javascript est peu justifiable dans les développements Web.  
   
 > *"J’ai activé la console de mon navigateur et je remarque cependant un warning:"*  
 
