@@ -101,14 +101,20 @@ a:hover{
 
 .post-title-main{
   text-align: center;
-  color: #abc0ca !important;
+  color: #ffffff !important;
 }
 
 .post-content{
   font-size: 15px;
   text-align: justify;
   padding-bottom: 5em;
-  margin-bottom: 2em
+  margin-bottom: 2em;
+  color: #ffffff !important;
+}
+
+.post-content img{ 
+  margin-bottom: 1em; 
+  margin-top: 1em;
 }
 
 pre{

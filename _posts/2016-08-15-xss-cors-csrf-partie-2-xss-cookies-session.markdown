@@ -51,7 +51,6 @@ Pour nos tests voici la configuration mise en place :
 > Vous ne pouvez pas définir de cookie pour un autre domaine.  
 
 Les cookies générés (deux cookies à des fins de test):  
-  
 ![Configuration cookies test]({{ site.url }}/public/images/xss-cors-csrf/cors_4.png)  
 Les champs [Domain, Path, HTTP et Secure](https://tools.ietf.org/html/rfc6265) sont les champs qui permettront de sécuriser notre cookie:  
 
