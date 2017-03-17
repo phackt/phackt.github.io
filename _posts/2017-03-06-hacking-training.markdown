@@ -19,7 +19,7 @@ Voici la liste qui sera amenée à évoluer:
  - **[Damn Vulnerable Web Application](http://www.dvwa.co.uk/)**: Web App regroupant le top 10 des vulnérabilités de l'OWASP. Pratiquez avec différents degrés de difficultés pour chaque faille: level/medium/high.
  - **[OWASP Mutillidae 2](https://www.owasp.org/index.php/OWASP_Mutillidae_2_Project)**: Vulnerable Web App project.
  - **[OWASP WebGoat](https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project)**: Vulnerable Web App project.
- - **[Metasploitable](https://information.rapid7.com/metasploitable-download.html)**: Permet d'évaluer Metasploit.
+ - **[Metasploitable](https://information.rapid7.com/metasploitable-download.html)**: permet d'évaluer Metasploit.
  - **[CTFtime](https://ctftime.org/)**: montez votre team et participez aux différents CTFs à travers le monde.
  - **[CodingGame](https://www.codingame.com/)**: plateforme avec des challs en développement.
   
