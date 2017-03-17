@@ -107,7 +107,7 @@ a:hover{
 .post-content{
   font-size: 15px;
   text-align: justify;
-  padding-bottom: 5em;
+  padding-bottom: 2em;
   margin-bottom: 2em;
   color: #ffffff !important;
 }
@@ -179,6 +179,11 @@ text-align: center;
 
 .navbar{
   box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.15);
+}
+
+/*----- Disqus comments section -----*/
+.comments {
+  margin-top: 2em;
 }
 
 // Our variables
