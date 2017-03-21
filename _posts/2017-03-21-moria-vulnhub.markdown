@@ -176,7 +176,7 @@ Mellon
 ```  
   
 'What's the Elvish word for Friend?'  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qnBcg9fsbWE" frameborder="0" allowfullscreen></iframe>  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/wvPWJjiDwdI" frameborder="0" allowfullscreen></iframe>  
   
 With this password one of the gate will open:  
   
