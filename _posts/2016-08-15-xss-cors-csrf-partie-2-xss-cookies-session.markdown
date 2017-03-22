@@ -136,8 +136,7 @@ Imaginez que vous surfiez sur un site frauduleux qui puisse soumettre à votre i
   
 A très bientôt.  
   
-**[PART 3](https://phackt.com/xss-cors-csrf-partie-3-cors-csrf)**
-<br />
+### [PARTIE 3](https://phackt.com/xss-cors-csrf-partie-3-cors-csrf)
 <br />
 Références:  
 [http://php.net/manual/fr/session.security.php](http://php.net/manual/fr/session.security.php)  
