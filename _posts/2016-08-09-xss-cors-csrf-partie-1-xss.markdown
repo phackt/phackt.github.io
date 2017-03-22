@@ -89,5 +89,7 @@ Il existe également d’autres projets qui peuvent répondre à vos besoins :
   
 Les attaques possibles sont nombreuses sur une application web, nous avons mis en avant celles de type XSS. Nous verrons dans un prochain article comment ces attaques peuvent détourner les protections CSRF, voler les cookies de session et dans quelle mesure les requêtes Cross-Origin impactent la sécurité d’une application web.  
   
-A bientôt!
+A bientôt!  
+  
+**[PART 2](https://phackt.com/xss-cors-csrf-partie-2-xss-cookies-session)**
 
