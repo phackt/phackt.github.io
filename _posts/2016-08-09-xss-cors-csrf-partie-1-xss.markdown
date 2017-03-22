@@ -91,5 +91,4 @@ Les attaques possibles sont nombreuses sur une application web, nous avons mis e
   
 A bientôt!  
   
-**[PART 2](https://phackt.com/xss-cors-csrf-partie-2-xss-cookies-session)**
-
+### [PART 2](https://phackt.com/xss-cors-csrf-partie-2-xss-cookies-session)
