@@ -4,12 +4,14 @@ title: Categories
 permalink: /categories/
 ---
 
-{% for category in site.categories | sort %}
+{% sorted_for category in site.categories reversed sort_by:title case_sensitive:true %}
 ## {{ category | first }}
 <ul>
     {% for posts in category %}
         {% for post in posts %}
-            <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% if post.url %}
+                <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% endif %}
         {% endfor %}
     {% endfor %}
 </ul>
