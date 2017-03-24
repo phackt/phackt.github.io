@@ -31,6 +31,7 @@ Vulnhub machines:
 In a previous post i listed all the OSCP-like Vulnhub machines: [https://phackt.com/hacking-training](https://phackt.com/hacking-training)  
   
 Also here are some useful links i gathered:  
+  
 [http://www.fuzzysecurity.com/tutorials/16.html](http://www.fuzzysecurity.com/tutorials/16.html)  
 [https://github.com/pentestmonkey/windows-privesc-check](https://github.com/pentestmonkey/windows-privesc-check)  
 [http://httpsecure.org/?works=windows-privilege-escalation-exploit](http://httpsecure.org/?works=windows-privilege-escalation-exploit)  
