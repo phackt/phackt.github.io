@@ -8,7 +8,7 @@ categories: ctf
 Hello everyone,  
   
 I'm sharing the vulnhub machines that i got.  
-I won't write any walkthrough for all of these because so many exist (you can find the links on vulnhub website).  
+I won't write any walkthrough for all of these because so many exist.  
   
 Just in case, if you don't know [vulnhub](https://www.vulnhub.com/), it's a platform owned by [g0tmi1k](https://twitter.com/g0tmi1k) and which is referencing a lot of boot2root machines. People are creating their own VMs. You will also find ones from famous CTFs.  
 It's really a good way to keep on improving our skills.  
