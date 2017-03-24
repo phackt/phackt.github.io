@@ -9,6 +9,7 @@ Les requêtes Cross-Site.
 
 Bienvenue dans ce dernier volet de notre Saga XSS ([partie 1]({{ site.url }}/xss-cors-csrf-partie-1-xss 
 ), [partie 2]({{ site.url }}/xss-cors-csrf-partie-2-xss-cookies-session)).  
+  
 Dans notre précédent article nous avions récupéré un cookie de session insuffisamment sécurisé grâce à une vulnérabilité XSS. Vous étiez nombreux dans ma tête à me demander pourquoi ce message d’erreur (ici Chrome mais le fonctionnement est identique sous IE, Firefox) :  
 
 <pre class="alert">

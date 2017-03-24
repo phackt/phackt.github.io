@@ -17,14 +17,10 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         {% for page in site.pages %}
-        {% if page.title %}
-        <li><a href="{{page.permalink | prepend: site.baseurl }}">{{page.title}}</a></li>
-
-        {% endif %}
-
+          {% if page.title %}
+            <li><a href="{{page.permalink | prepend: site.baseurl }}">{{page.title}}</a></li>
+          {% endif %}
         {% endfor %}
-
-
       </ul>
 
     <!--  <ul class="nav navbar-nav navbar-right">
