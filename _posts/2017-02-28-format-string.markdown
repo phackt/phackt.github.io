@@ -2,7 +2,7 @@
 layout: post
 title:  "Format String with GDB"
 date:   2017-02-28
-categories: reverse
+categories: binary
 ---
 <br />
 Salut à tous,  
