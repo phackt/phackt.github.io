@@ -19,7 +19,7 @@ Le but est, qu'à partir d'une page non sécurisée d'un site, nous puissions co
   
 Le stripping est effectué par le script [sslstrip.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/sslstrip.py), qui permet également de supprimer d'autres headers de sécurité, notamment les fameux cookies **secure** que nous avons abordés dans un [article précédent]({{ site.url }}/xss-cors-csrf-partie-2-xss-cookies-session).  
   
-Vous trouverez le projet full sur mon [github](https://github.com/phackt/Workshops/tree/master/mitm/http_proxy).  
+Vous trouverez le projet full et à jour (de nouvelles features apparaissent régulièrement) sur mon [github](https://github.com/phackt/mitm).  
   
 J'ai également créé un petit script python, [chk_poison.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/chk_poison.py), qui va vérifier que votre ARP poisoning est opérationnel dans les deux sens (Victime \<-\> Passerelle). N'oubliez pas que certaines protections filtrent les résolutions ARP non sollicitées.  
   
@@ -30,6 +30,8 @@ mitmproxy --anticache --host --anticomp --noapp --script ./sslstrip.py --eventlo
 ```
   
 Il convient ensuite de configurer votre navigateur avec le proxy http **127.0.0.1:8080**. **Ne mettez rien pour le proxy https**, l'objectif ici n'est pas de générer à la volée de faux certificats et donc nous ne souhaitons pas capturer le trafic chiffré.  
+  
+*UPDATES: mitm.sh permet maintenant d'injecter un payload javascript (ex Beef) dans les pages de la victime et d'effectuer une attaque de social engineering par DNS spoofing.*  
   
 **CONCLUSION:**  
   
