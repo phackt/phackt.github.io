@@ -16,8 +16,8 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        {% assign sorted_pages = site.pages | sort %}
-        {% for page in sorted_pages reversed %}
+        {% assign sorted_pages = site.pages | sort | reverse %}
+        {% for page in sorted_pages %}
           {% if page.title %}
             <li><a href="{{page.permalink | prepend: site.baseurl }}">{{page.title}}</a></li>
           {% endif %}
