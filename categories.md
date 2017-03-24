@@ -4,7 +4,7 @@ title: Categories
 permalink: /categories/
 ---
 
-{% sorted_for category in site.categories reversed sort_by:title case_sensitive:true %}
+{% for category in site.categories | sort %}
 ## {{ category | first }}
 <ul>
     {% for posts in category %}
