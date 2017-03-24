@@ -4,7 +4,8 @@ title: Categories
 permalink: /categories/
 ---
 
-{% for category in site.categories | sort %}
+{% assign sorted_cats = site.categories | sort %}
+{% for category in sorted_cats %}
 ## {{ category | first }}
 <ul>
     {% for posts in category %}
