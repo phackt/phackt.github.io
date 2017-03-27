@@ -151,6 +151,7 @@ Don't be impatient, the victim will log in a few seconds.
 In our proxy we can see the post request. Let's check the details:  
 ![pic9]({{ site.url }}/public/images/mitm-example/pic9.png)  
   
+Credentials have been stolen.  
 And from our victim, is this transparent ?:  
 ![pic10]({{ site.url }}/public/images/mitm-example/pic10.png)  
   
