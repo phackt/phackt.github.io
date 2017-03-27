@@ -160,7 +160,7 @@ A lot of people will not notice that the connection is not secure (except you in
 Is it really much more expensive to have all the pages secure ? [HSTS](https://tools.ietf.org/html/rfc6797) is also just one header in the response that can easily be added. Companies should also think to have their domain in the preload list in order to perform a 307 internal redirect from the very first request.  
 Finally we can not talk here about vulnerability, but more as a lack of responsability.   
   
-I sincerely hope you enjoyed as i liked to do this post.  
+I sincerely hope you enjoyed this post as i liked to do it.  
 Feel free to comment if you have any question, or if you find other cool domains.  
   
 Tchuss,  
