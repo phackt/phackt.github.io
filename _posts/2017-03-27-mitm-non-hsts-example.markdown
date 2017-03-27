@@ -130,14 +130,14 @@ Poisoning successful!!!
 So now we are definitely ready to intercept the trafic.  
 ![pic4]({{ site.url }}/public/images/mitm-example/pic4.png)  
   
-Now imagine than the victim is surfing on http://www.ameli.fr.  
+Now imagine that the victim is surfing on http://www.ameli.fr.  
 ![pic5]({{ site.url }}/public/images/mitm-example/pic5.png)  
   
 We see the trafic passing through the attacker machine.  
 From the victim's point of view, everything seems transparent... but notice a detail:  
 ![pic6]({{ site.url }}/public/images/mitm-example/pic6.png)  
   
-*https://assure.ameli.fr* became *http://assure.ameli.fr*. Our script will know than it will have to replay the secure connection on the other side. Now when our victim wants to access the login page:  
+*https://assure.ameli.fr* became *http://assure.ameli.fr*. Our script will know that it will have to replay the secure connection on the other side. Now when our victim wants to access the login page:  
 ![pic7]({{ site.url }}/public/images/mitm-example/pic7.png)  
   
 Everything seems ok, except.... Where is the green padlock ![padlock]({{ site.url }}/public/images/mitm-example/padlock.png) ???  
@@ -155,7 +155,7 @@ Credentials have been stolen.
 And from our victim, is this transparent ?:  
 ![pic10]({{ site.url }}/public/images/mitm-example/pic10.png)  
   
-A lot of people will not notice than the connection is not secure (except you infosec ninjas) and will keep on surfing.  
+A lot of people will not notice that the connection is not secure (except you infosec ninjas) and will keep on surfing.  
   
 Is it really much more expensive to have all the pages secure ? [HSTS](https://tools.ietf.org/html/rfc6797) is also just one header in the response and can easily be added. Companies should also think to have their domain in the preload list in order to perform a 307 internal redirect from the very first request.  
 Finally we can not talk here about vulnerability, but more as a lack of responsability.   
