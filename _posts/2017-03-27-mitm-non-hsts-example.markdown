@@ -23,7 +23,7 @@ MITM attacks still succeed if you are not protected with some soft/hardware drop
 So stop talking, go for the show:  
 ![pic1]({{ site.url }}/public/images/mitm-example/pic1.png)  
   
-We have here a non secure HTTP landing page. What happens if we click on *"Mon compte ameli"* in order to log in ?  
+We have here a non-secure HTTP landing page. What happens if we click on *"Mon compte ameli"* in order to log in ?  
 ![pic2]({{ site.url }}/public/images/mitm-example/pic2.png)  
   
 So we have a secure login page.  What about the response headers ?  
