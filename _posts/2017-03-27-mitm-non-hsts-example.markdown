@@ -133,15 +133,15 @@ So now we are definitely ready to intercept the trafic.
 Now imagine that the victim is surfing on http://www.ameli.fr.  
 ![pic5]({{ site.url }}/public/images/mitm-example/pic5.png)  
   
-We wee the trafic passing through the attacker machine.  
+We see the trafic passing through the attacker machine.  
 From the victim's point of view, everything seems transparent... but notice a detail:  
 ![pic6]({{ site.url }}/public/images/mitm-example/pic6.png)  
   
-When he wants to access the login page:  
+*https://assure.ameli.fr* became *http://assure.ameli.fr*. Our script will know that it will have to replay the secure connection on the other side. Now when our victim wants to access the login page:  
 ![pic7]({{ site.url }}/public/images/mitm-example/pic7.png)  
   
 Everything seems ok, except.... Where is the green padlock ![padlock]({{ site.url }}/public/images/mitm-example/padlock.png) ???  
-So here we are, sslstrip.py has done its job, switching every https links into http, deleting every secure headers (HSTS too, so if not cached, the attack will succeed). The script will remind what domains need a secure connection and will redo the job in a secure manner with the destination website.  
+So here we are, **sslstrip.py** has done its job, switching every https links into http, deleting every secure headers (HSTS too, so if not cached, the attack will succeed). The script will remind what domains need SSL/TLS and replay the connections in a secure manner with the destination website.  
 
 So we have **Victim <- HTTP -> Attacker (Mitmproxy) <- HTTPS -> Website**.  We can now intercept all the trafic in clear.  
   
@@ -156,8 +156,8 @@ And from our victim, is this transparent ?:
   
 A lot of people will not notice that the connection is not secure (except you infosec ninjas) and will keep on surfing.  
   
-Is it really much more expensive to have all the pages secure ? [HSTS](https://tools.ietf.org/html/rfc6797) is also just one header in the response, we can easily add it. Big companies should also think to have their domain in the preload list.  
-We can not talk here about vulnerability, but more as a lack of responsability.   
+Is it really much more expensive to have all the pages secure ? [HSTS](https://tools.ietf.org/html/rfc6797) is also just one header in the response that can easily be added. Companies should also think to have their domain in the preload list in order to perform a 307 internal redirect from the very first request.  
+Finally we can not talk here about vulnerability, but more as a lack of responsability.   
   
 I sincerely hope you enjoyed as i liked to do this post.  
 Feel free to comment if you have any question, or if you find other cool domains.  
