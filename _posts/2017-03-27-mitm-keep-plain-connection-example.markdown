@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "MITM, HSTS, and HTTP landing page in practice"
+title:  "MITM, HSTS, and plain HTTP landing page in practice"
 date:   2017-03-27
 categories: mitm
 ---
