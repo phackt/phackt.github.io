@@ -137,7 +137,8 @@ We see the trafic passing through the attacker machine.
 From the victim's point of view, everything seems transparent... but notice a detail:  
 ![pic6]({{ site.url }}/public/images/mitm-example/pic6.png)  
   
-*https://assure.ameli.fr* became *http://assure.ameli.fr*. Our script will know that it will have to replay the secure connection on the other side. Now when our victim wants to access the login page:  
+*https://assure.ameli.fr* became *http://assure.ameli.fr*.  
+Our script will know that it will have to replay the secure connection on the other side. Now when our victim wants to access the login page:  
 ![pic7]({{ site.url }}/public/images/mitm-example/pic7.png)  
   
 Everything seems ok, except.... Where is the green padlock ![padlock]({{ site.url }}/public/images/mitm-example/padlock.png) ???  
@@ -159,6 +160,18 @@ A lot of people will not notice that the connection is not secure (except you in
   
 Is it really much more expensive to have all the pages secure ? [HSTS](https://tools.ietf.org/html/rfc6797) is also just one header in the response and can easily be added. Companies should also think to have their domain in the preload list in order to perform a 307 internal redirect from the very first request.  
 Finally we can not talk here about vulnerability, but more as a lack of responsability.   
+  
+You also can play with the other options of **mitm.sh**:  
+```bash
+Usage: ./mitm.sh [-g] [-n] [-s] [-x] [-j] <js payload url> [-d] [-i] <interface> gateway_ip target_ip
+       [-g] interactive mode for mitmproxy
+       [-n] capture HTTP traffic
+       [-s] capture HTTPS traffic
+       [-x] stripping https
+       [-j] inject js payload
+       [-d] dnsspoof + setoolkit
+       [-i] interface
+```
   
 I sincerely hope you enjoyed this post as i liked to do it.  
 Feel free to comment if you have any question, or if you find other cool domains.  
