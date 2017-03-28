@@ -157,6 +157,7 @@ And from our victim, is this transparent ?:
 ![pic10]({{ site.url }}/public/images/mitm-example/pic10.png)  
   
 A lot of people will not notice that the connection is not secure (except you infosec ninjas) and will keep on surfing.  
+So since you are clicking on http://banksite.com, if HSTS has not been cached for the domain banksite.com (best to use the preload list), you can keep plain connection because our proxy will strip the redirection to **https**://banksite.com into **http**://banksite.com and will act as we just seen above.  
   
 Is it really much more expensive to have all the pages secure ? [HSTS](https://tools.ietf.org/html/rfc6797) is also just one header in the response and can easily be added. Companies should also think to have their domain in the preload list in order to perform a 307 internal redirect from the very first request.  
 Finally we can not talk here about vulnerability, but more as a lack of responsability.   
@@ -172,7 +173,9 @@ Usage: ./mitm.sh [-g] [-n] [-s] [-x] [-j] <js payload url> [-d] [-i] <interface>
        [-d] dnsspoof + setoolkit
        [-i] interface
 ```
-
+  
+N.B: i contacted the webmaster i will let you know.  
+  
 I sincerely hope you enjoyed this post as i liked to do it.  
 Feel free to comment if you have any question, or if you find other cool domains.  
   
@@ -183,3 +186,4 @@ References:
  - [https://github.com/phackt/mitm](https://github.com/phackt/mitm)  
  - [https://nmap.org/nsedoc/scripts/http-hsts-verify.html](https://nmap.org/nsedoc/scripts/http-hsts-verify.html)  
  - [https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet)  
+
