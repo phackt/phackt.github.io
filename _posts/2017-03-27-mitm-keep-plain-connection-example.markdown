@@ -183,4 +183,3 @@ References:
  - [https://github.com/phackt/mitm](https://github.com/phackt/mitm)  
  - [https://nmap.org/nsedoc/scripts/http-hsts-verify.html](https://nmap.org/nsedoc/scripts/http-hsts-verify.html)  
  - [https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet)  
-
