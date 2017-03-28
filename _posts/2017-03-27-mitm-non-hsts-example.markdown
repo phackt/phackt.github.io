@@ -138,7 +138,7 @@ From the victim's point of view, everything seems transparent... but notice a de
 ![pic6]({{ site.url }}/public/images/mitm-example/pic6.png)  
   
 *https://assure.ameli.fr* became *http://assure.ameli.fr*.  
-Our script will know that it will have to replay the secure connection on the other side. Now when our victim wants to access the login page:  
+Our script will know that it will have to replay the secure connection on the other side. Now when our victim wants to access the login page:  
 ![pic7]({{ site.url }}/public/images/mitm-example/pic7.png)  
   
 Everything seems ok, except.... Where is the green padlock ![padlock]({{ site.url }}/public/images/mitm-example/padlock.png) ???  
@@ -172,7 +172,7 @@ Usage: ./mitm.sh [-g] [-n] [-s] [-x] [-j] <js payload url> [-d] [-i] <interface>
        [-d] dnsspoof + setoolkit
        [-i] interface
 ```
-  
+
 I sincerely hope you enjoyed this post as i liked to do it.  
 Feel free to comment if you have any question, or if you find other cool domains.  
   
