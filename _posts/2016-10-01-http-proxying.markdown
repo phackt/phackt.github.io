@@ -33,7 +33,7 @@ Il convient ensuite de configurer votre navigateur avec le proxy http **127.0.0.
   
 *UPDATES: mitm.sh permet également d'injecter un payload javascript (ex Beef) dans les pages de la victime et d'effectuer une attaque de social engineering par DNS spoofing.  
   
-Voir un example du projet sur ce post: [https://phackt.com/mitm-non-hsts-example](https://phackt.com/mitm-non-hsts-example)*  
+Voir un exemple du projet et de l'attaque sur ce post: [https://phackt.com/mitm-non-hsts-example](https://phackt.com/mitm-non-hsts-example)*  
   
 **CONCLUSION:**  
   
