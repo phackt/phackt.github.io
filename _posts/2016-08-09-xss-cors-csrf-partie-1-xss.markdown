@@ -102,4 +102,7 @@ Les attaques possibles sont nombreuses sur une application web, nous avons mis e
   
 A bientôt!  
   
-### [PARTIE 2](https://phackt.com/xss-cors-csrf-partie-2-xss-cookies-session)
+### [PARTIE 2](https://phackt.com/xss-cors-csrf-partie-2-xss-cookies-session)  
+  
+Références:
+ - [http://stackoverflow.com/questions/2147958/how-do-i-prevent-people-from-doing-xss-in-spring-mvc](http://stackoverflow.com/questions/2147958/how-do-i-prevent-people-from-doing-xss-in-spring-mvc)
