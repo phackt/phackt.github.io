@@ -44,7 +44,17 @@ Cependant ce code peut être stocké de façon permanente dans les attaques XSS 
 Comment s’en prémunir ? 
 ====
   
-Il faut traiter coté serveur les paramètres passés aux requêtes HTTP et échapper les caractères spéciaux HTML.  
+Il convient d'assainir en entrée les données (Filter) et d'encoder l'information pour les réponses HTTP. Tout dépend du langage de programmation, framework utilisé, et également de l'endroit où se situe point d'injection.  
+  
+Par exemple si vous travaillez avec Spring MVC:
+```
+<context-param>
+   <param-name>defaultHtmlEscape</param-name>
+   <param-value>true</param-value>
+</context-param>
+```
+  
+Cependant ceci n'échappera que les Spring tags: ```<form:input path="formField" htmlEscape="true" />```  
   
 Si vous codez des pages JSP :  
 
@@ -70,7 +80,7 @@ Il convient également de configurer l'ajout du header **[Content-Security-Polic
 Si vous utilisez une autre technologie ou framework, pensez à inclure ces response headers en fonction de vos besoins.  
   
 Pensez également à sécuriser vos **cookies session**. Les requêtes XSS ont pour objectif le vol de ces cookies. Stipulez au navigateur que ce dernier ne peut pas y accéder via javascript (flag **HttpOnly**). Pour un site HTTPS, ces derniers ne doivent pas être accessibles sur des connexions non cryptées (flag **Secure**): [https://tools.ietf.org/html/rfc6265#section-5.2.4](https://tools.ietf.org/html/rfc6265#section-5.2.4).
-
+  
 Des outils pour vos développements sécurisés 
 ====
   
