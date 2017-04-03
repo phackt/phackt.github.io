@@ -64,7 +64,8 @@ Si vous utilisez la couche **Spring Security** (ce qui a été mon cas ;)), le f
   
  - **X-Frame-Options**: Spécifie au navigateur qu'une page ne peut être rendue dans un ```<frame>```, ```<iframe>``` ou ```<object>```.  
   
-Ces headers, ainsi que HTTP **Strict-Transport-Security** (abrégé HSTS – oblige le navigateur à requêter sur du HTTPS, utile pour lutter contre le blocage des connexions sécurisées HTTPS avec des outils comme sslstrip lors d'attaques "Man In The Middle"), ou **Content-Security-Policy** (requêtes Cross-Origin) sont par défaut inclus et activés dans la couche Spring Security ([Spring Security Headers](http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html "http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html")).  
+Ces headers, ainsi que HTTP **Strict-Transport-Security** (abrégé HSTS – oblige le navigateur à requêter sur du HTTPS, utile pour lutter contre le blocage des connexions sécurisées HTTPS avec des outils comme sslstrip lors d'attaques "Man In The Middle"), ou **Cache-Control** sont par défaut inclus et activés dans la couche Spring Security ([Spring Security Headers](http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html "http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html")).  
+Il convient également de configurer l'ajout du header **[Content-Security-Policy](https://www.w3.org/TR/CSP/)** qui propose de nombreuses directives de sécurité.  
   
 Si vous utilisez une autre technologie ou framework, pensez à inclure ces response headers en fonction de vos besoins.  
   
