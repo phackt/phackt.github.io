@@ -46,7 +46,7 @@ Comment s’en prémunir ?
   
 Il convient d'assainir en entrée les données (Filter) et d'encoder l'information pour les réponses HTTP. Tout dépend du langage de programmation, framework utilisé, et également de l'endroit où se situe point d'injection.  
   
-Par exemple si vous travaillez avec Spring MVC:
+Par exemple si vous travaillez avec Spring MVC pour échapper les outputs:
 ```
 <context-param>
    <param-name>defaultHtmlEscape</param-name>
@@ -54,7 +54,7 @@ Par exemple si vous travaillez avec Spring MVC:
 </context-param>
 ```
   
-Cependant ceci n'échappera que les Spring tags: ```<form:input path="formField" htmlEscape="true" />```  
+Cependant ceci n'échappera que les Spring tags: ```<form:input path="formField" htmlEscape="true" />``` ou bien ```<spring:message code="label.name.first">```  
   
 Si vous codez des pages JSP :  
 
