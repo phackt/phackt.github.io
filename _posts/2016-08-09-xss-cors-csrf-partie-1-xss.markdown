@@ -81,6 +81,7 @@ Si vous utilisez une autre technologie ou framework, pensez à inclure ces respo
   
 Pensez également à sécuriser vos **cookies session**. Les requêtes XSS ont pour objectif le vol de ces cookies. Stipulez au navigateur que ce dernier ne peut pas y accéder via javascript (flag **HttpOnly**). Pour un site HTTPS, ces derniers ne doivent pas être accessibles sur des connexions non cryptées (flag **Secure**): [https://tools.ietf.org/html/rfc6265#section-5.2.4](https://tools.ietf.org/html/rfc6265#section-5.2.4).
   
+  
 Des outils pour vos développements sécurisés 
 ====
   
