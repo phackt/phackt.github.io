@@ -66,7 +66,7 @@ Usage: ./mitm.sh [-g] [-n] [-s] [-x] [-j] <js payload url> [-d] [-i] <interface>
   
 We are almost ready for our mitm attack. We will specify the interactive mode (mitmproxy GUI), the capture HTTP traffic mode only (not faking certificates) and we will apply our custom **sslstrip.py** script.  
   
-If you check in details my github repo [https://github.com/phackt/mitm](https://github.com/phackt/mitm), you will find a **bin** folder with some others tools:  
+If you check the **bin** folder, you will find these tools:  
  - **arpoison.sh** to automate ARP poisoning  
  - **chk_poison.py** which will check if an ARP poisoning is successful  
   
