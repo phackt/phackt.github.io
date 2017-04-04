@@ -197,7 +197,7 @@ Ensuite on teste:
 ![fmt13]({{ site.url }}/public/images/fmt/fmt13.png)  
 un rapide calcul nous montre qu'il nous reste **63 bytes** pour notre shellcode. 
   
-Allons faire notre marché sur [shell-storm](http://shell-storm.org/shellcode/) (cocorico!).  
+Allons faire notre marché sur [shell-storm](http://shell-storm.org/shellcode/).  
 Celui la est fun: [http://shell-storm.org/shellcode/files/shellcode-872.php](http://shell-storm.org/shellcode/files/shellcode-872.php).  
 Il s'agit d'un shellcode qui appelle netcat (/bin/nc) et bind le port 17771 pour le rediriger sur /bin/sh.  
   
