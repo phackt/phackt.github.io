@@ -26,7 +26,7 @@ Vulnhub machines:
   - [SpyderSec](https://www.vulnhub.com/entry/spydersec-challenge,128/) - Intermediate
   - [Moria](http://www.abatchy.com/2017/03/moria-boot2root-vm.html) - Intermediate
   - [SmashTheTux: 1.0.1](https://www.vulnhub.com/entry/smashthetux-101,138/) *Good for Stack/Off-By-One/Integer/FM Overflow and so on* - Intermediate
-  - [DC416: Basement](https://www.vulnhub.com/entry/dc416-2016,168/) *(VMs for DefCon Toronto's first offline CTF)* - *4/5 flags* - Intermediate+  
+  - [DC416: Basement](https://www.vulnhub.com/entry/dc416-2016,168/) *(VMs for DefCon Toronto's first offline CTF)* - Intermediate+  
   
 In a previous post i listed all the OSCP-like Vulnhub machines: [https://phackt.com/hacking-training](https://phackt.com/hacking-training)  
   
@@ -53,7 +53,7 @@ Also here are some useful links i gathered:
 [http://www.securitytube.net/](http://www.securitytube.net/)  
 [http://www.pentesteracademy.com/](http://www.pentesteracademy.com/)  
   
-You also can find more infosec stuff on my [github](https://github.com/phackt/pentest).  
+You also can find more infosec stuff on my [github](https://github.com/phackt/).  
   
 Phackt.  
   
