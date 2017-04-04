@@ -17,11 +17,11 @@ victime <-- HTTP --> mitmproxy <-- HTTPS --> website
   
 Le but est, qu'à partir d'une page non sécurisée d'un site, nous puissions continuer en proposant à notre victime une connexion en clair (http) pour analyser son trafic, mais que notre proxy rétablisse la connexion sécurisée avec le site concerné. Cette attaque ne pourra pas aboutir sur des sites implémentant le [HSTS](https://https.cio.gov/hsts/) (sauf si l'utilisateur ne s'est jamais connecté au site et que le HSTS n'est pas préchargé).  
   
-Le stripping est effectué par le script [sslstrip.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/sslstrip.py), qui permet également de supprimer d'autres headers de sécurité, notamment les fameux cookies **secure** que nous avons abordés dans un [article précédent]({{ site.url }}/xss-cors-csrf-partie-2-xss-cookies-session).  
+Le stripping est effectué par le script [sslstrip.py](https://github.com/phackt/mitm/blob/master/script/sslstrip.py), qui permet également de supprimer d'autres headers de sécurité, notamment les fameux cookies **secure** que nous avons abordés dans un [article précédent]({{ site.url }}/xss-cors-csrf-partie-2-xss-cookies-session).  
   
 Vous trouverez le projet full et à jour (de nouvelles features apparaissent régulièrement) sur mon [github](https://github.com/phackt/mitm).  
   
-J'ai également créé un petit script python, [chk_poison.py](https://github.com/phackt/Workshops/blob/master/mitm/http_proxy/chk_poison.py), qui va vérifier que votre ARP poisoning est opérationnel dans les deux sens (Victime \<-\> Passerelle). N'oubliez pas que certaines protections filtrent les résolutions ARP non sollicitées.  
+J'ai également créé un petit script python, [chk_poison.py](https://github.com/phackt/mitm/blob/master/bin/chk_poison.py), qui va vérifier que votre ARP poisoning est opérationnel dans les deux sens (Victime \<-\> Passerelle). N'oubliez pas que certaines protections filtrent les résolutions ARP non légitimes.  
   
 Vous pouvez tester mitmproxy sans attaque MITM, en l'utilisant en mode [Regular](http://docs.mitmproxy.org/en/stable/modes.html). La commande sera la suivante:  
 
@@ -33,7 +33,7 @@ Il convient ensuite de configurer votre navigateur avec le proxy http **127.0.0.
   
 *UPDATES: mitm.sh permet également d'injecter un payload javascript (ex Beef) dans les pages de la victime et d'effectuer une attaque de social engineering par DNS spoofing.  
   
-Voir un exemple du projet et de l'attaque sur ce post: [https://phackt.com/mitm-non-hsts-example](https://phackt.com/mitm-non-hsts-example)*  
+Voir un exemple du projet et de l'attaque sur ce post: [https://phackt.com/mitm-non-hsts-example](https://phackt.com/mitm-keep-plain-connection-example)*  
   
 **CONCLUSION:**  
   
