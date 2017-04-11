@@ -176,6 +176,8 @@ Usage: ./mitm.sh [-g] [-n] [-s] [-x] [-j] <js payload url> [-d] [-i] <interface>
   
 N.B: i contacted the webmaster i will let you know.  
   
+You should try this kind of Google Dork: [-inurl:https online banking (log OR logon OR login OR account)](https://www.google.com/#q=-inurl:https+online+banking+(log+OR+logon+OR+login+OR+account))  
+  
 I sincerely hope you enjoyed this post as i liked to do it.  
 Feel free to comment if you have any question, or if you find other cool domains.  
   
