@@ -44,7 +44,7 @@ PORT    STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 0.65 seconds
 ```
   
-I created a wrapper script to manage all the tools involved in the MITM attack. My advice is to run it on a Kali machine. However it will automatically download the web proxy that we will use ([Mitmproxy](https://mitmproxy.org/)).  
+I created a wrapper [script](https://github.com/phackt/mitm) to manage all the tools involved in the MITM attack. My advice is to run it on a Kali machine. However it will automatically download the web proxy that we will use ([Mitmproxy](https://mitmproxy.org/)).  
   
 ```bash
 root@kali:/tmp$ git clone https://github.com/phackt/mitm.git && cd ./mitm
@@ -66,7 +66,7 @@ Usage: ./mitm.sh [-g] [-n] [-s] [-x] [-j] <js payload url> [-d] [-i] <interface>
   
 We are almost ready for our mitm attack. We will specify the interactive mode (mitmproxy GUI), the capture HTTP traffic mode only (not faking certificates) and we will apply our custom **sslstrip.py** script.  
   
-If you check in details my github repo [https://github.com/phackt/mitm](https://github.com/phackt/mitm), you will find a **bin** folder with some others tools:  
+If you check the **bin** folder, you will find these tools:  
  - **arpoison.sh** to automate ARP poisoning  
  - **chk_poison.py** which will check if an ARP poisoning is successful  
   
@@ -130,7 +130,7 @@ Poisoning successful!!!
 So now we are definitely ready to intercept the trafic.  
 ![pic4]({{ site.url }}/public/images/mitm-example/pic4.png)  
   
-Now imagine that the victim is surfing on http://www.ameli.fr.  
+Now imagine that the victim is surfing on [http://www.ameli.fr](http://www.ameli.fr).  
 ![pic5]({{ site.url }}/public/images/mitm-example/pic5.png)  
   
 We see the trafic passing through the attacker machine.  
@@ -159,7 +159,7 @@ And from our victim, is this transparent ?:
 A lot of people will not notice that the connection is not secure (except you infosec ninjas) and will keep on surfing.  
 So since you are clicking on http://banksite.com, if HSTS has not been cached for the domain banksite.com (best to use the preload list), you can keep plain connection because our proxy will strip the redirection to **https**://banksite.com into **http**://banksite.com and will act as we just seen above.  
   
-Is it really much more expensive to have all the pages secure ? [HSTS](https://tools.ietf.org/html/rfc6797) is also just one header in the response and can easily be added. Companies should also think to have their domain in the preload list in order to perform a 307 internal redirect from the very first request.  
+Is it really much more expensive to have all the pages secure ? [HSTS](https://tools.ietf.org/html/rfc6797) is also just one header in the response and can easily be added. Companies should also think to have their domain in the preload list in order to perform a 307 internal redirect from the very first request. Here is the [HSTS preload list submission form](https://hstspreload.org/).  
 Finally we can not talk here about vulnerability, but more as a lack of responsability.   
   
 You also can play with the other options of **mitm.sh**:  
@@ -175,6 +175,8 @@ Usage: ./mitm.sh [-g] [-n] [-s] [-x] [-j] <js payload url> [-d] [-i] <interface>
 ```
   
 N.B: i contacted the webmaster i will let you know.  
+  
+You should try this kind of Google Dork: [-inurl:https online banking (log OR logon OR login OR account)](https://www.google.com/#q=-inurl:https+online+banking+(log+OR+logon+OR+login+OR+account))  
   
 I sincerely hope you enjoyed this post as i liked to do it.  
 Feel free to comment if you have any question, or if you find other cool domains.  

@@ -44,7 +44,17 @@ Cependant ce code peut être stocké de façon permanente dans les attaques XSS 
 Comment s’en prémunir ? 
 ====
   
-Il faut traiter coté serveur les paramètres passés aux requêtes HTTP et échapper les caractères spéciaux HTML.  
+Il convient d'assainir en entrée les données (Filter) et d'encoder l'information pour les réponses HTTP. Tout dépend du langage de programmation, framework utilisé, et également de l'endroit où se situe point d'injection.  
+  
+Par exemple si vous travaillez avec Spring MVC pour échapper les outputs:
+```
+<context-param>
+   <param-name>defaultHtmlEscape</param-name>
+   <param-value>true</param-value>
+</context-param>
+```
+  
+Cependant ceci n'échappera que les Spring tags: ```<form:input path="formField" htmlEscape="true" />``` ou bien ```<spring:message code="label.name.first">```  
   
 Si vous codez des pages JSP :  
 
@@ -64,12 +74,14 @@ Si vous utilisez la couche **Spring Security** (ce qui a été mon cas ;)), le f
   
  - **X-Frame-Options**: Spécifie au navigateur qu'une page ne peut être rendue dans un ```<frame>```, ```<iframe>``` ou ```<object>```.  
   
-Ces headers, ainsi que HTTP **Strict-Transport-Security** (abrégé HSTS – oblige le navigateur à requêter sur du HTTPS, utile pour lutter contre le blocage des connexions sécurisées HTTPS avec des outils comme sslstrip lors d'attaques "Man In The Middle"), ou **Content-Security-Policy** (requêtes Cross-Origin) sont par défaut inclus et activés dans la couche Spring Security ([Spring Security Headers](http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html "http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html")).  
+Ces headers, ainsi que HTTP **Strict-Transport-Security** (abrégé HSTS – oblige le navigateur à requêter sur du HTTPS, utile pour lutter contre le blocage des connexions sécurisées HTTPS avec des outils comme sslstrip lors d'attaques "Man In The Middle"), ou **Cache-Control** sont par défaut inclus et activés dans la couche Spring Security ([Spring Security Headers](http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html "http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html")).  
+Il convient également d'ajouter le header **[Content-Security-Policy](https://www.w3.org/TR/CSP/)** qui propose de nombreuses directives de sécurité définissant  quelles ressources peuvent être chargées et exécutées par le browser.  
   
 Si vous utilisez une autre technologie ou framework, pensez à inclure ces response headers en fonction de vos besoins.  
   
 Pensez également à sécuriser vos **cookies session**. Les requêtes XSS ont pour objectif le vol de ces cookies. Stipulez au navigateur que ce dernier ne peut pas y accéder via javascript (flag **HttpOnly**). Pour un site HTTPS, ces derniers ne doivent pas être accessibles sur des connexions non cryptées (flag **Secure**): [https://tools.ietf.org/html/rfc6265#section-5.2.4](https://tools.ietf.org/html/rfc6265#section-5.2.4).
-
+  
+  
 Des outils pour vos développements sécurisés 
 ====
   
@@ -91,4 +103,8 @@ Les attaques possibles sont nombreuses sur une application web, nous avons mis e
   
 A bientôt!  
   
-### [PARTIE 2](https://phackt.com/xss-cors-csrf-partie-2-xss-cookies-session)
+### [PARTIE 2](https://phackt.com/xss-cors-csrf-partie-2-xss-cookies-session)  
+  
+Références:
+ - [http://stackoverflow.com/questions/2147958/how-do-i-prevent-people-from-doing-xss-in-spring-mvc](http://stackoverflow.com/questions/2147958/how-do-i-prevent-people-from-doing-xss-in-spring-mvc)
+ - [https://jsoup.org/](https://jsoup.org/)

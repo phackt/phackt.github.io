@@ -197,7 +197,7 @@ Ensuite on teste:
 ![fmt13]({{ site.url }}/public/images/fmt/fmt13.png)  
 un rapide calcul nous montre qu'il nous reste **63 bytes** pour notre shellcode. 
   
-Allons faire notre marché sur [shell-storm](http://shell-storm.org/shellcode/) (cocorico!).  
+Allons faire notre marché sur [shell-storm](http://shell-storm.org/shellcode/).  
 Celui la est fun: [http://shell-storm.org/shellcode/files/shellcode-872.php](http://shell-storm.org/shellcode/files/shellcode-872.php).  
 Il s'agit d'un shellcode qui appelle netcat (/bin/nc) et bind le port 17771 pour le rediriger sur /bin/sh.  
   
@@ -212,7 +212,7 @@ Du coté de notre shellcode:
 ![fmt16]({{ site.url }}/public/images/fmt/fmt16.png)  
 Nous pouvons donc en conclure qu'à partir d'un simple appel *printf*, il a été possible d'exécuter un bind shell. Bien évidemment ceci est un cas d'école et a été possible grâce à la désactivation de l'ASLR, rendant ainsi nos adresses prédictibles.
 
-Pour conclure, si vous rencontrez un souci entre l'exécution dans l'environnement gdb et votre shell, voici une réponse: [https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it](https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it). Assurez-vous que les environnements soient strictement identiques.
+Pour conclure, si vous rencontrez un souci entre l'exécution dans l'environnement gdb et votre shell, voici une réponse: [https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it](https://stackoverflow.com/questions/17775186/buffer-overflow-works-in-gdb-but-not-without-it). Assurez-vous que les environnements soient strictement identiques. Ce [script](https://github.com/hellman/fixenv) peut également vous aider à avoir le même environnement avec/sans debugging.  
   
 N'hésitez pas à me contacter ou à laisser un com.  
 See Ya!  
