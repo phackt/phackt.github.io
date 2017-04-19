@@ -20,7 +20,7 @@ So let's rumble!
 Code is available on my [github repo](https://github.com/phackt/slae/tree/master/assignment1).  
   
 **Our Goal:**  
-> *Create a Shell_Bind_TCP shellcode executing:*
+> *Create a Shell_Bind_TCP shellcode:*
  - *binds to a port that should be easily configurable*
  - *executes shell on incoming connection*
  - *easily configure the listening port*
