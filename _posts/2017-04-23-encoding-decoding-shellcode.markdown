@@ -168,6 +168,7 @@ Remember that running our shellcode thanks to shellcode.c is useful because our 
 If we directly execute the shellcode_decoder executable, it will result in a segmentation fault because it will try to rewrite the EncodedShellcode variable located in the non writable .text segment (also useful to use the jmp/call/pop technique in order to avoid null bytes and to dynamically get the address of our encoded shellcode).  
   
 We did not test it on [VirusTotal](https://www.virustotal.com/) in order to avoid the fingerprinting of the encoding scheme.  
+  
 Hope you enjoyed this post, don't hesitate to comment and share.  
   
 [Phackt](https://twitter.com/phackt_ul)
