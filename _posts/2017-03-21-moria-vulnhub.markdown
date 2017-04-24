@@ -10,6 +10,8 @@ Hello everyone,
 This time i would like to share with you a write-up about the Moria's VM.  
 Big up to [@abatchy](http://www.abatchy.com/) for creating and sharing this one!  
   
+VM could be found [here](https://www.vulnhub.com/entry/moria-1,187/).  
+  
 So let's start, what do we have over here:  
   
 ### SCANNING:  
