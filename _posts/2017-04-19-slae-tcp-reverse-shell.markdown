@@ -72,7 +72,7 @@ Ncat: Listening on 0.0.0.0:8080
   
 Let's connect:  
 ```bash
-gcc -fno-stack-protector -z execstack -o shell_reverse_tcp shell_reverse_tcp.c && ./shell_reverse_tcp
+# gcc -fno-stack-protector -z execstack -o shell_reverse_tcp shell_reverse_tcp.c && ./shell_reverse_tcp
 
 ```
    
@@ -335,7 +335,7 @@ We are pushing the *dl* byte register in replacement of a null byte.
   
 So now let's confirm that the generated nasm source file leads to a working shellcode once compiled thanks to [shellcode.c](https://github.com/phackt/slae/tree/master/assignment2/shellcode.c):  
 ```bash
-gcc -fno-stack-protector -z execstack -o shellcode shellcode.c && ./shellcode 
+# gcc -fno-stack-protector -z execstack -o shellcode shellcode.c && ./shellcode 
 Shellcode Length: 106
 
 ```
