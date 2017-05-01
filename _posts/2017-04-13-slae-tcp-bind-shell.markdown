@@ -13,6 +13,12 @@ Hello everybody,
   
 Here we are for a new set of posts dealing with the exam of the great course [Assembly Language and Shellcoding on Linux](http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/). Thanks to Vivek Ramachandran and his team for all of this work.  
   
+For information, the SLAE course has been performed on a 32bits Kali environment:  
+```bash
+# uname -a
+Linux kali 4.6.0-kali1-686 #1 SMP Debian 4.6.4-1kali1 (2016-07-21) i686 GNU/Linux
+```
+  
 So let's rumble!  
   
 ## Assignment 1:  
