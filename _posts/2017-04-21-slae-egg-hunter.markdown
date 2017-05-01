@@ -198,7 +198,7 @@ next_addr:
   
 Replacing the egg hunter in our [shellcode_heap.c](https://github.com/phackt/slae/blob/master/assignment3/shellcode_heap.c) with the above egg hunter shellcode, compiling and executing provides:  
 ```bash
-# gcc -o shellcode_heap shellcode_heap.c  && ./shellcode_heap
+# gcc -fno-stack-protector -z execstack -o shellcode_heap shellcode_heap.c  && ./shellcode_heap
 Egg hunter shellcode Length:  34
 Egg shellcode Length:  74
 # id  
@@ -222,7 +222,7 @@ unsigned char buf[] =
   
 Let's compile and execute shellcode_heap.c:  
 ```bash
-gcc -o shellcode_heap shellcode_heap.c  && ./shellcode_heap
+gcc -fno-stack-protector -z execstack -o shellcode_heap shellcode_heap.c  && ./shellcode_heap
 Egg hunter shellcode Length:  34
 Egg shellcode Length:  99
 

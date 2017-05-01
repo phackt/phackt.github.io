@@ -117,7 +117,7 @@ int main() {
   
 Let's compile and run our TEA crypter:  
 ```bash
-# gcc -o tea_crypter tea_crypter.c && chmod u+x ./tea_crypter && ./tea_crypter
+# gcc -fno-stack-protector -z execstack -o tea_crypter tea_crypter.c && chmod u+x ./tea_crypter && ./tea_crypter
 Ciphered shellcode size: 25
 Ciphered shellcode:
 \x75\xac\xf4\x4c\x4f\x97\x9a\x0a\x92\xb5\x29\x5f\x9e\xa3\xa0\x53\xa7\xa9\xcd\x3c\x6f\x85\xee\x95\x80
@@ -183,7 +183,7 @@ int main() {
   
 Then:  
 ```bash
-# gcc -o tea_crypter tea_crypter.c && chmod u+x ./tegcc -o tea_decrypter tea_decrypter.c && chmod u+x ./tea_decrypter && ./tea_decrypter
+# gcc -fno-stack-protector -z execstack -o tea_crypter tea_crypter.c && chmod u+x ./tegcc -fno-stack-protector -z execstack -o tea_decrypter tea_decrypter.c && chmod u+x ./tea_decrypter && ./tea_decrypter
 Decrypted shellcode:
 \x75\xac\xf4\x4c\x4f\x97\x9a\x0a\x92\xb5\x29\x5f\x9e\xa3\xa0\x53\xa7\xa9\xcd\x3c\x6f\x85\xee\x95\x80
 Running shellcode...

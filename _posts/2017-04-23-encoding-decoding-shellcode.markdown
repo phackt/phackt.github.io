@@ -56,7 +56,7 @@ _start:
   
 Testing the execve stack shellcode provides a /bin/bash prompt indeed:  
 ```bash
-# gcc -o shellcode shellcode.c  && ./shellcode
+# gcc -fno-stack-protector -z execstack -o shellcode shellcode.c  && ./shellcode
 Shellcode Length:  30
 root@kali:/root/Documents/pentest/certs/slae/exam/assignment4# id
 uid=0(root) gid=0(root) groups=0(root)

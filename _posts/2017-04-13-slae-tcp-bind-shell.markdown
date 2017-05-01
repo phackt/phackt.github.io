@@ -19,6 +19,13 @@ For information, the SLAE course has been performed on a 32bits Kali environment
 Linux kali 4.6.0-kali1-686 #1 SMP Debian 4.6.4-1kali1 (2016-07-21) i686 GNU/Linux
 ```
   
+We recommend to run the commands on a 32bits environment. Otherwise you should adapt them:  
+```bash
+nasm -f elf32 -o $1.o $1.nasm
+ld -m elf_i386 -o $1 $1.o
+gcc -fno-stack-protector -z execstack -m32 -o shellcode shellcode.c
+```
+  
 So let's rumble!  
   
 ## Assignment 1:  
@@ -81,7 +88,7 @@ int main(void)
   
 Let's test it:  
 ```bash
-gcc -ggdb -o shell-bind-tcp shell-bind-tcp.c
+gcc -fno-stack-protector -z execstack -ggdb -o shell-bind-tcp shell-bind-tcp.c
 ./shell-bind-tcp
 
 
@@ -300,7 +307,7 @@ objdump -d ./shell_bind_tcp|grep '[0-9a-f]:'|grep -v 'file'|cut -f2 -d:|cut -f1-
   
 Let's execute it in [shellcode.c](https://github.com/phackt/slae/blob/master/assignment1/shellcode.c):  
 ```bash
-gcc -o shellcode shellcode.c && ./shellcode
+gcc -fno-stack-protector -z execstack -o shellcode shellcode.c && ./shellcode
 ```
   
 Then from another shell:  

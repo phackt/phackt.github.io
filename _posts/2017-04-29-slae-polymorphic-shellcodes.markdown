@@ -147,7 +147,7 @@ Let's compile our polymorphic shellcode:
   
 Let's run it into [shellcode.c](https://github.com/phackt/slae/tree/master/assignment6/execve/shellcode.c):  
 ```bash
-# gcc -o shellcode shellcode.c && ./shellcode
+# gcc -fno-stack-protector -z execstack -o shellcode shellcode.c && ./shellcode
 Shellcode Length:  73
 # id
 uid=0(root) gid=0(root) groups=0(root)
@@ -161,7 +161,7 @@ For this second shellcode let's have a look at a [shellcode](http://shell-storm.
     
 Let's compile and debug thanks to gdb:  
 ```bash
-# gcc -o unlink unlink.c && chmod u+x ./unlink && ./unlink
+# gcc -fno-stack-protector -z execstack -o unlink unlink.c && chmod u+x ./unlink && ./unlink
 Shellcode Length: 35
 # ls -lrt /etc/passwd*
 -rw------- 1 0 root 3025 mars   1 21:47 /etc/passwd-
