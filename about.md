@@ -9,7 +9,7 @@ Welcome on this blog dealing with posts about development and computer security.
 **Who is the dude?**
   
 I'm a web applications developper for several years and infosec fanatic since i was a teenager.  
-For the french dudes, may be HZV, Hackademy Mag & School, Zataz, NDH sounds familiar ;).
+For the french dudes, may be HZV, Hackademy Mag & School, Zataz, NDH sounds familiar.
 ```
   _____        _             _ _
  | ____|_ __  (_) ___  _   _| | |
