@@ -136,7 +136,7 @@ Running and executing it:
 ```bash
 # ./shellcode_heap
 Egg hunter shellcode Length:  18
-Egg shellcode Length:  4
+Egg shellcode Length:  74
 Erreur de segmentation
 ```
   
