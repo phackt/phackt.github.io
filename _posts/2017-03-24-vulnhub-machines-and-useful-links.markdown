@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Vulnhub machines and useful links"
+title:  "Vulnhub machines pwned and useful links"
 date:   2017-03-24
 categories: ctf
 ---
@@ -15,7 +15,7 @@ It's really a good way to keep on improving our skills.
   
 Here is the list that will continuously evolve. Of course if you need some information that you did not find in any existing write-ups, feel free to contact me.  
   
-Vulnhub machines:  
+Vulnhub machines pwned:  
   
   - [Kioptrix 2014](https://www.vulnhub.com/entry/kioptrix-2014-5,62/) - Beginner/Intermediate
   - [Kioptrix #1](https://www.vulnhub.com/entry/kioptrix-level-1-1,22/) - Beginner/Intermediate
