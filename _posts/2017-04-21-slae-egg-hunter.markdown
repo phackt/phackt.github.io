@@ -87,15 +87,15 @@ void main()
 Let's run our egg hunter:    
 ![image1]({{ site.url }}/public/images/slae/assignment3/image1.png)  
   
-Perfect, but why did it work ?  In our shellcode.c the egg has been placed in the .data segment (global initialized variables). According to the following picture (anatomy of a program in memory), we can see that the .text, .data and .bss segments are contigous:  
+Perfect, but why did it work ?  In our shellcode.c the egg has been placed in the .data segment (global initialized variables). According to the following picture (anatomy of a program in memory), we can see that the .text, .data and .bss segments are contigous and readable:  
 
 ![linuxflexibleaddressspacelayout.png]({{ site.url }}/public/images/slae/assignment3/linuxflexibleaddressspacelayout.png)  
   
-let's check for our shellcode executable in gdb:  
+let's check for our shellcode's memory mapping in gdb:  
 ![image2]({{ site.url }}/public/images/slae/assignment3/image2.png)  
   
-Our three first segments are respectively the .text, .data, .bss segment. As we can see, we have no blank space between them.  
-If it was the case, we would have had a segmentation fault (SIGSEGV - Signal Segmentation Violation).  
+Our three first segments are respectively the .text, .data, .bss segment. As we can see, we have no non readable spaces between them.  
+If a memory segment was non readable, we would have had a segmentation fault (SIGSEGV - Signal Segmentation Violation).  
   
 Let's try now to place our egg shellcode in the heap space (we keep the same egg hunter):  
 ```c
