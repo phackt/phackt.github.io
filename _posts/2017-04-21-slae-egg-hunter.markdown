@@ -114,8 +114,7 @@ b7fff000-b8000000 rwxp 00023000 08:01 269850     /lib/i386-linux-gnu/ld-2.24.so
 bffdf000-c0000000 rwxp 00000000 00:00 0          [stack]
 ```
   
-Our three first segments are respectively the .text, .data, .bss segment. As we can see, we have no unreadable spaces between them.  
-If a memory segment was unreadable, we would have had a segmentation fault (SIGSEGV - Signal Segmentation Violation).  
+Our three first segments are respectively the .text, .data, .bss segment. As we can see, we have no unreadable spaces between them. If a memory segment was unreadable, we would have had a segmentation fault (SIGSEGV - Signal Segmentation Violation).  
   
 Let's try now to place our egg shellcode in the heap space (we keep the same egg hunter):  
 ```c
@@ -160,7 +159,7 @@ Egg shellcode Length:  74
 Erreur de segmentation
 ```
   
-We met a segmentation violation because our egg hunter faces a memory access violation.  
+We met a segmentation violation because our egg hunter is facing a memory access violation.  
 However a technique consists in using the **access** system call that originally check users permissions for a file. Giving our memory address as the first argument, we will be able to check if a memory page is accessible. If not, the syscall will return EFAULT (14) into EAX:  
 ```
 int access(const char *pathname, int mode);
