@@ -4,11 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Bienvenue sur ce blog qui a pour objectif de proposer des articles autour du développement et de la sécurité informatique.  
+Welcome on this blog dealing with posts about development and computer security.  
   
-HZV, Hackademy Mag & School, Zataz, NDH, ... Si ces acronymes ont bercé votre adolescence, alors vous êtes au bon endroit.  
-Time to go back to basics!
-
+**Who is the dude?**
+  
+I'm a web applications developper for several years and infosec fanatic since i was a teenager.  
+I developed this blog in order to share my passion. For the french dudes, may be HZV, Hackademy Mag & School, Zataz, NDH sounds familiar ;).
 ```
   _____        _             _ _
  | ____|_ __  (_) ___  _   _| | |
