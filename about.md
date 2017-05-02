@@ -6,7 +6,6 @@ permalink: /about/
 
 Welcome on this blog dealing with posts about development and computer security.  
   
-  
 **Who is the dude?**
   
 I'm a web applications developper for several years and infosec fanatic since i was a teenager.  
