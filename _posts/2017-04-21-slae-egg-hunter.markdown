@@ -87,15 +87,34 @@ void main()
 Let's run our egg hunter:    
 ![image1]({{ site.url }}/public/images/slae/assignment3/image1.png)  
   
-Perfect, but why did it work ?  In our shellcode.c the egg has been placed in the .data segment (global initialized variables). According to the following picture (anatomy of a program in memory), we can see that the .text, .data and .bss segments are contigous:  
+Perfect, but why did it work ?  In our shellcode.c the egg has been placed in the .data segment (global initialized variables). According to the following picture (anatomy of a program in memory), we can see that the .text, .data and .bss segments are contigous and readable:  
 
 ![linuxflexibleaddressspacelayout.png]({{ site.url }}/public/images/slae/assignment3/linuxflexibleaddressspacelayout.png)  
   
-let's check for our shellcode executable in gdb:  
+let's check for our shellcode's memory mapping in gdb:  
 ![image2]({{ site.url }}/public/images/slae/assignment3/image2.png)  
   
-Our three first segments are respectively the .text, .data, .bss segment. As we can see, we have no blank space between them.  
-If it was the case, we would have had a segmentation fault (SIGSEGV - Signal Segmentation Violation).  
+**1563** is our shellcode process id:  
+```bash
+# cat /proc/1563/maps
+08048000-08049000 r-xp 00000000 08:01 2885480    /root/Documents/pentest/certs/slae/exam/assignment3/shellcode
+08049000-0804a000 r-xp 00000000 08:01 2885480    /root/Documents/pentest/certs/slae/exam/assignment3/shellcode
+0804a000-0804b000 rwxp 00001000 08:01 2885480    /root/Documents/pentest/certs/slae/exam/assignment3/shellcode
+0804b000-0806c000 rwxp 00000000 00:00 0          [heap]
+b7dfb000-b7fac000 r-xp 00000000 08:01 269855     /lib/i386-linux-gnu/libc-2.24.so
+b7fac000-b7fae000 r-xp 001b0000 08:01 269855     /lib/i386-linux-gnu/libc-2.24.so
+b7fae000-b7faf000 rwxp 001b2000 08:01 269855     /lib/i386-linux-gnu/libc-2.24.so
+b7faf000-b7fb2000 rwxp 00000000 00:00 0 
+b7fd3000-b7fd6000 rwxp 00000000 00:00 0 
+b7fd6000-b7fd9000 r--p 00000000 00:00 0          [vvar]
+b7fd9000-b7fdb000 r-xp 00000000 00:00 0          [vdso]
+b7fdb000-b7ffd000 r-xp 00000000 08:01 269850     /lib/i386-linux-gnu/ld-2.24.so
+b7ffe000-b7fff000 r-xp 00022000 08:01 269850     /lib/i386-linux-gnu/ld-2.24.so
+b7fff000-b8000000 rwxp 00023000 08:01 269850     /lib/i386-linux-gnu/ld-2.24.so
+bffdf000-c0000000 rwxp 00000000 00:00 0          [stack]
+```
+  
+Our three first segments are respectively the .text, .data, .bss segment. As we can see, we have no unreadable spaces between them. If a memory segment was unreadable, we would have had a segmentation fault (SIGSEGV - Signal Segmentation Violation).  
   
 Let's try now to place our egg shellcode in the heap space (we keep the same egg hunter):  
 ```c
@@ -140,12 +159,8 @@ Egg shellcode Length:  74
 Erreur de segmentation
 ```
   
-Let's look at the memory mapping after the malloc call:  
-![image3]({{ site.url }}/public/images/slae/assignment3/image3.png)  
-  
-So we met our segmentation violation and we saw that we have blank spaces between our .text segment (where our egg hunter is starting to look for the egg shellcode) and the heap space (where our egg shellcode is located).  
-
-A technique consists in using the **access** system call that originally check users permissions for a file. Giving our memory address as the first argument, we will be able to check if a memory page is accessible. If not, the syscall will return EFAULT (14) into EAX:  
+We met a segmentation violation because our egg hunter is facing a memory access violation.  
+However a technique consists in using the **access** system call that originally check users permissions for a file. Giving our memory address as the first argument, we will be able to check if a memory page is accessible. If not, the syscall will return EFAULT (14) into EAX:  
 ```
 int access(const char *pathname, int mode);
 ```
