@@ -53,7 +53,7 @@ next_addr:
 
 ```
   
-*N.B: Our egg hunter is under submission on exploit-db.*  
+*N.B: Our egg hunter on exploit-db: [https://www.exploit-db.com/exploits/41909/](https://www.exploit-db.com/exploits/41909/).*  
   
 Now let's update [shellcode.c](https://github.com/phackt/slae/blob/master/assignment3/shellcode.c):  
 ```c
