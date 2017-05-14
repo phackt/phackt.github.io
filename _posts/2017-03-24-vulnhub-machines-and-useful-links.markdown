@@ -27,7 +27,8 @@ Vulnhub machines pwned:
   - [Moria](http://www.abatchy.com/2017/03/moria-boot2root-vm.html) - Intermediate
   - [Sokar: 1](https://www.vulnhub.com/entry/sokar-1,113/) - Intermediate
   - [SmashTheTux: 1.0.1](https://www.vulnhub.com/entry/smashthetux-101,138/) *Good for Stack/Off-By-One/Integer/FM Overflow and so on* - Intermediate
-  - [DC416: Basement](https://www.vulnhub.com/entry/dc416-2016,168/) *(VMs for DefCon Toronto's first offline CTF)* - Intermediate+  
+  - [DC416: Basement](https://www.vulnhub.com/entry/dc416-2016,168/) *(VMs for DefCon Toronto's first offline CTF)* - Intermediate+
+  - [Damn Vulnerable Web Application (DVWA): 1.0.7](https://www.vulnhub.com/entry/damn-vulnerable-web-application-dvwa-107,43/) - WebApp pentesting ([here](https://github.com/ethicalhack3r/DVWA) for v1.9)  
   
 In a previous post i listed all the OSCP-like Vulnhub machines: [https://phackt.com/hacking-training](https://phackt.com/hacking-training)  
   
