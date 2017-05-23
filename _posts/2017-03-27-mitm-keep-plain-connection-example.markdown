@@ -15,7 +15,7 @@ Because all the trafic should be hidden from prying eyes. If an attacker could i
 Every case is different but keep in mind that if the victim is able to generate a plain HTTP request (http://website.com), the attacker can control all the trafic.  
   
 However, if a ressource has been cached with HSTS, the browser will automatically do an internal redirect (Code 307).  
-It is important to notice that the **Strict-Transport-Security** header will be cached if it is legitimate, i mean if the header is first saw by the browser on a HTTP response over TLS/SSL and if the certificate is valid (signed by a browser trusted CA). I checked on Chrome and Firefox this behavior. I saw on websites the **Strict-Transport-Security** set on plain HTTP response, but the browser won't redirect if the above conditions are not met.  
+It is important to notice that the **Strict-Transport-Security** header will be cached if it is legitimate, i mean if the header is first saw by the browser on a HTTP response over TLS/SSL and if the certificate is valid (signed by a browser trusted CA). I checked on Chrome and Firefox this behavior. I saw on websites the **Strict-Transport-Security** set on plain HTTP responses, but the browser won't redirect if the above conditions are not met.  
   
 But what if HSTS has never been cached ? so we will be able to fool a victim an maintain an plain text connection as we will see (we won't deal with any certificate faking here.  
   
