@@ -118,8 +118,8 @@ Examples:
 Exemples de commandes:  
   
 ```
-theharvester -d adneom.com -l 500 -b google -t -h -f results_google.html
-theharvester -d adneom.com -l 500 -b linkedin > results_linkedin.txt
+theharvester -d mycompany.com -l 500 -b google -t -h -f results_google.html
+theharvester -d mycompany.com -l 500 -b linkedin > results_linkedin.txt
 ```
   
 L'option -h utilise la base de données Shodan.io [https://www.shodan.io/](https://www.shodan.io/).  
