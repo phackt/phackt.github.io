@@ -101,6 +101,7 @@ warning: you may want to set your diff.renameLimit variable to at least 4708 and
 ```
   
 We are looking for the most commited static files (.js, .html, .css), not beginning by *core/* (Drupal 8 hierarchy, we are looking for a Drupal 7 version here) and saving the results in *./relevant_files.txt*.  
+  
 Let's download these files from our target in order to be processed by the **versionchecker.sh**:  
 ```bash
 mkdir ../input && cd ../input
