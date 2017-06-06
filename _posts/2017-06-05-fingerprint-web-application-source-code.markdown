@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Fingerprint Web Application source code"
+title:  "Fingerprint Web Application static files"
 date:   2017-06-05
 categories: web
 ---
@@ -14,7 +14,7 @@ Ok let me explain the context: You are looking at a website and trying to get th
   
 A tool was existing for that purpose, [BlindElephant](https://github.com/lokifer/BlindElephant), but it is not maintained anymore. So i chose to write my own script matching my needs (hand made with love). Of course don't hesitate to contact me and let me know if you took time to have BlindElephant in a working state with the CMS hashes databases up-to-date.  
   
-So now after your recon phase you have your target using Drupal CMS (it will work with any CMS source code versioned on GIT). Here we will install a Drupal on our local machine.  
+So now after your recon phase you have your target using Drupal CMS (it will work with any CMS files versioned on GIT). Here we will install a Drupal on our local machine.  
 [WebApp Information Gatherer](https://github.com/jekyc/wig) may helps your to identify it:  
 ```bash
 ./wig.py http://localhost/drupal
