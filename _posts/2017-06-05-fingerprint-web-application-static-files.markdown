@@ -180,7 +180,7 @@ In our example, we finally have 23 input files from 30 relevant files (some have
 So we found the real version in our script suggestions (7.29).  
 You also can try with some others CMS like Wordpress. Here is what we got for example with a **Wordpress 4.6**:  
 ```bash
-./versionchecker.sh -s ./input/ -g ~/Documents/repo/WordPress/ -p "^4\.[0-9]+$"
+./versionchecker.sh -s ./input/ -g ~/Documents/repo/WordPress/ -p "^4(\.[0-9])+$"
 [*] Input files directory: /tmp/input
 [*] Cleaning empty files and directory in /tmp/input - Done
 [*] GIT repository: /root/Documents/repo/WordPress
