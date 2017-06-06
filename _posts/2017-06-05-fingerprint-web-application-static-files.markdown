@@ -55,7 +55,7 @@ cd drupal/
   
 Now we will look for our relevant input files:  
 ```bash
-git log --all --pretty=format: --name-only | egrep -v "^core/" | egrep -i "(.js$|.html$|.css$)" | sort | uniq -c | sort -rg | head -30 | tee relevant_files.txt
+git log --all --pretty=format: --name-only | egrep -v "^core/" | egrep -i "(.js$|.html$|.css$)" | sort | uniq -c | sort -rg | head -30 | tee /tmp/relevant_files.txt
 warning: inexact rename detection was skipped due to too many files.
 warning: you may want to set your diff.renameLimit variable to at least 4708 and retry the command.
     170 misc/drupal.css
@@ -100,12 +100,12 @@ warning: you may want to set your diff.renameLimit variable to at least 4708 and
      20 modules/book/book.css
 ```
   
-We are looking for the most commited static files (.js, .html, .css), not beginning by *core/* (Drupal 8 hierarchy, we are looking for a Drupal 7 version here) and saving the results in *./relevant_files.txt*.  
+We are looking for the most commited static files (.js, .html, .css), not beginning by *core/* (Drupal 8 hierarchy, we are looking for a Drupal 7 version here) and saving the results in */tmp/relevant_files.txt*.  
   
 Let's download these files from our target in order to be processed by the **versionchecker.sh**:  
 ```bash
 mkdir ../input && cd ../input
-for file in $(cat ../drupal/relevant_files.txt | sed -r 's/^ +//g' | cut -d' ' -f2);do mkdir -p $(dirname $file) 2>/dev/null;wget -O $file "http://localhost/drupal/$file";done
+for file in $(cat /tmp/relevant_files.txt | sed -r 's/^ +//g' | cut -d' ' -f2);do mkdir -p $(dirname $file) 2>/dev/null;wget -O $file "http://localhost/drupal/$file";done
 ```
   
 In the input directory we need to keep the hierarchy of relevant files in order to find them in the GIT repo. Some files may not be found for the target release. As an option, you can pass a pattern to grep the tags you want after the script has executed the ```git tag``` command (to find all the releases).  
