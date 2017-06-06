@@ -184,7 +184,7 @@ You also can try with some others CMS like Wordpress. Here is what we got for ex
 [*] Input files directory: /tmp/input
 [*] Cleaning empty files and directory in /tmp/input - Done
 [*] GIT repository: /root/Documents/repo/WordPress
-[*] Grep pattern: ^4\.[0-9]+$
+[*] Grep pattern: ^4(\.[0-9])+$
 ...
 [*] min version: 4.6
 [*] max version: 4.6
