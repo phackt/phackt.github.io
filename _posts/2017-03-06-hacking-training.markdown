@@ -5,11 +5,13 @@ date:   2017-03-06
 categories: general
 ---
 <br />
-Hello infosec boys & girls,  
+Hello everyone,  
   
 Un petit article aujourd'hui pour parler des plateformes d'entrainement à l'infosec que j'ai pu trouver jusqu'à présent. Tous ces challenges et CTF touchent à plusieurs domaines comme le pentest, le reverse, la stégano, forensic, et la programmation.
   
 Voici la liste qui sera amenée à évoluer:  
+ - **[hachkthebox](https://www.hackthebox.eu)**: une lab OSCP-like gratuit avec différents machines nux/win
+ - **[virtualhackinglabs](https://www.virtualhackinglabs.com/)**: même combat mais payant et offrant un support de cours
  - **[Root-Me](https://www.root-me.org/)**: une plateforme historique française qui traite de tous les sujets. RootMe est au coeur du hack français car fondée à l'époque d'HZV (HackerzVoice). HZV donna ensuite the Hackademy Journal & School. Tous ces protagonistes (dont le regretté crashFr) sont à l'initiative de la Nuit Du Hack et de l'entreprise Sysdreams.
  - **[Vulnhub](https://www.vulnhub.com/)**: l'auteur est [g0tmi1k](https://blog.g0tmi1k.com/), également membre du crew d'Offensive Security. Vulnhub propose des images de distrib Linux vulnérables pour vous exercer.
  - **[https://exploit-exercises.com/](https://exploit-exercises.com/)**: également une liste de VMs vulnérables avec des challs de corruption mémoires (Protostar / Fusion). Ces derniers sont pertinents pour s'exercer à l'OSCE.
@@ -46,7 +48,27 @@ Voici une liste de machines OSCP-like que vous trouverez sur Vulnhub et que vous
 - [PwnLab: init](https://www.vulnhub.com/entry/pwnlab-init,158/)
 - [IMF](https://www.vulnhub.com/entry/imf-1,162/)
   
-Autres liens:  
+Autres liens:
+ - [http://www.fuzzysecurity.com/tutorials/16.html](http://www.fuzzysecurity.com/tutorials/16.html)  
+ - [https://github.com/pentestmonkey/windows-privesc-check](https://github.com/pentestmonkey/windows-privesc-check)  
+ - [http://httpsecure.org/?works=windows-privilege-escalation-exploit](http://httpsecure.org/?works=windows-privilege-escalation-exploit)  
+ - [http://pwnwiki.io/#!presence/windows/blind.md](http://pwnwiki.io/#!presence/windows/blind.md)  
+ - [http://httpsecure.org/?works=windows-privilege-escalation-exploit](http://httpsecure.org/?works=windows-privilege-escalation-exploit)  
+ - [https://github.com/rmusser01/Infosec_Reference/blob/master/Draft/Draft/Privilege%20Escalation%20%26%20Post-Exploitation.md](https://github.com/rmusser01/Infosec_Reference/blob/master/Draft/Draft/Privilege%20Escalation%20%26%20Post-Exploitation.md)  
+ - [https://jivoi.github.io/2015/07/01/pentest-tips-and-tricks/](https://jivoi.github.io/2015/07/01/pentest-tips-and-tricks/)  
+ - [https://dirtycow.ninja/](https://dirtycow.ninja/)  
+ - [https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/](https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/)  
+ - [https://github.com/PenturaLabs/Linux_Exploit_Suggester](https://github.com/PenturaLabs/Linux_Exploit_Suggester)  
+ - [https://www.kernel-exploits.com/](https://www.kernel-exploits.com/)  
+ - [https://www.youtube.com/watch?v=kMG8IsCohHA](https://www.youtube.com/watch?v=kMG8IsCohHA)  
+ - [https://www.exploit-db.com/](https://www.exploit-db.com/)  
+ - [http://www.securityfocus.com/](http://www.securityfocus.com/)  
+ - [https://exploits.shodan.io/welcome](https://exploits.shodan.io/welcome)  
+ - [https://packetstormsecurity.com/files/tags/exploit/](https://packetstormsecurity.com/files/tags/exploit/)  
+ - [http://shell-storm.org/](http://shell-storm.org/)  
+ - [http://www.xss-payloads.com/](http://www.xss-payloads.com/)  
+ - [http://www.securitytube.net/](http://www.securitytube.net/)  
+ - [http://www.pentesteracademy.com/](http://www.pentesteracademy.com/)    
  - [How to create vulnerable Windows machines](https://github.com/g0tmi1k/VulnInjector)
  - [Télécharger des VMs Windows officielles](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)
   
