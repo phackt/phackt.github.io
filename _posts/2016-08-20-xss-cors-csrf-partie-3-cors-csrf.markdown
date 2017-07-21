@@ -68,6 +68,7 @@ La première chose pour un site souhaitant faire du CORS est de bien positionner
 ![Schema attaque CORS]({{ site.url }}/public/images/cors-csrf/cors_2.png)  
   
 Comme nous l’avons vu, en l’absence de ce header, le navigateur bloquera l’accès à la réponse. Cependant cette **requête simple CORS POST [withCredentials](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials)** sera interprétée sur le serveur si ce dernier ne possède pas de filtre CORS explicite.  
+A partir d'un site malicieux, les requêtes GET, POST générées à partir d'éléments HTML enverront le cookie dans la requête. Sur de l'Ajax il faut rajouter la clause withCredentials = true.  
   
 Pour cet exemple, nous avons créé une page **http://localhost/secu/cookie.html**:  
 
@@ -145,10 +146,7 @@ Il est également important de définir une politique CORS **coté serveur**. No
 ```
 	
 Vous trouvez le flowchart du filtre [ici](http://tomcat.apache.org/tomcat-8.0-doc/images/cors-flowchart.png).
-**Ceci interdit donc en amont l’accès à toute requête cross-origin.**
-  
-**UPDATE**:  
-A partir d'un site malicieux, les requêtes GET, POST générées à partir d'éléments HTML enverront le cookie dans la requête. Sur de l'Ajax il faut rajouter la clause withCredentials = true.  
+**Ceci interdit donc en amont l’accès à toute requête cross-origin.**  
   
 **Quid des frameworks pour développer des clients riches comme Angular ou React** ?  
 Au vu de la multiplicité des requêtes asynchrones, il convient de positionner un token CSRF unique en tant que cookie, et de rajouter ce token en tant que header (exemple X-XSRF-TOKEN: a0ed8d95-5694-4b77-853c-b04677677722) dans la requête, header qui sera vérifié coté serveur. Ceci requiert la lecture du cookie qui n'est possible en javascript que par une ressource du même domaine.  
