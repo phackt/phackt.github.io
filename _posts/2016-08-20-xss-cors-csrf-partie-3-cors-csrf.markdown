@@ -67,8 +67,7 @@ La première chose pour un site souhaitant faire du CORS est de bien positionner
 
 ![Schema attaque CORS]({{ site.url }}/public/images/cors-csrf/cors_2.png)  
   
-Comme nous l’avons vu, en l’absence de ce header, le navigateur bloquera l’accès à la réponse. Cependant cette **requête simple CORS POST [withCredentials](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials)** sera interprétée sur le serveur si ce dernier ne possède pas de filtre CORS explicite.  
-A partir d'un site malicieux, les requêtes GET, POST générées à partir d'éléments HTML enverront le cookie dans la requête. Sur de l'Ajax il faut rajouter la clause withCredentials = true.  
+Comme nous l’avons vu, en l’absence de ce header, le navigateur bloquera l’accès à la réponse. Cependant cette **requête simple CORS POST [withCredentials](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials)** sera interprétée sur le serveur si ce dernier ne possède pas de filtre CORS explicite (à partir d'un site malicieux, les requêtes GET, POST générées à partir d'éléments HTML enverront le cookie dans la requête. Sur de l'Ajax il faut rajouter la clause withCredentials = true).  
   
 Pour cet exemple, nous avons créé une page **http://localhost/secu/cookie.html**:  
 
