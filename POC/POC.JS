@@ -1,0 +1,1 @@
+alert('Cookie stealing, keylogging, forms capture, and all js sweeties on ' + document.domain)
