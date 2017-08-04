@@ -1,2 +1,3 @@
 Ici se trouve la fausse page, sur un nom de domaine trompeur (ex: l214-paiement.fr qui est d'ailleurs dispo - https://www.gandi.net).
+
 Cette dernière pourrait contenir un faux formulaire permettant le vol de données bancaires sensibles.
