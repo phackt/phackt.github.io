@@ -112,7 +112,7 @@ In the input directory we need to keep the hierarchy of relevant files in order 
   
 Let's run our **versionchecker.sh** (currently only working for git versioning system):  
 ```bash
-cd .. && ./versionchecker.sh -s ./input/ -g ~/Documents/repo/drupal/ -p "^[78]\.[0-9.]+$"
+cd .. && ./versionchecker.sh -s ./input/ -g ./drupal/ -p "^[78]\.[0-9.]+$"
 [*] Input files directory: /tmp/input
 [*] Cleaning empty files and directory in /tmp/input - Done
 [*] GIT repository: /root/Documents/repo/drupal
