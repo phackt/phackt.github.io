@@ -77,7 +77,7 @@ But what kind of cool javascript payload can we inject? (knowing that the JSESSI
   
 ![image3]({{ site.url }}/public/images/xss-practical-case/image3.png)  
   
-We will add a callback function that will be executed once the web page forms will be submitted (allowing us to capture the credentials).  
+We will add a callback function that will be executed once the web page forms will be submitted (allowing us to capture the credentials). Check [https://github.com/phackt/pentest/tree/master/exploits/xss](https://github.com/phackt/pentest/tree/master/exploits/xss) for source code.  
   
 **POC.JS**:  
 ```javascript
@@ -130,6 +130,6 @@ Content-Security-Policy: default-src 'self'
   
 Web applications are really interesting because of all the concepts you have to deal with.  
   
-Hope you enjoyed. See you.  
+Hope you enjoyed.  
   
 Phackt.
