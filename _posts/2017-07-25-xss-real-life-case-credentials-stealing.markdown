@@ -128,6 +128,17 @@ But if a web site administrator wants all content to come from the site's own or
 Content-Security-Policy: default-src 'self'
 ```
   
+**UPDATE 21/09/2017**:  
+Apparently some waf is now blacklisting some malicious strings:  
+```bash
+wafw00f https://assure.ameli.fr/
+...
+The site https://assure.ameli.fr/ is behind a F5 BIG-IP APM
+```  
+  
+Unfortunately the special characters are still not html encoded (test with ```'';!--"<XSS>=&{()}```).  
+Feel free to try to bypass it and let me know.  
+  
 Web applications are really interesting because of all the concepts you have to deal with.  
   
 Hope you enjoyed.  
