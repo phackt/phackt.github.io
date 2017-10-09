@@ -62,8 +62,9 @@ Refused to set unsafe header "Origin"
 Refused to set unsafe header "Referer"  
 </pre>  
 <br />
-La première chose pour un site souhaitant faire du CORS est de bien positionner les origines autorisées avec le header Access-Control-Allow-Origin.  
-```Access-Control-Allow-Origin: *``` : toutes les origines peuvent accéder à la ressource. Imaginez que ceci soit effectif pour toutes les ressources du site (donc toutes les pages): un pirate pourrait coder depuis son site une succession de requêtes cross-origin incluant les credentials de l’utilisateur et effectuer des actions à son insu :  
+La première chose pour un site souhaitant faire du CORS est de bien positionner les origines autorisées avec le header **Access-Control-Allow-Origin**. Ce dernier doit stipuler explicitement les origines autorisées pour bénéficier pleinement de l'utilisation des XHR (rappelons que l'utilisation de ces headers concernent les XmlHttpRequest, une iframe par exemple n'émettra pas de header Origin et sera soumise à la [Same Origin Policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#Changing_origin)).  
+
+Cependant ```Access-Control-Allow-Origin: *``` : toutes les origines peuvent accéder à la ressource. La restriction concernant l'utilisation du wildcard est que les réponses des requêtes XHR **withCredentials** ne pourront pas être lues pour des raisons de sécurité (sauf si le serveur positionne le header ```Access-Control-Allow-Credentials: true```). Imaginons que ces conditions soient remplies; un pirate pourrait coder depuis son site une succession de requêtes cross-origin incluant les credentials de l’utilisateur et effectuer des actions à son insu :  
 
 ![Schema attaque CORS]({{ site.url }}/public/images/cors-csrf/cors_2.png)  
   
