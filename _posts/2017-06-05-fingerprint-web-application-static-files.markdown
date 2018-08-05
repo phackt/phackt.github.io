@@ -4,7 +4,7 @@ title:  "Fingerprint Web Application static files"
 date:   2017-06-05
 categories: web
 ---
-Hello infosec people,  
+Hello folks,  
   
 Today i would like to share with you the first version of a script i wrote to help determining the version of a software.  
   

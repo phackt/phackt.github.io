@@ -50,6 +50,6 @@ open cors found for url http://ellysdirectory.com/
   
 I also provide some [lists](https://github.com/phackt/pentest/tree/master/fingerprint/cors/results) of vulnerable domains (total of 11435) that i found.  
   
-Don't hesitate to contact me if you have any idea or comments, or if you played with one of the domains, for example **www.attractiveworld.com** ;).  
+Don't hesitate to contact me if you have any idea or comments, or if you played with one of the domains, for example **www.attractiveworld.com**.  
   
 Cheers.

@@ -11,7 +11,7 @@ Aujourd'hui un petit article qui traitera d'un cas simple de Format String où n
   
 J'essaierai d'être assez pédagogique, le cas ci-dessous étant un cas basique sans contournement des protections de la pile.  
   
-**So ninja, qu'entend-on par Format String?**  
+**Qu'entend-on par Format String?**  
     
 *"The format string is written in a simple template language, and specifies a method for rendering an arbitrary number of varied data type parameters into a string."*  
   

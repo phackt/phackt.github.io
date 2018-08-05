@@ -5,9 +5,9 @@ date:   2017-02-17
 categories: certification
 ---
 <br />
-Hello les ninjas,
+Bonjour à tous,
   
-Premier article de l'année, cependant ces derniers mois furent bien remplis avec le passage de l'[OSCP](https://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/). J'en profite donc pour écrire une petite revue sur cette certif en espérant partager des infos qui pourront vous être utiles.
+Premier article de l'année, cependant ces derniers temps furent bien remplis avec notamment le passage de l'[OSCP](https://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/). J'en profite donc pour écrire une petite revue sur cette certif en espérant partager des infos qui pourront vous être utiles.
   
 **Qu'est-ce que l'OSCP?**
   
@@ -64,24 +64,22 @@ Vous pouvez rendre un rapport sur les exercices du PDF et sur les machines compr
 **Conseils**
   
  - Rédigez les rapports concernant les exercices du pdf et les étapes pour compromettre les machines du lab (10 machines minimum requises). Ces points pourront vous être précieux et vous enlèveront une dose de stress le jour de l'exam. Et puis ne serait-ce que sur un plan pédagogique cela vous permettra d'être certain d'avoir tout assimilé et de ne pas survoler les cours.
- - Organisez votre information et structurez la pour pouvoir y accéder rapidement. Utilisez un soft comme Keepnote.
+ - Organisez votre information et structurez la pour pouvoir y accéder rapidement. Utilisez un soft comme Keepnote/Cherrytree.
  - Utilisez la VM Kali fournie par OffSec.
  - Ne vous précipitez pas, prenez le temps d'avoir une vision précise de votre cible.
  - N'abandonnez-pas, échangez, discutez avec la communauté mais évitez de vous faire spoiler des indices. Vous en tirerez d'autant plus de gratitude en ayant **try harder** :)
- - Le jour de l'exam, faites attention aux 'rabbit-holes'. Si vous explorez une piste trop longtemps passez à autre chose. On ne vous demandera jamais de bruteforcer plus de 30 mins. Et ne négligez aucun détail de votre énumeration. **keep calm and enumerate**.
+ - Le jour de l'exam, faites attention aux 'rabbit-holes'. Si vous explorez une piste trop longtemps passez à autre chose. On ne vous demandera jamais de bruteforcer plus de 30 mins. Et ne négligez aucun détail de votre énumération. **keep calm and enumerate**.
   
 ![tryharder]({{ site.url }}/public/images/oscp/tryharder.png)  
   
   
 **Conclusion**
   
-l'OSCP fût une excellente expérience et hautement addictive. Les 24h d'exams sont bien saignants, mais vous verrez ce ne sera que du bonheur, rien d'impossible.  
-Next step en route pour l'OSCE? Pour les fans de pentest de webapp ils ont une formation qui a l'air bien coquette, l'[OSWE](https://www.offensive-security.com/information-security-certifications/oswe-offensive-security-web-expert/) mais c'est du live, aux US, et pendant la blackhat, c'est fort dommage pour nous... 
+l'OSCP fût une excellente expérience et hautement addictive. Les 24h d'exams sont intenses, mais ce ne sera que du bonheur.  
+Next step en route pour l'OSCE? Pour les fans de pentest web ils ont une formation qui a l'air bien sympa que nous attendons en ligne, l'[OSWE](https://www.offensive-security.com/information-security-certifications/oswe-offensive-security-web-expert/). 
   
 N'hésitez pas à me contacter si vous souhaitez des infos sur le sujet!  
 [Twitter](https://twitter.com/phackt_ul)  
 [Github](https://github.com/phackt)
   
-A bientôt Ninja!
-  
-Une petite dédicace à ma douce qui a été ma plus fervente supportrice pendant ces deux jours, You Rock!
+A bientôt!

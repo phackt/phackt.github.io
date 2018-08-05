@@ -11,7 +11,7 @@ Aujourd'hui nous parlerons de la prise d'empreinte passive et des plateformes [n
   
 La prise d'empreinte au sens large devra être la plus exhaustive possible pour maximiser la probabilité de réussite d'une attaque:  
  
- - prise d'informations sur l'entreprise et son activité (énumération des employés et adresses mail - un outil trés sympa est [theharvester](https://code.google.com/archive/p/theharvester/))
+ - prise d'informations sur l'entreprise et son activité (énumération des employés et adresses mail ([theharvester](https://code.google.com/archive/p/theharvester/))
  - base de données Whois
  - Google dorks
  - SMTP, SMB, SNMP, DNS enumeration (recon-ng, dnsrecon, nbtscan, enum4linux, snmpwalk)
@@ -21,7 +21,6 @@ La prise d'empreinte au sens large devra être la plus exhaustive possible pour 
 Il est possible de collecter beaucoup d'informations via les moteurs de recherche. Pour cela je vous redirige vers l'excellent site d'Offensive Security [https://www.exploit-db.com/google-hacking-database/](https://www.exploit-db.com/google-hacking-database/) et la Google Cheat Sheet du SANS [https://www.sans.org/security-resources/GoogleCheatSheet.pdf](https://www.sans.org/security-resources/GoogleCheatSheet.pdf).  
   
 Quelques exemples de recherches:  
-
 ```site:microsoft.com -site:www.microsoft.com``` (tous les sous domaines de microsoft)  
 ```site:ameli.fr inurl:phpinfo.php``` (version de php)  
 ```site:ameli.fr inurl:(cgi|api|webservice|private|portail) | (login OR pass OR admin)``` (potentielles pages de login)  
@@ -30,7 +29,7 @@ D'autres informations sur la prise d'empreinte passive:
   
 **Base de données Whois:**  
   
-Selon Wikipedia: *Each registrar must maintain a Whois database containing all contact information for the domains they host. These databases are     usually published by a Whois server over TCP port 43. The whois client can also perform reverse lookups. Rather than inputting a domain name, you can provide an IP address.*  
+Selon Wikipedia: *Each registrar must maintain a Whois database containing all contact information for the domains they host. These databases are usually published by a Whois server over TCP port 43. The whois client can also perform reverse lookups. Rather than inputting a domain name, you can provide an IP address.*  
   
 ```whois microsoft.com```  
   
@@ -74,7 +73,7 @@ recon/domains-vulnerabilities/xssed (cherche dans la database http://xssed.com, 
   
 **theharvester**  
   
-*The objective of this program is to gather emails, subdomains, hosts, employee names, open ports and banners from different public sources like    search engines, PGP key servers and SHODAN computer database* - [http://www.edge-security.com/theharvester.php](http://www.edge-security.com/theharvester.php).  
+*The objective of this program is to gather emails, subdomains, hosts, employee names, open ports and banners from different public sources like search engines, PGP key servers and SHODAN computer database* - [http://www.edge-security.com/theharvester.php](http://www.edge-security.com/theharvester.php).  
   
 ```
 *******************************************************************
@@ -128,7 +127,7 @@ L'option -h utilise la base de données Shodan.io [https://www.shodan.io/](https
   
 *Shodan is a search engine that lets the user find specific types of computers (web cams, routers, servers, etc.) connected to the internet using a variety of filters. Some have also described it as a search engine of service banners, which are meta-data the server sends back to the client.[1] This can be information about the server software, what options the service supports, a welcome message or anything else that the client can find out before interacting with the server.*  
   
-Shodan est un site de Data Mining dont les informations proviennent du scan d'adresses ip publiques. Leur service agrége toutes les informations sur les services exposés et leurs bannières. Shodan.io permet de détecter de nombreux [IoT](https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project).  
+Shodan est un site de Data Mining dont les informations proviennent du scan d'adresses ip publiques. Leur service agrége toutes les informations sur les services exposés et leurs bannières. Un exemple, Shodan.io permet de détecter de nombreux [IoT](https://www.owasp.org/index.php/OWASP_Internet_of_Things_Project), webcam, Industrial Control Systems, et j'en passe.  
   
 Voici par exemple une capture d'écran d'une recherche sur les Caméras connectées ayant une ip géolocalisée sur Paris:
   
@@ -145,6 +144,8 @@ Cliquez ensuite sur *Site Report*:
   
 Ces bases de connaissance sont utiles pour qu'une entreprise puisse prendre connaissance des informations à disposition d'un assaillant. Exemple un simple mail pro utilisé dans un forum peut être utilisé pour du phising ciblé.  
   
-Nous verrons dans un prochain article l'énumération de services et la cartographie réseau.  
+**Passive DNS**  
+  
+Les bases de passive DNS permettront d'obtenir passivement différent types d'enregistrements DNS ([Passive Mnemonic](https://passivedns.mnemonic.no/search) est gratuit). D'autres solutions payantes existent comme DNSDB ou RisqIQ.  
   
 A bientôt.
