@@ -83,7 +83,7 @@ Pour cet exemple, nous avons créé une page **http://localhost/secu/cookie.html
 
 Au préalable nous nous sommes connectés sur **requestb.in**. Ce site initialise plusieurs cookies dont le suivant :  
 
-![Cookie request.bin]({{ site.url }}/public/images/cors-csrf/cors_3.png)  
+![Cookie requestb.in]({{ site.url }}/public/images/cors-csrf/cors_3.png)  
 Nous remarquons un cookie sécurisé, donc impossible d’y accéder via **document.cookie**. Cependant **withCredentials** inclut automatiquement les cookies dans la requête (*Update 14/05/2017: validé à nouveau sur Chrome v56, cependant le comportement n'est pas reproductible sur ma Kali sur des versions Firefox ESR v45.3 et Chromium v53*).  
   
 Vérifions l’éxecution du payload sur request.bin :  

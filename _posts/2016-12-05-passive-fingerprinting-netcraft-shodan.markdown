@@ -21,6 +21,7 @@ La prise d'empreinte au sens large devra être la plus exhaustive possible pour 
 Il est possible de collecter beaucoup d'informations via les moteurs de recherche. Pour cela je vous redirige vers l'excellent site d'Offensive Security [https://www.exploit-db.com/google-hacking-database/](https://www.exploit-db.com/google-hacking-database/) et la Google Cheat Sheet du SANS [https://www.sans.org/security-resources/GoogleCheatSheet.pdf](https://www.sans.org/security-resources/GoogleCheatSheet.pdf).  
   
 Quelques exemples de recherches:  
+  
 ```site:microsoft.com -site:www.microsoft.com``` (tous les sous domaines de microsoft)  
 ```site:ameli.fr inurl:phpinfo.php``` (version de php)  
 ```site:ameli.fr inurl:(cgi|api|webservice|private|portail) | (login OR pass OR admin)``` (potentielles pages de login)  
