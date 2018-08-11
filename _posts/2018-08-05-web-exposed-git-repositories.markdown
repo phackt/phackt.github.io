@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Gathering some information on web exposed git repositories"
+title:  "Gathering some information from web exposed git repositories"
 date:   2018-08-05
 categories: web
 ---
