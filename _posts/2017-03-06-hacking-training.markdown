@@ -11,7 +11,7 @@ Un petit article aujourd'hui pour parler des plateformes d'entrainement à l'inf
   
 Voici la liste qui sera amenée à évoluer:  
  - **[hachkthebox](https://www.hackthebox.eu)**: une lab OSCP-like gratuit avec différents machines nux/win
- - **[pentesterlab.com](https://pentesterlab.com/): des cours plutôt orientés pentest web, épreuves régulièrement mises à jour
+ - **[pentesterlab.com](https://pentesterlab.com/)**: des cours plutôt orientés pentest web, épreuves régulièrement mises à jour
  - **[virtualhackinglabs](https://www.virtualhackinglabs.com/)**: même combat mais payant et offrant un support de cours
  - **[Root-Me](https://www.root-me.org/)**: une plateforme historique française qui traite de tous les sujets. RootMe est au coeur du hack français car fondée à l'époque d'HZV (HackerzVoice). HZV donna ensuite the Hackademy Journal & School. Tous ces protagonistes (dont le regretté crashFr) sont à l'initiative de la Nuit Du Hack et de l'entreprise Sysdream.
  - **[Vulnhub](https://www.vulnhub.com/)**: l'auteur est [g0tmi1k](https://blog.g0tmi1k.com/), également membre du crew d'Offensive Security. Vulnhub propose des images de distrib Linux vulnérables pour vous exercer.

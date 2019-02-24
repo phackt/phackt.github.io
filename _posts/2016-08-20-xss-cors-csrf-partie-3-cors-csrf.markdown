@@ -149,7 +149,7 @@ Vous trouvez le flowchart du filtre [ici](http://tomcat.apache.org/tomcat-8.0-do
 **Ceci interdit donc en amont l’accès à toute requête cross-origin.**  
   
 **Quid des frameworks pour développer des clients riches comme Angular ou React** ?  
-Au vu de la multiplicité des requêtes asynchrones, il convient de positionner un token CSRF unique en tant que cookie, et de rajouter ce token en tant que header (exemple X-XSRF-TOKEN: a0ed8d95-5694-4b77-853c-b04677677722) dans la requête, header qui sera vérifié coté serveur. Ceci requiert la lecture du cookie qui n'est possible en javascript que par une ressource du même domaine.  
+Au vu de la multiplicité des requêtes asynchrones, il convient de positionner un token CSRF unique (à éviter en tant que cookie car devra être en httpOnly pour des requêtes xhr), et de rajouter ce token en tant que header (exemple X-XSRF-TOKEN: a0ed8d95-5694-4b77-853c-b04677677722) dans la requête, header qui sera vérifié coté serveur. Cet en-tête non standard permet également le déclenchement d'une requête préliminaire (OPTIONS) pour vérifier si l'origine de la requête est autoriséé.  
 <br />
 **Conclusion :**  
   
