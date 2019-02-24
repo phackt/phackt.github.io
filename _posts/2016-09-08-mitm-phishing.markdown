@@ -7,7 +7,7 @@ categories: mitm
 <br />
 Bonjour à tous,
 
-Je me suis dit qu'il était intéressant de partager avec vous un petit script **Bash** que j'ai créé pour automatiser une attaque MITM et rediriger vers une fausse page web que nous allons héberger ([https://github.com/phackt/Workshops/tree/master/mitm/phishing](https://github.com/phackt/Workshops/tree/master/mitm/phishing)). L'objectif est pour une attaque ciblée de rendre l'obtention des credentials la plus transparente possible. Cependant il n'existe pas de solution miracle, à chaque combat sa stratégie.  
+Je me suis dit qu'il était intéressant de partager avec vous un petit script **Bash** que j'ai créé pour automatiser une attaque 'Man In The Middle' et rediriger vers une fausse page web que nous allons héberger ([https://github.com/phackt/mitm](https://github.com/phackt/mitm)). L'objectif est pour une attaque ciblée de rendre l'obtention des credentials la plus transparente possible. Cependant il n'existe pas de solution miracle, à chaque combat sa stratégie.  
   
 Ici nous allons donc cibler un site possédant une page d'accueil non sécurisée (HTTP), permettant l'interception en clair des liens HTTPS et de les transformer en liens HTTP classiques. Certains outils comme [sslstrip](https://github.com/moxie0/sslstrip) permettent ce genre d'opérations, en éliminant le caching des pages et en traitant également les headers response **Location** lors des redirections. De notre coté nous utiliserons un simple filtre [ettercap](https://github.com/Ettercap/ettercap) que nous compilerons avec etterfilter.  
   
@@ -16,7 +16,7 @@ Pour petit rappel:
  > L'attaque de l'homme du milieu ou man-in-the-middle attack (MITM) est une attaque qui a pour but d'intercepter les communications entre deux parties, sans que ni l'une ni l'autre ne puisse se douter que le canal de communication entre elles a été compromis.  
   
 ![Mitm]({{ site.url }}/public/images/mitm-phishing/owasp-man_in_the_middle.jpg)  
-Cette attaque se base sur la corruption du cache ARP enregistrant les correspondances @IP <-> @MAC sur un réseau local. Vous regarderez les HotSpot et autres Wifi gratuits d'un autre oeil ;). Il existe plusieurs outils pour effectuer une [attaque MITM](https://www.information-security.fr/attaque-man-in-the-middle-via-arp-spoofing/) et nous utiliserons Ettercap.  
+Cette attaque se base sur la corruption du cache ARP enregistrant les correspondances @IP <-> @MAC sur un réseau local. Il existe plusieurs outils pour effectuer une [attaque MITM](https://www.information-security.fr/attaque-man-in-the-middle-via-arp-spoofing/) et nous utiliserons Ettercap.  
   
 Le site web a été falsifié grâce à l'outil [setoolkit](https://github.com/trustedsec/social-engineer-toolkit) (Social-Engineer Toolkit). Concernant la redirection du domaine, j'ai simplement effectué une règle iptables PREROUTING DNAT au lieu d'effectuer un DNS SPOOFING qui aurait demandé que le cache DNS soit vidé.   
   
@@ -98,13 +98,13 @@ urlsnarf: listening on wlan0 [tcp port 80 or port 8080 or port 3128]
 After the job please close this script and clean up properly by hitting 'qQ'
 ```
 
-Les outils MITM peuvent également forger dynamiquement un certificat pour interception des connexions TLS/SSL. Cependant ce dernier n'étant pas signé par une autorité de certification, un warning dans votre navigateur affichera que le certificat est non valide (assez discret sous Safari cependant)...  
+Les outils MITM peuvent également forger dynamiquement un certificat pour interception des connexions TLS/SSL. Cependant ce dernier n'étant pas signé par une autorité de certification vérifiée, un warning dans votre navigateur affichera que le certificat est non valide (assez discret sous Safari cependant).  
 
 ![Certificat]({{ site.url }}/public/images/mitm-phishing/alerte-certificat.png)  
 
  > <span style="color: red">Cliquez sur 'Back to safety'!!</span>
   
-Dans notre exemple, la connexion au site falsifié est non sécurisée (évitant les alertes de certificats). Donc vérifier toujours le cadenas vert dans la barre url et que votre connexion soit sécurisée, sinon COURREZZZZZ!!!!. Nous voyons aussi l'importance du HSTS (Strict-Transport-Security) abordé dans les [précédents articles]({{ site.url }}/xss-cors-csrf-partie-3-cors-csrf#hsts) pour forcer les connexions HTTPS et bannir tout certificat non valide. Des méthodes de détection d'ARP spoofing existent, la plus contraignante étant l'ajout statique d'une correspondance dans la table ARP. Certains firewall (ex [Symantec](https://www.symantec.com/security_response/glossary/define.jsp?letter=a&word=anti-mac-spoofing)) empêchent les ARP Reply non légitimes. Réfléchissez donc deux fois avant de vous connecter à un HotSpot.
+Dans notre exemple, la connexion au site falsifié est non sécurisée (évitant les alertes de certificats). Donc vérifier toujours le cadenas vert dans la barre d'url et que votre connexion soit sécurisée. Dans le cas d'une autorité de certification compromise le pinning de clé publique pourrait avoir son utilité même si le HPKP devient obsolète et ne sera plus supporté sous Chrome au bénéfice du 'Certificate Transparency'. Nous voyons aussi l'importance du HSTS (Strict-Transport-Security) abordé dans les [précédents articles]({{ site.url }}/xss-cors-csrf-partie-3-cors-csrf#hsts) pour forcer les connexions HTTPS. Certains firewall (ex [Symantec](https://www.symantec.com/security_response/glossary/define.jsp?letter=a&word=anti-mac-spoofing)) empêchent les ARP Reply non légitimes. L'autre solution la plus couramment utilisée reste le cloisonnement en VLAN. Si vous vous connectez à un HotSpot, établir un canal chiffré (ex VPN) est également une idée.  
   
 A bientôt.
 <br />
