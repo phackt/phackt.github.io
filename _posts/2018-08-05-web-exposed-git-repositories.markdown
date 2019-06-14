@@ -49,10 +49,10 @@ Server: Apache/2.4.33 (Debian)
 Content-Type: text/html; charset=iso-8859-1
 ```  
   
-I gave a try to another git dumper tool:  
+I gave a try to another [git dumper tool](https://github.com/arthaud/git-dumper):  
   
 ```
-$ git clone https://github.com/phackt/git-dumper && cd git-dumper
+$ git clone https://github.com/arthaud/git-dumper.git && cd git-dumper
 $ pip install -r requirements.txt
 $ ./git-dumper.py http://localhost/phackt.github.io/.git/ /tmp/repo
 [-] Testing http://localhost/phackt.github.io/.git/HEAD [200]
