@@ -3,6 +3,7 @@ layout: post
 title:  "Moria boot2root machine"
 date:   2017-03-21
 categories: ctf
+published: false
 ---
 <br />
 Hello everyone,  
