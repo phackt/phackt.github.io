@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "A real-life case of XSS and other web concepts"
+title:  "A fun case of XSS and other web concepts"
 date:   2017-07-25
 categories: web
 ---
