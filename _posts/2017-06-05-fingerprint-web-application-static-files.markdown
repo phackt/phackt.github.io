@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Fingerprint Web Application static files"
+title:  "Fingerprinting Web Application static files"
 date:   2017-06-05
 categories: web
 ---
