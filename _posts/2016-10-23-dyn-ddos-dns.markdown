@@ -3,7 +3,7 @@ layout: post
 title:  "Dyn DNS DDOS"
 date:   2016-10-23
 categories: general
-visible: 1
+published: false
 ---
 <br />
 Bonjour à tous,
