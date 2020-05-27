@@ -94,7 +94,7 @@ prepare-commit-msg: Used to determine if a merge commit will introduce a history
 
 Github has a project which aims at monitoring leaked third parties tokens from your repositories: [https://help.github.com/en/github/administering-a-repository/about-secret-scanning](https://help.github.com/en/github/administering-a-repository/about-secret-scanning).  
 
-Once identified, Github will warn you and will request the provider in an automated way (from the following list) to ask for the immediate revokation of your leaked tokens:  
+Once identified, Github will warn you and will request the provider (from the following list) in an automated way to ask for the immediate revokation of your leaked tokens:  
 
 ```
 Adafruit
