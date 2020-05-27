@@ -86,33 +86,44 @@ prepare-commit-msg: Used to determine if a merge commit will introduce a history
 
 *[GitHub Actions](GitHub Actions enables you to create custom software development life cycle (SDLC) workflows directly in your GitHub repository.) enables you to create custom software development life cycle (SDLC) workflows directly in your GitHub repository.*  
   
- - [Gitleaks - github CI](https://github.com/marketplace/actions/gitleaks)
- - [Trufflehog - github CI](https://github.com/marketplace/actions/trufflehog-actions-scan)
+ - [Gitleaks Github Action](https://github.com/marketplace/actions/gitleaks)
+ - [Trufflehog Github Action](https://github.com/marketplace/actions/trufflehog-actions-scan)
 
 
 **THE GITHUB.COM SCANNING PROJECT :**  
 
 Github has a project which aims at monitoring leaked third parties tokens from your repositories: [https://help.github.com/en/github/administering-a-repository/about-secret-scanning](https://help.github.com/en/github/administering-a-repository/about-secret-scanning).  
 
-Once identified, Github will contact the third party (from the following list) in order to ask for the immediate revokation of your leaked tokens:  
+Once identified, Github will warn you and will request the provider in an automated way (from the following list) to ask for the immediate revokation of your leaked tokens:  
 
 ```
-Alibaba
-Cloud
-Amazon
-Web Services (AWS)
+Adafruit
+Alibaba Cloud
+Amazon Web Services (AWS)
 Atlassian
 Azure
+CloudBees CodeShip
+Databricks
+Datadog
 Discord
 Dropbox
+Dynatrace
 GitHub
+GoCardless
 Google Cloud
+Hashicorp Terraform
+Hubspot
 Mailgun
 npm
+NuGet
+Palantir
+Postman
 Proctorio
 Pulumi
+Samsara
 Slack
 Stripe
+Tencent Cloud
 Twilio
 ```
   
