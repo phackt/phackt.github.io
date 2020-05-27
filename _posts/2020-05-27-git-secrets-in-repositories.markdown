@@ -139,5 +139,5 @@ More globally :
  - Include the data leak check in your continuous delivery process (build factory). For example for Github CI see the Github actions Trufflehog and Gitleaks as aforementioned. 
   
   
-See you soon, next posts will be more internal pentest / windows oriented,  
+See you soon, next posts will be more internal pentesting / windows oriented,  
 Cheers.
