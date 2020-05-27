@@ -135,8 +135,8 @@ For each leaked secrets linked to an environment which could be targeted by an a
   
 More globally :  
  - Warn the stakeholders involved in this data leak (users, providers, ...) ;  
- - Prevent the versioning of sensitive data (via .gitignore and set hooks monitoring your commits) ;  
- - Include the data leak check in your continuous delivery process (build factory). For example for Github CI see the Github actions Trufflehog and Gitleaks as aforementioned. 
+ - Prevent the versioning of sensitive data (via .gitignore and set hooks to monitor your commits) ;  
+ - Include the secret scanning process as part as your continuous delivery process (build factory). For example for Github CI see the Github actions Trufflehog and Gitleaks as aforementioned. 
   
   
 See you soon, next posts will be more internal pentesting / windows oriented,  
