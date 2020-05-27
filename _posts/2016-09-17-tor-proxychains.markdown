@@ -2,7 +2,7 @@
 layout: post
 title:  "Anonymat avec TOR et Proxychains sous Kali"
 date:   2016-09-17
-categories: web
+categories: general
 ---
 <br />
 Salut à tous,
