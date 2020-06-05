@@ -135,7 +135,7 @@ For each leaked secrets linked to an environment which could be targeted by an a
   
 More globally :  
  - Warn the stakeholders involved in this data leak (users, providers, ...) ;  
- - Check log files to detect previous fraudulent access ;
+ - Check log files to detect former fraudulent access ;
  - Prevent the versioning of sensitive data (via .gitignore and set hooks to monitor your commits) ;  
  - Include the secret scanning process as part as your continuous delivery process (build factory). For example for Github CI see the Github actions Trufflehog and Gitleaks as aforementioned. 
   
