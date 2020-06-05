@@ -84,7 +84,7 @@ prepare-commit-msg: Used to determine if a merge commit will introduce a history
   
 **GITHUB ACTIONS :**  
 
-*[GitHub Actions](GitHub Actions enables you to create custom software development life cycle (SDLC) workflows directly in your GitHub repository.) enables you to create custom software development life cycle (SDLC) workflows directly in your GitHub repository.*  
+*[GitHub Actions](https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions) enables you to create custom software development life cycle (SDLC) workflows directly in your GitHub repository.*  
   
  - [Gitleaks Github Action](https://github.com/marketplace/actions/gitleaks)
  - [Trufflehog Github Action](https://github.com/marketplace/actions/trufflehog-actions-scan)
