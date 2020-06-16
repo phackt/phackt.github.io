@@ -41,9 +41,9 @@ What do you need:
   
 Following all these steps will help to determine the most likely versions of the underlying CMS.  
   
-So first download the last version of [versionchecker.sh](https://raw.githubusercontent.com/phackt/pentest/master/fingerprint/versionchecker.sh):  
+So first download the last version of [versionchecker.sh](https://raw.githubusercontent.com/phackt/pentest/master/fingerprint/web/versionchecker.sh):  
 ```bash
-cd /tmp && wget https://raw.githubusercontent.com/phackt/pentest/master/fingerprint/versionchecker.sh
+cd /tmp && wget https://raw.githubusercontent.com/phackt/pentest/master/fingerprint/web/versionchecker.sh
 chmod +x versionchecker.sh
 ```
   
