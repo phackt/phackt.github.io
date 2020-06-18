@@ -8,11 +8,12 @@ Welcome on this blog dealing with posts about infosec.
 <br/>
 **Who is the dude?**
   
-I was a web applications developper for several years and infosec fanatic before i was born.  
+I was a web applications developper for several years and infosec fanatic before i was born and now working in this fascinating field.  
 For the french dudes, may be HZV, Hackademy Mag & School, Zataz, NDH sounds familiar.  
   
-I have now the chance to work in this challenging field. I'm also an open-source contributor and so on - check my [github](https://github.com/phackt)).  
+I'm also an open-source contributor and so on - check my [github](https://github.com/phackt)).  
 And don't forget, there is a life beside your keyboard.  
+  
   
 ```
   _____        _             _ _
