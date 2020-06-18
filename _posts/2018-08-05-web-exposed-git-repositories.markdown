@@ -28,7 +28,7 @@ However i was looking for other information, for example:
  - highlights remote url
  - displays .git/config and .gitignore files
   
-Knowing a bit of a [.git repository layout](https://git-scm.com/docs/gitrepository-layout) will allow to easily retrieve this information even if you don't have any directory traversal. That's why i created a bash script gathering this information which you can find [here](https://github.com/phackt/pentest#user-content-git).  
+Knowing a bit of a [.git repository layout](https://git-scm.com/docs/gitrepository-layout) will allow to easily retrieve this information even if you don't have any directory traversal. That's why i created a bash script gathering this information which you can find [here](https://github.com/phackt/pentest/blob/master/fingerprint/web/git.sh).  
   
 ![image1]({{ site.url }}/public/images/git-exposed/gittool.png)
   

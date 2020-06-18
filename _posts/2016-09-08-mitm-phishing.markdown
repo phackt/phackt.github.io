@@ -102,9 +102,13 @@ Les outils MITM peuvent également forger dynamiquement un certificat pour inter
 
 ![Certificat]({{ site.url }}/public/images/mitm-phishing/alerte-certificat.png)  
 
- > <span style="color: red">Cliquez sur 'Back to safety'!!</span>
+ > <span style="color: red">Cliquez sur 'Back to safety'</span>
   
-Dans notre exemple, la connexion au site falsifié est non sécurisée (évitant les alertes de certificats). Donc vérifier toujours le cadenas vert dans la barre d'url et que votre connexion soit sécurisée. Dans le cas d'une autorité de certification compromise le pinning de clé publique pourrait avoir son utilité même si le HPKP devient obsolète et ne sera plus supporté sous Chrome au bénéfice du 'Certificate Transparency'. Nous voyons aussi l'importance du HSTS (Strict-Transport-Security) abordé dans les [précédents articles]({{ site.url }}/xss-cors-csrf-partie-3-cors-csrf#hsts) pour forcer les connexions HTTPS. Certains firewall (ex [Symantec](https://www.symantec.com/security_response/glossary/define.jsp?letter=a&word=anti-mac-spoofing)) empêchent les ARP Reply non légitimes. L'autre solution la plus couramment utilisée reste le cloisonnement en VLAN. Si vous vous connectez à un HotSpot, établir un canal chiffré (ex VPN) est également une idée.  
+Dans notre exemple, la connexion au site falsifié est non sécurisée (évitant les alertes de certificats). Donc vérifier toujours le cadenas vert dans la barre d'url et que votre connexion soit sécurisée.  
+  
+Dans le cas d'une autorité de certification compromise le pinning de clé publique pourrait avoir son utilité même si le HPKP devient obsolète et ne sera plus supporté sous Chrome au bénéfice du 'Certificate Transparency'. Nous voyons aussi l'importance du HSTS (Strict-Transport-Security) abordé dans les [précédents articles]({{ site.url }}/xss-cors-csrf-partie-3-cors-csrf#hsts) pour forcer les connexions HTTPS. Certains firewall (ex [Symantec](https://www.symantec.com/security_response/glossary/define.jsp?letter=a&word=anti-mac-spoofing)) empêchent les ARP Reply non légitimes.  
+  
+L'autre solution la plus couramment utilisée reste le cloisonnement en VLAN. Si vous vous connectez à un HotSpot, établir un canal chiffré (ex VPN) est également une idée.  
   
 A bientôt.
 <br />
