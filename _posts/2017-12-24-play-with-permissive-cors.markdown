@@ -46,8 +46,8 @@ open cors found for url http://h10.edmarkreadingonline.com/
 open cors found for url http://ermresearch.com/
 open cors found for url http://ellysdirectory.com/
 ...
-```
-    
-Don't hesitate to contact me if you have any idea or comments, or if you played with one of the domains, for example **www.attractiveworld.com**.  
+```   
+  
+**UPDATE 01/07/2020:I'm strongly suggesting right now to use this complete tool of which i merged most of CORS detecting features: [https://github.com/phackt/CORScanner](https://github.com/phackt/CORScanner).**    
   
 Cheers.
