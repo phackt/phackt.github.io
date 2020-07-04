@@ -12,7 +12,7 @@ I was a web applications developper for several years and infosec fanatic before
 For the french dudes, may be HZV, Hackademy Mag & School, Zataz, NDH sounds familiar.  
   
 I'm also an open-source contributor ([mitmproxy](https://github.com/mitmproxy/mitmproxy), [windapsearch](https://github.com/ropnop/windapsearch), [PowerUpSQL](https://github.com/NetSPI/PowerUpSQL), ...) - check my [github](https://github.com/phackt).  
-And don't forget, there is a life beside your keyboard.  
+I also love sport, traveling and socializing.  
   
   
 ```
