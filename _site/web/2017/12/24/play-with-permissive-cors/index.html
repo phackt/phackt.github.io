@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Play with permissive CORS &middot; Lanyon
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/web/2017/12/24/play-with-permissive-cors/">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+
+    <a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Lanyon</a>
+            <small>A Jekyll theme</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">Play with permissive CORS</h1>
+  <span class="post-date">24 Dec 2017</span>
+  <p>Hello folks,</p>
+
+<p>While i was playing with a ‘code search engine’ tool called <a href="https://publicwww.com">publicwww</a>, i decided to gather some top Alexa domains and to look for some permissive CORS. I tried the following researches, <code class="language-plaintext highlighter-rouge">site:fr "type=\"password\""</code>, the same for the TLDs <em>.org</em> and <em>.com</em>, in order to spot webpages with a login form.</p>
+
+<p>I also looked for some other stuff like websites with french language and so on. I will let you play with publicwww, remember that you are limited with basic access but if you pay you will have access to the top 200000 Alexa websites dealing with your request. May be you also wanna play with Shodan or Censys.</p>
+
+<p><strong>Python tool to detect permissive CORS</strong></p>
+
+<p>We already talked about <strong>Cross Origin Ressource Sharing</strong> in some <a href="https://phackt.com/xss-cors-csrf-partie-3-cors-csrf">previous posts</a>. You also have a great explanation about the <strong>Same Origin Policy</strong> on <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">mozilla.org</a>. A website with permissive CORS will allow an attacker to perform any requests to this website from another ressource and this request can include the victim’s cookies (xhr.withCredentials = true). So if the cookie’s session is reflected, you will be able to steal it and forge the victim’s session. You will be able to change the victim’s password if the former one is not requested, read some sensitive account information, …. Remember that because now you can READ the response, you also can read the CSRF token and bypass the protection.</p>
+
+<p>So once i gathered enough interesting domains and urls from OSINT tools, and got a bunch of ones dealing with bug some bounty programs, i decided to be original and to create a tool called <a href="https://github.com/phackt/pentest/tree/master/fingerprint/web/cors">cors.py</a>.</p>
+
+<p>This tool reads a list of domains and/or urls and will HTTP request them, adding the <strong>Origin</strong> header of your choice, example: <code class="language-plaintext highlighter-rouge">Origin: https://phackt.com</code>. It will finally detects a permissive cors if the response header <strong>Access-Control-Allow-Origin</strong> is set to <em>null</em> or if the origin header’s value is reflected, and if the response header <strong>Access-Control-Allow-Credentials</strong> is set to <em>true</em> (permissive CORS is relevant only if you can read from request including victim’s cookies). You also can detect some strings in the response headers (see config.json) and configure other parameters like the number of threads, the user agent, the response timeout, and so on.</p>
+
+<p><strong>HOW TO</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./cors.py -h
+usage: cors.py [-h] [-f URLSFILE] [-r]
+
+Looking for some permissive CORS
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f URLSFILE, --file URLSFILE
+                        file with urls
+  -r, --redirect        allow redirect in requests
+</code></pre></div></div>
+
+<p>Example of output:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./cors.py -f /tmp/sitecomtypepassword.txt 
+Processing 230 lines
+Launching 20 threads
+open cors found for url http://asiaroom.com/
+open cors found for url http://aksekiyapi.com/
+open cors found for url http://baseshare.com/
+open cors found for url http://fitwall.com/
+open cors found for url http://h10.edmarkreadingonline.com/
+open cors found for url http://ermresearch.com/
+open cors found for url http://ellysdirectory.com/
+...
+</code></pre></div></div>
+
+<p><strong>UPDATE 01/07/2020:I’m strongly suggesting right now to use this complete tool of which i merged most of CORS detecting features: <a href="https://github.com/phackt/CORScanner">https://github.com/phackt/CORScanner</a>.</strong></p>
+
+<p>Cheers.</p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/dev/2020/05/27/git-secrets-exposed/">
+            What solutions to prevent git leaks ?
+            <small>27 May 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web/2018/08/05/web-exposed-git-repositories/">
+            Gathering some information from web exposed git repositories
+            <small>05 Aug 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web/2017/07/25/xss-real-life-case-credentials-stealing/">
+            A fun case of XSS and other web concepts
+            <small>25 Jul 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+
+    <!-- <label for="sidebar-checkbox" class="sidebar-toggle"></label> -->
+
+    <script src='/public/js/script.js'></script>
+ 
+  </body>
+</html>
