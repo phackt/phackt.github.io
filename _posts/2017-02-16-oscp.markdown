@@ -16,7 +16,7 @@ Premier article de l'année, cependant ces derniers temps furent bien remplis av
 
 L'OSCP est une certification en sécurité offensive (pentesting) délivrée par [Offensive Security](https://www.offensive-security.com/), acteur majeur de la scène infosec puisqu'ils sont derrière plusieurs projets comme la distribution [Kali](https://www.kali.org/), [The Exploit Database](https://www.exploit-db.com/), ou encore la [Google Hacking Database](https://www.exploit-db.com/google-hacking-database/).  L'OSCP permet de valider vos compétences concernant la formation PWK (Penetration testing With Kali).
   
-Le gros plus de cette formation est qu'elle va vous permettre de pratiquer dans un lab qui simule un réseau d'entreprise. On est donc loin de la classique certif QCM uniquement basée sur du bachotage. Ici vous passerez par toutes les étapes d'un pentest, et on ne vous répètera jamais assez... Enumerate, enumerate, enumerate!!!!!! Effectivement la prise d'empreinte est la première étape primordiale sur laquelle vous devrez mettre l'accent.
+Le gros plus de cette formation est qu'elle va vous permettre de pratiquer dans un lab qui simule un réseau d'entreprise. On est donc loin de la classique certif QCM uniquement basée sur du bachotage. Ici vous passerez par toutes les étapes d'un pentest, et on ne vous répètera jamais assez... Enumerate, enumerate, enumerate ! Effectivement la reconnaissance est la première étape primordiale sur laquelle vous devrez mettre l'accent.
   
 Mais l'OSCP c'est également une communauté de passionnés, d'entraide, de chans slack ou IRC. Une belle aventure vous attend.  
   
@@ -27,7 +27,7 @@ L'OSCP se compose d'un pdf de 375 pages, de ~150 vidéos d'une durée entre 2 ~ 
   
 Vous aurez donc à énumerer les machines (services, dns, domain controllers, webapp, vulns, ...), à obtenir un premier accès utilisateur pour ensuite effectuer une élévation des privilèges et devenir root/system. Ne négligez pas la partie post-exploitation.  
     
-Vous aurez à pivoter entre les différents réseaux, faire en fonction de solutions antivirales et parefeu sur les machines. Il y a un nombre équivalent de machines virtuelles WIN/LINUX. Tous les exploits à utiliser sont référencés sur [exploit-db](https://www.exploit-db.com/). Vous pouvez aussi utiliser l'outil en ligne de commande searchsploit.  
+Vous aurez à pivoter entre les différents réseaux, faire en fonction de solutions antivirales et pare-feux sur les machines. Il y a un nombre équivalent de machines virtuelles WIN/LINUX. Tous les exploits à utiliser sont référencés sur [exploit-db](https://www.exploit-db.com/). Vous pouvez aussi utiliser l'outil en ligne de commande searchsploit.  
   
 _Concernant les exploits_:  
 Certains exploits fonctionneront out-of-the-box, d'autres demanderont plus d'attention et devront être modifiés pour matcher avec la machine cible, injecter votre propre payload, ...  
@@ -43,7 +43,7 @@ Si vous souhaitez rallonger la durée du lab, vous pourrez le faire avant l'expi
   
 Tout dépend du temps que vous pourrez allouer à la formation. Je vous conseillerais, étant donné que vous pouvez étendre la durée du lab (cela vous reviendra un poil plus cher cependant), de ne pas viser une durée trop importante si vous avez une bonne capacité de travail.  
   
-Personnellement, je bossais en moyenne 3h par jour en parallèle de mon job et full les week-end. Mais comme on dit quand on aime on ne compte pas. Au final j'étais parti sur un lab de 3 mois, et j'ai pu bouclé la certif en 2 mois. Il me reste donc un mois de lab pour quelques petites douceurs à savoir les dernières machines du réseau Admin :).  
+Personnellement, je bossais en moyenne 2h par jour en parallèle de mon job et full les week-end. Mais comme on dit quand on aime on ne compte pas. Au final j'étais parti sur un lab de 3 mois, et j'ai pu bouclé la certif en 2 mois. Il me reste donc un mois de lab pour quelques petites douceurs à savoir les dernières machines du réseau Admin :).  
   
   
 **Exam / Livrables**
