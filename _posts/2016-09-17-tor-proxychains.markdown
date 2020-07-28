@@ -3,11 +3,12 @@ layout: post
 title:  "Anonymat avec TOR et Proxychains sous Kali"
 date:   2016-09-17
 categories: general
+excerpt_separator: <!--more-->
 ---
-<br />
-Salut à tous,
+Bonjour à tous,
 
 Après m'être demandé comment lancer toutes mes commandes derrière un proxy [SOCKS](https://fr.wikipedia.org/wiki/SOCKS) pour masquer mon ip (certaines commandes ne proposent pas d'option pour rediriger vers un proxy SOCKS), vous pouvez vous en sortir grâce au réseau [TOR](https://fr.wikipedia.org/wiki/Tor_(r%C3%A9seau)) et un outil appelé [Proxychains](https://github.com/haad/proxychains/blob/master/src/proxychains.conf).  
+<!--more-->
   
 Installez tor et proxychains:  
 

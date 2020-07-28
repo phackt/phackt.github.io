@@ -3,10 +3,12 @@ layout: post
 title:  "Play with permissive CORS"
 date:   2017-12-24
 categories: web
+excerpt_separator: <!--more-->
 ---
 Hello folks,  
   
 While i was playing with a 'code search engine' tool called [publicwww](https://publicwww.com), i decided to gather some top Alexa domains and to look for some permissive CORS. I tried the following researches, ```site:fr "type=\"password\""```, the same for the TLDs *.org* and *.com*, in order to spot webpages with a login form.  
+<!--more-->
   
 I also looked for some other stuff like websites with french language and so on. I will let you play with publicwww, remember that you are limited with basic access but if you pay you will have access to the top 200000 Alexa websites dealing with your request. May be you also wanna play with Shodan or Censys.  
   

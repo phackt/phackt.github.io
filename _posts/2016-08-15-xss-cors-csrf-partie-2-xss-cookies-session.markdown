@@ -3,13 +3,14 @@ layout: post
 title:  "XSS, CORS, CSRF (Partie 2)"
 date:   2016-08-15
 categories: web
+excerpt_separator: <!--more-->
 ---
-XSS  et vol de cookies par la pratique.
-----------
-
+### XSS  et vol de cookies par la pratique.  
+  
 **Vous reprendrez bien un cookie ?**
   
 Dans le [premier volet]({{ site.url }}/xss-cors-csrf-partie-1-xss) de notre saga, nous traitions des attaques XSS et des moyens de s’en prémunir. Ces vulnérabilités peuvent être utilisées pour voler vos informations de session ou vous rediriger vers un site frauduleux. Vous vous dîtes sûrement : "ok coco en théorie c’est bien sympa tout ça, mais en quoi consiste le vol d’une session, quelles informations sont envoyées et où part la requête ?".  
+<!--more-->
   
 Imaginons la configuration suivante :
   

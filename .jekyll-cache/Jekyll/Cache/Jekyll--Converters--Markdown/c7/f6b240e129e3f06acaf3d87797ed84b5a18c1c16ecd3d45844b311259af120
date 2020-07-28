@@ -1,0 +1,9 @@
+I"�<p>Bonjour à tous,</p>
+
+<p>Pour faire suite à l’<a href="http://localhost:4000/mitm-phishing">article</a> que j’avais rédigé sur une attaque MITM redirigeant vers un site web spoofé, je me suis penché sur une autre méthode plus générique qui utilise l’outil <a href="https://mitmproxy.org/">mitmproxy</a>.</p>
+
+<p>Toujours dans un contexte MITM, l’objectif est d’identifier les liens sécurisés et redirections (<strong>https</strong>), de les ‘stripper’ en <strong>http</strong>, dans le but de maintenir le type de connexion suivante:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>victime &lt;-- HTTP --&gt; mitmproxy &lt;-- HTTPS --&gt; website
+</code></pre></div></div>
+:ET

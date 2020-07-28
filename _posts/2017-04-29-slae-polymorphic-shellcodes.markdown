@@ -3,18 +3,20 @@ layout: post
 title:  "SLAE Assignment 6 - Polymorphic shellcodes"
 date:   2017-04-29
 categories: certification
+excerpt_separator: <!--more-->
 ---
 <br />
 Student **SLAE - 891**  
 Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)  
 [http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/](http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/)  
   
-## Assignment 6:  
+### Assignment 6:  
     
 **Our Goal:**  
 > *Take up 3 shellcodes from Shell-Storm and create polymorphic versions*
  - *The polymorphic versions can not be larger than 150% of the original versions*
  - *Bonus points if shorter in length than original*  
+<!--more-->
   
 Hello everybody,  
   

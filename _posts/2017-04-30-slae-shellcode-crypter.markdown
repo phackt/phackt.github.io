@@ -3,18 +3,20 @@ layout: post
 title:  "SLAE Assignment 7 - Custom crypter"
 date:   2017-04-30
 categories: certification
+excerpt_separator: <!--more-->
 ---
 <br />
 Student **SLAE - 891**  
 Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)  
 [http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/](http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/)  
   
-## Assignment 7:  
+### Assignment 7:  
     
 **Our Goal:**  
 > *Create a custom crypter*
  - *Free to use any existing encryption schema*
  - *Can use any programming language*  
+<!--more-->
   
 Hello everybody,  
   

@@ -1,0 +1,4 @@
+I"<p>Bonjour à tous,</p>
+
+<p>Je me suis dit qu’il était intéressant de partager avec vous un script <strong>Bash</strong> que j’ai créé pour automatiser une attaque ‘Man In The Middle’ et rediriger vers une fausse page web que nous allons héberger (<a href="https://github.com/phackt/mitm">https://github.com/phackt/mitm</a>). L’objectif est pour une attaque ciblée de rendre l’obtention des credentials la plus transparente possible. Cependant il n’existe pas de solution miracle, à chaque combat sa stratégie.</p>
+:ET

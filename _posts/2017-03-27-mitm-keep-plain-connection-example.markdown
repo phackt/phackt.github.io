@@ -3,8 +3,8 @@ layout: post
 title:  "MITM, HSTS, and plain HTTP landing page in practice"
 date:   2017-03-27
 categories: mitm
+excerpt_separator: <!--more-->
 ---
-<br />
 Hi everybody,  
   
 I already wrote some articles talking about the importance of implementing the HTTP Strict Transport Security ([HSTS](https://https.cio.gov/hsts/)) and to secure all the webpages, even the landing page.  
@@ -12,6 +12,7 @@ I already wrote some articles talking about the importance of implementing the H
 **Why all the pages should be secure ?**  
   
 Because all the trafic should be hidden from prying eyes. If an attacker could interfer with only one page, several options are available to him. He can strip all secure headers, redirect trafic, change web page content, force HTTP trafic, and so on.  
+<!--more-->
 Every case is different but keep in mind that if the victim is able to generate a plain HTTP request (http://website.com), the attacker can control all the trafic.  
   
 However, if a ressource has been cached with HSTS, the browser will automatically do an internal redirect (Code 307).  

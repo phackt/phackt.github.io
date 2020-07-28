@@ -1,0 +1,8 @@
+I"4<p>Hi everybody,</p>
+
+<p>I already wrote some articles talking about the importance of implementing the HTTP Strict Transport Security (<a href="https://https.cio.gov/hsts/">HSTS</a>) and to secure all the webpages, even the landing page.</p>
+
+<p><strong>Why all the pages should be secure ?</strong></p>
+
+<p>Because all the trafic should be hidden from prying eyes. If an attacker could interfer with only one page, several options are available to him. He can strip all secure headers, redirect trafic, change web page content, force HTTP trafic, and so on.</p>
+:ET

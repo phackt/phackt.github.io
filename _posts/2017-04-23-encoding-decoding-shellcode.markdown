@@ -3,19 +3,21 @@ layout: post
 title:  "SLAE Assignment 4 - Encoding/Decoding Shellcode"
 date:   2017-04-23
 categories: certification
+excerpt_separator: <!--more-->
 ---
 <br />
 Student **SLAE - 891**  
 Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)  
 [http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/](http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/)  
   
-## Assignment 4:  
+### Assignment 4:  
   
 Code is available on my [github repo](https://github.com/phackt/slae/tree/master/assignment4).  
   
 **Our Goal:**  
 > *Create a custom encoding scheme*
  - *POC with using the execve-stack as the shellcode*  
+<!--more-->
   
 Hello everybody,  
   

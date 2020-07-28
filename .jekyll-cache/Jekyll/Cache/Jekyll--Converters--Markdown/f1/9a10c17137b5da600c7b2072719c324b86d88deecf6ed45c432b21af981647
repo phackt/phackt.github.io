@@ -1,0 +1,9 @@
+I"�<h3 id="siem-le-monitoring-de-la-sécurité">SIEM, le monitoring de la sécurité</h3>
+
+<p>Nous avons vu dans un précédent article quel était le contexte réglementaire de la <a href="http://localhost:4000/introduction-cybersecurite">Loi de Programmation Militaire</a> française.</p>
+
+<p><strong>Que dites-vous d’une petite révision ?</strong></p>
+
+<p>La LPM impose aux <strong>OIV</strong> (Opérateurs d’Importance Vitale) de renforcer la sécurité des systèmes d’information critiques qu’ils exploitent et de notifier les incidents de sécurité à l’<a href="http://www.ssi.gouv.fr/">ANSSI</a> (Agence Nationale de la Sécurité des Systèmes d’Information).<br />
+Une première vague d’arrêtés a été publiée le 1er juillet 2016. Ces arrêtés concernent les secteurs d’activité des produits de santé, la gestion de l’eau et l’alimentation. Plusieurs autres arrêtés, concernant d’autres secteurs d’activité, devraient paraître d’ici la fin de cette année.</p>
+:ET

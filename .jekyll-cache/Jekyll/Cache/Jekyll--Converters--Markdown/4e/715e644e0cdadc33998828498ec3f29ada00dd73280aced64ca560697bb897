@@ -1,0 +1,76 @@
+I"�<p>Bonjour à tous,</p>
+
+<p>Premier article de l’année, cependant ces derniers temps furent bien remplis avec notamment le passage de l’<a href="https://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/">OSCP</a>. J’en profite donc pour écrire une petite revue sur cette certif en espérant partager des infos qui pourront vous être utiles.
+<!--more--></p>
+
+<p><strong>Qu’est-ce que l’OSCP?</strong></p>
+
+<p><img src="http://localhost:4000/public/images/oscp/oscp1.png" alt="oscp" /></p>
+
+<p>L’OSCP est une certification en sécurité offensive (pentesting) délivrée par <a href="https://www.offensive-security.com/">Offensive Security</a>, acteur majeur de la scène infosec puisqu’ils sont derrière plusieurs projets comme la distribution <a href="https://www.kali.org/">Kali</a>, <a href="https://www.exploit-db.com/">The Exploit Database</a>, ou encore la <a href="https://www.exploit-db.com/google-hacking-database/">Google Hacking Database</a>.  L’OSCP permet de valider vos compétences concernant la formation PWK (Penetration testing With Kali).</p>
+
+<p>Le gros plus de cette formation est qu’elle va vous permettre de pratiquer dans un lab qui simule un réseau d’entreprise. On est donc loin de la classique certif QCM uniquement basée sur du bachotage. Ici vous passerez par toutes les étapes d’un pentest, et on ne vous répètera jamais assez… Enumerate, enumerate, enumerate!!!!!! Effectivement la prise d’empreinte est la première étape primordiale sur laquelle vous devrez mettre l’accent.</p>
+
+<p>Mais l’OSCP c’est également une communauté de passionnés, d’entraide, de chans slack ou IRC. Une belle aventure vous attend.</p>
+
+<p><strong>Déroulement</strong></p>
+
+<p>L’OSCP se compose d’un pdf de 375 pages, de ~150 vidéos d’une durée entre 2 ~ 10min, et d’un lab pour vous exercer. A l’issue de ce lab vous pourrez planifier votre examen, ou même avant si vous vous sentez prêt. Le lab est composé de 4 réseaux, un student network, qui lui même route sur un dev network et un it network, ce dernier routant également sur un admin network.</p>
+
+<p>Vous aurez donc à énumerer les machines (services, dns, domain controllers, webapp, vulns, …), à obtenir un premier accès utilisateur pour ensuite effectuer une élévation des privilèges et devenir root/system. Ne négligez pas la partie post-exploitation.</p>
+
+<p>Vous aurez à pivoter entre les différents réseaux, faire en fonction de solutions antivirales et parefeu sur les machines. Il y a un nombre équivalent de machines virtuelles WIN/LINUX. Tous les exploits à utiliser sont référencés sur <a href="https://www.exploit-db.com/">exploit-db</a>. Vous pouvez aussi utiliser l’outil en ligne de commande searchsploit.</p>
+
+<p><em>Concernant les exploits</em>:<br />
+Certains exploits fonctionneront out-of-the-box, d’autres demanderont plus d’attention et devront être modifiés pour matcher avec la machine cible, injecter votre propre payload, …</p>
+
+<p>Un point sur les BO: vous appréhenderez un stack overflow classique sur un exe sans protection DEP ou ASLR (ceci sera pour les autres certifs OSCE, OSEE). Ce fût une section kiff++, ce qui me fait me pencher sérieusement sur l’<a href="https://www.offensive-security.com/information-security-certifications/osce-offensive-security-certified-expert/">OSCE</a>.</p>
+
+<p>Si vous souhaitez rallonger la durée du lab, vous pourrez le faire avant l’expiration de ce dernier. Le lab vous préparera au mieux pour l’exam de 24h.</p>
+
+<p><strong>Durée / Tarifs</strong></p>
+
+<p><img src="http://localhost:4000/public/images/oscp/prices.png" alt="prices" /></p>
+
+<p>Tout dépend du temps que vous pourrez allouer à la formation. Je vous conseillerais, étant donné que vous pouvez étendre la durée du lab (cela vous reviendra un poil plus cher cependant), de ne pas viser une durée trop importante si vous avez une bonne capacité de travail.</p>
+
+<p>Personnellement, je bossais en moyenne 3h par jour en parallèle de mon job et full les week-end. Mais comme on dit quand on aime on ne compte pas. Au final j’étais parti sur un lab de 3 mois, et j’ai pu bouclé la certif en 2 mois. Il me reste donc un mois de lab pour quelques petites douceurs à savoir les dernières machines du réseau Admin :).</p>
+
+<p><strong>Exam / Livrables</strong></p>
+
+<p>Roulements de tambour, vous avez bouclé votre date d’exam, c’est le jour J, vous êtes chaud patate, let’s go…</p>
+
+<p>L’exam se déroule sur 24h. Pendant ces 24h vous aurez à hacker un certain nombre de machines qui vous rapporteront des points en fonction de leur difficulté et du niveau de compromission de la machine (low/high privileged shell).  Un <strong>minimum de 70 points</strong> est requis pour obtenir la certification. Tout ce que vous verrez pendant l’exam a été vu dans le lab (les machines humble/pain/sufferance sont hors scope exam mais faites les).<br />
+Donc mon premier conseil est de passer du temps sur le lab et de compromettre un maximum de machines.</p>
+
+<p>Un exemple, mon exam a commencé à 10h, à 6h le lendemain j’avais réussi à compromettre toutes les machines (5 au total) et recueilli un maximum d’infos pour la rédaction du rapport. J’avais compromis 47 machines pendant le lab.</p>
+
+<p>Vous aurez ensuite à nouveau 24h pour rendre un rapport détaillé et professionnel sur votre test de pénétration. Ce rapport est obligatoire. OffSec vous fournira un template de rapport que vous pourrez utiliser si vous le souhaitez.</p>
+
+<p><strong>Point bonus</strong>:</p>
+
+<p>Vous pouvez rendre un rapport sur les exercices du PDF et sur les machines compromises du lab. Chaque rapport peut vous rapporter 5 points (un total de 10 points bonus).</p>
+
+<p><strong>Conseils</strong></p>
+
+<ul>
+  <li>Rédigez les rapports concernant les exercices du pdf et les étapes pour compromettre les machines du lab (10 machines minimum requises). Ces points pourront vous être précieux et vous enlèveront une dose de stress le jour de l’exam. Et puis ne serait-ce que sur un plan pédagogique cela vous permettra d’être certain d’avoir tout assimilé et de ne pas survoler les cours.</li>
+  <li>Organisez votre information et structurez la pour pouvoir y accéder rapidement. Utilisez un soft comme Keepnote/Cherrytree.</li>
+  <li>Utilisez la VM Kali fournie par OffSec.</li>
+  <li>Ne vous précipitez pas, prenez le temps d’avoir une vision précise de votre cible.</li>
+  <li>N’abandonnez-pas, échangez, discutez avec la communauté mais évitez de vous faire spoiler des indices. Vous en tirerez d’autant plus de gratitude en ayant <strong>try harder</strong> :)</li>
+  <li>Le jour de l’exam, faites attention aux ‘rabbit-holes’. Si vous explorez une piste trop longtemps passez à autre chose. On ne vous demandera jamais de bruteforcer plus de 30 mins. Et ne négligez aucun détail de votre énumération. <strong>keep calm and enumerate</strong>.</li>
+</ul>
+
+<p><img src="http://localhost:4000/public/images/oscp/tryharder.png" alt="tryharder" /></p>
+
+<p><strong>Conclusion</strong></p>
+
+<p>l’OSCP fût une excellente expérience et hautement addictive. Les 24h d’exams sont intenses, mais cela ne sera que du bonheur.</p>
+
+<p>N’hésitez pas à me contacter si vous souhaitez des infos sur le sujet!<br />
+<a href="https://twitter.com/phackt_ul">Twitter</a><br />
+<a href="https://github.com/phackt">Github</a></p>
+
+<p>A bientôt!</p>
+:ET

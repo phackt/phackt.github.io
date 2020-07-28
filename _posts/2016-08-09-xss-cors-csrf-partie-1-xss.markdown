@@ -3,13 +3,15 @@ layout: post
 title:  "XSS, CORS, CSRF (Partie 1)"
 date:   2016-08-09
 categories: web
+excerpt_separator: <!--more-->
 ---
-Le XSS, CORS, CSRF... Késako?
-----------
+### Le XSS, CORS, CSRF... Késako?
+  
 **Que se cache-t-il derrière ces acronymes barbares ?**  
   
 Bienvenue dans cette saga qui traitera des notions de XSS, CORS, CSRF et du lien entre elles.  
 Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB "cas d’école" en Java [https://github.com/phackt/DemoWebApp](https://github.com/phackt/DemoWebApp). La question que nous nous posons est la suivante : **quelles sont les bonnes pratiques pour sécuriser une application WEB ?**  
+<!--more-->
   
 Dans ce premier volet, nous traiterons des attaques de cross-site scripting. Nous ferons le lien par la suite avec les protections CSRF (Cross Site Request Forgery) et les requêtes CORS (Cross Origin Ressource Sharing).    
   

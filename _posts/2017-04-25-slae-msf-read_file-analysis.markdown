@@ -3,18 +3,20 @@ layout: post
 title:  "SLAE Assignment 5.2 - Msfvenom linux/x86/read_file shellcode Analysis"
 date:   2017-04-25
 categories: certification
+excerpt_separator: <!--more-->
 ---
 <br />
 Student **SLAE - 891**  
 Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)  
 [http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/](http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/)  
   
-## Assignment 5.2:  
+### Assignment 5.2:  
   
 **Our Goal:**  
 > *Take up at least 3 linux/x86 shellcodes using Msfpayload (now Msfvenom)*
  - *Use GDB/Ndisasm/Libemu to dissect the functionality of the shellcode*
  - *Present your analysis*  
+<!--more-->
   
 Hello everybody,  
   

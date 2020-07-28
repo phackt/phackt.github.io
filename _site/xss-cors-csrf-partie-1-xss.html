@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      XSS, CORS, CSRF (Partie 1) &middot; phackt.com:~#
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/xss-cors-csrf-partie-1-xss">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Some infosec stuff.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about">About</a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">phackt.com:~#</a>
+            <small>Let's talk about sec, baby!</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">XSS, CORS, CSRF (Partie 1)</h1>
+  <span class="post-date">09 Aug 2016</span>
+  <h3 id="le-xss-cors-csrf-késako">Le XSS, CORS, CSRF… Késako?</h3>
+
+<p><strong>Que se cache-t-il derrière ces acronymes barbares ?</strong></p>
+
+<p>Bienvenue dans cette saga qui traitera des notions de XSS, CORS, CSRF et du lien entre elles.<br />
+Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB “cas d’école” en Java <a href="https://github.com/phackt/DemoWebApp">https://github.com/phackt/DemoWebApp</a>. La question que nous nous posons est la suivante : <strong>quelles sont les bonnes pratiques pour sécuriser une application WEB ?</strong><br />
+<!--more--></p>
+
+<p>Dans ce premier volet, nous traiterons des attaques de cross-site scripting. Nous ferons le lien par la suite avec les protections CSRF (Cross Site Request Forgery) et les requêtes CORS (Cross Origin Ressource Sharing).</p>
+
+<h1 id="xss">XSS</h1>
+<p>Définition de Wikipédia :<br />
+<em>” Le cross-site scripting (abrégé XSS), est un type de faille de sécurité des sites web permettant d’injecter du contenu dans une page, permettant ainsi de provoquer des actions sur les navigateurs web visitant la page. Les possibilités des XSS sont très larges puisque l’attaquant peut utiliser tous les langages pris en charge par le navigateur (JavaScript, Java, Flash…) et de nouvelles possibilités sont régulièrement découvertes notamment avec l’arrivée de nouvelles technologies comme HTML5. Il est par exemple possible de rediriger vers un autre site pour de l’hameçonnage ou encore de voler la session en récupérant les cookies.”</em></p>
+
+<p>L’objectif est donc l’injection de code dans la page HTML pouvant être interprété par le navigateur. Si les balises permettant l’interprétation de code arbitraire ne sont pas bien filtrées, exemple classique avec la balise <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code>, alors nous pourrons exécuter du code à l’insu de l’utilisateur. <br />
+Il existe deux types d’attaques XSS, les réfléchies, et les stockées. Les réfléchies sont injectées dans la requête et le code interprétable n’est pas stocké de façon permanente sur le serveur.</p>
+
+<p>Un exemple basique sur une page PHP :</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+  <span class="nv">$name</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'name'</span><span class="p">];</span>
+  <span class="k">echo</span> <span class="s2">"Welcome </span><span class="nv">$name</span><span class="s2">"</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>Un autre exemple en JSP :</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;%</span> <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span> <span class="o">%&gt;</span> 
+<span class="nc">Employee</span> <span class="nl">name:</span> <span class="o">&lt;%=</span> <span class="n">name</span> <span class="o">%&gt;</span>  
+</code></pre></div></div>
+
+<p>Si vous appelez <code class="language-plaintext highlighter-rouge">/index?name=&lt;script&gt;prompt(1)&lt;/script&gt;</code>, votre navigateur interprétera la balise <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> et affichera un donc un prompt. Aucun intérêt ici mais on vous laisse deviner la portée d’une telle attaque : un payload javascript pourra voler vos informations de session (<em>document.cookie</em>), envoyer des requêtes à votre insu sur le site vulnérable ou faire de la redirection dans un but d’hameçonnage. Les attaques XSS Reflected sont souvent associées à de l’ingénierie sociale car l’utilisateur doit accéder à un lien provoquant l’exécution du code.</p>
+
+<p>Cependant ce code peut être stocké de façon permanente dans les attaques XSS Stored. Le principe est le même sauf que le code est stocké sur le serveur, le cas classique étant un forum vulnérable qui sauvegarde les messages infectés (<a href="https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29">OWASP (Open Web Application Security Project) Cross-Site Scripting</a>).</p>
+
+<h1 id="comment-sen-prémunir-">Comment s’en prémunir ?</h1>
+
+<p>Il convient d’assainir en entrée les données (Filter) et d’encoder l’information pour les réponses HTTP. Tout dépend du langage de programmation, framework utilisé, et également de l’endroit où se situe point d’injection.</p>
+
+<p>Par exemple si vous travaillez avec Spring MVC pour échapper les outputs:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;context-param&gt;
+   &lt;param-name&gt;defaultHtmlEscape&lt;/param-name&gt;
+   &lt;param-value&gt;true&lt;/param-value&gt;
+&lt;/context-param&gt;
+</code></pre></div></div>
+
+<p>Cependant ceci n’échappera que les Spring tags: <code class="language-plaintext highlighter-rouge">&lt;form:input path="formField" htmlEscape="true" /&gt;</code> ou bien <code class="language-plaintext highlighter-rouge">&lt;spring:message code="label.name.first"&gt;</code></p>
+
+<p>Si vous codez des pages JSP :</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">${description}</code> est vulnérable en Expression Language, idem pour  <code class="language-plaintext highlighter-rouge">&lt;%=description%&gt;</code> en scriptlet. Préférez <code class="language-plaintext highlighter-rouge">${fn:escapeXml(file.description)}</code> ou encore la JSTL (JavaServer Pages Standard Tag Library) <code class="language-plaintext highlighter-rouge">&lt;c:out value="${file.description}</code>. La balise JSTL <code class="language-plaintext highlighter-rouge">&lt;c:out/&gt;</code> permet d’afficher une variable et possède l’attribut <code class="language-plaintext highlighter-rouge">escapeXml</code> à <em>true</em> par défaut (caractères &lt;,&gt;,&amp;,’,”).</p>
+  </li>
+  <li>
+    <p>Tester les fonctions d’échappement du framework de rendu que vous utilisez et si besoin échappez vos entrées coté serveur : <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/util/HtmlUtils.html#htmlEscape-java.lang.String-" title="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/util/HtmlUtils.html#htmlEscape-java.lang.String-">HtmlUtils.htmlEscape</a> avec Spring, <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/" title="https://commons.apache.org/proper/commons-lang/javadocs/api-release/">StringEscapeUtils.escapeHtml4</a> d’Apache Commons, ou le <a href="https://github.com/OWASP/java-html-sanitizer/blob/master/docs/getting_started.md" title="https://github.com/OWASP/java-html-sanitizer/blob/master/docs/getting_started.md">Java HTML Sanitizer</a> d’OWASP.</p>
+  </li>
+</ul>
+
+<p>Autre exemple si vous codez en PHP, utilisez les fonctions <code class="language-plaintext highlighter-rouge">htmlentities</code> (avec l’option ENT_QUOTES, pour échapper les simple quotes), ou <code class="language-plaintext highlighter-rouge">htmlspecialchars</code>.</p>
+
+<p>Vous pouvez également protéger votre application derrière un <strong>Web Application Firewall</strong> (ex: <a href="http://www.modsecurity.org/" title="http://www.modsecurity.org/">ModSecurity</a>). ModSecurity met à disposition une <a href="https://www.modsecurity.org/crs-demo.html" title="https://www.modsecurity.org/crs-demo.html">page</a> permettant d’éprouver leur moteur de détection d’injection XSS.</p>
+
+<p>Si vous utilisez la couche <strong>Spring Security</strong> (ce qui a été mon cas ;)), le framework inclut par défaut de nombreux headers dans la réponse HTTP:</p>
+
+<ul>
+  <li>
+    <p><strong>X-Content-Type-Options</strong>: Stipule de ne pas deviner le MIME-Type si mal renseigné (spécifique à certaines attaques XSS) – voir <a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet">OWASP XSS Filter Evasion Cheat Sheet</a>.</p>
+  </li>
+  <li>
+    <p><strong>X-XSS-Protection</strong>: Stipule d’activer l’auditeur XSS du navigateur. Si votre site est vulnérable au XSS, mais que votre réponse contient le header <code class="language-plaintext highlighter-rouge">X-XSS-Protection: 1; mode=block</code>, vous aurez le message suivant dans la console de votre navigateur (ici Chrome): <span style="color: red"><code class="language-plaintext highlighter-rouge">Refused to execute inline script because it violates the following Content Security Policy Directive</code></span>.</p>
+  </li>
+  <li>
+    <p><strong>X-Frame-Options</strong>: Spécifie au navigateur qu’une page ne peut être rendue dans un <code class="language-plaintext highlighter-rouge">&lt;frame&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;iframe&gt;</code> ou <code class="language-plaintext highlighter-rouge">&lt;object&gt;</code>.</p>
+  </li>
+</ul>
+
+<p>Ces headers, ainsi que HTTP <strong>Strict-Transport-Security</strong> (abrégé HSTS – oblige le navigateur à requêter sur du HTTPS, utile pour lutter contre le blocage des connexions sécurisées HTTPS avec des outils comme sslstrip lors d’attaques “Man In The Middle”), ou <strong>Cache-Control</strong> sont par défaut inclus et activés dans la couche Spring Security (<a href="http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html" title="http://docs.spring.io/spring-security/site/docs/current/reference/html/headers.html">Spring Security Headers</a>).<br />
+Il convient également d’ajouter le header <strong><a href="https://www.w3.org/TR/CSP/">Content-Security-Policy</a></strong> qui propose de nombreuses directives de sécurité définissant  quelles ressources peuvent être chargées et exécutées par le browser.</p>
+
+<p>Si vous utilisez une autre technologie ou framework, pensez à inclure ces response headers en fonction de vos besoins.</p>
+
+<p>Pensez également à sécuriser vos <strong>cookies session</strong>. Les requêtes XSS ont pour objectif le vol de ces cookies. Stipulez au navigateur que ce dernier ne peut pas y accéder via javascript (flag <strong>HttpOnly</strong>). Pour un site HTTPS, ces derniers ne doivent pas être accessibles sur des connexions non cryptées (flag <strong>Secure</strong>): <a href="https://tools.ietf.org/html/rfc6265#section-5.2.4">https://tools.ietf.org/html/rfc6265#section-5.2.4</a>.</p>
+
+<h1 id="des-outils-pour-vos-développements-sécurisés">Des outils pour vos développements sécurisés</h1>
+
+<blockquote>
+  <p>Eprouvez votre application avec un outil tel que <a href="https://www.owasp.org/index.php/OWASP_Xenotix_XSS_Exploit_Framework" title="https://www.owasp.org/index.php/OWASP_Xenotix_XSS_Exploit_Framework">Xenotix</a>.<br />
+ Vous disposez aussi des supports <a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet" title="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet">OWASP XSS Filter Evasion Cheat Sheet</a> et <a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet">OWASP Prevention Cheat Sheet</a>.</p>
+</blockquote>
+
+<p>Il est également important de parler de l’api d’OWASP <a href="https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API" title="https://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API">ESAPI (The OWASP Enterprise Security API)</a> qui est une API libre, open source, qui facilite le développement sécurisé d’applications, facilement intégrable à une application existante ou pour de nouveaux développements. Cette API offre de nombreuses implémentations permettant les validations des entrées, l’authentification, l’encoding, l’échappement, … l’API existe pour différents langages, JAVA EE, .NET, PHP, Python, Javascript, ASP, Coldfusion &amp; CFML.</p>
+
+<p>Il existe également d’autres projets qui peuvent répondre à vos besoins :</p>
+
+<ul>
+  <li>Output encoding: <a href="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project" title="https://www.owasp.org/index.php/OWASP_Java_Encoder_Project">OWASP Java Encoder Project</a></li>
+  <li>General HTML sanitization: <a href="https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project" title="https://www.owasp.org/index.php/OWASP_Java_HTML_Sanitizer_Project">OWASP Java HTML Sanitizer</a></li>
+  <li>Validation: <a href="http://beanvalidation.org/" title="http://beanvalidation.org/">JSR-303/JSR-349 Bean Validation</a></li>
+  <li>Strong cryptography: <a href="https://github.com/google/keyczar" title="https://github.com/google/keyczar">Keyczar</a></li>
+  <li>Authentication / authorization: <a href="https://shiro.apache.org/" title="https://shiro.apache.org/">Apache Shiro</a></li>
+  <li>CSRF protection: <a href="https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project" title="https://www.owasp.org/index.php/Category:OWASP_CSRFGuard_Project">OWASP CSRFGuard Project</a> or <a href="https://www.owasp.org/index.php/CSRFProtector_Project" title="https://www.owasp.org/index.php/CSRFProtector_Project">OWASP CSRFProtector Project</a>.</li>
+</ul>
+
+<p>Les attaques possibles sont nombreuses sur une application web, nous avons mis en avant celles de type XSS. Nous verrons dans un prochain article comment ces attaques peuvent détourner les protections CSRF, voler les cookies de session et dans quelle mesure les requêtes Cross-Origin impactent la sécurité d’une application web.</p>
+
+<p>A bientôt!</p>
+
+<h3 id="partie-2"><a href="https://phackt.com/xss-cors-csrf-partie-2-xss-cookies-session">PARTIE 2</a></h3>
+
+<p>Références:</p>
+<ul>
+  <li><a href="http://stackoverflow.com/questions/2147958/how-do-i-prevent-people-from-doing-xss-in-spring-mvc">http://stackoverflow.com/questions/2147958/how-do-i-prevent-people-from-doing-xss-in-spring-mvc</a></li>
+  <li><a href="https://jsoup.org/">https://jsoup.org/</a></li>
+</ul>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/git-secrets-exposed">
+            What solutions to prevent git leaks ?
+            <small>27 May 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web-exposed-git-repositories">
+            Gathering some information from web exposed git repositories
+            <small>05 Aug 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/play-with-permissive-cors">
+            Play with permissive CORS
+            <small>24 Dec 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+
+    <!-- <label for="sidebar-checkbox" class="sidebar-toggle"></label> -->
+
+    <script src='/public/js/script.js'></script>
+ 
+  </body>
+</html>

@@ -3,6 +3,7 @@ layout: post
 title:  "Gathering some information from web exposed git repositories"
 date:   2018-08-05
 categories: web
+excerpt_separator: <!--more-->
 ---
 Hello folks,  
   
@@ -10,6 +11,7 @@ Last week, while i was doing recon on some websites, i noticed that we can still
 
 How to scan for web exposed git directories:  
 ```nmap --open -PN -n -p80,81,82,8000,8080,443,8443,9443 --script http-git -oA http-git -iL domains.lst```  
+<!--more-->
   
 *N.B: this NSE script will perform HTTP requests thanks to input FQDNs (vhosting)*  
   

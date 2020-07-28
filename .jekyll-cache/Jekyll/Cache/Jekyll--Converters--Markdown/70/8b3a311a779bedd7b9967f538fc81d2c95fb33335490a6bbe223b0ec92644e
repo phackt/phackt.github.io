@@ -1,0 +1,159 @@
+I"<p>Hello,</p>
+
+<p>I will do a quick and dirty post about what’s out there to find / prevent leaks of secrets in your git repositories.<br />
+I did not try all of these tools. For the search part, i’m mainly using a fork of Trufflehog with some added features (search in filenames, commits comments, also with custom regexes).</p>
+
+<h3 id="objectives-">Objectives :</h3>
+
+<ul>
+  <li>Look into the commits history for sensitive information publicly accessible by an attacker ;</li>
+  <li>Prevent secrets leaks ;</li>
+  <li>Monitoring and integrating these checks in the Continous Delivery process - aka DevSecOps
+<!--more--></li>
+</ul>
+
+<h3 id="tools-to-look-for-sensitive-data-">Tools to look for sensitive data :</h3>
+
+<p>=&gt; <a href="https://github.com/dxa4481/truffleHog">TRUFFLEHOG</a></p>
+<ul>
+  <li>Python</li>
+  <li>also works for local repo</li>
+  <li>strings with high entropy</li>
+  <li>custom regex rules</li>
+  <li>no search in commits comments or filenames</li>
+</ul>
+
+<p>=&gt; <a href="http://michenriksen.com/blog/gitrob-putting-the-open-source-in-osint/">GITROB</a></p>
+<ul>
+  <li>Go</li>
+  <li>Web App</li>
+  <li>do not work for local repo AFAIK</li>
+</ul>
+
+<p>=&gt; <a href="https://github.com/auth0/repo-supervisor">REPO-SUPERVISOR</a></p>
+<ul>
+  <li>NodeJS</li>
+  <li>generates HTML reports</li>
+</ul>
+
+<p>=&gt; <a href="https://github.com/anshumanbh/git-all-secrets">GIT-ALL-SECRETS</a></p>
+<ul>
+  <li>Go</li>
+  <li>using / merging results of <a href="https://github.com/dxa4481/truffleHog">Trufflehog</a> and <a href="https://github.com/dxa4481/truffleHog">Repo-Supervisor</a></li>
+</ul>
+
+<p>=&gt; <a href="https://gitlab.com/gitlab-org/security-products/analyzers/secrets">SECRETS ANALYZER</a></p>
+<ul>
+  <li>Go</li>
+  <li>on GITLAB-ORG repo</li>
+  <li>using / merging results of <a href="https://github.com/dxa4481/truffleHog">Trufflehog</a> and <a href="https://github.com/zricethezav/gitleaks">Gitleaks</a></li>
+</ul>
+
+<p>=&gt; <a href="https://github.com/zricethezav/gitleaks">GITLEAKS</a></p>
+<ul>
+  <li>Go</li>
+  <li>regex and entropy</li>
+</ul>
+
+<p>=&gt; <a href="https://github.com/eth0izzle/shhgit">SSHGIT</a></p>
+<ul>
+  <li>Go</li>
+  <li>Web App</li>
+  <li>monitoring git repos - Be the first to catch the secret before it gets deleted from git history</li>
+  <li><em>shhgit will watch real-time stream and pull out any accidentally committed secrets</em></li>
+</ul>
+
+<h3 id="prevent-commits-">Prevent commits :</h3>
+
+<p>What is a Git Hook ? As described <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">here</a>:</p>
+
+<p><em>Like many other Version Control Systems, Git has a way to fire off custom scripts when certain important actions occur. There are two groups of these hooks: client-side and server-side. Client-side hooks are triggered by operations such as committing and merging, while server-side hooks run on network operations such as receiving pushed commits. You can use these hooks for all sorts of reasons.</em></p>
+
+<p>Security is a good one.</p>
+
+<p>What kind of hooks can used to prevent leak at an early stage of the git workflow? :</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pre-commit: Used to check if any of the files changed in the commit use prohibited patterns.
+
+commit-msg: Used to determine if a commit message contains a prohibited patterns.
+
+prepare-commit-msg: Used to determine if a merge commit will introduce a history that contains a prohibited pattern at any point. Please note that this hook is only invoked for non fast-forward merges.
+</code></pre></div></div>
+
+<p><strong>CLIENT-SIDE HOOKS :</strong></p>
+
+<p>=&gt; <a href="https://github.com/ezekg/git-hound">GITHOUND</a></p>
+<ul>
+  <li>set githound command into a <em>pre-commit</em> hook</li>
+  <li>regexes configured in <code class="language-plaintext highlighter-rouge">.githound.yml</code></li>
+</ul>
+
+<p>=&gt; <a href="https://github.com/awslabs/git-secrets">GIT-SECRETS</a></p>
+<ul>
+  <li>from AWS</li>
+  <li>you also can manually scan for secrets before making your repo public: <code class="language-plaintext highlighter-rouge">git secrets --scan-history</code></li>
+</ul>
+
+<p><strong>GITHUB ACTIONS :</strong></p>
+
+<p><em><a href="https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions">GitHub Actions</a> enables you to create custom software development life cycle (SDLC) workflows directly in your GitHub repository.</em></p>
+
+<ul>
+  <li><a href="https://github.com/marketplace/actions/gitleaks">Gitleaks Github Action</a></li>
+  <li><a href="https://github.com/marketplace/actions/trufflehog-actions-scan">Trufflehog Github Action</a></li>
+</ul>
+
+<p><strong>THE GITHUB.COM SCANNING PROJECT :</strong></p>
+
+<p>Github has a project which aims at monitoring leaked third parties tokens from your repositories: <a href="https://help.github.com/en/github/administering-a-repository/about-secret-scanning">https://help.github.com/en/github/administering-a-repository/about-secret-scanning</a>.</p>
+
+<p>Once identified, Github will warn you and will request the provider (from the following list) in an automated way to ask for the immediate revokation of your leaked tokens:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Adafruit
+Alibaba Cloud
+Amazon Web Services (AWS)
+Atlassian
+Azure
+CloudBees CodeShip
+Databricks
+Datadog
+Discord
+Dropbox
+Dynatrace
+GitHub
+GoCardless
+Google Cloud
+Hashicorp Terraform
+Hubspot
+Mailgun
+npm
+NuGet
+Palantir
+Postman
+Proctorio
+Pulumi
+Samsara
+Slack
+Stripe
+Tencent Cloud
+Twilio
+</code></pre></div></div>
+
+<h3 id="finally-what-to-conclude-">Finally what to conclude :</h3>
+
+<p>For each leaked secrets linked to an environment which could be targeted by an adversary :</p>
+<ul>
+  <li>Revoke / update the secret (password, any token / private key, …) as quick as possible ;</li>
+  <li><a href="https://help.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository">Update the git commits history</a></li>
+</ul>
+
+<p>More globally :</p>
+<ul>
+  <li>Warn the stakeholders involved in this data leak (users, providers, …) ;</li>
+  <li>Check log files to detect former fraudulent access ;</li>
+  <li>Prevent the versioning of sensitive data (via .gitignore and set hooks to monitor your commits) ;</li>
+  <li>Include the secret scanning process as part as your continuous delivery process (build factory). For example for Github CI see the Github actions Trufflehog and Gitleaks as aforementioned.</li>
+</ul>
+
+<p>See you soon, next posts will be more internal pentesting / windows oriented,<br />
+Cheers.</p>
+:ET

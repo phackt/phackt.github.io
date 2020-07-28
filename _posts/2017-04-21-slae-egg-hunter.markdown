@@ -3,8 +3,8 @@ layout: post
 title:  "SLAE Assignment 3 - Egg hunter"
 date:   2017-04-21
 categories: certification
+excerpt_separator: <!--more-->
 ---
-<br />
 Student **SLAE - 891**  
 Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)  
 [http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/](http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/)  
@@ -12,8 +12,9 @@ Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)
 Hello everybody,  
   
 So here we are for the third part of our shellcodes serie. Today we will deal with the concept of egg hunter shellcode.  
+<!--more-->
   
-## Assignment 3:  
+### Assignment 3:  
   
 Code is available on my [github repo](https://github.com/phackt/slae/tree/master/assignment3).  
     

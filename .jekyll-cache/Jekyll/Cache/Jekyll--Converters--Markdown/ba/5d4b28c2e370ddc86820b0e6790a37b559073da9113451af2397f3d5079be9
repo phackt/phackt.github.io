@@ -1,0 +1,6 @@
+I"�<p>Bonjour à tous,</p>
+
+<p>Aujourd’hui un petit article qui traitera d’un cas simple de Format String où nous exploiterons un buffer passé en argument. L’idée de cet article fait suite à la machine <a href="https://www.vulnhub.com/entry/pegasus-1,109/">Pegasus 1</a> de vulnhub que je vous recommande chaudement.</p>
+
+<p>J’essaierai d’être assez pédagogique, le cas ci-dessous étant un cas basique sans contournement des protections de la pile.</p>
+:ET

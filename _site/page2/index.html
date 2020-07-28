@@ -9,7 +9,7 @@
 
   <title>
     
-      Lanyon &middot; A Jekyll theme
+      phackt.com:~# &middot; Let's talk about sec, baby!
     
   </title>
 
@@ -40,7 +40,7 @@
 <!-- Toggleable sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-item">
-    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+    <p>Some infosec stuff.</p>
   </div>
 
   <nav class="sidebar-nav">
@@ -60,7 +60,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+          <a class="sidebar-nav-item" href="http://localhost:4000/about">About</a>
         
       
     
@@ -86,6 +86,10 @@
     
       
         
+      
+    
+      
+    
       
     
 
@@ -108,8 +112,8 @@
       <div class="masthead">
         <div class="container">
           <h3 class="masthead-title">
-            <a href="/" title="Home">Lanyon</a>
-            <small>A Jekyll theme</small>
+            <a href="/" title="Home">phackt.com:~#</a>
+            <small>Let's talk about sec, baby!</small>
           </h3>
         </div>
       </div>
@@ -119,7 +123,7 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/certification/2017/04/30/slae-shellcode-crypter/">
+      <a href="http://localhost:4000/slae-shellcode-crypter">
         SLAE Assignment 7 - Custom crypter
       </a>
     </h1>
@@ -131,7 +135,7 @@ Student <strong>SLAE - 891</strong><br />
 Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
 <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
 
-<h2 id="assignment-7">Assignment 7:</h2>
+<h3 id="assignment-7">Assignment 7:</h3>
 
 <p><strong>Our Goal:</strong></p>
 <blockquote>
@@ -142,22 +146,11 @@ Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae<
   </ul>
 </blockquote>
 
-<p>Hello everybody,</p>
-
-<p>In this last assignment we will aim at creating a shellcode crypter. The crypter program will cipher our shellcode in order to defeat any reverse-engineering analysis and to bypass fingerprint/signature based anti-virus detection.</p>
-
-<p>A quick search for a simple encryption algorithm leads to the <a href="https://en.wikipedia.org/wiki/Tiny_Encryption_Algorithm">Tiny Encryption Algorithm</a>:<br />
-<em>‘In cryptography, the Tiny Encryption Algorithm (TEA) is a block cipher notable for its simplicity of description and implementation, typically a few lines of code.’</em></p>
-
-<p><img src="http://localhost:4000/public/images/slae/assignment7/image.png" alt="image" /></p>
-
-<p>If you want to read more about the Tiny Encryption Algorithm and its implementation and weaknesses nowadays, here is a <a href="http://www.tayloredge.com/reference/Mathematics/TEA-XTEA.pdf">link</a>.</p>
-
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/certification/2017/04/29/slae-polymorphic-shellcodes/">
+      <a href="http://localhost:4000/slae-polymorphic-shellcodes">
         SLAE Assignment 6 - Polymorphic shellcodes
       </a>
     </h1>
@@ -169,7 +162,7 @@ Student <strong>SLAE - 891</strong><br />
 Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
 <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
 
-<h2 id="assignment-6">Assignment 6:</h2>
+<h3 id="assignment-6">Assignment 6:</h3>
 
 <p><strong>Our Goal:</strong></p>
 <blockquote>
@@ -180,28 +173,11 @@ Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae<
   </ul>
 </blockquote>
 
-<p>Hello everybody,</p>
-
-<p>So today we will create some polymorphic versions of existing shellcodes on the well-known site <a href="http://shell-storm.org/shellcode/">shell-storm</a>.<br />
-Polymorphic versions aims at defeating pattern matching by AV and IDS:</p>
-<ul>
-  <li>Replacing instructions with equivalent ones.</li>
-  <li>Add garbage instructions that will not change the shellcode functionality but create a mess for the AV analysis.</li>
-</ul>
-
-<p><a href="https://www.virustotal.com/">VirusTotal</a> gathers AV engines but i do not recommend to test your shellcode on it because it will be fingerprinted and may be added to their database, so your next NSA hack may fail, such a pity.<br />
-<br /></p>
-<h3 id="jmpcallpop-execve-shell">jmp/call/pop execve shell:</h3>
-
-<p>Ok so for our first shellcode <a href="https://github.com/phackt/slae/tree/master/assignment6/execve/execve.nasm">execve.nasm</a> let’s have a look at a <a href="http://shell-storm.org/shellcode/files/shellcode-863.php">jmp/call/pop execve shellcode</a> (52 bytes long):<br />
-```nasm
-global _start</p>
-
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/certification/2017/04/26/slae-msf-chmod/">
+      <a href="http://localhost:4000/slae-msf-chmod">
         SLAE Assignment 5.3 - Msfvenom linux/x86/chmod shellcode Analysis
       </a>
     </h1>
@@ -213,7 +189,7 @@ Student <strong>SLAE - 891</strong><br />
 Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
 <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
 
-<h2 id="assignment-53">Assignment 5.3:</h2>
+<h3 id="assignment-53">Assignment 5.3:</h3>
 
 <p><strong>Our Goal:</strong></p>
 <blockquote>
@@ -224,18 +200,11 @@ Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae<
   </ul>
 </blockquote>
 
-<p>Hello everybody,</p>
-
-<p>Here we are for the last shellcode of the msfvenom serie. We will use this time the <strong>linux/x86/chmod</strong> shellcode and will analyse it thanks to GDB:<br />
-```bash</p>
-<h1 id="msfvenom--p-linuxx86chmod-payload-options">msfvenom -p linux/x86/chmod –payload-options</h1>
-<p>Options for payload/linux/x86/chmod:</p>
-
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/certification/2017/04/25/slae-msf-read_file-analysis/">
+      <a href="http://localhost:4000/slae-msf-read_file-analysis">
         SLAE Assignment 5.2 - Msfvenom linux/x86/read_file shellcode Analysis
       </a>
     </h1>
@@ -247,7 +216,7 @@ Student <strong>SLAE - 891</strong><br />
 Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
 <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
 
-<h2 id="assignment-52">Assignment 5.2:</h2>
+<h3 id="assignment-52">Assignment 5.2:</h3>
 
 <p><strong>Our Goal:</strong></p>
 <blockquote>
@@ -258,18 +227,11 @@ Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae<
   </ul>
 </blockquote>
 
-<p>Hello everybody,</p>
-
-<p>Here we are for the second analysis of our msf shellcodes.  Let’s perform the analysis for the <strong>linux/x86/read_file</strong> shellcode:<br />
-```bash</p>
-<h1 id="msfvenom--p-linuxx86read_file-payload-options">msfvenom -p linux/x86/read_file –payload-options</h1>
-<p>Options for payload/linux/x86/read_file:</p>
-
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/certification/2017/04/24/slae-msf-exec-analysis/">
+      <a href="http://localhost:4000/slae-msf-exec-analysis">
         SLAE Assignment 5.1 - Msfvenom linux/x86/exec shellcode analysis
       </a>
     </h1>
@@ -281,7 +243,7 @@ Student <strong>SLAE - 891</strong><br />
 Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
 <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
 
-<h2 id="assignment-51">Assignment 5.1:</h2>
+<h3 id="assignment-51">Assignment 5.1:</h3>
 
 <p><strong>Our Goal:</strong></p>
 <blockquote>
@@ -291,29 +253,6 @@ Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae<
     <li><em>Present your analysis</em></li>
   </ul>
 </blockquote>
-
-<p>Hello everybody,</p>
-
-<p>Here we are for the analysis of three Msfvenom shellcodes for the platform linux/x86. Let’s start with the <strong>linux/x86/exec</strong> shellcode with the command <strong>/bin/sh</strong>:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># msfvenom -p linux/x86/exec CMD=/bin/sh -f c</span>
-No platform was selected, choosing Msf::Module::Platform::Linux from the payload
-No Arch selected, selecting Arch: x86 from the payload
-No encoder or badchars specified, outputting raw payload
-Payload size: 43 bytes
-Final size of c file: 205 bytes
-unsigned char buf[] <span class="o">=</span> 
-<span class="s2">"</span><span class="se">\x</span><span class="s2">6a</span><span class="se">\x</span><span class="s2">0b</span><span class="se">\x</span><span class="s2">58</span><span class="se">\x</span><span class="s2">99</span><span class="se">\x</span><span class="s2">52</span><span class="se">\x</span><span class="s2">66</span><span class="se">\x</span><span class="s2">68</span><span class="se">\x</span><span class="s2">2d</span><span class="se">\x</span><span class="s2">63</span><span class="se">\x</span><span class="s2">89</span><span class="se">\x</span><span class="s2">e7</span><span class="se">\x</span><span class="s2">68</span><span class="se">\x</span><span class="s2">2f</span><span class="se">\x</span><span class="s2">73</span><span class="se">\x</span><span class="s2">68"</span>
-<span class="s2">"</span><span class="se">\x</span><span class="s2">00</span><span class="se">\x</span><span class="s2">68</span><span class="se">\x</span><span class="s2">2f</span><span class="se">\x</span><span class="s2">62</span><span class="se">\x</span><span class="s2">69</span><span class="se">\x</span><span class="s2">6e</span><span class="se">\x</span><span class="s2">89</span><span class="se">\x</span><span class="s2">e3</span><span class="se">\x</span><span class="s2">52</span><span class="se">\x</span><span class="s2">e8</span><span class="se">\x</span><span class="s2">08</span><span class="se">\x</span><span class="s2">00</span><span class="se">\x</span><span class="s2">00</span><span class="se">\x</span><span class="s2">00</span><span class="se">\x</span><span class="s2">2f"</span>
-<span class="s2">"</span><span class="se">\x</span><span class="s2">62</span><span class="se">\x</span><span class="s2">69</span><span class="se">\x</span><span class="s2">6e</span><span class="se">\x</span><span class="s2">2f</span><span class="se">\x</span><span class="s2">73</span><span class="se">\x</span><span class="s2">68</span><span class="se">\x</span><span class="s2">00</span><span class="se">\x</span><span class="s2">57</span><span class="se">\x</span><span class="s2">53</span><span class="se">\x</span><span class="s2">89</span><span class="se">\x</span><span class="s2">e1</span><span class="se">\x</span><span class="s2">cd</span><span class="se">\x</span><span class="s2">80"</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>Let’s disassemble the shellcode:<br />
-```bash</p>
-<h1 id="msfvenom--p-linuxx86exec-cmdbinsh--f-raw--ndisasm--u--">msfvenom -p linux/x86/exec CMD=/bin/sh -f raw | ndisasm -u -</h1>
-<p>No platform was selected, choosing Msf::Module::Platform::Linux from the payload
-No Arch selected, selecting Arch: x86 from the payload
-No encoder or badchars specified, outputting raw payload
-Payload size: 43 bytes</p>
 
   </div>
   

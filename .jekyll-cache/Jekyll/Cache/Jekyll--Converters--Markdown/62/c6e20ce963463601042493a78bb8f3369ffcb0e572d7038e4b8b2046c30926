@@ -1,0 +1,7 @@
+I"õ<p>Hello folks,</p>
+
+<p>Last week, while i was doing recon on some websites, i noticed that we can still found some versioning repositories in production. I found some classic <strong>.git</strong> exposed, and in a lesser extent some <strong>.svn</strong> directories. I decided to gather a bunch of websites caught in the TOP Alexa in order to look for the proportion of .git exposed; with <strong>112332</strong> domains scanned (mixed TLDs), i found <strong>453</strong> .git exposed, which is only <strong>0.4%</strong>. Not bad.</p>
+
+<p>How to scan for web exposed git directories:<br />
+<code class="language-plaintext highlighter-rouge">nmap --open -PN -n -p80,81,82,8000,8080,443,8443,9443 --script http-git -oA http-git -iL domains.lst</code></p>
+:ET

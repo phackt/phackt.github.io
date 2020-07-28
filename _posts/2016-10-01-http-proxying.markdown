@@ -3,8 +3,8 @@ layout: post
 title:  "HTTP Proxying with Mitmproxy"
 date:   2016-10-01
 categories: mitm
+excerpt_separator: <!--more-->
 ---
-<br />
 Bonjour à tous,
   
 Pour faire suite à l'[article]({{ site.url }}/mitm-phishing) que j'avais rédigé sur une attaque MITM redirigeant vers un site web spoofé, je me suis penché sur une autre méthode plus générique qui utilise l'outil [mitmproxy](https://mitmproxy.org/).  
@@ -14,6 +14,7 @@ Toujours dans un contexte MITM, l'objectif est d'identifier les liens sécurisé
 ```
 victime <-- HTTP --> mitmproxy <-- HTTPS --> website
 ```
+<!--more-->
   
 Le but est, qu'à partir d'une page non sécurisée d'un site, nous puissions continuer en proposant à notre victime une connexion en clair (http) pour analyser son trafic, mais que notre proxy rétablisse la connexion sécurisée avec le site concerné. Cette attaque ne pourra pas aboutir sur des sites implémentant le [HSTS](https://https.cio.gov/hsts/) (sauf si l'utilisateur ne s'est jamais connecté au site et que le HSTS n'est pas préchargé).  
   

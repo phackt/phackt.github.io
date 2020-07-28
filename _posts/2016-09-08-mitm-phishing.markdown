@@ -3,11 +3,12 @@ layout: post
 title:  "Phishing d'un site web avec attaque MITM"
 date:   2016-09-08
 categories: mitm
+excerpt_separator: <!--more-->
 ---
-<br />
 Bonjour à tous,
 
-Je me suis dit qu'il était intéressant de partager avec vous un petit script **Bash** que j'ai créé pour automatiser une attaque 'Man In The Middle' et rediriger vers une fausse page web que nous allons héberger ([https://github.com/phackt/mitm](https://github.com/phackt/mitm)). L'objectif est pour une attaque ciblée de rendre l'obtention des credentials la plus transparente possible. Cependant il n'existe pas de solution miracle, à chaque combat sa stratégie.  
+Je me suis dit qu'il était intéressant de partager avec vous un script **Bash** que j'ai créé pour automatiser une attaque 'Man In The Middle' et rediriger vers une fausse page web que nous allons héberger ([https://github.com/phackt/mitm](https://github.com/phackt/mitm)). L'objectif est pour une attaque ciblée de rendre l'obtention des credentials la plus transparente possible. Cependant il n'existe pas de solution miracle, à chaque combat sa stratégie.  
+<!--more-->
   
 Ici nous allons donc cibler un site possédant une page d'accueil non sécurisée (HTTP), permettant l'interception en clair des liens HTTPS et de les transformer en liens HTTP classiques. Certains outils comme [sslstrip](https://github.com/moxie0/sslstrip) permettent ce genre d'opérations, en éliminant le caching des pages et en traitant également les headers response **Location** lors des redirections. De notre coté nous utiliserons un simple filtre [ettercap](https://github.com/Ettercap/ettercap) que nous compilerons avec etterfilter.  
   

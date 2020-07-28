@@ -3,11 +3,12 @@ layout: post
 title:  "Passive Gathering Information - Netcraft and Shodan"
 date:   2016-12-05
 categories: fingerprint
+excerpt_separator: <!--more-->
 ---
-<br />
 Bonjour à tous, 
   
 Aujourd'hui nous parlerons de la prise d'empreinte passive et des plateformes [netcraft](https://www.netcraft.com/) et [shodan](https://www.shodan.io/). La prise d'empreinte passive consiste en l'agrégation d'informations publiques concernant une cible (sans requêtage direct de ses serveurs).  
+<!--more-->
   
 La prise d'empreinte au sens large devra être la plus exhaustive possible pour maximiser la probabilité de réussite d'une attaque:  
  

@@ -3,6 +3,7 @@ layout: post
 title:  "Fingerprinting Web Application static files"
 date:   2017-06-05
 categories: web
+excerpt_separator: <!--more-->
 ---
 Hello folks,  
   
@@ -10,7 +11,8 @@ Today i would like to share with you the first version of a script i wrote to he
   
 **So what the hell am i talking about?**  
   
-Ok let me explain the context: You are looking at a website and trying to get the exact version of the underlying CMS, let say Drupal. We know that Drupal has suffered from the [Drupalgeddon](https://www.drupal.org/project/drupalgeddon) for versions 7.X before 7.32. So you can have at look at some obvious files (CHANGELOG.txt), but what happens if the webmaster deleted these files? How to maximize the chance to find the right version or at least the smallest delta as possible ?  
+Ok let me explain the context: You are looking at a website and trying to get the exact version of the underlying CMS, let say Drupal. We know that Drupal has suffered from the [Drupalgeddon](https://www.drupal.org/project/drupalgeddon) for versions 7.X before 7.32. So you can have at look at some obvious files (CHANGELOG.txt), but what happens if the webmaster deleted these files? How to maximize the chance to find the right version or at least the smallest delta as possible ?
+<!--more-->
   
 A tool was existing for that purpose, [BlindElephant](https://github.com/lokifer/BlindElephant), but it is not maintained anymore. So i chose to write my own script matching my needs (hand made with love). Of course don't hesitate to contact me and let me know if you took time to have BlindElephant in a working state with the CMS hashes databases up-to-date.  
   

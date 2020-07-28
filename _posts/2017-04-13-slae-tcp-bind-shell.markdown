@@ -3,8 +3,8 @@ layout: post
 title:  "SLAE Assignment 1 - TCP Bind Shellcode"
 date:   2017-04-13
 categories: certification
+excerpt_separator: <!--more-->
 ---
-<br />
 Student **SLAE - 891**  
 Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)  
 [http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/](http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/)  
@@ -12,6 +12,7 @@ Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)
 Hello everybody,  
   
 Here we are for a new set of posts dealing with the exam of the great course [Assembly Language and Shellcoding on Linux](http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/). Thanks to Vivek Ramachandran and his team for all of this work.  
+<!--more-->
   
 For information, the SLAE course has been performed on a 32bits Kali environment:  
 ```bash
@@ -28,7 +29,7 @@ gcc -fno-stack-protector -z execstack -m32 -o shellcode shellcode.c
   
 So let's rumble!  
   
-## Assignment 1:  
+### Assignment 1:  
   
 Code is available on my [github repo](https://github.com/phackt/slae/tree/master/assignment1).  
   

@@ -1,0 +1,10 @@
+I"Œ<p><br />
+Student <strong>SLAE - 891</strong><br />
+Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
+<a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
+
+<p>Hello everybody,</p>
+
+<p>So here we are for the second part of our shellcodes serie. Today we will deal with a reverse TCP shellcode.<br />
+This shellcode will be pretty similar to the bind one, except that we will connect back to the attackerâ€™s machine in order to provide a shell on the compromised one.</p>
+:ET

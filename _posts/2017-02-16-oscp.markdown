@@ -3,11 +3,12 @@ layout: post
 title:  "OSCP: une première étape"
 date:   2017-02-17
 categories: certification
+excerpt_separator: <!--more-->
 ---
-<br />
 Bonjour à tous,
   
 Premier article de l'année, cependant ces derniers temps furent bien remplis avec notamment le passage de l'[OSCP](https://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/). J'en profite donc pour écrire une petite revue sur cette certif en espérant partager des infos qui pourront vous être utiles.
+<!--more-->
   
 **Qu'est-ce que l'OSCP?**
   

@@ -1,0 +1,17 @@
+I"²<p><br />
+Student <strong>SLAE - 891</strong><br />
+Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
+<a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
+
+<h3 id="assignment-4">Assignment 4:</h3>
+
+<p>Code is available on my <a href="https://github.com/phackt/slae/tree/master/assignment4">github repo</a>.</p>
+
+<p><strong>Our Goal:</strong></p>
+<blockquote>
+  <p><em>Create a custom encoding scheme</em></p>
+  <ul>
+    <li><em>POC with using the execve-stack as the shellcode</em></li>
+  </ul>
+</blockquote>
+:ET

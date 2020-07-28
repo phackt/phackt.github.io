@@ -9,8 +9,9 @@ excerpt_separator: <!--more-->
 
 **Quels sont ses objectifs et pourquoi manifeste-t-on aujourd’hui un tel engouement pour ce secteur ?** 
 
-Il y a quelques années, les entreprises restaient frileuses à investir dans ce secteur : pour quel retour sur investissement se disaient-elles ? Le secteur était de niche, les formations diplômantes en sécurité informatique n'étant également pas légion. Aujourd’hui nous pouvons trouver pléthore de ces formations, mastères, certifications (CEH, CISSP, CISO, …). 
+Il y a quelques années, les entreprises restaient frileuses à investir dans ce secteur : pour quel retour sur investissement se disaient-elles ? Le secteur était de niche, les formations diplômantes en sécurité informatique n'étant également pas légion. Aujourd’hui nous pouvons trouver pléthore de ces formations, mastères, certifications (CEH, CISSP, CISO, …).
 <!--more-->
+  
 Ce sujet est donc devenu incontournable et la cybersécurité/cyberdéfense se sont imposées comme priorité de sécurité nationale pour les entreprises et grandes puissances mondiales. Nous assistons à une véritable prise de conscience concernant les enjeux liés à la protection et la sécurisation des systèmes d’information vitaux pour le fonctionnement de l'État, ceci souligné par un contexte tendu d’état d’urgence.
 <br />
 <br />

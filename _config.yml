@@ -1,22 +1,57 @@
-# Setup
-title:               Lanyon
-tagline:             'A Jekyll theme'
-description:         'A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
-url:                 http://lanyon.getpoole.com
-baseurl:             ''
-paginate:            5
-permalink:           pretty
+# Site settings
+title: phackt.com:~#
+tagline: "Let's talk about sec, baby!"
+email: phackt[AT]protonmail.com
+description: "Some infosec stuff."
+baseurl: ""
+url: "https://phackt.com"
+paginate: 5
+permalink: pretty
+
+#S ocial network
+twitter_username: phackt_ul
+github_username:  phackt
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# highlight
+highlighter: rouge
+permalink: /:title
+
+#Excluded files
+#exclude:
+#  - docs
+#  - CNAME
+#  - Gemfile
+#  - Rakefile
+#  - README.md
+#  - .gitignore
+#  - .sass-cache
+#  - Gemfile.lock
+
+# Allowing post in the future (back to the future baby)
+future: true
+
+# Syntactically Awesome Style Sheets
+# sass:
+#   sass_dir: public/css
+#   style: :compressed
 
 # About/contact
 author:
-  name:              Mark Otto
-  url:               https://twitter.com/mdo
-  email:             markdotto@gmail.com
+  name: phackt
+  url: https://twitter.com/phackt_ul
+  email: phackt@protonmail.com
 
 # Gems
 plugins:
+  - jekyll-sitemap
   - jekyll-paginate
 
-# Custom vars
-version:             1.1.0
+  # Custom vars
+version: 1.1.0
 google_analytics_id: #UA-XXXX-Y

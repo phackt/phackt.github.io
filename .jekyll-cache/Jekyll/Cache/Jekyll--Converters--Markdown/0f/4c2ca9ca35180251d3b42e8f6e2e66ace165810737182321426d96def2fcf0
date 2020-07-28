@@ -1,0 +1,16 @@
+I"É<p><br />
+Student <strong>SLAE - 891</strong><br />
+Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
+<a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
+
+<h3 id="assignment-6">Assignment 6:</h3>
+
+<p><strong>Our Goal:</strong></p>
+<blockquote>
+  <p><em>Take up 3 shellcodes from Shell-Storm and create polymorphic versions</em></p>
+  <ul>
+    <li><em>The polymorphic versions can not be larger than 150% of the original versions</em></li>
+    <li><em>Bonus points if shorter in length than original</em></li>
+  </ul>
+</blockquote>
+:ET

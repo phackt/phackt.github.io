@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
- <title>Lanyon</title>
+ <title>phackt.com:~#</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000/"/>
- <updated>2020-07-28T22:11:29+02:00</updated>
+ <updated>2020-07-28T23:23:33+02:00</updated>
  <id>http://localhost:4000</id>
  <author>
-   <name>Mark Otto</name>
-   <email>markdotto@gmail.com</email>
+   <name>phackt</name>
+   <email>phackt@protonmail.com</email>
  </author>
 
  
  <entry>
    <title>What solutions to prevent git leaks ?</title>
-   <link href="http://localhost:4000/dev/2020/05/27/git-secrets-exposed/"/>
+   <link href="http://localhost:4000/git-secrets-exposed"/>
    <updated>2020-05-27T00:00:00+02:00</updated>
-   <id>http://localhost:4000/dev/2020/05/27/git-secrets-exposed</id>
+   <id>http://localhost:4000/git-secrets-exposed</id>
    <content type="html">&lt;p&gt;Hello,&lt;/p&gt;
 
 &lt;p&gt;I will do a quick and dirty post about what’s out there to find / prevent leaks of secrets in your git repositories.&lt;br /&gt;
 I did not try all of these tools. For the search part, i’m mainly using a fork of Trufflehog with some added features (search in filenames, commits comments, also with custom regexes).&lt;/p&gt;
 
-&lt;h1 id=&quot;objectives-&quot;&gt;Objectives :&lt;/h1&gt;
+&lt;h3 id=&quot;objectives-&quot;&gt;Objectives :&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Look into the commits history for sensitive information publicly accessible by an attacker ;&lt;/li&gt;
   &lt;li&gt;Prevent secrets leaks ;&lt;/li&gt;
-  &lt;li&gt;Monitoring and integrating these checks in the Continous Delivery process - aka DevSecOps&lt;/li&gt;
+  &lt;li&gt;Monitoring and integrating these checks in the Continous Delivery process - aka DevSecOps
+&lt;!--more--&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;find-sensitive-data-&quot;&gt;Find sensitive data :&lt;/h1&gt;
+&lt;h3 id=&quot;tools-to-look-for-sensitive-data-&quot;&gt;Tools to look for sensitive data :&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;TOOLS :&lt;/strong&gt;&lt;br /&gt;
-=&amp;gt; &lt;a href=&quot;https://github.com/dxa4481/truffleHog&quot;&gt;TRUFFLEHOG&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;=&amp;gt; &lt;a href=&quot;https://github.com/dxa4481/truffleHog&quot;&gt;TRUFFLEHOG&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Python&lt;/li&gt;
   &lt;li&gt;also works for local repo&lt;/li&gt;
@@ -82,7 +82,7 @@ I did not try all of these tools. For the search part, i’m mainly using a fork
   &lt;li&gt;&lt;em&gt;shhgit will watch real-time stream and pull out any accidentally committed secrets&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;prevent-commits-&quot;&gt;Prevent commits :&lt;/h1&gt;
+&lt;h3 id=&quot;prevent-commits-&quot;&gt;Prevent commits :&lt;/h3&gt;
 
 &lt;p&gt;What is a Git Hook ? As described &lt;a href=&quot;https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks&quot;&gt;here&lt;/a&gt;:&lt;/p&gt;
 
@@ -157,7 +157,7 @@ Tencent Cloud
 Twilio
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;finally-what-to-conclude-&quot;&gt;Finally what to conclude :&lt;/h1&gt;
+&lt;h3 id=&quot;finally-what-to-conclude-&quot;&gt;Finally what to conclude :&lt;/h3&gt;
 
 &lt;p&gt;For each leaked secrets linked to an environment which could be targeted by an adversary :&lt;/p&gt;
 &lt;ul&gt;
@@ -180,15 +180,16 @@ Cheers.&lt;/p&gt;
  
  <entry>
    <title>Gathering some information from web exposed git repositories</title>
-   <link href="http://localhost:4000/web/2018/08/05/web-exposed-git-repositories/"/>
+   <link href="http://localhost:4000/web-exposed-git-repositories"/>
    <updated>2018-08-05T00:00:00+02:00</updated>
-   <id>http://localhost:4000/web/2018/08/05/web-exposed-git-repositories</id>
+   <id>http://localhost:4000/web-exposed-git-repositories</id>
    <content type="html">&lt;p&gt;Hello folks,&lt;/p&gt;
 
 &lt;p&gt;Last week, while i was doing recon on some websites, i noticed that we can still found some versioning repositories in production. I found some classic &lt;strong&gt;.git&lt;/strong&gt; exposed, and in a lesser extent some &lt;strong&gt;.svn&lt;/strong&gt; directories. I decided to gather a bunch of websites caught in the TOP Alexa in order to look for the proportion of .git exposed; with &lt;strong&gt;112332&lt;/strong&gt; domains scanned (mixed TLDs), i found &lt;strong&gt;453&lt;/strong&gt; .git exposed, which is only &lt;strong&gt;0.4%&lt;/strong&gt;. Not bad.&lt;/p&gt;
 
 &lt;p&gt;How to scan for web exposed git directories:&lt;br /&gt;
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap --open -PN -n -p80,81,82,8000,8080,443,8443,9443 --script http-git -oA http-git -iL domains.lst&lt;/code&gt;&lt;/p&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nmap --open -PN -n -p80,81,82,8000,8080,443,8443,9443 --script http-git -oA http-git -iL domains.lst&lt;/code&gt;&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;N.B: this NSE script will perform HTTP requests thanks to input FQDNs (vhosting)&lt;/em&gt;&lt;/p&gt;
 
@@ -271,12 +272,13 @@ Cheers.&lt;/p&gt;
  
  <entry>
    <title>Play with permissive CORS</title>
-   <link href="http://localhost:4000/web/2017/12/24/play-with-permissive-cors/"/>
+   <link href="http://localhost:4000/play-with-permissive-cors"/>
    <updated>2017-12-24T00:00:00+01:00</updated>
-   <id>http://localhost:4000/web/2017/12/24/play-with-permissive-cors</id>
+   <id>http://localhost:4000/play-with-permissive-cors</id>
    <content type="html">&lt;p&gt;Hello folks,&lt;/p&gt;
 
-&lt;p&gt;While i was playing with a ‘code search engine’ tool called &lt;a href=&quot;https://publicwww.com&quot;&gt;publicwww&lt;/a&gt;, i decided to gather some top Alexa domains and to look for some permissive CORS. I tried the following researches, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;site:fr &quot;type=\&quot;password\&quot;&quot;&lt;/code&gt;, the same for the TLDs &lt;em&gt;.org&lt;/em&gt; and &lt;em&gt;.com&lt;/em&gt;, in order to spot webpages with a login form.&lt;/p&gt;
+&lt;p&gt;While i was playing with a ‘code search engine’ tool called &lt;a href=&quot;https://publicwww.com&quot;&gt;publicwww&lt;/a&gt;, i decided to gather some top Alexa domains and to look for some permissive CORS. I tried the following researches, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;site:fr &quot;type=\&quot;password\&quot;&quot;&lt;/code&gt;, the same for the TLDs &lt;em&gt;.org&lt;/em&gt; and &lt;em&gt;.com&lt;/em&gt;, in order to spot webpages with a login form.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;I also looked for some other stuff like websites with french language and so on. I will let you play with publicwww, remember that you are limited with basic access but if you pay you will have access to the top 200000 Alexa websites dealing with your request. May be you also wanna play with Shodan or Censys.&lt;/p&gt;
 
@@ -324,12 +326,13 @@ open cors found for url http://ellysdirectory.com/
  
  <entry>
    <title>A fun case of XSS and other web concepts</title>
-   <link href="http://localhost:4000/web/2017/07/25/xss-real-life-case-credentials-stealing/"/>
+   <link href="http://localhost:4000/xss-real-life-case-credentials-stealing"/>
    <updated>2017-07-25T00:00:00+02:00</updated>
-   <id>http://localhost:4000/web/2017/07/25/xss-real-life-case-credentials-stealing</id>
+   <id>http://localhost:4000/xss-real-life-case-credentials-stealing</id>
    <content type="html">&lt;p&gt;Hello folks,&lt;/p&gt;
 
-&lt;p&gt;I would like to share with you a practical case of reflected XSS while i was looking at my national health service account. Right now the XSS has been patched (we have an efficient dedicated national service where we can report such issues).&lt;/p&gt;
+&lt;p&gt;I would like to share with you a practical case of reflected XSS while i was looking at my national health service account. Right now the XSS has been patched (we have an efficient dedicated national service where we can report such issues).
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;What is the issue:&lt;/strong&gt;&lt;br /&gt;
 A reflected &lt;a href=&quot;https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)&quot;&gt;XSS&lt;/a&gt; in the login field at the authentication page from the website https://assure.ameli.fr where all french citizen are consulting their social security account. Some digits are required but setting some alphacharacters as login will return the string in uppercase.&lt;/p&gt;
@@ -465,16 +468,17 @@ Feel free to try to bypass it and let me know.&lt;/p&gt;
  
  <entry>
    <title>Fingerprinting Web Application static files</title>
-   <link href="http://localhost:4000/web/2017/06/05/fingerprint-web-application-static-files/"/>
+   <link href="http://localhost:4000/fingerprint-web-application-static-files"/>
    <updated>2017-06-05T00:00:00+02:00</updated>
-   <id>http://localhost:4000/web/2017/06/05/fingerprint-web-application-static-files</id>
+   <id>http://localhost:4000/fingerprint-web-application-static-files</id>
    <content type="html">&lt;p&gt;Hello folks,&lt;/p&gt;
 
 &lt;p&gt;Today i would like to share with you the first version of a script i wrote to help determining the version of a software.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;So what the hell am i talking about?&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Ok let me explain the context: You are looking at a website and trying to get the exact version of the underlying CMS, let say Drupal. We know that Drupal has suffered from the &lt;a href=&quot;https://www.drupal.org/project/drupalgeddon&quot;&gt;Drupalgeddon&lt;/a&gt; for versions 7.X before 7.32. So you can have at look at some obvious files (CHANGELOG.txt), but what happens if the webmaster deleted these files? How to maximize the chance to find the right version or at least the smallest delta as possible ?&lt;/p&gt;
+&lt;p&gt;Ok let me explain the context: You are looking at a website and trying to get the exact version of the underlying CMS, let say Drupal. We know that Drupal has suffered from the &lt;a href=&quot;https://www.drupal.org/project/drupalgeddon&quot;&gt;Drupalgeddon&lt;/a&gt; for versions 7.X before 7.32. So you can have at look at some obvious files (CHANGELOG.txt), but what happens if the webmaster deleted these files? How to maximize the chance to find the right version or at least the smallest delta as possible ?
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;A tool was existing for that purpose, &lt;a href=&quot;https://github.com/lokifer/BlindElephant&quot;&gt;BlindElephant&lt;/a&gt;, but it is not maintained anymore. So i chose to write my own script matching my needs (hand made with love). Of course don’t hesitate to contact me and let me know if you took time to have BlindElephant in a working state with the CMS hashes databases up-to-date.&lt;/p&gt;
 
@@ -662,22 +666,23 @@ Phackt.&lt;/p&gt;
  
  <entry>
    <title>SLAE Assignment 7 - Custom crypter</title>
-   <link href="http://localhost:4000/certification/2017/04/30/slae-shellcode-crypter/"/>
+   <link href="http://localhost:4000/slae-shellcode-crypter"/>
    <updated>2017-04-30T00:00:00+02:00</updated>
-   <id>http://localhost:4000/certification/2017/04/30/slae-shellcode-crypter</id>
+   <id>http://localhost:4000/slae-shellcode-crypter</id>
    <content type="html">&lt;p&gt;&lt;br /&gt;
 Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
 Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.com/phackt/slae&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;assignment-7&quot;&gt;Assignment 7:&lt;/h2&gt;
+&lt;h3 id=&quot;assignment-7&quot;&gt;Assignment 7:&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Our Goal:&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;&lt;em&gt;Create a custom crypter&lt;/em&gt;&lt;/p&gt;
   &lt;ul&gt;
     &lt;li&gt;&lt;em&gt;Free to use any existing encryption schema&lt;/em&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;em&gt;Can use any programming language&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;em&gt;Can use any programming language&lt;/em&gt;&lt;br /&gt;
+&lt;!--more--&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
@@ -865,22 +870,23 @@ Thanks again to Vivek and its team for their work.&lt;/p&gt;
  
  <entry>
    <title>SLAE Assignment 6 - Polymorphic shellcodes</title>
-   <link href="http://localhost:4000/certification/2017/04/29/slae-polymorphic-shellcodes/"/>
+   <link href="http://localhost:4000/slae-polymorphic-shellcodes"/>
    <updated>2017-04-29T00:00:00+02:00</updated>
-   <id>http://localhost:4000/certification/2017/04/29/slae-polymorphic-shellcodes</id>
+   <id>http://localhost:4000/slae-polymorphic-shellcodes</id>
    <content type="html">&lt;p&gt;&lt;br /&gt;
 Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
 Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.com/phackt/slae&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;assignment-6&quot;&gt;Assignment 6:&lt;/h2&gt;
+&lt;h3 id=&quot;assignment-6&quot;&gt;Assignment 6:&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Our Goal:&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;&lt;em&gt;Take up 3 shellcodes from Shell-Storm and create polymorphic versions&lt;/em&gt;&lt;/p&gt;
   &lt;ul&gt;
     &lt;li&gt;&lt;em&gt;The polymorphic versions can not be larger than 150% of the original versions&lt;/em&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;em&gt;Bonus points if shorter in length than original&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;em&gt;Bonus points if shorter in length than original&lt;/em&gt;&lt;br /&gt;
+&lt;!--more--&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
@@ -1230,22 +1236,23 @@ Bye,&lt;/p&gt;
  
  <entry>
    <title>SLAE Assignment 5.3 - Msfvenom linux/x86/chmod shellcode Analysis</title>
-   <link href="http://localhost:4000/certification/2017/04/26/slae-msf-chmod/"/>
+   <link href="http://localhost:4000/slae-msf-chmod"/>
    <updated>2017-04-26T00:00:00+02:00</updated>
-   <id>http://localhost:4000/certification/2017/04/26/slae-msf-chmod</id>
+   <id>http://localhost:4000/slae-msf-chmod</id>
    <content type="html">&lt;p&gt;&lt;br /&gt;
 Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
 Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.com/phackt/slae&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;assignment-53&quot;&gt;Assignment 5.3:&lt;/h2&gt;
+&lt;h3 id=&quot;assignment-53&quot;&gt;Assignment 5.3:&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Our Goal:&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;&lt;em&gt;Take up at least 3 linux/x86 shellcodes using Msfpayload (now Msfvenom)&lt;/em&gt;&lt;/p&gt;
   &lt;ul&gt;
     &lt;li&gt;&lt;em&gt;Use GDB/Ndisasm/Libemu to dissect the functionality of the shellcode&lt;/em&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;em&gt;Present your analysis&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;em&gt;Present your analysis&lt;/em&gt;&lt;br /&gt;
+&lt;!--more--&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
@@ -1409,22 +1416,23 @@ Hope you enjoyed this post.&lt;/p&gt;
  
  <entry>
    <title>SLAE Assignment 5.2 - Msfvenom linux/x86/read_file shellcode Analysis</title>
-   <link href="http://localhost:4000/certification/2017/04/25/slae-msf-read_file-analysis/"/>
+   <link href="http://localhost:4000/slae-msf-read_file-analysis"/>
    <updated>2017-04-25T00:00:00+02:00</updated>
-   <id>http://localhost:4000/certification/2017/04/25/slae-msf-read_file-analysis</id>
+   <id>http://localhost:4000/slae-msf-read_file-analysis</id>
    <content type="html">&lt;p&gt;&lt;br /&gt;
 Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
 Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.com/phackt/slae&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;assignment-52&quot;&gt;Assignment 5.2:&lt;/h2&gt;
+&lt;h3 id=&quot;assignment-52&quot;&gt;Assignment 5.2:&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Our Goal:&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;&lt;em&gt;Take up at least 3 linux/x86 shellcodes using Msfpayload (now Msfvenom)&lt;/em&gt;&lt;/p&gt;
   &lt;ul&gt;
     &lt;li&gt;&lt;em&gt;Use GDB/Ndisasm/Libemu to dissect the functionality of the shellcode&lt;/em&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;em&gt;Present your analysis&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;em&gt;Present your analysis&lt;/em&gt;&lt;br /&gt;
+&lt;!--more--&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
@@ -1595,22 +1603,23 @@ Payload size: 100 bytes
  
  <entry>
    <title>SLAE Assignment 5.1 - Msfvenom linux/x86/exec shellcode analysis</title>
-   <link href="http://localhost:4000/certification/2017/04/24/slae-msf-exec-analysis/"/>
+   <link href="http://localhost:4000/slae-msf-exec-analysis"/>
    <updated>2017-04-24T00:00:00+02:00</updated>
-   <id>http://localhost:4000/certification/2017/04/24/slae-msf-exec-analysis</id>
+   <id>http://localhost:4000/slae-msf-exec-analysis</id>
    <content type="html">&lt;p&gt;&lt;br /&gt;
 Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
 Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.com/phackt/slae&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;assignment-51&quot;&gt;Assignment 5.1:&lt;/h2&gt;
+&lt;h3 id=&quot;assignment-51&quot;&gt;Assignment 5.1:&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Our Goal:&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;&lt;em&gt;Take up at least 3 linux/x86 shellcodes using Msfpayload (now Msfvenom)&lt;/em&gt;&lt;/p&gt;
   &lt;ul&gt;
     &lt;li&gt;&lt;em&gt;Use GDB/Ndisasm/Libemu to dissect the functionality of the shellcode&lt;/em&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;em&gt;Present your analysis&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;em&gt;Present your analysis&lt;/em&gt;&lt;br /&gt;
+&lt;!--more--&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
@@ -1776,15 +1785,15 @@ Payload size: 70 bytes
  
  <entry>
    <title>SLAE Assignment 4 - Encoding/Decoding Shellcode</title>
-   <link href="http://localhost:4000/certification/2017/04/23/encoding-decoding-shellcode/"/>
+   <link href="http://localhost:4000/encoding-decoding-shellcode"/>
    <updated>2017-04-23T00:00:00+02:00</updated>
-   <id>http://localhost:4000/certification/2017/04/23/encoding-decoding-shellcode</id>
+   <id>http://localhost:4000/encoding-decoding-shellcode</id>
    <content type="html">&lt;p&gt;&lt;br /&gt;
 Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
 Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.com/phackt/slae&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;assignment-4&quot;&gt;Assignment 4:&lt;/h2&gt;
+&lt;h3 id=&quot;assignment-4&quot;&gt;Assignment 4:&lt;/h3&gt;
 
 &lt;p&gt;Code is available on my &lt;a href=&quot;https://github.com/phackt/slae/tree/master/assignment4&quot;&gt;github repo&lt;/a&gt;.&lt;/p&gt;
 
@@ -1792,7 +1801,8 @@ Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.
 &lt;blockquote&gt;
   &lt;p&gt;&lt;em&gt;Create a custom encoding scheme&lt;/em&gt;&lt;/p&gt;
   &lt;ul&gt;
-    &lt;li&gt;&lt;em&gt;POC with using the execve-stack as the shellcode&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;em&gt;POC with using the execve-stack as the shellcode&lt;/em&gt;&lt;br /&gt;
+&lt;!--more--&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/blockquote&gt;
 
@@ -1951,19 +1961,19 @@ If we directly execute the shellcode_decoder executable, it will result in a seg
  
  <entry>
    <title>SLAE Assignment 3 - Egg hunter</title>
-   <link href="http://localhost:4000/certification/2017/04/21/slae-egg-hunter/"/>
+   <link href="http://localhost:4000/slae-egg-hunter"/>
    <updated>2017-04-21T00:00:00+02:00</updated>
-   <id>http://localhost:4000/certification/2017/04/21/slae-egg-hunter</id>
-   <content type="html">&lt;p&gt;&lt;br /&gt;
-Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
+   <id>http://localhost:4000/slae-egg-hunter</id>
+   <content type="html">&lt;p&gt;Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
 Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.com/phackt/slae&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Hello everybody,&lt;/p&gt;
 
-&lt;p&gt;So here we are for the third part of our shellcodes serie. Today we will deal with the concept of egg hunter shellcode.&lt;/p&gt;
+&lt;p&gt;So here we are for the third part of our shellcodes serie. Today we will deal with the concept of egg hunter shellcode.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;assignment-3&quot;&gt;Assignment 3:&lt;/h2&gt;
+&lt;h3 id=&quot;assignment-3&quot;&gt;Assignment 3:&lt;/h3&gt;
 
 &lt;p&gt;Code is available on my &lt;a href=&quot;https://github.com/phackt/slae/tree/master/assignment3&quot;&gt;github repo&lt;/a&gt;.&lt;/p&gt;
 
@@ -2198,9 +2208,9 @@ Don’t hesitate to comment and share.&lt;/p&gt;
  
  <entry>
    <title>SLAE Assignment 2 - TCP Reverse Shellcode</title>
-   <link href="http://localhost:4000/certification/2017/04/19/slae-tcp-reverse-shell/"/>
+   <link href="http://localhost:4000/slae-tcp-reverse-shell"/>
    <updated>2017-04-19T00:00:00+02:00</updated>
-   <id>http://localhost:4000/certification/2017/04/19/slae-tcp-reverse-shell</id>
+   <id>http://localhost:4000/slae-tcp-reverse-shell</id>
    <content type="html">&lt;p&gt;&lt;br /&gt;
 Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
 Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.com/phackt/slae&lt;/a&gt;&lt;br /&gt;
@@ -2209,11 +2219,12 @@ Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.
 &lt;p&gt;Hello everybody,&lt;/p&gt;
 
 &lt;p&gt;So here we are for the second part of our shellcodes serie. Today we will deal with a reverse TCP shellcode.&lt;br /&gt;
-This shellcode will be pretty similar to the bind one, except that we will connect back to the attacker’s machine in order to provide a shell on the compromised one.&lt;/p&gt;
+This shellcode will be pretty similar to the bind one, except that we will connect back to the attacker’s machine in order to provide a shell on the compromised one.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;So let’s see what changed.&lt;/p&gt;
 
-&lt;h2 id=&quot;assignment-2&quot;&gt;Assignment 2:&lt;/h2&gt;
+&lt;h3 id=&quot;assignment-2&quot;&gt;Assignment 2:&lt;/h3&gt;
 
 &lt;p&gt;Code is available on my &lt;a href=&quot;https://github.com/phackt/slae/tree/master/assignment2&quot;&gt;github repo&lt;/a&gt;.&lt;/p&gt;
 
@@ -2543,17 +2554,17 @@ Don’t hesitate to comment and share.&lt;/p&gt;
  
  <entry>
    <title>SLAE Assignment 1 - TCP Bind Shellcode</title>
-   <link href="http://localhost:4000/certification/2017/04/13/slae-tcp-bind-shell/"/>
+   <link href="http://localhost:4000/slae-tcp-bind-shell"/>
    <updated>2017-04-13T00:00:00+02:00</updated>
-   <id>http://localhost:4000/certification/2017/04/13/slae-tcp-bind-shell</id>
-   <content type="html">&lt;p&gt;&lt;br /&gt;
-Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
+   <id>http://localhost:4000/slae-tcp-bind-shell</id>
+   <content type="html">&lt;p&gt;Student &lt;strong&gt;SLAE - 891&lt;/strong&gt;&lt;br /&gt;
 Github: &lt;a href=&quot;https://github.com/phackt/slae&quot;&gt;https://github.com/phackt/slae&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Hello everybody,&lt;/p&gt;
 
-&lt;p&gt;Here we are for a new set of posts dealing with the exam of the great course &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;Assembly Language and Shellcoding on Linux&lt;/a&gt;. Thanks to Vivek Ramachandran and his team for all of this work.&lt;/p&gt;
+&lt;p&gt;Here we are for a new set of posts dealing with the exam of the great course &lt;a href=&quot;http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/&quot;&gt;Assembly Language and Shellcoding on Linux&lt;/a&gt;. Thanks to Vivek Ramachandran and his team for all of this work.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;For information, the SLAE course has been performed on a 32bits Kali environment:&lt;/p&gt;
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# uname -a&lt;/span&gt;
@@ -2568,7 +2579,7 @@ gcc &lt;span class=&quot;nt&quot;&gt;-fno-stack-protector&lt;/span&gt; &lt;span 
 
 &lt;p&gt;So let’s rumble!&lt;/p&gt;
 
-&lt;h2 id=&quot;assignment-1&quot;&gt;Assignment 1:&lt;/h2&gt;
+&lt;h3 id=&quot;assignment-1&quot;&gt;Assignment 1:&lt;/h3&gt;
 
 &lt;p&gt;Code is available on my &lt;a href=&quot;https://github.com/phackt/slae/tree/master/assignment1&quot;&gt;github repo&lt;/a&gt;.&lt;/p&gt;
 
@@ -2872,17 +2883,17 @@ Thanks a lot and as i’m used to saying, do not hesitate to comment and share.&
  
  <entry>
    <title>MITM, HSTS, and plain HTTP landing page in practice</title>
-   <link href="http://localhost:4000/mitm/2017/03/27/mitm-keep-plain-connection-example/"/>
+   <link href="http://localhost:4000/mitm-keep-plain-connection-example"/>
    <updated>2017-03-27T00:00:00+02:00</updated>
-   <id>http://localhost:4000/mitm/2017/03/27/mitm-keep-plain-connection-example</id>
-   <content type="html">&lt;p&gt;&lt;br /&gt;
-Hi everybody,&lt;/p&gt;
+   <id>http://localhost:4000/mitm-keep-plain-connection-example</id>
+   <content type="html">&lt;p&gt;Hi everybody,&lt;/p&gt;
 
 &lt;p&gt;I already wrote some articles talking about the importance of implementing the HTTP Strict Transport Security (&lt;a href=&quot;https://https.cio.gov/hsts/&quot;&gt;HSTS&lt;/a&gt;) and to secure all the webpages, even the landing page.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Why all the pages should be secure ?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Because all the trafic should be hidden from prying eyes. If an attacker could interfer with only one page, several options are available to him. He can strip all secure headers, redirect trafic, change web page content, force HTTP trafic, and so on.&lt;br /&gt;
+&lt;!--more--&gt;
 Every case is different but keep in mind that if the victim is able to generate a plain HTTP request (http://website.com), the attacker can control all the trafic.&lt;/p&gt;
 
 &lt;p&gt;However, if a ressource has been cached with HSTS, the browser will automatically do an internal redirect (Code 307).&lt;br /&gt;
@@ -3063,15 +3074,15 @@ Feel free to comment if you have any question, or if you find other cool domains
  
  <entry>
    <title>Format String with GDB</title>
-   <link href="http://localhost:4000/binary/2017/02/28/format-string/"/>
+   <link href="http://localhost:4000/format-string"/>
    <updated>2017-02-28T00:00:00+01:00</updated>
-   <id>http://localhost:4000/binary/2017/02/28/format-string</id>
-   <content type="html">&lt;p&gt;&lt;br /&gt;
-Salut à tous,&lt;/p&gt;
+   <id>http://localhost:4000/format-string</id>
+   <content type="html">&lt;p&gt;Bonjour à tous,&lt;/p&gt;
 
 &lt;p&gt;Aujourd’hui un petit article qui traitera d’un cas simple de Format String où nous exploiterons un buffer passé en argument. L’idée de cet article fait suite à la machine &lt;a href=&quot;https://www.vulnhub.com/entry/pegasus-1,109/&quot;&gt;Pegasus 1&lt;/a&gt; de vulnhub que je vous recommande chaudement.&lt;/p&gt;
 
-&lt;p&gt;J’essaierai d’être assez pédagogique, le cas ci-dessous étant un cas basique sans contournement des protections de la pile.&lt;/p&gt;
+&lt;p&gt;J’essaierai d’être assez pédagogique, le cas ci-dessous étant un cas basique sans contournement des protections de la pile.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Qu’entend-on par Format String?&lt;/strong&gt;&lt;/p&gt;
 
@@ -3272,13 +3283,13 @@ See Ya!&lt;/p&gt;
  
  <entry>
    <title>OSCP: une première étape</title>
-   <link href="http://localhost:4000/certification/2017/02/17/oscp/"/>
+   <link href="http://localhost:4000/oscp"/>
    <updated>2017-02-17T00:00:00+01:00</updated>
-   <id>http://localhost:4000/certification/2017/02/17/oscp</id>
-   <content type="html">&lt;p&gt;&lt;br /&gt;
-Bonjour à tous,&lt;/p&gt;
+   <id>http://localhost:4000/oscp</id>
+   <content type="html">&lt;p&gt;Bonjour à tous,&lt;/p&gt;
 
-&lt;p&gt;Premier article de l’année, cependant ces derniers temps furent bien remplis avec notamment le passage de l’&lt;a href=&quot;https://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/&quot;&gt;OSCP&lt;/a&gt;. J’en profite donc pour écrire une petite revue sur cette certif en espérant partager des infos qui pourront vous être utiles.&lt;/p&gt;
+&lt;p&gt;Premier article de l’année, cependant ces derniers temps furent bien remplis avec notamment le passage de l’&lt;a href=&quot;https://www.offensive-security.com/information-security-certifications/oscp-offensive-security-certified-professional/&quot;&gt;OSCP&lt;/a&gt;. J’en profite donc pour écrire une petite revue sur cette certif en espérant partager des infos qui pourront vous être utiles.
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Qu’est-ce que l’OSCP?&lt;/strong&gt;&lt;/p&gt;
 
@@ -3355,13 +3366,13 @@ Donc mon premier conseil est de passer du temps sur le lab et de compromettre un
  
  <entry>
    <title>Passive Gathering Information - Netcraft and Shodan</title>
-   <link href="http://localhost:4000/fingerprint/2016/12/05/passive-fingerprinting-netcraft-shodan/"/>
+   <link href="http://localhost:4000/passive-fingerprinting-netcraft-shodan"/>
    <updated>2016-12-05T00:00:00+01:00</updated>
-   <id>http://localhost:4000/fingerprint/2016/12/05/passive-fingerprinting-netcraft-shodan</id>
-   <content type="html">&lt;p&gt;&lt;br /&gt;
-Bonjour à tous,&lt;/p&gt;
+   <id>http://localhost:4000/passive-fingerprinting-netcraft-shodan</id>
+   <content type="html">&lt;p&gt;Bonjour à tous,&lt;/p&gt;
 
-&lt;p&gt;Aujourd’hui nous parlerons de la prise d’empreinte passive et des plateformes &lt;a href=&quot;https://www.netcraft.com/&quot;&gt;netcraft&lt;/a&gt; et &lt;a href=&quot;https://www.shodan.io/&quot;&gt;shodan&lt;/a&gt;. La prise d’empreinte passive consiste en l’agrégation d’informations publiques concernant une cible (sans requêtage direct de ses serveurs).&lt;/p&gt;
+&lt;p&gt;Aujourd’hui nous parlerons de la prise d’empreinte passive et des plateformes &lt;a href=&quot;https://www.netcraft.com/&quot;&gt;netcraft&lt;/a&gt; et &lt;a href=&quot;https://www.shodan.io/&quot;&gt;shodan&lt;/a&gt;. La prise d’empreinte passive consiste en l’agrégation d’informations publiques concernant une cible (sans requêtage direct de ses serveurs).&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;La prise d’empreinte au sens large devra être la plus exhaustive possible pour maximiser la probabilité de réussite d’une attaque:&lt;/p&gt;
 
@@ -3507,11 +3518,10 @@ Cliquez ensuite sur &lt;em&gt;Site Report&lt;/em&gt;:&lt;/p&gt;
  
  <entry>
    <title>HTTP Proxying with Mitmproxy</title>
-   <link href="http://localhost:4000/mitm/2016/10/01/http-proxying/"/>
+   <link href="http://localhost:4000/http-proxying"/>
    <updated>2016-10-01T00:00:00+02:00</updated>
-   <id>http://localhost:4000/mitm/2016/10/01/http-proxying</id>
-   <content type="html">&lt;p&gt;&lt;br /&gt;
-Bonjour à tous,&lt;/p&gt;
+   <id>http://localhost:4000/http-proxying</id>
+   <content type="html">&lt;p&gt;Bonjour à tous,&lt;/p&gt;
 
 &lt;p&gt;Pour faire suite à l’&lt;a href=&quot;http://localhost:4000/mitm-phishing&quot;&gt;article&lt;/a&gt; que j’avais rédigé sur une attaque MITM redirigeant vers un site web spoofé, je me suis penché sur une autre méthode plus générique qui utilise l’outil &lt;a href=&quot;https://mitmproxy.org/&quot;&gt;mitmproxy&lt;/a&gt;.&lt;/p&gt;
 
@@ -3519,6 +3529,7 @@ Bonjour à tous,&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;victime &amp;lt;-- HTTP --&amp;gt; mitmproxy &amp;lt;-- HTTPS --&amp;gt; website
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;!--more--&gt;
 
 &lt;p&gt;Le but est, qu’à partir d’une page non sécurisée d’un site, nous puissions continuer en proposant à notre victime une connexion en clair (http) pour analyser son trafic, mais que notre proxy rétablisse la connexion sécurisée avec le site concerné. Cette attaque ne pourra pas aboutir sur des sites implémentant le &lt;a href=&quot;https://https.cio.gov/hsts/&quot;&gt;HSTS&lt;/a&gt; (sauf si l’utilisateur ne s’est jamais connecté au site et que le HSTS n’est pas préchargé).&lt;/p&gt;
 
@@ -3551,13 +3562,13 @@ Bonjour à tous,&lt;/p&gt;
  
  <entry>
    <title>Anonymat avec TOR et Proxychains sous Kali</title>
-   <link href="http://localhost:4000/general/2016/09/17/tor-proxychains/"/>
+   <link href="http://localhost:4000/tor-proxychains"/>
    <updated>2016-09-17T00:00:00+02:00</updated>
-   <id>http://localhost:4000/general/2016/09/17/tor-proxychains</id>
-   <content type="html">&lt;p&gt;&lt;br /&gt;
-Salut à tous,&lt;/p&gt;
+   <id>http://localhost:4000/tor-proxychains</id>
+   <content type="html">&lt;p&gt;Bonjour à tous,&lt;/p&gt;
 
-&lt;p&gt;Après m’être demandé comment lancer toutes mes commandes derrière un proxy &lt;a href=&quot;https://fr.wikipedia.org/wiki/SOCKS&quot;&gt;SOCKS&lt;/a&gt; pour masquer mon ip (certaines commandes ne proposent pas d’option pour rediriger vers un proxy SOCKS), vous pouvez vous en sortir grâce au réseau &lt;a href=&quot;https://fr.wikipedia.org/wiki/Tor_(r%C3%A9seau)&quot;&gt;TOR&lt;/a&gt; et un outil appelé &lt;a href=&quot;https://github.com/haad/proxychains/blob/master/src/proxychains.conf&quot;&gt;Proxychains&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Après m’être demandé comment lancer toutes mes commandes derrière un proxy &lt;a href=&quot;https://fr.wikipedia.org/wiki/SOCKS&quot;&gt;SOCKS&lt;/a&gt; pour masquer mon ip (certaines commandes ne proposent pas d’option pour rediriger vers un proxy SOCKS), vous pouvez vous en sortir grâce au réseau &lt;a href=&quot;https://fr.wikipedia.org/wiki/Tor_(r%C3%A9seau)&quot;&gt;TOR&lt;/a&gt; et un outil appelé &lt;a href=&quot;https://github.com/haad/proxychains/blob/master/src/proxychains.conf&quot;&gt;Proxychains&lt;/a&gt;.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;Installez tor et proxychains:&lt;/p&gt;
 
@@ -3685,13 +3696,13 @@ par&lt;br /&gt;
  
  <entry>
    <title>Phishing d'un site web avec attaque MITM</title>
-   <link href="http://localhost:4000/mitm/2016/09/08/mitm-phishing/"/>
+   <link href="http://localhost:4000/mitm-phishing"/>
    <updated>2016-09-08T00:00:00+02:00</updated>
-   <id>http://localhost:4000/mitm/2016/09/08/mitm-phishing</id>
-   <content type="html">&lt;p&gt;&lt;br /&gt;
-Bonjour à tous,&lt;/p&gt;
+   <id>http://localhost:4000/mitm-phishing</id>
+   <content type="html">&lt;p&gt;Bonjour à tous,&lt;/p&gt;
 
-&lt;p&gt;Je me suis dit qu’il était intéressant de partager avec vous un petit script &lt;strong&gt;Bash&lt;/strong&gt; que j’ai créé pour automatiser une attaque ‘Man In The Middle’ et rediriger vers une fausse page web que nous allons héberger (&lt;a href=&quot;https://github.com/phackt/mitm&quot;&gt;https://github.com/phackt/mitm&lt;/a&gt;). L’objectif est pour une attaque ciblée de rendre l’obtention des credentials la plus transparente possible. Cependant il n’existe pas de solution miracle, à chaque combat sa stratégie.&lt;/p&gt;
+&lt;p&gt;Je me suis dit qu’il était intéressant de partager avec vous un script &lt;strong&gt;Bash&lt;/strong&gt; que j’ai créé pour automatiser une attaque ‘Man In The Middle’ et rediriger vers une fausse page web que nous allons héberger (&lt;a href=&quot;https://github.com/phackt/mitm&quot;&gt;https://github.com/phackt/mitm&lt;/a&gt;). L’objectif est pour une attaque ciblée de rendre l’obtention des credentials la plus transparente possible. Cependant il n’existe pas de solution miracle, à chaque combat sa stratégie.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;Ici nous allons donc cibler un site possédant une page d’accueil non sécurisée (HTTP), permettant l’interception en clair des liens HTTPS et de les transformer en liens HTTP classiques. Certains outils comme &lt;a href=&quot;https://github.com/moxie0/sslstrip&quot;&gt;sslstrip&lt;/a&gt; permettent ce genre d’opérations, en éliminant le caching des pages et en traitant également les headers response &lt;strong&gt;Location&lt;/strong&gt; lors des redirections. De notre coté nous utiliserons un simple filtre &lt;a href=&quot;https://github.com/Ettercap/ettercap&quot;&gt;ettercap&lt;/a&gt; que nous compilerons avec etterfilter.&lt;/p&gt;
 
@@ -3808,10 +3819,10 @@ Références :&lt;br /&gt;
  
  <entry>
    <title>XSS, CORS, CSRF (Partie 3)</title>
-   <link href="http://localhost:4000/web/2016/08/20/xss-cors-csrf-partie-3-cors-csrf/"/>
+   <link href="http://localhost:4000/xss-cors-csrf-partie-3-cors-csrf"/>
    <updated>2016-08-20T00:00:00+02:00</updated>
-   <id>http://localhost:4000/web/2016/08/20/xss-cors-csrf-partie-3-cors-csrf</id>
-   <content type="html">&lt;h2 id=&quot;les-requêtes-cross-site&quot;&gt;Les requêtes Cross-Site.&lt;/h2&gt;
+   <id>http://localhost:4000/xss-cors-csrf-partie-3-cors-csrf</id>
+   <content type="html">&lt;h3 id=&quot;les-requêtes-cross-site&quot;&gt;Les requêtes Cross-Site.&lt;/h3&gt;
 
 &lt;p&gt;Bienvenue dans ce dernier volet de notre Saga XSS (&lt;a href=&quot;http://localhost:4000/xss-cors-csrf-partie-1-xss&quot;&gt;partie 1&lt;/a&gt;, &lt;a href=&quot;http://localhost:4000/xss-cors-csrf-partie-2-xss-cookies-session&quot;&gt;partie 2&lt;/a&gt;).&lt;/p&gt;
 
@@ -3820,6 +3831,7 @@ Références :&lt;br /&gt;
 &lt;pre class=&quot;alert&quot;&gt;
 XMLHttpRequest cannot load http://requestb.in/w7iy5sw7?cookie=PHPSESSID_unsecured=jm5mah0a9uuf4g344096nled73. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost' is therefore not allowed access.
 &lt;/pre&gt;
+&lt;!--more--&gt;
 &lt;p&gt;&lt;br /&gt;
 Alors que nous avions bien réceptionné notre requête sur requestb.in :&lt;/p&gt;
 
@@ -3977,14 +3989,15 @@ Références :&lt;br /&gt;
  
  <entry>
    <title>XSS, CORS, CSRF (Partie 2)</title>
-   <link href="http://localhost:4000/web/2016/08/15/xss-cors-csrf-partie-2-xss-cookies-session/"/>
+   <link href="http://localhost:4000/xss-cors-csrf-partie-2-xss-cookies-session"/>
    <updated>2016-08-15T00:00:00+02:00</updated>
-   <id>http://localhost:4000/web/2016/08/15/xss-cors-csrf-partie-2-xss-cookies-session</id>
-   <content type="html">&lt;h2 id=&quot;xss--et-vol-de-cookies-par-la-pratique&quot;&gt;XSS  et vol de cookies par la pratique.&lt;/h2&gt;
+   <id>http://localhost:4000/xss-cors-csrf-partie-2-xss-cookies-session</id>
+   <content type="html">&lt;h3 id=&quot;xss--et-vol-de-cookies-par-la-pratique&quot;&gt;XSS  et vol de cookies par la pratique.&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Vous reprendrez bien un cookie ?&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Dans le &lt;a href=&quot;http://localhost:4000/xss-cors-csrf-partie-1-xss&quot;&gt;premier volet&lt;/a&gt; de notre saga, nous traitions des attaques XSS et des moyens de s’en prémunir. Ces vulnérabilités peuvent être utilisées pour voler vos informations de session ou vous rediriger vers un site frauduleux. Vous vous dîtes sûrement : “ok coco en théorie c’est bien sympa tout ça, mais en quoi consiste le vol d’une session, quelles informations sont envoyées et où part la requête ?”.&lt;/p&gt;
+&lt;p&gt;Dans le &lt;a href=&quot;http://localhost:4000/xss-cors-csrf-partie-1-xss&quot;&gt;premier volet&lt;/a&gt; de notre saga, nous traitions des attaques XSS et des moyens de s’en prémunir. Ces vulnérabilités peuvent être utilisées pour voler vos informations de session ou vous rediriger vers un site frauduleux. Vous vous dîtes sûrement : “ok coco en théorie c’est bien sympa tout ça, mais en quoi consiste le vol d’une session, quelles informations sont envoyées et où part la requête ?”.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;Imaginons la configuration suivante :&lt;/p&gt;
 
@@ -4132,14 +4145,16 @@ Références:&lt;br /&gt;
  
  <entry>
    <title>XSS, CORS, CSRF (Partie 1)</title>
-   <link href="http://localhost:4000/web/2016/08/09/xss-cors-csrf-partie-1-xss/"/>
+   <link href="http://localhost:4000/xss-cors-csrf-partie-1-xss"/>
    <updated>2016-08-09T00:00:00+02:00</updated>
-   <id>http://localhost:4000/web/2016/08/09/xss-cors-csrf-partie-1-xss</id>
-   <content type="html">&lt;h2 id=&quot;le-xss-cors-csrf-késako&quot;&gt;Le XSS, CORS, CSRF… Késako?&lt;/h2&gt;
+   <id>http://localhost:4000/xss-cors-csrf-partie-1-xss</id>
+   <content type="html">&lt;h3 id=&quot;le-xss-cors-csrf-késako&quot;&gt;Le XSS, CORS, CSRF… Késako?&lt;/h3&gt;
+
 &lt;p&gt;&lt;strong&gt;Que se cache-t-il derrière ces acronymes barbares ?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Bienvenue dans cette saga qui traitera des notions de XSS, CORS, CSRF et du lien entre elles.&lt;br /&gt;
-Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB “cas d’école” en Java &lt;a href=&quot;https://github.com/phackt/DemoWebApp&quot;&gt;https://github.com/phackt/DemoWebApp&lt;/a&gt;. La question que nous nous posons est la suivante : &lt;strong&gt;quelles sont les bonnes pratiques pour sécuriser une application WEB ?&lt;/strong&gt;&lt;/p&gt;
+Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB “cas d’école” en Java &lt;a href=&quot;https://github.com/phackt/DemoWebApp&quot;&gt;https://github.com/phackt/DemoWebApp&lt;/a&gt;. La question que nous nous posons est la suivante : &lt;strong&gt;quelles sont les bonnes pratiques pour sécuriser une application WEB ?&lt;/strong&gt;&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;Dans ce premier volet, nous traiterons des attaques de cross-site scripting. Nous ferons le lien par la suite avec les protections CSRF (Cross Site Request Forgery) et les requêtes CORS (Cross Origin Ressource Sharing).&lt;/p&gt;
 
@@ -4253,16 +4268,18 @@ Il convient également d’ajouter le header &lt;strong&gt;&lt;a href=&quot;http
  
  <entry>
    <title>Introduction au SIEM</title>
-   <link href="http://localhost:4000/general/2016/08/05/introduction-siem/"/>
+   <link href="http://localhost:4000/introduction-siem"/>
    <updated>2016-08-05T00:00:00+02:00</updated>
-   <id>http://localhost:4000/general/2016/08/05/introduction-siem</id>
-   <content type="html">&lt;h1 id=&quot;siem-le-monitoring-de-la-sécurité&quot;&gt;SIEM, le monitoring de la sécurité&lt;/h1&gt;
+   <id>http://localhost:4000/introduction-siem</id>
+   <content type="html">&lt;h3 id=&quot;siem-le-monitoring-de-la-sécurité&quot;&gt;SIEM, le monitoring de la sécurité&lt;/h3&gt;
+
 &lt;p&gt;Nous avons vu dans un précédent article quel était le contexte réglementaire de la &lt;a href=&quot;http://localhost:4000/introduction-cybersecurite&quot;&gt;Loi de Programmation Militaire&lt;/a&gt; française.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Que dites-vous d’une petite révision ?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;La LPM impose aux &lt;strong&gt;OIV&lt;/strong&gt; (Opérateurs d’Importance Vitale) de renforcer la sécurité des systèmes d’information critiques qu’ils exploitent et de notifier les incidents de sécurité à l’&lt;a href=&quot;http://www.ssi.gouv.fr/&quot;&gt;ANSSI&lt;/a&gt; (Agence Nationale de la Sécurité des Systèmes d’Information).&lt;br /&gt;
-Une première vague d’arrêtés a été publiée le 1er juillet 2016. Ces arrêtés concernent les secteurs d’activité des produits de santé, la gestion de l’eau et l’alimentation. Plusieurs autres arrêtés, concernant d’autres secteurs d’activité, devraient paraître d’ici la fin de cette année.&lt;/p&gt;
+Une première vague d’arrêtés a été publiée le 1er juillet 2016. Ces arrêtés concernent les secteurs d’activité des produits de santé, la gestion de l’eau et l’alimentation. Plusieurs autres arrêtés, concernant d’autres secteurs d’activité, devraient paraître d’ici la fin de cette année.&lt;br /&gt;
+&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;Notez que la Commission européenne a également adopté, en février 2013, une proposition de directive visant à assurer un niveau élevé commun de sécurité des réseaux et de l’information dans l’Union.&lt;/p&gt;
 
@@ -4336,16 +4353,17 @@ Références:&lt;br /&gt;
  
  <entry>
    <title>Introduction à la cybersécurité</title>
-   <link href="http://localhost:4000/general/2016/07/31/introduction-cybersecurite/"/>
+   <link href="http://localhost:4000/introduction-cybersecurite"/>
    <updated>2016-07-31T00:00:00+02:00</updated>
-   <id>http://localhost:4000/general/2016/07/31/introduction-cybersecurite</id>
+   <id>http://localhost:4000/introduction-cybersecurite</id>
    <content type="html">&lt;h3 id=&quot;cybersécurité-un-enjeu-bien-réel&quot;&gt;Cybersécurité, un enjeu bien réel.&lt;/h3&gt;
 
 &lt;p&gt;&lt;strong&gt;Quels sont ses objectifs et pourquoi manifeste-t-on aujourd’hui un tel engouement pour ce secteur ?&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Il y a quelques années, les entreprises restaient frileuses à investir dans ce secteur : pour quel retour sur investissement se disaient-elles ? Le secteur était de niche, les formations diplômantes en sécurité informatique n’étant également pas légion. Aujourd’hui nous pouvons trouver pléthore de ces formations, mastères, certifications (CEH, CISSP, CISO, …). 
-&lt;!--more--&gt;
-Ce sujet est donc devenu incontournable et la cybersécurité/cyberdéfense se sont imposées comme priorité de sécurité nationale pour les entreprises et grandes puissances mondiales. Nous assistons à une véritable prise de conscience concernant les enjeux liés à la protection et la sécurisation des systèmes d’information vitaux pour le fonctionnement de l’État, ceci souligné par un contexte tendu d’état d’urgence.
+&lt;p&gt;Il y a quelques années, les entreprises restaient frileuses à investir dans ce secteur : pour quel retour sur investissement se disaient-elles ? Le secteur était de niche, les formations diplômantes en sécurité informatique n’étant également pas légion. Aujourd’hui nous pouvons trouver pléthore de ces formations, mastères, certifications (CEH, CISSP, CISO, …).
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;Ce sujet est donc devenu incontournable et la cybersécurité/cyberdéfense se sont imposées comme priorité de sécurité nationale pour les entreprises et grandes puissances mondiales. Nous assistons à une véritable prise de conscience concernant les enjeux liés à la protection et la sécurisation des systèmes d’information vitaux pour le fonctionnement de l’État, ceci souligné par un contexte tendu d’état d’urgence.
 &lt;br /&gt;
 &lt;br /&gt;
 &lt;strong&gt;Quelle définition officielle ?&lt;/strong&gt;&lt;/p&gt;

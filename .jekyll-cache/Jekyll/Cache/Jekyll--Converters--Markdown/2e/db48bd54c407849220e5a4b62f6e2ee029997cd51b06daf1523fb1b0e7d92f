@@ -1,0 +1,4 @@
+I"<p>Hello folks,</p>
+
+<p>I would like to share with you a practical case of reflected XSS while i was looking at my national health service account. Right now the XSS has been patched (we have an efficient dedicated national service where we can report such issues).</p>
+:ET

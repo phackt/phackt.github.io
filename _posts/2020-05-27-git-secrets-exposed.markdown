@@ -3,23 +3,22 @@ layout: post
 title:  "What solutions to prevent git leaks ?"
 date:   2020-05-27
 categories: dev
+excerpt_separator: <!--more-->
 ---
 Hello,  
   
 I will do a quick and dirty post about what's out there to find / prevent leaks of secrets in your git repositories.  
 I did not try all of these tools. For the search part, i'm mainly using a fork of Trufflehog with some added features (search in filenames, commits comments, also with custom regexes).  
   
-
-# Objectives :  
+### Objectives :  
   
  - Look into the commits history for sensitive information publicly accessible by an attacker ;
  - Prevent secrets leaks ;
  - Monitoring and integrating these checks in the Continous Delivery process - aka DevSecOps
+<!--more-->
   
+### Tools to look for sensitive data :
 
-# Find sensitive data :
-
-**TOOLS :**  
 => [TRUFFLEHOG](https://github.com/dxa4481/truffleHog)
    - Python
    - also works for local repo
@@ -55,7 +54,7 @@ I did not try all of these tools. For the search part, i'm mainly using a fork o
    - monitoring git repos - Be the first to catch the secret before it gets deleted from git history
    - *shhgit will watch real-time stream and pull out any accidentally committed secrets*
     
-# Prevent commits :
+### Prevent commits :
 
 What is a Git Hook ? As described [here](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks):  
 
@@ -127,7 +126,7 @@ Tencent Cloud
 Twilio
 ```
   
-# Finally what to conclude :
+### Finally what to conclude :
   
 For each leaked secrets linked to an environment which could be targeted by an adversary :  
  - Revoke / update the secret (password, any token / private key, ...) as quick as possible ;

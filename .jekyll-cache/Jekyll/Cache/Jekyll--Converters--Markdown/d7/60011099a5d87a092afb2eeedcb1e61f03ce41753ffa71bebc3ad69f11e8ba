@@ -1,0 +1,8 @@
+I"Ê<p>Hello folks,</p>
+
+<p>Today i would like to share with you the first version of a script i wrote to help determining the version of a software.</p>
+
+<p><strong>So what the hell am i talking about?</strong></p>
+
+<p>Ok let me explain the context: You are looking at a website and trying to get the exact version of the underlying CMS, let say Drupal. We know that Drupal has suffered from the <a href="https://www.drupal.org/project/drupalgeddon">Drupalgeddon</a> for versions 7.X before 7.32. So you can have at look at some obvious files (CHANGELOG.txt), but what happens if the webmaster deleted these files? How to maximize the chance to find the right version or at least the smallest delta as possible ?</p>
+:ET

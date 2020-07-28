@@ -3,6 +3,7 @@ layout: post
 title:  "SLAE Assignment 2 - TCP Reverse Shellcode"
 date:   2017-04-19
 categories: certification
+excerpt_separator: <!--more-->
 ---
 <br />
 Student **SLAE - 891**  
@@ -13,10 +14,11 @@ Hello everybody,
   
 So here we are for the second part of our shellcodes serie. Today we will deal with a reverse TCP shellcode.  
 This shellcode will be pretty similar to the bind one, except that we will connect back to the attacker's machine in order to provide a shell on the compromised one.  
+<!--more-->
   
 So let's see what changed.  
   
-## Assignment 2:  
+### Assignment 2:  
 
 Code is available on my [github repo](https://github.com/phackt/slae/tree/master/assignment2).  
   

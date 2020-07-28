@@ -1,0 +1,7 @@
+I"�<h3 id="le-xss-cors-csrf-késako">Le XSS, CORS, CSRF… Késako?</h3>
+
+<p><strong>Que se cache-t-il derrière ces acronymes barbares ?</strong></p>
+
+<p>Bienvenue dans cette saga qui traitera des notions de XSS, CORS, CSRF et du lien entre elles.<br />
+Vous en avez forcément entendu parler si vous avez été impliqués dans la création d’applications WEB. L’idée de cet article m’est venue suite à la création d’une application WEB “cas d’école” en Java <a href="https://github.com/phackt/DemoWebApp">https://github.com/phackt/DemoWebApp</a>. La question que nous nous posons est la suivante : <strong>quelles sont les bonnes pratiques pour sécuriser une application WEB ?</strong></p>
+:ET

@@ -3,13 +3,14 @@ layout: post
 title:  "Format String with GDB"
 date:   2017-02-28
 categories: binary
+excerpt_separator: <!--more-->
 ---
-<br />
-Salut à tous,  
+Bonjour à tous,  
   
 Aujourd'hui un petit article qui traitera d'un cas simple de Format String où nous exploiterons un buffer passé en argument. L'idée de cet article fait suite à la machine [Pegasus 1](https://www.vulnhub.com/entry/pegasus-1,109/) de vulnhub que je vous recommande chaudement.  
   
 J'essaierai d'être assez pédagogique, le cas ci-dessous étant un cas basique sans contournement des protections de la pile.  
+<!--more-->
   
 **Qu'entend-on par Format String?**  
     

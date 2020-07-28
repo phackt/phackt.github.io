@@ -1,0 +1,78 @@
+I"�$<h3 id="siem-le-monitoring-de-la-sécurité">SIEM, le monitoring de la sécurité</h3>
+
+<p>Nous avons vu dans un précédent article quel était le contexte réglementaire de la <a href="http://localhost:4000/introduction-cybersecurite">Loi de Programmation Militaire</a> française.</p>
+
+<p><strong>Que dites-vous d’une petite révision ?</strong></p>
+
+<p>La LPM impose aux <strong>OIV</strong> (Opérateurs d’Importance Vitale) de renforcer la sécurité des systèmes d’information critiques qu’ils exploitent et de notifier les incidents de sécurité à l’<a href="http://www.ssi.gouv.fr/">ANSSI</a> (Agence Nationale de la Sécurité des Systèmes d’Information).<br />
+Une première vague d’arrêtés a été publiée le 1er juillet 2016. Ces arrêtés concernent les secteurs d’activité des produits de santé, la gestion de l’eau et l’alimentation. Plusieurs autres arrêtés, concernant d’autres secteurs d’activité, devraient paraître d’ici la fin de cette année.<br />
+<!--more--></p>
+
+<p>Notez que la Commission européenne a également adopté, en février 2013, une proposition de directive visant à assurer un niveau élevé commun de sécurité des réseaux et de l’information dans l’Union.</p>
+
+<p>Les OIV se retrouvent donc avec l’obligation de mettre en œuvre des systèmes qualifiés de détection des évènements susceptibles d’affecter la sécurité de leurs systèmes d’information. En cas de manquement, ceci peut coûter cher : la LPM 2014-2019 sanctionne les manquements à la loi d’une amende de 150.000€, s’élevant à 750.000€ pour les personnes morales. La loi française ne distingue pas selon que le manquement est ou non intentionnel. La simple négligence est donc en principe condamnable.</p>
+
+<p>Nous voyons donc qu’en sus d’un réel besoin, le cadre réglementaire concernant la supervision de la sécurité des entreprises est posé.</p>
+
+<p><strong>Mais en quoi consiste ce monitoring de la sécurité ?</strong></p>
+
+<p>Nous allons aborder la notion de <strong>SIEM</strong> : Security Information and Event Management.<br />
+Le SIEM est le résultat de la volonté de superviser l’activité de son système d’information.<br />
+Il a donc pour objectif de collecter les fichiers d’évènements (logs) de différentes sources, de les uniformiser, et de les corréler. On parle de corrélation car ces solutions sont munies de moteurs de corrélation qui permettent de relier plusieurs évènements à une même cause.</p>
+
+<p>Un SIEM impliquera également la création d’une équipe dédiée, capable d’assurer plusieurs niveaux de services autour de l’outil. En effet, il faudra être en capacité de lire, d’analyser, de vérifier, de valider les alertes de sécurité remontées par la solution 7j/7 24H/24, les assaillants n’attendant pas patiemment les heures ouvrées pour commettre leurs exactions.</p>
+
+<p>En somme, il faudra créer un SOC (<a href="https://fr.wikipedia.org/wiki/Security_Operations_Center" title="https://fr.wikipedia.org/wiki/Security_Operations_Center">Security Operation Center</a>).</p>
+
+<p><strong>Quel rapport entre journaux et sécurité ?</strong></p>
+
+<p>Le monitoring du SI implique deux besoins : <strong>la gestion des logs et la supervision de la sécurité</strong>.</p>
+
+<p><em>La gestion des logs</em>, plus souvent appelée « Log Management », consiste en la mise en place d’une ou plusieurs solutions permettant à une entreprise de
+collecter, stocker, sécuriser et archiver les journaux d’information provenant des différents équipements de sécurité, d’authentification, réseaux…</p>
+
+<p>Ce besoin fait très souvent suite à des contraintes légales de conservation et de non-répudiation des informations. Un exemple est l’analyse post incident et la visualisation de requêtes d’exfiltration de données par le hacker. La brique d’indexation et de recherche est assurée par un système d’indexation très rapide (exemple ElasticSearch en open source).</p>
+
+<p><em>La supervision de la sécurité</em> quant à elle, relève d’un réel besoin des entreprises de suivre en temps réel l’activité de leur SI, de corréler tous les évènements qui s’y passent et d’être alertés en cas de problème de sécurité. Cette partie sera assurée par une couche <strong>HIDS</strong> (Host Based Intrusion Detection System - ex: OSSEC) / <strong>NIDS</strong> (Network Intrusion Detection System - ex: SNORT). Les alertes de ces systèmes seront remontées au SIEM qui effectuera des <strong>corrélations</strong> (règles de détection mises à jours régulièrement, expressions régulières) permettant de détecter des comportements suspicieux probants, et ainsi d’anticiper une attaque (exemple de scan de ports – voir <a href="https://nmap.org/book/man-port-scanning-techniques.html" title="https://nmap.org/book/man-port-scanning-techniques.html">nmap</a>), ou de remonter une alerte sur une attaque en cours.  De surcroît, les informations remontées par les NIDS et HIDS sont <strong>complémentaires</strong> : le NIDS remontera la source de l’attaque (IP) et le payload envoyé, le HIDS alertera sur l’action effectuée sur le système ciblé et si cette dernière a abouti.</p>
+
+<p>Ainsi des règles de corrélations pourront être mises en place pour déterminer la criticité d’une alerte (évitez les règles trop génériques pouvant mener à des faux positifs). Voici un exemple de règle de corrélation d’un SIEM impliquant des alertes de SNORT et d’OSSEC sur une attaque LFI (<a href="https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion">Local File Inclusion</a>):</p>
+
+<p><img src="http://localhost:4000/public/images/introduction-siem/events_flowchart1.png" alt="Corrélation LFI" /></p>
+
+<p>Le SIEM dispose d’une partie graphique pour l’affichage des Key Risk Indicators(reportings et dashboards).<br />
+Ces composantes sont donc intimement liées. Les solutions doivent faire appel à des technologies de Big Data pour assurer la rapidité de traitement et garantir l’intégrité de ces gros volumes de données qui transitent par le SIEM.</p>
+
+<p><strong>Quelles sont donc ces solutions ?</strong></p>
+
+<p>Selon le Gartner Magic Quadrant 2015 :</p>
+
+<p><img src="http://localhost:4000/public/images/introduction-siem/2015-siem-mq-LG.png" alt="Gartner Magic Quadrant SIEM 2015" /></p>
+
+<p>And the winner is…. IBM Security QRadar, suivi de HP ArcSight et de Splunk.<br />
+Ces solutions sont commerciales, mais le geek qui est en vous se demande déjà ce qu’il en est des solutions libres ? Effectivement il existe des solutions comme <a href="https://www.alienvault.com/products/ossim" title="https://www.alienvault.com/products/ossim">OSSIM</a> qui est un SIEM open source, mais cependant limité (absence de règles de corrélations, reporting basique, …).</p>
+
+<p>Il existe également une solution d’agrégation de logs, ou plutôt une stack open source de produits Elastic, la stack <strong>ELK (ElasticSearch, Logstash, Kibana)</strong> :</p>
+
+<ul>
+  <li><a href="https://www.elastic.co/fr/products/elasticsearch" title="https://www.elastic.co/fr/products/elasticsearch">ElasticSearch</a> : moteur de stockage et d’indexation de documents et moteur de requête/d’analyse de ceux-ci.</li>
+  <li><a href="https://www.elastic.co/products/logstash" title="https://www.elastic.co/products/logstash">Logstash</a>: analyse, filtrage et découpage des logs pour les transformer en documents, parfaitement formatés notamment pour ElasticSearch.</li>
+  <li><a href="https://www.elastic.co/products/kibana" title="https://www.elastic.co/products/kibana">Kibana</a>: dashboard interactif et paramétrable permettant de visualiser les données stockées dans ElasticSearch.</li>
+</ul>
+
+<p>Notre premier besoin est couvert, mais concernant notre supervision de la sécurité ?</p>
+
+<p>Pour notre HIDS, vous trouverez la solution open source <a href="http://ossec.github.io/" title="http://ossec.github.io/">OSSEC</a>. Concernant le NIDS, voici <a href="https://www.snort.org/" title="https://www.snort.org/">SNORT</a>.</p>
+
+<p>Notre prochain article consacré au SIEM se concentrera donc sur la mise en place de cette solution ELK + surcouche OSSEC. Nous ferons également le parallèle avec les enjeux <a href="http://www.bgfi-groupe.com/" title="http://www.bgfi-groupe.com/">Big Data</a> concernant ces solutions.</p>
+
+<p>A bientôt.
+<br />
+<br />
+Références:<br />
+<a href="http://www.orange-business.com/fr/blogs/securite/securite-organisationnelle-et-humaine/securite-siem-ou-pas-siem-">http://www.orange-business.com/fr/blogs/securite/securite-organisationnelle-et-humaine/securite-siem-ou-pas-siem-</a><br />
+<a href="https://www.itrust.fr/SIEM">https://www.itrust.fr/SIEM</a> <br />
+<a href="http://www.itrmanager.com/articles/164117/siem-element-incontournable-oiv.html">http://www.itrmanager.com/articles/164117/siem-element-incontournable-oiv.html</a><br />
+<a href="http://www.village-justice.com/articles/Quelles-obligations-pour-les-OIV,16739.html">http://www.village-justice.com/articles/Quelles-obligations-pour-les-OIV,16739.html</a><br />
+<a href="http://www.wazuh.com/elk-stack/">http://www.wazuh.com/elk-stack/</a><br />
+<a href="http://connect.ed-diamond.com/MISC/MISC-069/SIEM-IDS-l-union-fait-elle-la-force">http://connect.ed-diamond.com/MISC/MISC-069/SIEM-IDS-l-union-fait-elle-la-force</a></p>
+:ET

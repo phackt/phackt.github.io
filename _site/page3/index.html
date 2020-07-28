@@ -9,7 +9,7 @@
 
   <title>
     
-      Lanyon &middot; A Jekyll theme
+      phackt.com:~# &middot; Let's talk about sec, baby!
     
   </title>
 
@@ -40,7 +40,7 @@
 <!-- Toggleable sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-item">
-    <p>A reserved <a href="https://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.</p>
+    <p>Some infosec stuff.</p>
   </div>
 
   <nav class="sidebar-nav">
@@ -60,7 +60,7 @@
     
       
         
-          <a class="sidebar-nav-item" href="http://localhost:4000/about/">About</a>
+          <a class="sidebar-nav-item" href="http://localhost:4000/about">About</a>
         
       
     
@@ -86,6 +86,10 @@
     
       
         
+      
+    
+      
+    
       
     
 
@@ -108,8 +112,8 @@
       <div class="masthead">
         <div class="container">
           <h3 class="masthead-title">
-            <a href="/" title="Home">Lanyon</a>
-            <small>A Jekyll theme</small>
+            <a href="/" title="Home">phackt.com:~#</a>
+            <small>Let's talk about sec, baby!</small>
           </h3>
         </div>
       </div>
@@ -119,7 +123,7 @@
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/certification/2017/04/23/encoding-decoding-shellcode/">
+      <a href="http://localhost:4000/encoding-decoding-shellcode">
         SLAE Assignment 4 - Encoding/Decoding Shellcode
       </a>
     </h1>
@@ -131,7 +135,7 @@ Student <strong>SLAE - 891</strong><br />
 Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
 <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
 
-<h2 id="assignment-4">Assignment 4:</h2>
+<h3 id="assignment-4">Assignment 4:</h3>
 
 <p>Code is available on my <a href="https://github.com/phackt/slae/tree/master/assignment4">github repo</a>.</p>
 
@@ -143,33 +147,18 @@ Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae<
   </ul>
 </blockquote>
 
-<p>Hello everybody,</p>
-
-<p>Today we will create an encoded shellcode and its decoding routine.  Encoding a shellcode is useful to bypass Antivirus or Intrusion Detection Systems. Our resulting shellcode and its opcodes will have no meaning at all if the encoding scheme if robust enough (for example avoid classic XOR encoding).</p>
-
-<p>For each byte, our encoding scheme will consists in:</p>
-<ul>
-  <li>Rolling four bits to the right (ROR instruction)</li>
-  <li>Getting the complement of that byte (NOT)</li>
-</ul>
-
-<p>We will apply this encoding scheme on the following execve <strong>/bin/bash</strong> stack shellcode:<br />
-```nasm
-global _start</p>
-
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/certification/2017/04/21/slae-egg-hunter/">
+      <a href="http://localhost:4000/slae-egg-hunter">
         SLAE Assignment 3 - Egg hunter
       </a>
     </h1>
 
     <span class="post-date">21 Apr 2017</span>
 
-    <p><br />
-Student <strong>SLAE - 891</strong><br />
+    <p>Student <strong>SLAE - 891</strong><br />
 Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
 <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
 
@@ -177,38 +166,11 @@ Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae<
 
 <p>So here we are for the third part of our shellcodes serie. Today we will deal with the concept of egg hunter shellcode.</p>
 
-<h2 id="assignment-3">Assignment 3:</h2>
-
-<p>Code is available on my <a href="https://github.com/phackt/slae/tree/master/assignment3">github repo</a>.</p>
-
-<p><strong>Our Goal:</strong></p>
-<blockquote>
-  <p><em>Study about the egg hunter shellcode</em></p>
-  <ul>
-    <li><em>Create a working demo of the Egghunter</em></li>
-    <li><em>Should be configurable for different payloads</em></li>
-  </ul>
-</blockquote>
-
-<p>So what is an egg hunter and its related egg shellcode?</p>
-
-<p>While your exploiting buffer overflows, the shellcode you inject will face several constraints in order to properly execute, and the size limit is one of them. An idea is to stage the shellcode: the first stage will be a small shellcode looking for the effective and bigger second one.</p>
-
-<p>Here is a bit of litterature that may help to understand the egg hunter concept:<br />
-<a href="http://www.hick.org/code/skape/papers/egghunt-shellcode.pdf">http://www.hick.org/code/skape/papers/egghunt-shellcode.pdf</a><br />
-<a href="http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/">http://duartes.org/gustavo/blog/post/anatomy-of-a-program-in-memory/</a></p>
-
-<p>The above second link will provide a good overview of the Linux memory layout.  For this exercise, we will use an in-memory egg hunter shellcode.</p>
-
-<p>So let’s try with a first example:<br />
-```nasm
-global  _start</p>
-
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/certification/2017/04/19/slae-tcp-reverse-shell/">
+      <a href="http://localhost:4000/slae-tcp-reverse-shell">
         SLAE Assignment 2 - TCP Reverse Shellcode
       </a>
     </h1>
@@ -220,71 +182,48 @@ Student <strong>SLAE - 891</strong><br />
 Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
 <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
 
+<p>Hello everybody,</p>
+
+<p>So here we are for the second part of our shellcodes serie. Today we will deal with a reverse TCP shellcode.<br />
+This shellcode will be pretty similar to the bind one, except that we will connect back to the attacker’s machine in order to provide a shell on the compromised one.</p>
+
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/certification/2017/04/13/slae-tcp-bind-shell/">
+      <a href="http://localhost:4000/slae-tcp-bind-shell">
         SLAE Assignment 1 - TCP Bind Shellcode
       </a>
     </h1>
 
     <span class="post-date">13 Apr 2017</span>
 
-    <p><br />
-Student <strong>SLAE - 891</strong><br />
+    <p>Student <strong>SLAE - 891</strong><br />
 Github: <a href="https://github.com/phackt/slae">https://github.com/phackt/slae</a><br />
 <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/</a></p>
+
+<p>Hello everybody,</p>
+
+<p>Here we are for a new set of posts dealing with the exam of the great course <a href="http://www.securitytube-training.com/online-courses/securitytube-linux-assembly-expert/">Assembly Language and Shellcoding on Linux</a>. Thanks to Vivek Ramachandran and his team for all of this work.</p>
 
   </div>
   
   <div class="post">
     <h1 class="post-title">
-      <a href="http://localhost:4000/mitm/2017/03/27/mitm-keep-plain-connection-example/">
+      <a href="http://localhost:4000/mitm-keep-plain-connection-example">
         MITM, HSTS, and plain HTTP landing page in practice
       </a>
     </h1>
 
     <span class="post-date">27 Mar 2017</span>
 
-    <p><br />
-Hi everybody,</p>
+    <p>Hi everybody,</p>
 
 <p>I already wrote some articles talking about the importance of implementing the HTTP Strict Transport Security (<a href="https://https.cio.gov/hsts/">HSTS</a>) and to secure all the webpages, even the landing page.</p>
 
 <p><strong>Why all the pages should be secure ?</strong></p>
 
-<p>Because all the trafic should be hidden from prying eyes. If an attacker could interfer with only one page, several options are available to him. He can strip all secure headers, redirect trafic, change web page content, force HTTP trafic, and so on.<br />
-Every case is different but keep in mind that if the victim is able to generate a plain HTTP request (http://website.com), the attacker can control all the trafic.</p>
-
-<p>However, if a ressource has been cached with HSTS, the browser will automatically do an internal redirect (Code 307).<br />
-It is important to notice that the <strong>Strict-Transport-Security</strong> header will be cached if it is legitimate, i mean if the header is first saw by the browser on a HTTP response over TLS/SSL and if the certificate is valid (signed by a browser trusted CA). I checked on Chrome and Firefox this behavior. I saw on websites the <strong>Strict-Transport-Security</strong> set on plain HTTP responses, but the browser won’t redirect if the above conditions are not met.</p>
-
-<p>But what if HSTS has never been cached ? so we will be able to fool a victim an maintain an plain text connection as we will see (we won’t deal with any certificate faking here.</p>
-
-<p>In our example we will do a <strong>MITM</strong> attack between a Kali VM and the <a href="http://ameli.fr">french social welfare website</a>. You can find so many other websites, even some online bank websites to reproduce the attack.<br />
-MITM attacks still succeed if you are not protected with some soft/hardware dropping unsolicited ARP responses (<a href="https://tools.ietf.org/html/rfc826">RFC 826</a>).</p>
-
-<p>So stop talking, go for the show:<br />
-<img src="http://localhost:4000/public/images/mitm-example/pic1.png" alt="pic1" /></p>
-
-<p>We have here a non-secure HTTP landing page. What happens if we click on <em>“Mon compte ameli”</em> in order to log in ?<br />
-<img src="http://localhost:4000/public/images/mitm-example/pic2.png" alt="pic2" /></p>
-
-<p>So we have a secure login page.  What about the response headers ?<br />
-<img src="http://localhost:4000/public/images/mitm-example/pic3.png" alt="pic3" /></p>
-
-<p>Another check:</p>
-
-<p>```bash
-root@kali:/tmp$ nmap -p 443 –script http-hsts-verify assure.ameli.fr 
-Starting Nmap 7.40 ( https://nmap.org ) at 2017-03-27 20:08 CEST
-Nmap scan report for assure.ameli.fr (93.174.145.36)
-Host is up (0.016s latency).
-PORT    STATE SERVICE
-443/tcp open  https
-| http-hsts-verify: 
-|_  HSTS is not configured.</p>
+<p>Because all the trafic should be hidden from prying eyes. If an attacker could interfer with only one page, several options are available to him. He can strip all secure headers, redirect trafic, change web page content, force HTTP trafic, and so on.</p>
 
   </div>
   
