@@ -31,7 +31,9 @@ Let's try something else with the login **toto<>"'();/\:**:
 <input id="connexioncompte_2nir_as" type="text" value="TOTO<>"'();/\" maxlength="13" ...
 ```
   
-No escaping, no sanitizing or HTML encoding but we will have to deal with UPPERCASE. HTML is not case sensitive but javascript is, so we will do some HEX encoding for the javascript part.  
+No escaping, no sanitizing or HTML encoding but we will have to deal with UPPERCASE. **HTML is not case sensitive but javascript is**, so we will do some HEX encoding for the javascript part.  
+  
+So this is **how to exploit an XSS will your payload is uppercased:**  
   
 **First payload:**  
 We can test the XSS thanks to this payload (alert):  
