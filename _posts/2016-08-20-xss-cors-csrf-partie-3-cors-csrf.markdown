@@ -3,10 +3,10 @@ layout: post
 title:  "XSS, CORS, CSRF (Partie 3)"
 date:   2016-08-20
 categories: web
-excerpt_separator: <!--more-->
 ---
-### Les requêtes Cross-Site.
-  
+Les requêtes Cross-Site.
+----------
+
 Bienvenue dans ce dernier volet de notre Saga XSS ([partie 1]({{ site.url }}/xss-cors-csrf-partie-1-xss 
 ), [partie 2]({{ site.url }}/xss-cors-csrf-partie-2-xss-cookies-session)).  
   
@@ -15,7 +15,6 @@ Dans notre précédent article nous avions récupéré un cookie de session insu
 <pre class="alert">
 XMLHttpRequest cannot load http://requestb.in/w7iy5sw7?cookie=PHPSESSID_unsecured=jm5mah0a9uuf4g344096nled73. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost' is therefore not allowed access.
 </pre>
-<!--more-->
 <br />
 Alors que nous avions bien réceptionné notre requête sur requestb.in :  
 
@@ -85,7 +84,7 @@ Pour cet exemple, nous avons créé une page **http://localhost/secu/cookie.html
 Au préalable nous nous sommes connectés sur **requestb.in**. Ce site initialise plusieurs cookies dont le suivant :  
 
 ![Cookie requestb.in]({{ site.url }}/public/images/cors-csrf/cors_3.png)  
-Nous remarquons un cookie sécurisé, donc impossible d’y accéder via **document.cookie**. Cependant **withCredentials** inclut automatiquement les cookies dans la requête (*Update 14/05/2017: validé à nouveau sur Chrome v56, cependant le comportement n'est pas reproductible sur ma Kali sur des versions Firefox ESR v45.3 et Chromium v53*).  
+Nous remarquons un cookie HttpOnly, donc impossible d’y accéder via **document.cookie**. Cependant **withCredentials** inclut automatiquement les cookies dans la requête (*Update 14/05/2017: validé à nouveau sur Chrome v56, cependant le comportement n'est pas reproductible sur ma Kali sur des versions Firefox ESR v45.3 et Chromium v53*).  
   
 Vérifions l’éxecution du payload sur request.bin :  
 

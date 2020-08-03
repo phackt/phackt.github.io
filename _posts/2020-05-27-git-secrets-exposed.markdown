@@ -71,7 +71,7 @@ commit-msg: Used to determine if a commit message contains a prohibited patterns
 prepare-commit-msg: Used to determine if a merge commit will introduce a history that contains a prohibited pattern at any point. Please note that this hook is only invoked for non fast-forward merges.
 ```  
 
-**CLIENT-SIDE HOOKS :**  
+<u>Client-side hooks :</u>  
 
 => [GITHOUND](https://github.com/ezekg/git-hound)
   - set githound command into a *pre-commit* hook
@@ -81,7 +81,7 @@ prepare-commit-msg: Used to determine if a merge commit will introduce a history
   - from AWS
   - you also can manually scan for secrets before making your repo public: ```git secrets --scan-history```
   
-**GITHUB ACTIONS :**  
+<u>GITHUB actions :</u>  
 
 *[GitHub Actions](https://help.github.com/en/actions/getting-started-with-github-actions/about-github-actions) enables you to create custom software development life cycle (SDLC) workflows directly in your GitHub repository.*  
   
@@ -89,7 +89,7 @@ prepare-commit-msg: Used to determine if a merge commit will introduce a history
  - [Trufflehog Github Action](https://github.com/marketplace/actions/trufflehog-actions-scan)
 
 
-**THE GITHUB.COM SCANNING PROJECT :**  
+<u>The GITHUB.COM scanning project :</u>  
 
 Github has a project which aims at monitoring leaked third parties tokens from your repositories: [https://help.github.com/en/github/administering-a-repository/about-secret-scanning](https://help.github.com/en/github/administering-a-repository/about-secret-scanning).  
 
