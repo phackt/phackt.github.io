@@ -57,7 +57,7 @@ open cors found for url http://ellysdirectory.com/
   
 **UPDATE 01/07/2020:I'm strongly suggesting right now to use this complete tool of which i merged most of CORS detecting features: [https://github.com/phackt/CORScanner](https://github.com/phackt/CORScanner).**  
   
-This tool gathers everything you need to detect an exploitable CORS misconfiguration <i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i><i class="fas fa-dollar-sign"></i> :  
+This tool gathers everything you need to detect an exploitable CORS misconfiguration <i class="fa fa-usd"></i><i class="fa fa-usd"></i><i class="fa fa-usd"></i> :  
   
 Misconfiguration type    | Description
 ------------------------ | --------------------------
