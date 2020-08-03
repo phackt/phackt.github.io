@@ -24,7 +24,8 @@ Définition de la cyberdéfense de l’ANSSI (Agence nationale de la sécurité 
 
 Dans les finances publiques françaises, une **Loi de Programmation Militaire**, abrégée LPM, est une loi visant à établir une programmation pluriannuelle des dépenses de l'État en matière militaire. Les lois de programmation militaire ont des durées d'application de quatre, cinq ou six ans. Depuis 2003, les LPM couvrent des périodes de six ans.
 
-Bien au-delà du monde « militaire de la défense », la LPM décline aussi les enjeux de « cyberdéfense » pour la sécurité de notre pays. Cette loi amende quelques articles de différents codes (code de la défense, code de procédure pénale, code de la sécurité intérieure, code de la propriété intellectuelle …), et en ajoute quelques-uns. Elle donne aux **OIV** (Opérateurs d’Importance Vitale – santé, alimentation, énergie, finance, …) quelques obligations concernant la sécurisation de leurs systèmes d’information et de posséder un plan de continuité d’activité en cas d’incident.
+Bien au-delà du monde « militaire de la défense », la LPM décline aussi les enjeux de « cyberdéfense » pour la sécurité de notre pays. Cette loi amende quelques articles de différents codes (code de la défense, code de procédure pénale, code de la sécurité intérieure, code de la propriété intellectuelle …), et en ajoute quelques-uns. Elle donne aux **OIV** (Opérateurs d’Importance Vitale – santé, alimentation, énergie, finance, …) quelques obligations concernant la sécurisation de leurs systèmes d’information et de posséder un plan de continuité d’activité en cas d’incident.  
+  
 La cyberguerre est un parallèle au champ de bataille physique, et nous y retrouvons nos trois composantes principales : la prévention / anticipation, la gestion de crise lors d’une attaque, et le traitement post incident. 
 <br />
 <br />

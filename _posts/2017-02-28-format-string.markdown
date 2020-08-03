@@ -9,7 +9,7 @@ Bonjour à tous,
   
 Aujourd'hui un petit article qui traitera d'un cas simple de Format String où nous exploiterons un buffer passé en argument. L'idée de cet article fait suite à la machine [Pegasus 1](https://www.vulnhub.com/entry/pegasus-1,109/) de vulnhub que je vous recommande chaudement.  
   
-J'essaierai d'être assez pédagogique, le cas ci-dessous étant un cas basique sans contournement des protections de la pile.  
+J'essaierai d'être assez pédagogue, le cas ci-dessous étant un cas basique sans contournement des protections de la pile.  
 <!--more-->
   
 **Qu'entend-on par Format String?**  
