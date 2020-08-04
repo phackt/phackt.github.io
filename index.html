@@ -2,7 +2,6 @@
 layout: default
 title: Home
 ---
-
 <div class="posts">
   {% for post in paginator.posts %}
   <div class="post">
@@ -16,6 +15,7 @@ title: Home
 
     {{ post.excerpt }}
     <a href="{{ post.url | absolute_url }}">Read more ...</a>
+    <hr>
   </div>
   {% endfor %}
 </div>

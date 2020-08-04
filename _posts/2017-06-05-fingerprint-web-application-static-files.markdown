@@ -14,9 +14,11 @@ Today i would like to share with you the first version of a script i wrote to he
 Ok let me explain the context: You are looking at a website and trying to get the exact version of the underlying CMS, let say Drupal. We know that Drupal has suffered from the [Drupalgeddon](https://www.drupal.org/project/drupalgeddon) for versions 7.X before 7.32. So you can have at look at some obvious files (CHANGELOG.txt), but what happens if the webmaster deleted these files? How to maximize the chance to find the right version or at least the smallest delta as possible ?
 <!--more-->
   
-A tool was existing for that purpose, [BlindElephant](https://github.com/lokifer/BlindElephant), but it is not maintained anymore. So i chose to write my own script matching my needs (hand made with love). Of course don't hesitate to contact me and let me know if you took time to have BlindElephant in a working state with the CMS hashes databases up-to-date.  
+A tool was existing for that purpose, [BlindElephant](https://github.com/lokifer/BlindElephant), but it is not maintained anymore. So i chose to write my own script matching my needs. Of course don't hesitate to contact me and let me know if you took time to have BlindElephant in a working state with the CMS hashes databases up-to-date.  
   
-So now after your recon phase you have your target using Drupal CMS (it will work with any CMS files versioned on GIT). Here we will install a Drupal on our local machine.  
+So let's say that after your recon phase you have your target using Drupal CMS (it will work with **any CMS files versioned on GIT**).  
+For now we will install a Drupal on our local machine.  
+
 [WebApp Information Gatherer](https://github.com/jekyc/wig) may helps your to identify it:  
 ```bash
 ./wig.py http://localhost/drupal
@@ -35,10 +37,10 @@ Drupal 7.29, 2014-07-16
 You also can look for some obvious information in the response headers or for any meta information in the HTML page. But if the webmaster did its job, nothing will leak so how can we fingerprint our CMS?  
   
 What do you need:  
- - access to versioned project
- - find the most relevant (updated) files as input files (git log)
+ - ```git clone``` the GIT repository of the CMS (ex [https://github.com/drupal/drupal](https://github.com/drupal/drupal))
+ - find the most relevant (updated) files as input files (```git log```, we will see it later)
  - download these files from your target
- - hash all these input files and their GIT releases equivalent
+ - hash all these input files and their GIT releases equivalent 
  - compare input files hashes with the releases ones
   
 Following all these steps will help to determine the most likely versions of the underlying CMS.  
@@ -177,9 +179,10 @@ cd .. && ./versionchecker.sh -s ./input/ -g ./drupal/ -p "^[78]\.[0-9.]+$"
   
 The script is computing hashes for every input files found and for every git tags. If one input file is not found, the script will fail because we can not precisely determine a version that matches all input files.  
   
-In our example, we finally have 23 input files from 30 relevant files (some have not been found on our target). The final comparison between the input files hashes and the git tags hashes shows that the whole 23 input hashes match the versions 7.32, 7.31, 7.30, **7.29**.  
+In our example, we finally have 23 input files from 30 relevant files (some has not been found on our target).  
+The final comparison between the input files hashes and the git tags hashes shows that the whole 23 input hashes match the versions 7.32, 7.31, 7.30, 7.29.  
   
-So we found the real version in our script suggestions (7.29).  
+So as previously seen in the CHANGELOG.txt, our version is well included (7.29).  
 You also can try with some others CMS like Wordpress. Here is what we got for example with a **Wordpress 4.6**:  
 ```bash
 ./versionchecker.sh -s ./input/ -g ~/Documents/repo/WordPress/ -p "^4(\.[0-9])+$"
@@ -195,7 +198,7 @@ You also can try with some others CMS like Wordpress. Here is what we got for ex
 4.6
 ```
   
-For wordpress we have only one possible version matching all the input files we provided thanks to the same procedure as seen for the Drupal CMS. We clearly know right now which version the CMS is running, **4.6**.  
+For wordpress we have only one possible version matching all the input files we provided thanks to the same procedure as seen for the Drupal CMS. We clearly know right now which version is running, **4.6**.  
   
 Hope it may helps you, give you some ideas, make you think about how to reduce your fingerprinting entropy.  
   
