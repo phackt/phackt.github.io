@@ -13,10 +13,12 @@
       <div class="masthead">
         <div class="container">
           <h3 class="masthead-title">
-            <!--             
+                        
             <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
-            -->
-            <small>{{ site.tagline }}</small>
+           
+            <!-- <small>{{ site.tagline }}</small> -->
+            <span id='text'></span><div class='console-underscore' id='console'>&#95;</div>
+
           </h3>
         </div>
       </div>
@@ -26,10 +28,7 @@
       </div>
     </div>
 
+    <script type="text/javascript" src="{{ '/public/js/terminal-text-effect.js' | absolute_url }}"></script>
 
-    <!-- <label for="sidebar-checkbox" class="sidebar-toggle"></label> -->
-
-    <script src='{{ site.baseurl }}/public/js/script.js'></script>
- 
   </body>
 </html>
