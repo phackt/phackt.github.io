@@ -2,7 +2,7 @@
 layout: post
 title:  "XSS, CORS, CSRF (Partie 1)"
 date:   2016-08-09
-categories: web
+categories: web security
 excerpt_separator: <!--more-->
 ---
 ### Le XSS, CORS, CSRF... Késako?

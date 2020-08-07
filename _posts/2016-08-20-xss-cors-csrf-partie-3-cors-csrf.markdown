@@ -2,7 +2,7 @@
 layout: post
 title:  "XSS, CORS, CSRF (Partie 3)"
 date:   2016-08-20
-categories: web
+categories: web security
 ---
 Les requêtes Cross-Site.
 ----------

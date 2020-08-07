@@ -2,7 +2,7 @@
 layout: post
 title:  "Fingerprinting Web Application static files"
 date:   2017-06-05
-categories: web
+categories: web security
 excerpt_separator: <!--more-->
 ---
 Hello folks,  

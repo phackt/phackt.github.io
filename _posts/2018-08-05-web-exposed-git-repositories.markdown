@@ -2,7 +2,7 @@
 layout: post
 title:  "Gathering some information from web exposed git repositories"
 date:   2018-08-05
-categories: web
+categories: web security
 excerpt_separator: <!--more-->
 ---
 Hello folks,  

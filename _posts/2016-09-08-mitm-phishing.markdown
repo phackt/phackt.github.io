@@ -2,7 +2,7 @@
 layout: post
 title:  "Phishing d'un site web avec attaque MITM"
 date:   2016-09-08
-categories: mitm
+categories: pentesting
 excerpt_separator: <!--more-->
 ---
 Bonjour à tous,

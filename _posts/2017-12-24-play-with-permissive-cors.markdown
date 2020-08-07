@@ -2,7 +2,7 @@
 layout: post
 title:  "Play with permissive CORS"
 date:   2017-12-24
-categories: web
+categories: web security
 excerpt_separator: <!--more-->
 ---
 Hello folks,  
