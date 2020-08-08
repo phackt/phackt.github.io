@@ -1,6 +1,0 @@
-I"�<h3 id="xss--et-vol-de-cookies-par-la-pratique">XSS  et vol de cookies par la pratique.</h3>
-
-<p><strong>Vous reprendrez bien un cookie ?</strong></p>
-
-<p>Dans le <a href="http://localhost:4000/xss-cors-csrf-partie-1-xss">premier volet</a> de notre saga, nous traitions des attaques XSS et des moyens de s’en prémunir. Ces vulnérabilités peuvent être utilisées pour voler vos informations de session ou vous rediriger vers un site frauduleux. Vous vous dîtes sûrement : “ok coco en théorie c’est bien sympa tout ça, mais en quoi consiste le vol d’une session, quelles informations sont envoyées et où part la requête ?”.</p>
-:ET

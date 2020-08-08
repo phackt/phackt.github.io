@@ -1,4 +1,0 @@
-I"�<p>Bonjour à tous,</p>
-
-<p>Après m’être demandé comment lancer toutes mes commandes derrière un proxy <a href="https://fr.wikipedia.org/wiki/SOCKS">SOCKS</a> pour masquer mon ip (certaines commandes ne proposent pas d’option pour rediriger vers un proxy SOCKS), vous pouvez vous en sortir grâce au réseau <a href="https://fr.wikipedia.org/wiki/Tor_(r%C3%A9seau)">TOR</a> et un outil appelé <a href="https://github.com/haad/proxychains/blob/master/src/proxychains.conf">Proxychains</a>.</p>
-:ET

@@ -1,4 +1,0 @@
-I"�<p>Hello folks,</p>
-
-<p>While i was playing with a ‘code search engine’ tool called <a href="https://publicwww.com">publicwww</a>, i decided to gather some top Alexa domains and to look for some permissive CORS. I tried the following researches, <code class="language-plaintext highlighter-rouge">site:fr "type=\"password\""</code>, the same for the TLDs <em>.org</em> and <em>.com</em>, in order to spot webpages with a login form.</p>
-:ET
