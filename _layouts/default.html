@@ -14,16 +14,21 @@
         <div class="container">
           <h3 class="masthead-title">
                         
-            <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
+            <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>&nbsp;
            
             <!-- <small>{{ site.tagline }}</small> -->
             <span id='text'></span><div class='console-underscore' id='console'>&#95;</div>
-
+            <span style="float:right;">
+              {% include search-lunr.html %}
+            </span>
           </h3>
         </div>
       </div>
 
       <div class="container content">
+        <div id="lunrsearchresults">
+            <ul></ul>
+        </div>
         {{ content }}
       </div>
     </div>

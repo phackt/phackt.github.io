@@ -1,6 +1,6 @@
 // Credits to https://codepen.io/Tbgse/full/dYaJyJ
 // function([string1, string2],target id,[color1,color2])    
- consoleText(['Web Security', 'Pentesting', 'Development', 'Labs & Courses'], 'text',['tomato']);
+ consoleText(['Web Security', 'Pentesting', 'Development', 'Labs & Certifications'], 'text',['#d9230f']);
 
 function consoleText(words, id, colors) {
   if (colors === undefined) colors = ['#fff'];
