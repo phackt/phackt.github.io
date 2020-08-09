@@ -2,7 +2,7 @@
 
 <script>
 {% assign counter = 0 %}
-var documents = [{% for page in site.pages %}{% if (page.url contains '.xml' or page.url contains 'assets') and page.title != 'Home' %}{% else %}{
+var documents = [{% for page in site.pages %}{% if page.url contains '.xml' or page.url contains 'assets' or page.title contains 'Home' %}{% else %}{
     "id": {{ counter }},
     "url": "{{ site.url }}{{ page.url }}",
     "title": "{{ page.title }}",
@@ -48,6 +48,8 @@ function lunr_search(term) {
         } else {
             document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = "<li class='lunrsearchresult'>No results found...</li>";
         }
+
+        $('#content-post-results').remove();
     }
     return false;
 }
