@@ -2,7 +2,7 @@
 layout: post
 title:  "Format String with GDB"
 date:   2017-02-28
-categories: binary
+category: Binary
 excerpt_separator: <!--more-->
 ---
 Bonjour à tous,  

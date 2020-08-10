@@ -2,7 +2,7 @@
 layout: post
 title:  "XSS, CORS, CSRF (Partie 1)"
 date:   2016-08-09
-categories: web security
+category: Web Security
 excerpt_separator: <!--more-->
 ---
 ### Le XSS, CORS, CSRF... Késako?
@@ -72,7 +72,8 @@ Si vous utilisez la couche **Spring Security** (ce qui a été mon cas ;)), le f
 
  - **X-Content-Type-Options**: Stipule de ne pas deviner le MIME-Type si mal renseigné (spécifique à certaines attaques XSS) – voir [OWASP XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet).  
  
- - **X-XSS-Protection**: Stipule d'activer l'auditeur XSS du navigateur. Si votre site est vulnérable au XSS, mais que votre réponse contient le header ```X-XSS-Protection: 1; mode=block```, vous aurez le message suivant dans la console de votre navigateur (ici Chrome): <span style="color: red">```Refused to execute inline script because it violates the following Content Security Policy Directive```</span>.
+ - **X-XSS-Protection**: Stipule d'activer l'auditeur XSS du navigateur. Si votre site est vulnérable au XSS, mais que votre réponse contient le header ```X-XSS-Protection: 1; mode=block```, vous aurez le message suivant dans la console de votre navigateur (ici Chrome): <span style="color: red">```Refused to execute inline script because it violates the following Content Security Policy Directive```</span>.  
+   *Update 10/08/2020:* Ce header est aujourd'hui obsolète, il sera remplacé par la directive *Reflected-XSS* dans l'en-tête CSP.   
   
  - **X-Frame-Options**: Spécifie au navigateur qu'une page ne peut être rendue dans un ```<frame>```, ```<iframe>``` ou ```<object>```.  
   

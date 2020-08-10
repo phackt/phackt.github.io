@@ -2,7 +2,7 @@
 layout: post
 title:  "HTTP Proxying with Mitmproxy"
 date:   2016-10-01
-categories: pentesting
+category: Pentesting
 excerpt_separator: <!--more-->
 ---
 Bonjour à tous,

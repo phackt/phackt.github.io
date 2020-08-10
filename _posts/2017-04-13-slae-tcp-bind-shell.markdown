@@ -2,8 +2,9 @@
 layout: post
 title:  "SLAE Assignment 1 - TCP Bind Shellcode"
 date:   2017-04-13
-categories: certification
+category: Certification
 excerpt_separator: <!--more-->
+hidden: true
 ---
 Student **SLAE - 891**  
 Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)  

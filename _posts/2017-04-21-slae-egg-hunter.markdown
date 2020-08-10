@@ -2,8 +2,9 @@
 layout: post
 title:  "SLAE Assignment 3 - Egg hunter"
 date:   2017-04-21
-categories: certification
+category: Certification
 excerpt_separator: <!--more-->
+hidden: true
 ---
 Student **SLAE - 891**  
 Github: [https://github.com/phackt/slae](https://github.com/phackt/slae)  

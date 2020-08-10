@@ -2,7 +2,7 @@
 layout: post
 title:  "MITM, HSTS, and plain HTTP landing page in practice"
 date:   2017-03-27
-categories: pentesting
+category: Pentesting
 excerpt_separator: <!--more-->
 ---
 Hi everybody,  

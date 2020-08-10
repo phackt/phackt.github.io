@@ -2,8 +2,9 @@
 layout: post
 title:  "SLAE Assignment 5.2 - Msfvenom linux/x86/read_file shellcode Analysis"
 date:   2017-04-25
-categories: certification
+category: Certification
 excerpt_separator: <!--more-->
+hidden: true
 ---
 <br />
 Student **SLAE - 891**  

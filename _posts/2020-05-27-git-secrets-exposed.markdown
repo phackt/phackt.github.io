@@ -2,7 +2,7 @@
 layout: post
 title:  "What solutions to prevent git leaks ?"
 date:   2020-05-27
-categories: dev
+category: Dev
 excerpt_separator: <!--more-->
 ---
 Hello,  

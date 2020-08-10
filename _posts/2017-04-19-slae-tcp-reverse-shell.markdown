@@ -2,8 +2,9 @@
 layout: post
 title:  "SLAE Assignment 2 - TCP Reverse Shellcode"
 date:   2017-04-19
-categories: certification
+category: Certification
 excerpt_separator: <!--more-->
+hidden: true
 ---
 <br />
 Student **SLAE - 891**  

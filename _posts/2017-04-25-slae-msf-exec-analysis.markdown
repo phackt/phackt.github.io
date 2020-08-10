@@ -2,8 +2,9 @@
 layout: post
 title:  "SLAE Assignment 5.1 - Msfvenom linux/x86/exec shellcode analysis"
 date:   2017-04-24
-categories: certification
+category: Certification
 excerpt_separator: <!--more-->
+hidden: true
 ---
 <br />
 Student **SLAE - 891**  

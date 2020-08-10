@@ -2,7 +2,7 @@
 layout: post
 title:  "SLAE Assignment 4 - Encoding/Decoding Shellcode"
 date:   2017-04-23
-categories: certification
+category: Certification
 excerpt_separator: <!--more-->
 ---
 <br />

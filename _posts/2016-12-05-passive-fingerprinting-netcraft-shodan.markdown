@@ -2,7 +2,7 @@
 layout: post
 title:  "Passive Gathering Information - Netcraft and Shodan"
 date:   2016-12-05
-categories: fingerprint
+category: Fingerprint
 excerpt_separator: <!--more-->
 ---
 Bonjour à tous, 

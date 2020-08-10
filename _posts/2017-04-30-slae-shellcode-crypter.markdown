@@ -2,8 +2,9 @@
 layout: post
 title:  "SLAE Assignment 7 - Custom crypter"
 date:   2017-04-30
-categories: certification
+category: Certification
 excerpt_separator: <!--more-->
+hidden: true
 ---
 <br />
 Student **SLAE - 891**  

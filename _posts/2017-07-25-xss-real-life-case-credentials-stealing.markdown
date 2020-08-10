@@ -2,7 +2,7 @@
 layout: post
 title:  "A fun case of XSS and other web concepts"
 date:   2017-07-25
-categories: web security
+category: Web Security
 excerpt_separator: <!--more-->
 ---
 Hello folks,  
