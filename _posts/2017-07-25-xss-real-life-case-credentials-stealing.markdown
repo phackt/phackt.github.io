@@ -34,6 +34,7 @@ Let's try something else with the login **toto<>"'();/\:**:
 ```
   
 No escaping, no sanitizing or HTML encoding but we will have to deal with UPPERCASE. **HTML is not case sensitive but javascript is**, so we will do some HEX encoding for the javascript part.  
+  
 An important thing i forgot to mention is that the payload is **truncated to 255 characters**.  
   
 So this is **how to exploit an XSS when your payload is UPPERCASED (and truncated):**  
