@@ -10,10 +10,12 @@ Hello folks,
 I would like to share with you a practical case of reflected XSS while i was looking at my national health service account. Right now the XSS has been patched (we have an efficient dedicated national service where we can report such issues).
 <!--more-->  
   
-**What is the issue:**  
+**What is the issue ?:**  
+  
 A reflected [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)) in the login field at the authentication page from the website https://assure.ameli.fr where all french citizen are consulting their social security account. Some digits are required but setting some alphacharacters as login will return the string in uppercase.  
   
-**Where is the issue**  
+**Where is the issue ?:**  
+  
 So i set:  
 ![image1]({{ site.url }}/public/images/xss-practical-case/image1.png)  
   
@@ -33,7 +35,7 @@ Let's try something else with the login **toto<>"'();/\:**:
   
 No escaping, no sanitizing or HTML encoding but we will have to deal with UPPERCASE. **HTML is not case sensitive but javascript is**, so we will do some HEX encoding for the javascript part.  
   
-So this is **how to exploit an XSS will your payload is uppercased:**  
+So this is **how to exploit an XSS when your payload is UPPERCASED:**  
   
 **First payload:**  
 We can test the XSS thanks to this payload (alert):  
