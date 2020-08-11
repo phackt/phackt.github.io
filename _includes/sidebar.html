@@ -1,6 +1,20 @@
 <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
      styles, `#sidebar-checkbox` for behavior. -->
-<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox" checked>
+ <script type="text/javascript">
+
+  // Add sidebar checkbox for phones
+  var elem = document.createElement('input');
+  elem.setAttribute('type', 'checkbox');
+  elem.setAttribute('class', 'sidebar-checkbox');
+  elem.setAttribute('id', 'sidebar-checkbox');
+
+  if(window.matchMedia("(min-width:800px)").matches) { 
+    elem.checked = "checked";
+  }
+
+  document.body.appendChild(elem);
+</script>
+<!-- <input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox"> -->
 
 <!-- Toggleable sidebar -->
 <div class="sidebar" id="sidebar">
