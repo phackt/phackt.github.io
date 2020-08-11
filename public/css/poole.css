@@ -289,14 +289,18 @@ tbody tr:nth-child(odd) th {
   max-width: 38rem;
   padding-left:  1rem;
   padding-right: 1rem;
-  /*
   margin-left:  auto;
-  margin-right: auto;
-  */
-  margin-left:  7rem;
   margin-right: auto;
 }
 
+@media (min-width: 800px) {
+  .container {
+    padding-left:  1rem;
+    padding-right: 1rem;
+    margin-left:  7rem;
+    margin-right: auto;
+  }
+}
 
 /*
  * Masthead

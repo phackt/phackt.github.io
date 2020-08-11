@@ -14,18 +14,19 @@
         <div class="container">
           <h3 class="masthead-title">
                         
-            <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>&nbsp;
+            <a href="{{ site.baseurl }}/" title="Home">{{ site.title }}</a>
            
             <!-- <small>{{ site.tagline }}</small> -->
-            <span id='text'></span><div class='console-underscore' id='console'>&#95;</div>
-            <span style="float:right;">
-              {% include search-lunr.html %}
-            </span>
+            <span id='text'></span>
+            <div class='console-underscore' id='console' style='display: none'>&#95;</div>
           </h3>
         </div>
       </div>
 
       <div class="container content">
+        <span>
+          {% include search-lunr.html %}
+        </span>
         <div id="lunrsearchresults">
             <ul></ul>
         </div>
@@ -35,7 +36,34 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="{{ '/public/js/terminal-text-effect.js' | absolute_url }}"></script>
+    <script type="text/javascript">
+      if(window.matchMedia("(min-width:800px)").matches) { 
+
+        // fix sidebar
+        // $("#sidebar-checkbox").checked = true;
+
+        // Display terminal-text
+        $("#console").show();
+
+        $.getScript("{{ '/public/js/terminal-text-effect.js' | absolute_url }}");
+
+ 
+      } else {
+        // Add sidebar checkbox for phones
+        var elem = document.createElement('label');
+        elem.setAttribute('class', 'sidebar-toggle');
+        elem.setAttribute('for', 'sidebar-checkbox');
+        document.body.appendChild(elem);
+
+        // script to toggle sidebar
+        $.getScript("{{ '/public/js/script.js' | absolute_url }}");
+      }
+    </script>
+
+    <!-- 
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    <script src='{{ site.baseurl }}/public/js/script.js'></script>
+     -->
 
   </body>
 </html>
