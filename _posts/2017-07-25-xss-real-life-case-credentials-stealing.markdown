@@ -49,7 +49,7 @@ https://assure.ameli.fr/PortailAS/appmanager/PortailAS/assure?connexioncompte_2n
 ```
   
 *But wait... you process a GET request and you were talking about a form with POST method ?*  
-Yes, there but there is no server-side filter on the specific POST method.  
+Yes, there but there is no server-side filtering on the specific POST method (*of course it's also exploitable with POST*).  
   
 So what do we have?  
 ![image2]({{ site.url }}/public/images/xss-practical-case/image2.png)  
