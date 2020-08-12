@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Gathering some information from web exposed git repositories"
+title:  "Gathering some information from web exposed GIT repositories"
 date:   2018-08-05
 category: Web Security
 excerpt_separator: <!--more-->
