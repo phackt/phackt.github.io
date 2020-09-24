@@ -7,7 +7,7 @@ excerpt_separator: <!--more-->
 ---
 Hello,  
   
-I would like to talk a bit about the [SecurityTube red team labs](https://www.pentesteracademy.com/redlabs), specifically the [Advanced Red Team Lab](https://www.pentesteracademy.com/redteamlab) which lead to the CRTE (Certified Red Team Expert) certification.  
+I would like to talk a bit about the [SecurityTube red team labs](https://www.pentesteracademy.com/redlabs), specifically the [Advanced Red Team Lab](https://www.pentesteracademy.com/redteamlab) which leads to the CRTE (Certified Red Team Expert) certification.  
   
 Some great [reviews](https://www.google.com/search?q=review+red+team+lab+pentester+academy+%22CRTE%22) are already existing, so i will focus on why i chose this lab and certification. I will give you some hints about how to approach your targets. Most importantly, i would like to introduce you a tool that i developped which will help you during your journey, [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
 <!--more-->
@@ -19,13 +19,15 @@ I was looking for a another professional and challenging cert focused on Windows
  - real life scenarios which will be found in real engagements
  - a environment not too crowded. I met this situation with others platforms and i spent much of my time contacting the support to revert the VMs because of others bad exploitation or persistence, getting the machines you're working on totally unstable.  
   
-Finally the Advanced Red Team Lab was the answer. Companies are more and more looking for online qualitative trainings because of the actual sanitary crisis. Think to ask to your company for a financial support.  
+Finally the *Advanced Red Team Lab* was the answer. Companies are more and more looking for online qualitative trainings because of the actual sanitary crisis. Think to ask to your company for a financial support.  
 
 ### What i really liked  
 
- - Responsive support
+ - Reactive and helpful support
+ - Updated servers and workstations with AV running
+ - AD exploitation and local privilege escalation
  - The exploitation paths are consistent and relevant
- - Nicky [todo]
+ - Nikhil Mittal and his team are really friendly and you definitely can contact them on twitter to share your thoughts on this lab
 
 ### What should be / will be improved
 
@@ -43,11 +45,25 @@ Obviously, the difficulty level depends on your experience as a pentester, but b
   - Many other cool stuff
   
 
-### Hints (that you may not find in others blog posts)
+### Hints (that you may not find on others blog posts)
 
- 
+Your will start as domain user on a Windows Server where you will be able to RDP. I advice you to get SYSTEM on this machine, to disable Defender and some restrictive Firewall and AppLocker rules.  
+Then take of your shoes and feel comfortable at home.  
   
-### Objectives :  
+I mainly used this Windows VM but i also had my Kali. In order to be able to proxyfy my Kali tools, i used [ssf](https://github.com/securesocketfunneling/ssf/releases) and [proxychains](https://translate.google.fr/translate?hl=fr&sl=fr&tl=en&u=https%3A%2F%2Fphackt.com%2Ftor-proxychains).  
+  
+Sometimes in this lab you will be able to move forward the unintended ways, i mean with your own kind of exploitation (to give you an idea, read this blog post from [itm4n](https://itm4n.github.io/printspoofer-abusing-impersonate-privileges/)).
+Todo:
+- recommander de tjs chercher à exploiter comme ils l ont voulu
+- ne pas négliger la post exploitation
+- d'utiliser les outils suivants
+  
+Don't forget to note where you struggled at, during the exam it will be a pity to lose time on a thing you already faced.  
+  
+
+### Tools
+
+-----------------
 
 
 -privesc de la machine puis ssf avec proxychains
