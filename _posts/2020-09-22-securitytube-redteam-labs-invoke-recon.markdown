@@ -28,7 +28,7 @@ Finally the *Advanced Red Team Lab* was the answer. Companies are more and more 
 ## What i really liked  
 
  - Reactive and helpful support
- - Updated servers and workstations with AppLocker and AV running
+ - Updated servers and workstations with AppLocker, AV running and Powershell in Constrained Language Mode.  
  - Relevant AD exploitation paths and local privilege escalation
  - Nikhil Mittal and his team are really friendly and you definitely can contact them on twitter to share your thoughts on this lab
 
@@ -64,7 +64,21 @@ Also do not overlook the post exploitation part. And don't forget to note where 
 
 Also not so many services will be exposed, and you also will be firewalled.  
 
-Just an example, let's say blablabla smb and rdp blablabla. todo also readme ajouter la certif. also créer un tipee et voir si on peut faire de l assistance à certification.
+Talking about firewalling, we agree that sometimes it's more comfortable to have a RDP session rather than any wmiexec or WinRM session. In the following example we will assume that we have a shell on a server and we have just a few ports which are accessible. **5985** is a good candidate but WinRM is already running on the server.  
+
+In the following example, be aware that if you execute the following commands from a Remote Powershell session, you will be disconnected because we set the RDP listen port to 5985, so we will have to ```sc.exe stop WinRM```.  
+
+**Set RDP listen port and start the Remote Desktop service without rebooting**:  
+```powershell
+Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\" -Name PortNumber -Value 5985
+sc.exe stop WinRM
+```
+
+Then run:  
+```
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+```
 
 ## Tools
 
@@ -140,9 +154,11 @@ But if you are already asking yourself what kind of stuff you can enumerate with
 
 ## More to come
 
-To keep on talking about AD enumeration, i would like to share with you some of my **Cypher** queries i use with **BloodHound** to spot interesting stuff during an engagement. I will also dive a bit more into [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
+To keep on talking about AD enumeration, i would like to share with you some of my **Cypher** queries i use with **BloodHound** to spot some very interesting stuff during an engagement. I will also dive a bit more into [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
 
-Keep in touch, and don't hesitate 1 sec if you wanna more information about this lab, if you are stuck or anything else, i'm always glad to help.  
+Keep in touch, and don't hesitate if you wanna more information about this lab, if you are stuck or anything else, i'm always glad to help. I answer back to a lot of questions by email or twitter, some dealing with my switch from web developer to technical auditor for the french gouvernment. [Contact me](https://phackt.com/about/).  
+
+*P.S: if you wanna buy me a coffee to stay awoke while i will be writing my next blogs, thank you so much.*  
 
 Wish you a nice day, may the force be with you (i let you choose which side).  
 
