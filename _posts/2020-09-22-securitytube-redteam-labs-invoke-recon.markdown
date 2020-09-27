@@ -52,23 +52,23 @@ Obviously, the difficulty level depends on your experience as a pentester, but b
  - Many other cool stuff
 
 
-## Hints (that you may not find on others blog posts)
+## Hints (that you may not find in others blog posts)
 
-Your will start as domain user on a Windows Server where you will be able to RDP. I advice you to get SYSTEM on this machine, to disable Defender and some restrictive Firewall and AppLocker rules. Then take off your shoes and feel comfortable at home.  
+Your will start as domain user on a Windows Server where you will be able to RDP. I advice you to **get SYSTEM** on this machine, to **disable Defender and some restrictive Firewall and AppLocker rules**. Then take off your shoes and feel comfortable at home.  
 
 I mainly used this Windows VM but i also had my Kali. In order to be able to proxyfy my Kali tools, i used [ssf](https://github.com/securesocketfunneling/ssf/releases) and [proxychains](https://translate.google.fr/translate?hl=fr&sl=fr&tl=en&u=https%3A%2F%2Fphackt.com%2Ftor-proxychains).  
 
 Sometimes in this lab you will be able to move forward the unintended ways, i mean with your own kind of exploitation (to give you just an idea, read this blog post from [itm4n](https://itm4n.github.io/printspoofer-abusing-impersonate-privileges/)). Even if you succeed in compromising all the forests, i would strongly recommend you to try to get the all the boxes the intended way, because you may miss something for the D-day.  
 
-Also do not overlook the post exploitation part. And don't forget to note where you struggled at, during the exam it will be a pity to lose time on a thing you already faced.  
+Also do not overlook the **post exploitation** part. And don't forget to note where you struggled at, during the exam it will be a pity to lose time on a thing you already faced.  
 
 Also not so many services will be exposed, and you also will be firewalled.  
 
-Talking about firewalling, we agree that sometimes it's more comfortable to have a RDP session rather than any wmiexec or WinRM session. In the following example we will assume that we have a shell on a server and we have just a few ports which are accessible. **5985** is a good candidate but WinRM is already running on the server.  
+Talking about firewalling, we agree that sometimes it's more comfortable to have a **RDP** session rather than any command line session. In the following example we will assume that we have a shell on a server and we have just a few ports which are accessible. **5985** is a good candidate but **WinRM** is already running on the server.  
 
-In the following example, be aware that if you execute the following commands from a Remote Powershell session, you will be disconnected because we set the RDP listen port to 5985, so we will have to ```sc.exe stop WinRM```.  
+*In the following example, be aware that if you execute the following commands from a Remote Powershell session, you will be disconnected because we set the RDP listen port to 5985, so we will have to ```sc.exe stop WinRM``` before running Remote Desktop Service.*  
 
-**Set RDP listen port and start the Remote Desktop service without rebooting**:  
+**Set RDP listen port and start the Remote Desktop service 'without rebooting'**:  
 ```powershell
 Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
 Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\" -Name PortNumber -Value 5985
@@ -86,16 +86,15 @@ Now let's talk a bit about an interesting part, what kind of tools did i have on
 
 | Tool          | Description  |
 | ------------- | :------------|
-|[ADModule](https://github.com/samratashok/ADModule)|Use AD powershell module without installing RSAT|
+|[ADModule](https://github.com/samratashok/ADModule)|Use AD powershell module for enumeration without installing RSAT|
 |[amsi-bypass.ps1](https://github.com/phackt/pentest/blob/master/bypass/amsi-bypass.ps1)|```[Bypass.A_M_S_I]::Disable()```|
-|[nmap](https://nmap.org/download.html)||
+|[nmap](https://nmap.org/download.html)|Network Mapper|
 |[agentransack](https://www.mythicsoft.com/agentransack/)|Fast files / directories crawler|
-|[mimikatz](https://github.com/gentilkiwi/mimikatz/releases)|Do we really have to introduce this tool also ?|
-|[nc64.exe](https://github.com/phackt/pentest/blob/master/privesc/windows/nc64.exe)|netcat|
-|[Empire](https://github.com/EmpireProject/Empire)|Exploitation framework|
-|[Empire -> Invoke-DCSync.ps1](https://github.com/EmpireProject/Empire/blob/master/data/module_source/credentials/Invoke-DCSync.ps1)|DCSync|
+|[mimikatz](https://github.com/gentilkiwi/mimikatz/releases)|Do we really have to introduce this tool  ?|
+|[nc64.exe](https://github.com/phackt/pentest/blob/master/privesc/windows/nc64.exe)|Netcat|
 |[Nishang](https://github.com/samratashok/nishang)|Exploitation framework from Nikhil "SamratAshok" Mittal|
-|[PowerSploit](https://github.com/PowerShellMafia/PowerSploit)|Exploitation framework|
+|[Empire -> Invoke-DCSync.ps1](https://github.com/EmpireProject/Empire/blob/master/data/module_source/credentials/Invoke-DCSync.ps1)|DCSync|
+|[PowerSploit -> PowerView.ps1](https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1)|AD Enumeration - [Harmjoy Powerview 3 tricks](https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993)|
 |[PowerSploit -> Invoke-Mimikatz.ps1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Invoke-Mimikatz.ps1)|Mimikatz thanks to Powershell|
 |[PowerSploit -> Invoke-PortScan.ps1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/Invoke-Portscan.ps1)|Ports scanner in Powershell|
 |[PowerSploit -> Invoke-TokenManipulation.ps1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Invoke-TokenManipulation.ps1)|Manipulate logon token and create impersonation token|
@@ -103,11 +102,11 @@ Now let's talk a bit about an interesting part, what kind of tools did i have on
 |[Invoke-SocksProxy.psm1](https://github.com/p3nt4/Invoke-SocksProxy/blob/master/Invoke-SocksProxy.psm1)|Proxy socks in Powershell|
 |[IPv4PortScan.ps1](https://github.com/BornToBeRoot/PowerShell_IPv4PortScanner/blob/master/Scripts/IPv4PortScan.ps1)|Another ports scanner in Powershell|
 |[powercat.ps1](https://github.com/besimorhino/powercat/blob/master/powercat.ps1)|Netcat in Powershell|
+|[Set-LHSTokenPrivilege.ps1](https://gallery.technet.microsoft.com/Adjusting-Token-Privileges-9b6724fc)|Enable / disable your local privileges|
 |[PowerUpSQL](https://github.com/NetSPI/PowerUpSQL)|MSSQL exploitation framework|
 |[PrintSpoofer.exe](https://github.com/itm4n/PrintSpoofer)|Exploit the printer bug locally|
 |[PrivescCheck](https://github.com/itm4n/PrivescCheck)|Find privesc|
 |[Rubeus](https://github.com/GhostPack/Rubeus)|Useful when you will have to deal with kerberos tickets|
-|[Set-LHSTokenPrivilege.ps1](https://gallery.technet.microsoft.com/Adjusting-Token-Privileges-9b6724fc)|Enable / disable your local privileges|
 |[BloodHound](https://github.com/BloodHoundAD/BloodHound)|Find AD exploitation paths|
 |[SpoolSample](https://github.com/leechristensen/SpoolSample)|Connect to the RPC RpcRemoteFindFirstPrinterChangeNotification to trigger the printer bug|
 |[ssf](https://github.com/securesocketfunneling/ssf)|Tunneling tool|
@@ -115,11 +114,11 @@ Now let's talk a bit about an interesting part, what kind of tools did i have on
 |[lolbas](https://lolbas-project.github.io/)|Living Off The Land Binaries and Scripts|
 
 And last but not least, as i said previously this journey was a good opportunity to gather a lot of my recon commands in one single Powershell tool: [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
-Believe me, if you are doing this lab and want to pass this cert, [Invoke-Recon](https://github.com/phackt/Invoke-Recon) + [BloodHound](https://github.com/BloodHoundAD/BloodHound) will be the perfect journey companions.  
+Believe me, if you are doing this lab and want to pass this cert, [Invoke-Recon](https://github.com/phackt/Invoke-Recon) + [BloodHound](https://github.com/BloodHoundAD/BloodHound) will be the perfect journey companions. *Invoke-Recon* has been developed based on the *Advanced Red Team Lab*.  
 
 ### Invoke-recon
 
-Give a try to *Invoke-Recon* and let me know, i'm still developping this tool, and i will introduce it later in a next blog post.
+Give a try to [Invoke-Recon](https://github.com/phackt/Invoke-Recon) and let me know, i'm still developping this tool, and i will introduce it later in a next blog post.
 But if you are already asking yourself what kind of stuff you can enumerate with it:  
 
 #### Domain Enumeration  
