@@ -9,23 +9,27 @@ Quick answer: **Totally** !
 
 Hello everybody,  
 
-I would like to talk a bit about the [SecurityTube red team labs](https://www.pentesteracademy.com/redlabs), specifically the [Advanced Red Team Lab](https://www.pentesteracademy.com/redteamlab) which leads to the **CRTE** (Certified Red Team Expert) certification.  
-
+I would like to talk a bit about the [SecurityTube red team labs](https://www.pentesteracademy.com/redlabs), specifically the [Advanced Red Team Lab](https://www.pentesteracademy.com/redteamlab) which leads to the **CRTE** (Certified Red Team Expert) certification. *P.S: i'm not affiliated with securitytube*.   
+  
 Some great [reviews](https://www.google.com/search?q=review+red+team+lab+pentester+academy+%22CRTE%22) are already existing, so i will focus on why i chose this lab and certification. I will give you some hints about how to approach your targets. Most importantly, i would like to introduce you a tool that i developped which will help you during your journey, [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
 <!--more-->
 
 
-## Context
+# Context
 
 I was looking for a another **professional and challenging cert** focused on **Windows AD**. My prerequisites were:  
  - no jeopardy style
  - real life scenarios which will be found in real engagements
  - a environment not too crowded. I met this situation with others platforms and i spent much of my time contacting the support to revert the VMs because of others bad exploitation or persistence, getting the machines you're working on totally unstable.  
 
-Finally the *Advanced Red Team Lab* was the answer. Companies are more and more looking for online qualitative trainings because of the actual sanitary crisis. Think to ask to your company for a financial support.  
+Finally the *Advanced Red Team Lab* was the answer.  
+  
+![advredteamlab]({{ site.url }}/public/images/redteamlab/redteamlab.png)  
+  
+Companies are more and more looking for online qualitative trainings because of the actual sanitary crisis. Think to ask to your company for a financial support.  
 
 
-## What i really liked  
+# What i really liked  
 
  - Reactive and helpful support
  - Updated servers and workstations with AppLocker, AV running and Powershell in Constrained Language Mode.  
@@ -34,12 +38,12 @@ Finally the *Advanced Red Team Lab* was the answer. Companies are more and more 
 
 And why not, while you're diving into this journey, you may probably see how the tools you are using may be improved to match your needs (don't hesitate to PR - mine with [PowerUpSQL](https://github.com/NetSPI/PowerUpSQL/pull/62)) or may be you will develop your own tool. What i mean is that this is a virtuous circle, you will learn and you will share with the infosec community.  
 
-## What should be / will be improved
+# What should be / will be improved
 
  - The possibility to revert VMs on our own during lab and cert (in dev on their side)
 
 
-## What you will learn
+# What you will learn
 
 Obviously, the difficulty level depends on your experience as a pentester, but be sure that after this cert you will be able to :  
  - Properly enumerate an AD (basic / more complex stuff) and which tools to use (we will about it later)
@@ -52,7 +56,7 @@ Obviously, the difficulty level depends on your experience as a pentester, but b
  - Many other cool stuff
 
 
-## Hints (that you may not find in others blog posts)
+# Hints (that you may not find in others blog posts)
 
 Your will start as domain user on a Windows Server where you will be able to RDP. I advice you to **get SYSTEM** on this machine, to **disable Defender and some restrictive Firewall and AppLocker rules**. Then take off your shoes and feel comfortable at home.  
 
@@ -62,9 +66,9 @@ Sometimes in this lab you will be able to move forward the unintended ways, i me
 
 Also do not overlook the **post exploitation** part. And don't forget to note where you struggled at, during the exam it will be a pity to lose time on a thing you already faced.  
 
-Also not so many services will be exposed, and you also will be firewalled.  
+Not so many services will be exposed, and you also will be firewalled.  
 
-Talking about firewalling, we agree that sometimes it's more comfortable to have a **RDP** session rather than any command line session. In the following example we will assume that we have a shell on a server and we have just a few ports which are accessible. **5985** is a good candidate but **WinRM** is already running on the server.  
+Talking about **firewalling**, we agree that sometimes it's more comfortable to have a **RDP** session rather than any command line session. In the following example we will assume that we have a shell on a server and we have just a few ports which are accessible. **5985** is a good candidate but **WinRM** is already running on the server.  
 
 *In the following example, be aware that if you execute the following commands from a Remote Powershell session, you will be disconnected because we set the RDP listen port to 5985, so we will have to ```sc.exe stop WinRM``` before running Remote Desktop Service.*  
 
@@ -80,7 +84,7 @@ Then run:
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
 ```
 
-## Tools
+# Tools
 
 Now let's talk a bit about an interesting part, what kind of tools did i have on my Windows VM (did not mean i used all of them) ? Here is my list :
 
@@ -114,14 +118,15 @@ Now let's talk a bit about an interesting part, what kind of tools did i have on
 |[lolbas](https://lolbas-project.github.io/)|Living Off The Land Binaries and Scripts|
 
 And last but not least, as i said previously this journey was a good opportunity to gather a lot of my recon commands in one single Powershell tool: [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
+
 Believe me, if you are doing this lab and want to pass this cert, [Invoke-Recon](https://github.com/phackt/Invoke-Recon) + [BloodHound](https://github.com/BloodHoundAD/BloodHound) will be the perfect journey companions. *Invoke-Recon* has been developed based on the *Advanced Red Team Lab*.  
 
-### Invoke-recon
+## Invoke-recon
 
 Give a try to [Invoke-Recon](https://github.com/phackt/Invoke-Recon) and let me know, i'm still developping this tool, and i will introduce it later in a next blog post.
 But if you are already asking yourself what kind of stuff you can enumerate with it:  
 
-#### Domain Enumeration  
+### Domain Enumeration  
 
  - Find all DCs (check if ADWS are accessible in order to be able to use the Active Directory powershell module)
  - Password domain policy
@@ -133,7 +138,7 @@ But if you are already asking yourself what kind of stuff you can enumerate with
  - Exchange servers
  - Users with mailboxes
 
-#### Quick Wins  
+### Quick Wins  
 
 - Exchange vulnerable to PrivExchange and CVE-2020-0688  
 - Computers with deprecated OS
@@ -141,7 +146,7 @@ But if you are already asking yourself what kind of stuff you can enumerate with
 - Kerberoastable users
 - Principals (RID >= 1000) with Replicating Directory Changes / Replicating Directory Changes All
 
-#### MSSQL Enumeration  
+### MSSQL Enumeration  
 
 - Enumerates MSSQL instances (looking for SPN service class MSSQL)
 - Find MSSQL instances accessible within current security context and get their versions
@@ -151,14 +156,12 @@ But if you are already asking yourself what kind of stuff you can enumerate with
 - Audit each accessible MSSQL Instances for common high impact vulnerabilities and weak configurations
 
 
-## More to come
+# More to come
 
 To keep on talking about AD enumeration, i would like to share with you some of my **Cypher** queries i use with **BloodHound** to spot some very interesting stuff during an engagement. I will also dive a bit more into [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
 
 Keep in touch, and don't hesitate if you wanna more information about this lab, if you are stuck or anything else, i'm always glad to help. I answer back to a lot of questions by email or twitter, some dealing with my switch from web developer to technical auditor for the french gouvernment. [Contact me](https://phackt.com/about/).  
-
-*P.S: if you wanna buy me a coffee to stay awoke while i will be writing my next blogs, thank you so much.*  
-
+  
 Wish you a nice day, may the force be with you (i let you choose which side).  
 
 Phackt.
