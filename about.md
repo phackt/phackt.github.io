@@ -19,7 +19,7 @@ Don't hesitate to contact me, i try to answer to all of you.
 
 <a target="_blank" href="https://twitter.com/phackt_ul"><i class ="fa fa-twitter fa-2x"></i>&nbsp;</a>
 <a target="_blank" href="https://github.com/phackt"><i class ="fa fa-github fa-2x"></i>&nbsp;</a>
-<a target="_blank" href="https://discord.gg/NDHatE" title="Also find me on Pixis discord"><i class ="fa fa-discord fa-2x"></i>&nbsp;</a>
+<a target="_blank" href="https://discord.gg/S2Nn2B" title="Also find me on Pixis discord"><i class ="fa fa-discord fa-2x"></i>&nbsp;</a>
 <a target="_blank" href="mailto:phackt@protonmail.com"><i class ="fa fa-envelope fa-2x"></i>&nbsp;</a>
 <a target="_blank" href="{{ site.url }}/feed.xml"><i class ="fa fa-rss fa-2x"></i>&nbsp;</a>
 <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="phackt" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Help me to stay awake" data-outline-color="#000" data-font-color="#000" data-coffee-color="#fff" ></script>
