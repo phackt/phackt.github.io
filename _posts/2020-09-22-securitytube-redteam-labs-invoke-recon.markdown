@@ -158,7 +158,7 @@ But if you are already asking yourself what kind of stuff you can enumerate with
 
 # More to come
 
-To keep on talking about AD enumeration, i would like to share with you some of my **Cypher** queries i use with **BloodHound** to spot some very interesting stuff during an engagement. I will also dive a bit more into [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
+To keep on talking about AD enumeration, i would like to share with you some of my [Cypher queries](https://phackt.com/pentesting-bloodhound-cypher-queries) i use with **BloodHound** to spot some very interesting stuff during an engagement. I will also dive a bit more into [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
 
 Keep in touch, and don't hesitate if you wanna more information about this lab, if you are stuck or anything else, i'm always glad to help. I answer back to a lot of questions by email or twitter, some dealing with my switch from web developer to technical auditor for the french gouvernment. [Contact me](https://phackt.com/about/).  
   
