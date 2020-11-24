@@ -8,13 +8,14 @@ Welcome on this blog.
 <br/>
 **Who am i ?**
   
-I was a web applications developper for several years and infosec fanatic before i was born.  
-I am now working in this fascinating field as full-time pentester.  
+I am an infosec fanatic since i read my first e-zine.  
+I am working in this fascinating field for several years and i'm gaining more and more expertise each day as a full-time pentester.  
   
-I'm also an open-source contributor ([mitmproxy](https://github.com/mitmproxy/mitmproxy), [windapsearch](https://github.com/ropnop/windapsearch), [PowerUpSQL](https://github.com/NetSPI/PowerUpSQL), ...) - check my [github](https://github.com/phackt).  
+I'm also an open-source contributor ([mitmproxy](https://github.com/mitmproxy/mitmproxy), [windapsearch](https://github.com/ropnop/windapsearch), [PowerUpSQL](https://github.com/NetSPI/PowerUpSQL), ...) - check my [github](https://github.com/phackt) and give a try to **[Invoke-Recon](https://github.com/phackt/Invoke-Recon)**.  
+
 I also love sport, art, traveling and socializing.  
   
-Don't hesitate to contact me, i try to answer to all of you. 
+Don't hesitate to contact me, i'm trying to answer to all of you. 
   
 
 <a target="_blank" href="https://twitter.com/phackt_ul"><i class ="fa fa-twitter fa-2x"></i>&nbsp;</a>
