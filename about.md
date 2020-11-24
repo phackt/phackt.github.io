@@ -11,7 +11,7 @@ Welcome on this blog.
 I am an infosec fanatic since i read my first e-zine.  
 I am working in this fascinating field for several years and i'm gaining more and more expertise each day as a full-time pentester.  
   
-I'm also an open-source contributor ([mitmproxy](https://github.com/mitmproxy/mitmproxy), [windapsearch](https://github.com/ropnop/windapsearch), [PowerUpSQL](https://github.com/NetSPI/PowerUpSQL), ...) - check my [github](https://github.com/phackt) and give a try to **[Invoke-Recon](https://github.com/phackt/Invoke-Recon)**.  
+I'm also an open-source contributor ([mitmproxy](https://github.com/mitmproxy/mitmproxy), [windapsearch](https://github.com/ropnop/windapsearch), [PowerUpSQL](https://github.com/NetSPI/PowerUpSQL), ...) - check my [github](https://github.com/phackt) and give a try to <i class ="fa fa-bomb"> [Invoke-Recon](https://github.com/phackt/Invoke-Recon) <i class ="fa fa-bomb">.  
 
 I also love sport, art, traveling and socializing.  
   
