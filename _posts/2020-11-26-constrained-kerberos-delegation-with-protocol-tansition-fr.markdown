@@ -24,7 +24,7 @@ Set-ADComputer -Identity srv -Add @{'msDS-AllowedToDelegateTo'=@('TIME/DC.DOMAIN
   
 ou via GUI:  
 
-![t2a4d](![t2a4d]({{ site.url }}/public/images/t2a4d/setup_t2a4d.png)
+![t2a4d]({{ site.url }}/public/images/t2a4d/setup_t2a4d.png)
   
 Notons que la délégation contrainte peut également être basée sur la ressource (écriture du champs *msds-allowedtoactonbehalfofotheridentity* de MACHINE$). Il semble en effet plus cohérent de donner la légitimité à une ressource de décider quelle autre ressource peut y accéder.  
   
