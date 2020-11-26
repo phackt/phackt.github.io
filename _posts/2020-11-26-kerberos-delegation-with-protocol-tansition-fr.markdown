@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Démystifier la délégation kerberos avec transition de protocole"
+title:  "Délégation kerberos avec transition de protocole"
 date:   2020-10-04
 category: Pentesting
 excerpt_separator: <!--more-->
