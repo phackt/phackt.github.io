@@ -44,6 +44,7 @@ useraccountcontrol       : WORKSTATION_TRUST_ACCOUNT, TRUSTED_FOR_DELEGATION, TR
 msds-allowedtodelegateto : {TIME/DC01, TIME/DC01.PHACKT.LOCAL, TIME/DC, TIME/DC.WINDOMAIN.LOCAL}
 ```
 
+Also the [Invoke-Recon](https://github.com/phackt/Invoke-Recon) tool will find this for you.  
   
 # Scénario d'attaque  
 
@@ -51,12 +52,12 @@ Nous allons compromettre une machine **srv$** dont la propriété **useraccountc
 
 ![t2a4d]({{ site.url }}/public/images/t2a4d/recon_t2a4d.png)
   
-La machine **srv$** fait tourner un service **SA** qui ne gère pas l'authentification Kerberos. Si un utilisateur **whatever** s'authentifie sur SA, **la délégation contrainte avec transition de protocole** va cependant permettre à SA de demander un ticket de service pour **SB** en prenant l'identité de l'utilisateur whatever.  
+La machine **srv$** fait tourner un service **SA** qui ne gère pas l'authentification Kerberos. Si un utilisateur *whatever* s'authentifie sur SA, **la délégation contrainte avec transition de protocole** va cependant permettre à SA de demander un ticket de service pour **SB** en prenant l'identité de l'utilisateur *whatever*.  
 
 *SB* est soit dans le champs **msDS-AllowedToDelegateTo** de *SA*, soit *SA* est dans le champs **msds-allowedtoactonbehalfofotheridentity** de *SB* (Resource-Based Constrained Delegation).  
 
 Cette délégation va faire intervenir les extensions de protocole **ServiceForUserToSelf** et **ServiceForUserToProxy** :  
- - **S4U2Self** va simuler l'authenficiation kerberos et donc la demande de ticket de service pour SA pour l'utilisateur whatever.  
+ - **S4U2Self** va simuler l'authenficiation kerberos et donc la demande de ticket de service pour SA pour l'utilisateur *whatever*.  
    **SA** va en quelque sorte demander un ticket de service pour lui-même pour un utilisateur arbitraire.  
    Il en résulte un ticket de service **T,sa** *forwardable* qui pourra ensuite être passé au mécanisme de **S4U2Proxy**, ce dernier utilisé pour la délégation contrainte classique.  
 
