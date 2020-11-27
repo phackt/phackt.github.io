@@ -70,9 +70,10 @@ Si le compte de service T2A4D faisant tourner *SA* a été compromis, nous pouvo
 Les SPNs étant interchangeables (partie non chiffrée du ticket de service), il est possible de modifier ce dernier par un autre SPN du même compte de service (ex: *CIFS/DC* au lieu de *TIME/DC*).  
 
 <pre>
-Le compte impersonifié doit pouvoir être délégué, c'est à dire ne pas être [Protected Users](https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group) ou "**Account is sensitive and cannot be delegated**".
-</pre>  
-
+Le compte impersonifié doit pouvoir être délégué.
+</pre>
+Il ne doit être ni [Protected Users](https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group), ni "**Account is sensitive and cannot be delegated**".  
+  
 # Exploitation  
 
 Il sera nécessaire au préalable de compiler Rubeus (depuis le repo [Rubeus](https://github.com/GhostPack/Rubeus), lancer le projet, ```Build -> Build Solution```).  
