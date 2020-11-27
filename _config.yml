@@ -14,7 +14,7 @@ google_analytics_id: UA-179138758-1
 twitter:
   username: phackt_ul
 
-image: https://phackt.com/public/images/logo/icon.png
+logo: /public/images/logo/icon.png
 
 # Build settings
 markdown: kramdown
