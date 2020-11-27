@@ -322,7 +322,7 @@ Pour positionner l'attribut **TRUSTED_TO_AUTH_FOR_DELEGATION**, il nous faut le 
   
 Une méthode de persistance intéressante consiste, à partir d'un utilisateur compromis possédant le privilège ```SeEnableDelegationPrivilege```, à positionner la valeur ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur un autre utilisateur compromis lambda pouvant être délégué, et à éditer le champs ```msDS-AllowedToDelegateTo``` avec le SPN ```HOST/DC``` par exemple, permettant ainsi de rejouer l'attaque.  
   
-Nous pouvons également attribuer le privilège ```SeEnableDelegationPrivilege``` à un utilisateur, ce dernier pouvant ainsi positionner le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
+Nous pouvons également attribuer le privilège ```SeEnableDelegationPrivilege``` à un utilisateur, ce dernier pouvant ainsi positionner à son tour le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
   
 # The End
 
