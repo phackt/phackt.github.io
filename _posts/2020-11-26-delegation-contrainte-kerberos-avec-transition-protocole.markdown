@@ -67,7 +67,7 @@ Cette délégation va faire intervenir les extensions de protocole **ServiceForU
 
 Si le compte de service ```T2A4D``` faisant tourner ```SA``` a été compromis, nous pouvons générer un ```T,sa``` pour un compte arbitraire (Administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
 
-Les SPNs étant interchangeables (partie non chiffrée du ticket de service), il est possible de modifier ce dernier par un autre SPN du même compte de service (ex: *CIFS/DC* au lieu de *TIME/DC*).  
+Les [SPNs](https://beta.hackndo.com/service-principal-name-spn/) étant interchangeables (partie non chiffrée du ticket de service), il est possible de modifier ce dernier par un autre SPN du même compte de service (ex: *CIFS/DC* au lieu de *TIME/DC*).  
 
 <pre>
 Le compte impersonifié doit pouvoir être délégué.
