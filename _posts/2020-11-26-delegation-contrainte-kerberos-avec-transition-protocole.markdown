@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Délégation contrainte Kerberos avec transition de protocole"
-date:   2020-10-04
+date:   2020-11-27
 category: Pentesting
 excerpt_separator: <!--more-->
 ---  
