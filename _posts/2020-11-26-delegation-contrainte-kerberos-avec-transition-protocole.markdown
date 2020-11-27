@@ -13,7 +13,7 @@ Aujourd'hui nous allons parler de l'exploitation des extensions de protocole Ker
 
 L'objectif de ce post est de nous concentrer sur la [délégation contrainte avec transition de protocole](https://docs.microsoft.com/fr-fr/previous-versions/windows/it-pro/windows-server-2003/cc739587(v=ws.10)) que nous abrègerons ```T2A4D``` (TrustedToAuthForDelegation); comment l'énumérer, comment l'exploiter et s'en servir comme méthode de persistance.  
 <!--more-->
-Pour ne pas réinventer la roue, vous trouverez un très bon article introduisant la délégation kerberos [ici](https://beta.hackndo.com/constrained-unconstrained-delegation/).  
+Pour ne pas réinventer la roue, vous trouverez un très bon article introduisant la délégation kerberos sur le blog [hackndo](https://beta.hackndo.com/constrained-unconstrained-delegation/).  
 
 # Mise en place de la délégation contrainte avec transition de protocole + msDS-AllowedToDelegateTo  
 
