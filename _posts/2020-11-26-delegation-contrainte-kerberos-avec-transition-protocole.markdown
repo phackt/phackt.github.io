@@ -44,7 +44,7 @@ useraccountcontrol       : WORKSTATION_TRUST_ACCOUNT, TRUSTED_FOR_DELEGATION, TR
 msds-allowedtodelegateto : {TIME/DC01, TIME/DC01.WINDOMAIN.LOCAL, TIME/DC, TIME/DC.WINDOMAIN.LOCAL}
 ```
 
-L'outil [Invoke-Recon](https://github.com/phackt/Invoke-Recon) trouvera tout ça pour vous.  
+L'outil [Invoke-Recon](https://github.com/phackt/Invoke-Recon) trouvera tout cela pour vous.  
 
 # Scénario d'attaque  
 
