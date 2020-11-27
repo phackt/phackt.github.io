@@ -316,13 +316,13 @@ C:\tools>dir \\DC\C$
 
 # Persistance  
 
-Pour positionner l'attribut **TRUSTED_TO_AUTH_FOR_DELEGATION**, il nous faut le privilège **SeDelegationPrivilege**.  
+Pour positionner l'attribut **TRUSTED_TO_AUTH_FOR_DELEGATION**, il nous faut le privilège **SeEnableDelegationPrivilege**.  
 
 *Fortunately Microsoft protect any user from setting this flag unless they are listed in the User Rights Assignment setting "Enable computer and user accounts to be trusted for delegation" (SeEnableDelegationPrivilege) on the Domain Controller. So by default only members of BUILTIN\Administrators (i.e. Domain Admins/Enterprise Admins) have the right to modify these delegation settings.*
   
-Une méthode de persistance intéressante consiste, à partir d'un utilisateur compromis possédant le privilège ```SeDelegationPrivilege```, à positionner la valeur ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur un autre utilisateur compromis lambda pouvant être délégué, et à éditer le champs ```msDS-AllowedToDelegateTo``` avec le SPN ```HOST/DC```, permettant ainsi de rejouer l'attaque.  
+Une méthode de persistance intéressante consiste, à partir d'un utilisateur compromis possédant le privilège ```SeEnableDelegationPrivilege```, à positionner la valeur ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur un autre utilisateur compromis lambda pouvant être délégué, et à éditer le champs ```msDS-AllowedToDelegateTo``` avec le SPN ```HOST/DC``` par exemple, permettant ainsi de rejouer l'attaque.  
   
-Nous pouvons également attribuer le privilège ```SeDelegationPrivilege``` à un utilisateur, ce dernier pouvant ainsi positionner le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
+Nous pouvons également attribuer le privilège ```SeEnableDelegationPrivilege``` à un utilisateur, ce dernier pouvant ainsi positionner le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
   
 # The End
 
