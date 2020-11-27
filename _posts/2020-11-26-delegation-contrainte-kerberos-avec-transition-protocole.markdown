@@ -319,11 +319,11 @@ C:\tools>dir \\DC\C$
 Pour positionner l'attribut **TRUSTED_TO_AUTH_FOR_DELEGATION**, il nous faut le privilège **SeDelegationPrivilege**.  
 
 *Fortunately Microsoft protect any user from setting this flag unless they are listed in the User Rights Assignment setting "Enable computer and user accounts to be trusted for delegation" (SeEnableDelegationPrivilege) on the Domain Controller. So by default only members of BUILTIN\Administrators (i.e. Domain Admins/Enterprise Admins) have the right to modify these delegation settings.*
-
-Une méthode de persistance intéressante consiste à attribuer ce privilège à un utilisateur compromis.  
-
-Ce dernier pourra positionner le **TRUSTED_TO_AUTH_FOR_DELEGATION** sur n'importe autre utilisateur compromis du domaine et à partir de ce dernier, rejouer cette attaque pour devenir Administrateur du domaine.    
-
+  
+Une méthode de persistance intéressante consiste, à partir d'un utilisateur compromis possédant le privilège ```SeDelegationPrivilege```, à positionner la valeur ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur un autre utilisateur compromis lambda pouvant être délégué, et à éditer le champs ```msDS-AllowedToDelegateTo``` avec le SPN ```HOST/DC```, permettant ainsi de rejouer l'attaque.  
+  
+Nous pouvons également attribuer le privilège ```SeDelegationPrivilege``` à un utilisateur, ce dernier pouvant ainsi positionner le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
+  
 # The End
 
 N'hésitez pas à commenter / poser vos questions. Vous pouvez également me contacter sur [Twitter](https://twitter.com/phackt_ul).  
