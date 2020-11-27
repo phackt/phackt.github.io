@@ -54,7 +54,7 @@ Nous allons compromettre une machine **srv$** dont l'attribut [useraccountcontro
 
 La machine ```srv$``` fait tourner un service ```SA``` qui ne gère pas l'authentification Kerberos. Si un utilisateur *whatever* s'authentifie sur ```SA```, **la délégation contrainte avec transition de protocole** va cependant permettre à ```SA``` de demander un ticket de service pour ```SB``` en prenant l'identité de l'utilisateur *whatever*.  
 
-SB est soit dans le champs **msDS-AllowedToDelegateTo** de ```SA```, soit ```SA``` est dans le champs **msds-allowedtoactonbehalfofotheridentity** de ```SB``` (Resource-Based Constrained Delegation).  
+```SB``` est soit dans le champs **msDS-AllowedToDelegateTo** de ```SA```, soit ```SA``` est dans le champs **msds-allowedtoactonbehalfofotheridentity** de ```SB``` (Resource-Based Constrained Delegation).  
 
 Cette délégation va faire intervenir les extensions de protocole **ServiceForUserToSelf** et **ServiceForUserToProxy** :  
  1. **S4U2Self** va simuler l'authenficiation kerberos et donc la demande de ticket de service pour ```SA``` pour l'utilisateur *whatever*.  
