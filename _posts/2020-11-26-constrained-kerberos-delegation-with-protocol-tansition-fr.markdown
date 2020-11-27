@@ -65,7 +65,7 @@ Cette délégation va faire intervenir les extensions de protocole **ServiceForU
 
  - L'utilisateur arbitraire *whatever* se connecte au service *SB*
 
-Si le compte de service faisant tourner *SA* a été compromis, nous pouvons générer un *T,sa* pour un compte arbitraire (administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
+Si le compte de service T2A4D faisant tourner *SA* a été compromis, nous pouvons générer un *T,sa* pour un compte arbitraire (administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
 
 Les SPNs étant interchangeables (partie non chiffrée du ticket de service), il est possible de modifier ce dernier par un autre SPN du même compte de service (ex: *CIFS/DC* au lieu de *TIME/DC*).  
 
