@@ -39,9 +39,9 @@ PS C:\tools> Get-DomainObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.
 
 
 samaccounttype           : MACHINE_ACCOUNT
-distinguishedname        : CN=SRV,CN=Computers,DC=phackt,DC=local
+distinguishedname        : CN=SRV,CN=Computers,DC=windomain,DC=local
 useraccountcontrol       : WORKSTATION_TRUST_ACCOUNT, TRUSTED_FOR_DELEGATION, TRUSTED_TO_AUTH_FOR_DELEGATION
-msds-allowedtodelegateto : {TIME/DC01, TIME/DC01.PHACKT.LOCAL, TIME/DC, TIME/DC.WINDOMAIN.LOCAL}
+msds-allowedtodelegateto : {TIME/DC01, TIME/DC01.WINDOMAIN.LOCAL, TIME/DC, TIME/DC.WINDOMAIN.LOCAL}
 ```
 
 L'outil [Invoke-Recon](https://github.com/phackt/Invoke-Recon) trouvera tout ça pour vous.  
