@@ -52,20 +52,20 @@ Nous allons compromettre une machine **srv$** dont l'attribut [useraccountcontro
 
 ![t2a4d]({{ site.url }}/public/images/t2a4d/recon_t2a4d.png)
 
-La machine **srv$** fait tourner un service **SA** qui ne gère pas l'authentification Kerberos. Si un utilisateur *whatever* s'authentifie sur SA, **la délégation contrainte avec transition de protocole** va cependant permettre à SA de demander un ticket de service pour **SB** en prenant l'identité de l'utilisateur *whatever*.  
+La machine ```srv$``` fait tourner un service ```SA``` qui ne gère pas l'authentification Kerberos. Si un utilisateur *whatever* s'authentifie sur ```SA```, **la délégation contrainte avec transition de protocole** va cependant permettre à ```SA``` de demander un ticket de service pour ```SB``` en prenant l'identité de l'utilisateur *whatever*.  
 
-*SB* est soit dans le champs **msDS-AllowedToDelegateTo** de *SA*, soit *SA* est dans le champs **msds-allowedtoactonbehalfofotheridentity** de *SB* (Resource-Based Constrained Delegation).  
+SB est soit dans le champs **msDS-AllowedToDelegateTo** de ```SA```, soit ```SA``` est dans le champs **msds-allowedtoactonbehalfofotheridentity** de ```SB``` (Resource-Based Constrained Delegation).  
 
 Cette délégation va faire intervenir les extensions de protocole **ServiceForUserToSelf** et **ServiceForUserToProxy** :  
- 1. **S4U2Self** va simuler l'authenficiation kerberos et donc la demande de ticket de service pour SA pour l'utilisateur *whatever*.  
-   **SA** va en quelque sorte demander un ticket de service pour lui-même pour un utilisateur arbitraire.  
-   Il en résulte un ticket de service **T,sa** *forwardable* qui pourra ensuite être passé au mécanisme de **S4U2Proxy**, ce dernier utilisé pour la délégation contrainte classique.  
+ 1. **S4U2Self** va simuler l'authenficiation kerberos et donc la demande de ticket de service pour ```SA``` pour l'utilisateur *whatever*.  
+   ```SA``` va en quelque sorte demander un ticket de service pour lui-même pour un utilisateur arbitraire.  
+   Il en résulte un ticket de service ```T,sa``` *forwardable* qui pourra ensuite être passé au mécanisme de **S4U2Proxy**, ce dernier utilisé pour la délégation contrainte classique.  
 
- 2. **S4U2Proxy** va utiliser *T,sa* comme preuve de l'authentification de *whatever* auprès de *SA* et ainsi récupérer un ticket de service *forwarded* pour *SB*.
+ 2. **S4U2Proxy** va utiliser ```T,sa``` comme preuve de l'authentification de *whatever* auprès de ```SA``` et ainsi récupérer un ticket de service *forwarded* pour ```SB```.
 
- 3. L'utilisateur arbitraire *whatever* se connecte au service *SB*
+ 3. L'utilisateur arbitraire *whatever* se connecte au service ```SB```
 
-Si le compte de service T2A4D faisant tourner *SA* a été compromis, nous pouvons générer un *T,sa* pour un compte arbitraire (Administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
+Si le compte de service T2A4D faisant tourner ```SA``` a été compromis, nous pouvons générer un ```T,sa``` pour un compte arbitraire (Administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
 
 Les SPNs étant interchangeables (partie non chiffrée du ticket de service), il est possible de modifier ce dernier par un autre SPN du même compte de service (ex: *CIFS/DC* au lieu de *TIME/DC*).  
 
