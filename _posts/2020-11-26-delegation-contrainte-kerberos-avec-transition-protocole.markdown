@@ -8,28 +8,28 @@ excerpt_separator: <!--more-->
 *P.S: an english version will be translated soon.*    
 
 Bonjour,  
-  
-Aujourd'hui nous allons parler de l'exploitation des extensions de protocole Kerberos ```S4U2Self``` et ```S4U2Proxy``` afin d'impersonifier un utilisateur privilégié du domaine.  
-  
-L'objectif de ce post est de nous concentrer sur la délégation contrainte avec transition de protocole que nous abrègerons ```T2A4D``` (TrustedToAuthForDelegation); comment l'énumérer, comment l'exploiter et s'en servir comme méthode de persistance.  
+
+Aujourd'hui nous allons parler de l'exploitation des extensions de protocole Kerberos [S4U2Self](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13) et [S4U2Proxy](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/bde93b0e-f3c9-4ddf-9f44-e1453be7af5a) afin d'impersonifier un utilisateur privilégié du domaine.  
+
+L'objectif de ce post est de nous concentrer sur la [délégation contrainte avec transition de protocole](https://docs.microsoft.com/fr-fr/previous-versions/windows/it-pro/windows-server-2003/cc739587(v=ws.10)) que nous abrègerons ```T2A4D``` (TrustedToAuthForDelegation); comment l'énumérer, comment l'exploiter et s'en servir comme méthode de persistance.  
 <!--more-->
 Pour ne pas réinventer la roue, vous trouverez un très bon article introduisant la délégation kerberos [ici](https://beta.hackndo.com/constrained-unconstrained-delegation/).  
-  
+
 # Mise en place de la délégation contrainte avec transition de protocole + msDS-AllowedToDelegateTo  
-  
+
 ```powershell
 Get-ADComputer -Identity srv | Set-ADAccountControl -TrustedToAuthForDelegation $True
 Set-ADComputer -Identity srv -Add @{'msDS-AllowedToDelegateTo'=@('TIME/DC.WINDOMAIN.LOCAL','TIME/DC')}
 ```
-  
+
 ou via GUI:  
 
 ![t2a4d]({{ site.url }}/public/images/t2a4d/setup_t2a4d.png)
-  
+
 Notons que la délégation contrainte peut également être basée sur la ressource (écriture du champs **msds-allowedtoactonbehalfofotheridentity** de *MACHINE$*). Il semble en effet plus cohérent de donner la légitimité à une ressource de décider quelle autre ressource peut y accéder.  
-  
+
 Rentrons dans le vif du sujet.  
-  
+
 # Enumeration
 
 La première chose intéressante est de pouvoir énumérer les comptes de service concernés par T2A4D :  
@@ -45,13 +45,13 @@ msds-allowedtodelegateto : {TIME/DC01, TIME/DC01.PHACKT.LOCAL, TIME/DC, TIME/DC.
 ```
 
 L'outil [Invoke-Recon](https://github.com/phackt/Invoke-Recon) trouvera tout ça pour vous.  
-  
+
 # Scénario d'attaque  
 
-Nous allons compromettre une machine **srv$** dont la propriété **useraccountcontrol** possède la valeur  **trusted_to_auth_for_delegation**.  
+Nous allons compromettre une machine **srv$** dont l'attribut [useraccountcontrol](https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties) possède la valeur **trusted_to_auth_for_delegation**.  
 
 ![t2a4d]({{ site.url }}/public/images/t2a4d/recon_t2a4d.png)
-  
+
 La machine **srv$** fait tourner un service **SA** qui ne gère pas l'authentification Kerberos. Si un utilisateur *whatever* s'authentifie sur SA, **la délégation contrainte avec transition de protocole** va cependant permettre à SA de demander un ticket de service pour **SB** en prenant l'identité de l'utilisateur *whatever*.  
 
 *SB* est soit dans le champs **msDS-AllowedToDelegateTo** de *SA*, soit *SA* est dans le champs **msds-allowedtoactonbehalfofotheridentity** de *SB* (Resource-Based Constrained Delegation).  
@@ -65,9 +65,13 @@ Cette délégation va faire intervenir les extensions de protocole **ServiceForU
 
  - L'utilisateur arbitraire *whatever* se connecte au service *SB*
 
-Si le compte de service T2A4D faisant tourner *SA* a été compromis, nous pouvons générer un *T,sa* pour un compte arbitraire (administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
+Si le compte de service T2A4D faisant tourner *SA* a été compromis, nous pouvons générer un *T,sa* pour un compte arbitraire (Administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
 
 Les SPNs étant interchangeables (partie non chiffrée du ticket de service), il est possible de modifier ce dernier par un autre SPN du même compte de service (ex: *CIFS/DC* au lieu de *TIME/DC*).  
+
+<pre>
+Le compte impersonifié doit pouvoir être délégué, c'est à dire ne pas être [Protected Users](https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group) ou "**Account is sensitive and cannot be delegated**".
+</pre>  
 
 # Exploitation  
 
@@ -316,12 +320,11 @@ Pour positionner l'attribut **TRUSTED_TO_AUTH_FOR_DELEGATION**, il nous faut le 
 *Fortunately Microsoft protect any user from setting this flag unless they are listed in the User Rights Assignment setting "Enable computer and user accounts to be trusted for delegation" (SeEnableDelegationPrivilege) on the Domain Controller. So by default only members of BUILTIN\Administrators (i.e. Domain Admins/Enterprise Admins) have the right to modify these delegation settings.*
 
 Une méthode de persistance intéressante consiste à attribuer ce privilège à un utilisateur compromis.  
-  
+
 Ce dernier pourra positionner le **TRUSTED_TO_AUTH_FOR_DELEGATION** sur n'importe autre utilisateur compromis du domaine et à partir de ce dernier, rejouer cette attaque pour devenir Administrateur du domaine.    
-  
+
 # The End
 
 N'hésitez pas à commenter / poser vos questions. Vous pouvez également me contacter sur [Twitter](https://twitter.com/phackt_ul).  
-  
+
 Phackt.  
-  
