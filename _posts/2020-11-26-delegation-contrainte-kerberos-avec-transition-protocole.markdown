@@ -354,27 +354,28 @@ PS C:\> net user bleponge /domain | Select-String "Group"
 Local Group Memberships
 Global Group memberships     *Domain Users
 
-PS C:\> Get-ADObject -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+PS C:\> Get-ADObject -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo,serviceprincipalname | fl
 
 
-samaccounttype     : USER_OBJECT
-distinguishedname  : CN=Bob ble. Leponge,CN=Users,DC=windomain,DC=local
 useraccountcontrol : NORMAL_ACCOUNT
+distinguishedname  : CN=Bob ble. Leponge,CN=Users,DC=windomain,DC=local
 samaccountname     : bleponge
+samaccounttype     : USER_OBJECT
 
 
 
 PS C:\> Get-ADUser -Identity bleponge | Set-ADAccountControl -TrustedToAuthForDelegation $True
 PS C:\> Set-ADUSer -Identity bleponge -Add @{'msDS-AllowedToDelegateTo'=@('CIFS/DC.WINDOMAIN.LOCAL','CIFS/DC')}
 PS C:\> Set-ADObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}
-PS C:\> Get-ADObject -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+PS C:\> Get-ADObject -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo,serviceprincipalname | fl
 
 
-samaccounttype           : USER_OBJECT
-distinguishedname        : CN=Bob ble. Leponge,CN=Users,DC=windomain,DC=local
-useraccountcontrol       : NORMAL_ACCOUNT
+useraccountcontrol       : NORMAL_ACCOUNT, TRUSTED_TO_AUTH_FOR_DELEGATION
+serviceprincipalname     : nonexistent/BLAHBLAH
 msds-allowedtodelegateto : {CIFS/DC, CIFS/DC.WINDOMAIN.LOCAL}
+distinguishedname        : CN=Bob ble. Leponge,CN=Users,DC=windomain,DC=local
 samaccountname           : bleponge
+samaccounttype           : USER_OBJECT
 ```
   
 Attention à la commande ```Set-ADObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```.  
