@@ -378,7 +378,8 @@ msds-allowedtodelegateto : {CIFS/DC, CIFS/DC.WINDOMAIN.LOCAL}
 samaccountname           : bleponge
 ```
   
-Attention à la commande ```Set-DomainObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```. En effet le bon sens nous dit qu'un utilisateur sera légitime pour délégeur si ce dernier apparait comme compte de service. Sans positionner de SPN sur l'utilisateur ```bleponge```, Rubeus nous a tout simplement propagé une exception non catchée:  
+Attention à la commande ```Set-DomainObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```. 
+En effet le bon sens nous dit qu'un utilisateur sera légitime pour délégeur si ce dernier apparait comme compte de service. Sans positionner de SPN sur l'utilisateur ```bleponge```, Rubeus nous a tout simplement propagé une exception non catchée:  
 ```
 ...
 [!] Unhandled Rubeus exception:
