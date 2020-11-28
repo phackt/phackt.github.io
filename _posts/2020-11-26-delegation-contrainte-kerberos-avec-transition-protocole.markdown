@@ -393,7 +393,7 @@ System.NullReferenceException: Object reference not set to an instance of an obj
   
 Maintenant vous n'avez plus qu'à retourner sur notre section [Exploitation](#Exploitation) et à tout dérouler dans le contexte de notre utilisateur ```bleponge```.  
   
-*En testant avec la classe de service ```HOST``` (HOST/DC), il nous a été impossible de lister notre share ```C$```. Ceci a déjà été rencontré par [pixis](https://beta.hackndo.com/service-principal-name-spn/#cas-particulier---host).*  
+*En testant avec la classe de service ```HOST``` (HOST/DC), il nous a été impossible de lister notre share ```\\DC\C$```. Ceci a déjà été rencontré par [pixis](https://beta.hackndo.com/service-principal-name-spn/#cas-particulier---host).*  
   
 ## SeEnableDelegationPrivilege
 
