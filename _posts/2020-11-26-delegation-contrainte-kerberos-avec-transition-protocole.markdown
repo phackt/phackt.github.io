@@ -402,5 +402,7 @@ Nous pouvons également backdoorer un utilisateur en lui attribuant le privilèg
 # The End
 
 N'hésitez pas à commenter / poser vos questions. Vous pouvez également me contacter sur [Twitter](https://twitter.com/phackt_ul).  
-
+  
+A bientôt.  
+  
 Phackt.  
