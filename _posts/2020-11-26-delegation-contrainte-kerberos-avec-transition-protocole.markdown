@@ -19,7 +19,7 @@ Pour ne pas réinventer la roue, vous trouverez un très bon article introduisan
 
 ## Prérequis  
 
-Il y a deux méthodes pour installer les cmdlets ActiveDirectory:  
+Il y a deux méthodes pour bénéficier des cmdlets ActiveDirectory:  
  1. ```Get-WindowsCapability -Name Rsat.ActiveDirectory* -Online | Add-WindowsCapability -Online```  
     *P.S: peut également se faire offline à partir de l'iso téléchargeable [ici](https://my.visualstudio.com/Downloads/Featured)*
  2. [https://github.com/samratashok/ADModule](https://github.com/samratashok/ADModule)  
@@ -361,7 +361,7 @@ PS C:\> Get-DomainUser -Identity bleponge -Properties DistinguishedName,sAMAccou
 samaccounttype     : USER_OBJECT
 distinguishedname  : CN=Bob ble. Leponge,CN=Users,DC=windomain,DC=local
 useraccountcontrol : NORMAL_ACCOUNT
-samaccountname           : bleponge
+samaccountname     : bleponge
 
 
 
@@ -378,7 +378,7 @@ msds-allowedtodelegateto : {CIFS/DC, CIFS/DC.WINDOMAIN.LOCAL}
 samaccountname           : bleponge
 ```
   
-Attention à la commande ```Set-DomainObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```. 
+Attention à la commande ```Set-DomainObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```.  
 En effet le bon sens nous dit qu'un utilisateur sera légitime pour délégeur si ce dernier apparait comme compte de service. Sans positionner de SPN sur l'utilisateur ```bleponge```, Rubeus nous a tout simplement propagé une exception:  
 ```
 ...
@@ -394,7 +394,7 @@ System.NullReferenceException: Object reference not set to an instance of an obj
   
 Maintenant retournons sur notre section [Exploitation](#Exploitation) que nous déroulons dans le contexte de notre utilisateur ```bleponge```.  
   
-*P.S: En testant avec la classe de service ```HOST``` (HOST/DC), il nous a été impossible de lister notre share ```C$```. Ceci a déjà été rencontré par [pixis](https://beta.hackndo.com/service-principal-name-spn/#cas-particulier---host).*  
+*En testant avec la classe de service ```HOST``` (HOST/DC), il nous a été impossible de lister notre share ```C$```. Ceci a déjà été rencontré par [pixis](https://beta.hackndo.com/service-principal-name-spn/#cas-particulier---host).*  
   
 ## SeEnableDelegationPrivilege
 
