@@ -397,8 +397,8 @@ Maintenant vous n'avez plus qu'à retourner sur notre section [Exploitation](#Ex
   
 ## SeEnableDelegationPrivilege
 
-Nous pouvons également attribuer le privilège ```SeEnableDelegationPrivilege``` à un utilisateur, ce dernier pouvant ainsi positionner à son tour le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
-  
+Nous pouvons également backdoorer un utilisateur en lui attribuant le privilège ```SeEnableDelegationPrivilege```, cet utilisateur pouvant ainsi positionner le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
+    
 # The End
 
 N'hésitez pas à commenter / poser vos questions. Vous pouvez également me contacter sur [Twitter](https://twitter.com/phackt_ul).  
