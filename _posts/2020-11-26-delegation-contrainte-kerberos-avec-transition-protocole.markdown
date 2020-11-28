@@ -321,7 +321,7 @@ C:\tools>dir \\DC\C$
                7 Dir(s)  36,839,563,264 bytes free
 ```
 
-# Persistance  
+# <a name="Persistance"></a>Persistance  
 
 Pour positionner l'attribut **TRUSTED_TO_AUTH_FOR_DELEGATION**, il nous faut le privilège **SeEnableDelegationPrivilege**.  
 
