@@ -395,6 +395,8 @@ System.NullReferenceException: Object reference not set to an instance of an obj
   
 Maintenant retournons sur notre section [Exploitation](#Exploitation) que nous déroulons dans le contexte de notre utilisateur ```bleponge```.  
   
+*P.S: En testant avec la classe de service ```HOST``` (HOST/DC), il nous a été impossible de lister notre share ```C$```. Ceci a déjà été rencontré par [pixis](https://beta.hackndo.com/service-principal-name-spn/#cas-particulier---host).*  
+  
 ## SeEnableDelegationPrivilege
 
 Nous pouvons également attribuer le privilège ```SeEnableDelegationPrivilege``` à un utilisateur, ce dernier pouvant ainsi positionner à son tour le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
