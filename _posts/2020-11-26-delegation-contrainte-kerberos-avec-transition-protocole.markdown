@@ -302,7 +302,7 @@ C:\tools> klist
 ...
 ```
 
-Ensuite :
+Testons :
 ```cmd
 C:\tools>dir \\DC\C$
  Volume in drive \\DC\C$ is Windows 2019
