@@ -49,7 +49,7 @@ PS C:\tools> Get-ADObject -LDAPFilter "(useraccountcontrol:1.2.840.113556.1.4.80
 
 
 useraccountcontrol       : WORKSTATION_TRUST_ACCOUNT, TRUSTED_TO_AUTH_FOR_DELEGATION
-serviceprincipalname     : {RestrictedKrbHost/SRV, RestrictedKrbHost/SRV.windomain.local, WSMAN/SRV, WSMAN/SRV.windomain.local...}
+serviceprincipalname     : {WSMAN/SRV, WSMAN/SRV.windomain.local, TERMSRV/SRV, TERMSRV/SRV.windomain.local...}
 msds-allowedtodelegateto : {TIME/DC, TIME/DC.WINDOMAIN.LOCAL}
 distinguishedname        : CN=SRV,CN=Computers,DC=windomain,DC=local
 samaccountname           : SRV$
