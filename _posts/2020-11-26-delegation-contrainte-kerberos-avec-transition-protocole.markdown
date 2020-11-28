@@ -359,19 +359,15 @@ Global Group memberships     *Domain Users
 
 PS C:\> Get-ADObject -Identity bleponge -Properties distinguishedName,samAccountName,samAccountType,userAccountControl,msDS-AllowedToDelegateTo,servicePrincipalName | fl
 
-
 useraccountcontrol : NORMAL_ACCOUNT
 distinguishedname  : CN=Bob ble. Leponge,CN=Users,DC=windomain,DC=local
 samaccountname     : bleponge
 samaccounttype     : USER_OBJECT
 
-
-
 PS C:\> Get-ADUser -Identity bleponge | Set-ADAccountControl -TrustedToAuthForDelegation $True
 PS C:\> Set-ADUSer -Identity bleponge -Add @{'msDS-AllowedToDelegateTo'=@('CIFS/DC.WINDOMAIN.LOCAL','CIFS/DC')}
 PS C:\> Set-ADObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}
 PS C:\> Get-ADObject -Identity bleponge -Properties distinguishedName,samAccountName,samAccountType,userAccountControl,msDS-AllowedToDelegateTo,servicePrincipalName | fl
-
 
 useraccountcontrol       : NORMAL_ACCOUNT, TRUSTED_TO_AUTH_FOR_DELEGATION
 serviceprincipalname     : nonexistent/BLAHBLAH
