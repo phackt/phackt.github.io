@@ -35,7 +35,7 @@ ou via GUI:
   
 ![t2a4d]({{ site.url }}/public/images/t2a4d/setup_t2a4d.png)
   
-Notons que la délégation contrainte peut également être basée sur la ressource (écriture du champs **msds-allowedtoactonbehalfofotheridentity** de ```MACHINE$```). Il semble en effet plus cohérent de donner la légitimité à une ressource de décider quelle autre ressource peut y accéder.  
+Notons que la délégation contrainte peut également être basée sur la ressource (écriture de la propriété **msds-allowedtoactonbehalfofotheridentity** de ```MACHINE$```). Il semble en effet plus cohérent de donner la légitimité à une ressource de décider quelle autre ressource peut lui accéder.  
 
 Rentrons dans le vif du sujet.  
 
@@ -65,7 +65,7 @@ La machine ```srv$``` fait tourner un service ```SA``` qui ne gère pas l'authen
 ```SB``` est soit dans le champs **msDS-AllowedToDelegateTo** de ```SA```, soit ```SA``` est dans le champs **msds-allowedtoactonbehalfofotheridentity** de ```SB``` (Resource-Based Constrained Delegation).  
 
 Cette délégation va faire intervenir les extensions de protocole **ServiceForUserToSelf** et **ServiceForUserToProxy** :  
- 1. **S4U2Self** va simuler l'authenficiation kerberos et donc la demande de ticket de service pour ```SA``` pour l'utilisateur *whatever*.  
+ 1. **S4U2Self** va simuler l'authentification kerberos et donc la demande de ticket de service pour ```SA``` pour l'utilisateur *whatever*.  
    ```SA``` va en quelque sorte demander un ticket de service pour lui-même pour un utilisateur arbitraire.  
    Il en résulte un ticket de service ```T,sa``` *forwardable* qui pourra ensuite être passé au mécanisme de **S4U2Proxy**, ce dernier utilisé pour la délégation contrainte classique.  
 
@@ -86,7 +86,7 @@ Il ne doit être ni [Protected Users](https://docs.microsoft.com/en-us/windows-s
 
 Il sera nécessaire au préalable de compiler Rubeus (depuis le repo [Rubeus](https://github.com/GhostPack/Rubeus), lancer le projet, ```Build -> Build Solution```).  
 
-On suppose ici que la machine ```srv$``` a été préalablement compromise et on récupère ses crédentials :  
+On suppose ici que la machine ```srv$``` a été préalablement compromise. On récupère ses credentials :  
 ```cmd
 C:\tools> C:\tools\Mimikatz\x64\mimikatz.exe "privilege::debug" "sekurlsa::logonPasswords" "exit"
 
@@ -131,8 +131,7 @@ SID               : S-1-5-90-0-2
 
 Maintenant il nous faut dérouler les S4U pour générer un ticket de service, non pas pour *TIME/DC*, mais pour *CIFS/DC* pour l'utilisateur **WINDOMAIN\Administrator**.  
 
-Faire un ```runas /user:WINDOMAIN\unprivileged_user cmd.exe``` (Testez à partir d'un utilisateur compromis non privilégié).  
-
+Vérifions que le share ```\\DC\C$``` nous est refusé:  
 ```
 C:\tools>dir \\DC\C$
 Access is denied.
