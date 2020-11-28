@@ -333,7 +333,7 @@ Une méthode de persistance intéressante consiste, à partir d'un utilisateur c
   
 ## T2A4D sur un utilisateur arbitraire du domaine
   
-Vous êtes admin de dom, cependant les [groupes protégés](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory) sont supervisés par le SOC, ces derniers ont leurs descripteurs de sécurité remis en état par le mécanisme de ```SDProp``` ([AdminSDHolder](https://social.technet.microsoft.com/wiki/contents/articles/22331.adminsdholder-protected-groups-and-security-descriptor-propagator.aspx)), etc, autant d'éléments qui vous font dire que vous aimeriez backdooré un utilisateur qui peut passer le plus de temps possible sous les radars.  
+Vous êtes admin de dom, cependant les [groupes protégés](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory) sont supervisés par le SOC, ces derniers ont leurs descripteurs de sécurité remis en état par le mécanisme de ```SDProp``` ([AdminSDHolder](https://social.technet.microsoft.com/wiki/contents/articles/22331.adminsdholder-protected-groups-and-security-descriptor-propagator.aspx)), etc, autant d'éléments qui vous font dire que vous aimeriez backdoorer un utilisateur qui peut passer le plus de temps possible sous les radars.  
   
 Jouons cette méthode dans notre lab. L'utilisateur ```bleponge``` est un utilisateur du domaine tout ce qu'il y a de plus banal, ```admin01``` est ce pour quoi vous avez tant sué ces derniers jours:  
   
