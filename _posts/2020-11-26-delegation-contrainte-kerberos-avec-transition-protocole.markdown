@@ -65,7 +65,7 @@ Nous allons compromettre une machine ```srv$``` dont l'attribut [useraccountcont
 
 ![t2a4d]({{ site.url }}/public/images/t2a4d/recon_t2a4d.png)
 
-La machine ```srv$``` fait tourner un service ```SA``` sur lequel un utilisateur *whatever* s'authentifie via un autre mécanisme que Kerberos (ex. une application web avec une authentification NTLM ou basique via un formulaire). Dans ce cas, ```SA``` (ou l'application web) ne récupère aucun ticket de service prouvant l'authentification de *whatever* à ```SA```. Ce ticket de service est normalement utilisé par le mécanisme ```S4U2Proxy``` afin de procéder à la délégation contrainte classique.  
+La machine ```srv$``` fait tourner un service ```SA``` sur lequel un utilisateur *whatever* s'authentifie grâce à un autre mécanisme que Kerberos (ex. une application web avec une authentification NTLM ou basique via un formulaire). Dans ce cas, ```SA``` (ou l'application web) ne récupère aucun ticket de service prouvant l'authentification de *whatever* à ```SA```. Ce ticket de service est normalement utilisé par le mécanisme ```S4U2Proxy``` afin de procéder à la délégation contrainte classique.  
   
 C'est ici qu'intervient la **délégation contrainte avec transition de protocole**. Cette dernière va tout de même permettre le "double saut" et autoriser ```SA``` à demander un ticket de service pour ```SB``` en prenant l'identité de l'utilisateur *whatever*.  
   
