@@ -65,7 +65,7 @@ Nous allons compromettre une machine ```srv$``` dont l'attribut [useraccountcont
 
 ![t2a4d]({{ site.url }}/public/images/t2a4d/recon_t2a4d.png)
 
-La machine ```srv$``` fait tourner un service ```SA``` qui ne gère pas l'authentification Kerberos. Si un utilisateur *whatever* s'authentifie sur ```SA```, **la délégation contrainte avec transition de protocole** va cependant permettre à ```SA``` de demander un ticket de service pour ```SB``` en prenant l'identité de l'utilisateur *whatever*.  
+La machine ```srv$``` fait tourner un service ```SA``` sur lequel un utilisateur *whatever* ne peut pas s'authentifier via Kerberos (ex une application web avec une authentification basique via formulaire). Suite à cette authentification, **la délégation contrainte avec transition de protocole** va cependant permettre à ```SA``` de demander un ticket de service pour ```SB``` en prenant l'identité de l'utilisateur *whatever*.  
 
 ```SB``` est soit dans le champs **msDS-AllowedToDelegateTo** de ```SA```, soit ```SA``` est dans le champs **msds-allowedtoactonbehalfofotheridentity** de ```SB``` (Resource-Based Constrained Delegation).  
 
@@ -336,7 +336,7 @@ Une méthode de persistance intéressante consiste, à partir d'un utilisateur c
   
 ## T2A4D sur un utilisateur arbitraire du domaine
   
-Vous êtes admin de dom, cependant les [groupes protégés](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory) sont supervisés par le SOC, ces derniers ont leurs descripteurs de sécurité remis en état par le mécanisme de ```SDProp``` ([AdminSDHolder](https://social.technet.microsoft.com/wiki/contents/articles/22331.adminsdholder-protected-groups-and-security-descriptor-propagator.aspx)), etc, autant d'éléments qui vous font dire que vous aimeriez backdoorer un utilisateur qui peut passer le plus de temps possible sous les radars.  
+Vous êtes admin de dom, cependant les [groupes protégés](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory) sont supervisés par le SOC, ces derniers ont leurs descripteurs de sécurité remis en état par le mécanisme de ```SDProp``` ([AdminSDHolder](https://social.technet.microsoft.com/wiki/contents/articles/22331.adminsdholder-protected-groups-and-security-descriptor-propagator.aspx)), etc, autant d'éléments qui vous font dire que vous aimeriez backdoorer un utilisateur qui peut passer le plus de temps possible sous les radars (espérons cependant qu'une délégation vers un DC est supervisée par le SOC).  
   
 Jouons cette méthode dans notre lab. L'utilisateur ```bleponge``` est un utilisateur du domaine tout ce qu'il y a de plus banal, ```admin01``` est ce pour quoi vous avez tant sué ces derniers jours:  
   
@@ -379,7 +379,7 @@ samaccounttype           : USER_OBJECT
 ```
   
 Attention à la commande ```Set-ADObject -Identity bleponge -SET @{serviceprincipalname='nonexistent/BLAHBLAH'}```.  
-En effet le bon sens nous dit qu'un utilisateur sera légitime pour déléguer si ce dernier apparait comme compte de service. Sans positionner de SPN sur l'utilisateur ```bleponge```, Rubeus nous a tout simplement propagé une exception, une référence sur un SPN semblant obligatoire:  
+En effet, pour que le mécanisme de S4U2Self fonctionne avec Rubeus, un SPN doit être positionné sur l'utilisateur ```bleponge```, sans quoi une exception sera propagée:  
 ```
 ...
 [!] Unhandled Rubeus exception:
