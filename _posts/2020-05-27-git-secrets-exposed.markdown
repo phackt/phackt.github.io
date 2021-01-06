@@ -10,51 +10,63 @@ Hello,
 I will do a quick and dirty post about what's out there to find / prevent leaks of secrets in your git repositories.  
 I did not try all of these tools. For the search part, i'm mainly using a fork of Trufflehog with some added features (search in filenames, commits comments, also with custom regexes).  
   
-### Objectives :  
+## Objectives :  
   
  - Look into the commits history for sensitive information publicly accessible by an attacker ;
  - Prevent secrets leaks ;
  - Monitoring and integrating these checks in the Continous Delivery process - aka DevSecOps
 <!--more-->
   
-### Tools to look for sensitive data :
-
-=> [TRUFFLEHOG](https://github.com/dxa4481/truffleHog)
-   - Python
-   - also works for local repo
-   - strings with high entropy
-   - custom regex rules
-   - no search in commits comments or filenames  
+## Tools to look for sensitive data :
+<div>
+  <span class="fa fa-arrow-circle-o-right fa-2x" style=" vertical-align: middle;"></span>
+  <span style="margin-left: 5px;"><a href="https://github.com/dxa4481/truffleHog">TRUFFLEHOG</a></span>
+</div>
+   - Written in Python
+   - Also works for local repo
+   - Strings with high entropy
+   - Custom regex rules
+   - No search in commits comments or filenames  
   
-=> [GITROB](http://michenriksen.com/blog/gitrob-putting-the-open-source-in-osint/)  
-   - Go
-   - Web App
-   - do not work for local repo AFAIK
+<div>
+  <span class="fa fa-arrow-circle-o-right fa-2x" style=" vertical-align: middle;"></span>
+  <span style="margin-left: 5px;"><a href="http://michenriksen.com/blog/gitrob-putting-the-open-source-in-osint/">GITROB</a></span>
+</div>
+   - Written in Go
+   - Renders results in a Web App
+   - Do not work for local repo AFAIK
   
-=> [REPO-SUPERVISOR](https://github.com/auth0/repo-supervisor)
-   - NodeJS
-   - generates HTML reports
+<div>
+  <span class="fa fa-arrow-circle-o-right fa-2x" style=" vertical-align: middle;"></span>
+  <span style="margin-left: 5px;"><a href="https://github.com/auth0/repo-supervisor">REPO-SUPERVISOR</a></span>
+</div>
+   - Written in NodeJS
+   - Generates HTML reports
 
-=> [GIT-ALL-SECRETS](https://github.com/anshumanbh/git-all-secrets)
-   - Go
-   - using / merging results of [Trufflehog](https://github.com/dxa4481/truffleHog) and [Repo-Supervisor](https://github.com/dxa4481/truffleHog)
+<div>
+  <span class="fa fa-arrow-circle-o-right fa-2x" style=" vertical-align: middle;"></span>
+  <span style="margin-left: 5px;"><a href="https://github.com/anshumanbh/git-all-secrets">GIT-ALL-SECRETS</a></span>
+</div>
+   - Written in Go
+   - Using / merging results of [Trufflehog](https://github.com/dxa4481/truffleHog) and [Repo-Supervisor](https://github.com/dxa4481/truffleHog)
 
-=> [SECRETS ANALYZER](https://gitlab.com/gitlab-org/security-products/analyzers/secrets)
-   - Go
-   - on GITLAB-ORG repo 
-   - using / merging results of [Trufflehog](https://github.com/dxa4481/truffleHog) and [Gitleaks](https://github.com/zricethezav/gitleaks)
-
-=> [GITLEAKS](https://github.com/zricethezav/gitleaks)
-   - Go
+<div>
+  <span class="fa fa-arrow-circle-o-right fa-2x" style=" vertical-align: middle;"></span>
+  <span style="margin-left: 5px;"><a href="https://github.com/zricethezav/gitleaks">GITLEAKS</a></span>
+</div>
+   - Written in Go
    - regex and entropy
 
-=> [SSHGIT](https://github.com/eth0izzle/shhgit)
-   - Go
-   - Web App
-   - monitoring git repos - Be the first to catch the secret before it gets deleted from git history
+<div>
+  <span class="fa fa-arrow-circle-o-right fa-2x" style=" vertical-align: middle;"></span>
+  <span style="margin-left: 5px;"><a href="https://github.com/eth0izzle/shhgit">SSHGIT</a></span>
+</div>
+   - Written in Go
+   - Renders results in a Web App
+   - Monitors GIT repositories - *Be the first to catch the secret before it gets deleted from git history*
    - *shhgit will watch real-time stream and pull out any accidentally committed secrets*
     
-### Prevent commits :
+## Prevent commits :
 
 What is a Git Hook ? As described [here](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks):  
 
@@ -73,13 +85,19 @@ prepare-commit-msg: Used to determine if a merge commit will introduce a history
 
 <u>Client-side hooks :</u>  
 
-=> [GITHOUND](https://github.com/ezekg/git-hound)
-  - set githound command into a *pre-commit* hook
-  - regexes configured in ```.githound.yml```  
+<div>
+  <span class="fa fa-arrow-circle-o-right fa-2x" style=" vertical-align: middle;"></span>
+  <span style="margin-left: 5px;"><a href="https://github.com/ezekg/git-hound">GITHOUND</a></span>
+</div>
+  - You have to set GitHound command into a *pre-commit* hook
+  - Regexes are configured in ```.githound.yml```  
 
-=> [GIT-SECRETS](https://github.com/awslabs/git-secrets)
-  - from AWS
-  - you also can manually scan for secrets before making your repo public: ```git secrets --scan-history```
+<div>
+  <span class="fa fa-arrow-circle-o-right fa-2x" style=" vertical-align: middle;"></span>
+  <span style="margin-left: 5px;"><a href="https://github.com/awslabs/git-secrets">GIT-SECRETS</a></span>
+</div>
+  - From **AWS** team
+  - You also can manually scan for secrets before making your repo public: ```git secrets --scan-history```
   
 <u>GITHUB actions :</u>  
 
@@ -101,26 +119,35 @@ Alibaba Cloud
 Amazon Web Services (AWS)
 Atlassian
 Azure
+Clojars
 CloudBees CodeShip
 Databricks
 Datadog
 Discord
+Doppler
 Dropbox
 Dynatrace
+Finicity
+Frame.io
 GitHub
 GoCardless
 Google Cloud
 Hashicorp Terraform
 Hubspot
+Mailchimp
 Mailgun
+MessageBird
 npm
 NuGet
 Palantir
+Plivo
 Postman
 Proctorio
 Pulumi
 Samsara
+Shopify
 Slack
+SSLMate
 Stripe
 Tencent Cloud
 Twilio
