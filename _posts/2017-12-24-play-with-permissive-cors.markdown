@@ -7,18 +7,18 @@ excerpt_separator: <!--more-->
 ---
 Hello folks,  
   
-While i was playing with a 'code search engine' tool called [publicwww](https://publicwww.com), i decided to gather some top Alexa domains and to look for some permissive CORS. I tried the following researches, ```site:fr "type=\"password\""```, the same for the TLDs *.org* and *.com*, in order to spot webpages with a login form.  
+While i was playing with a 'code search engine' tool called [publicwww](https://publicwww.com), i decided to gather some top Alexa domains and to look for some permissive CORS. I tried the following researches, ```site:fr "type=\"password\""```, the same for the TLDs *.org* and *.com*, in order to spot webpages with a login form, meaning authenticated users..  
 <!--more-->
   
-I also looked for some other stuff like websites with french language and so on. I will let you play with publicwww, remember that you are limited with basic access but if you pay you will have access to the top 200000 Alexa websites dealing with your request. May be you also wanna play with Shodan or Censys.  
+I will let you play with publicwww, remember that you are limited with basic access but if you pay you will have access to the top 200000 Alexa websites dealing with your request. May be you also wanna play with Shodan or Censys.  
   
-**Python tool to detect permissive CORS**  
+**Automate permissive CORS detection**  
 
 We already talked about **Cross Origin Ressource Sharing** in some [previous posts](https://phackt.com/xss-cors-csrf-partie-3-cors-csrf). You also have a great explanation about the **Same Origin Policy** on [mozilla.org](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy). A website with permissive CORS will allow an attacker to perform any requests to this website from another ressource and this request can include the victim's cookies (xhr.withCredentials = true).  
   
 So if the cookie's session is reflected, you will be able to steal it and forge the victim's session. You will be able to change the victim's password if the former one is not requested, read some sensitive account information, .... Remember that because now you can READ the response, you also **can read the CSRF token** and bypass the protection.  
   
-So once i gathered enough interesting domains and urls from OSINT tools, and got a bunch of ones dealing with bug some bounty programs, i decided to be original and to create a tool called [cors.py](https://github.com/phackt/pentest/tree/master/fingerprint/web/cors).  
+So once i gathered enough interesting domains and urls from OSINT tools, and got a bunch of ones dealing with bug some bounty programs, i decided to be original and to create a tool called [cors.py](https://github.com/phackt/pentest/tree/master/fingerprint/web/cors) (*DEPRECATED right now, check below*).  
   
 This tool reads a list of domains and/or urls and will HTTP request them, adding the **Origin** header of your choice, example:  
 ```Origin: https://phackt.com```.  
