@@ -4,6 +4,7 @@ title:  "Introduction à la cybersécurité"
 date:   2016-07-31
 category: General
 excerpt_separator: <!--more-->
+lang: fr
 ---
 ### Cybersécurité, un enjeu bien réel.  
 

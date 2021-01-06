@@ -4,6 +4,7 @@ title:  "Introduction au SIEM"
 date:   2016-08-05
 category: General
 excerpt_separator: <!--more-->
+lang: fr
 ---
 ### SIEM, le monitoring de la sécurité
   

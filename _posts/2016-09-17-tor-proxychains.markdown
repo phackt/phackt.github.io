@@ -4,6 +4,7 @@ title:  "Anonymat avec TOR et Proxychains sous Kali"
 date:   2016-09-17
 category: General
 excerpt_separator: <!--more-->
+lang: fr
 ---
 Bonjour à tous,
 

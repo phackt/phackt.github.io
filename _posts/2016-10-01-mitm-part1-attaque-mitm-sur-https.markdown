@@ -1,9 +1,10 @@
 ---
 layout: post
-title:  "MITM Part 1 - Attaque MITM sur HTTPS"
+title:  "MITM Partie 1 - Attaque MITM sur HTTPS"
 date:   2016-10-01
 category: Pentesting
 excerpt_separator: <!--more-->
+lang: fr
 ---
 Bonjour à tous,
 

@@ -4,6 +4,7 @@ title:  "XSS, CORS, CSRF (Partie 1)"
 date:   2016-08-09
 category: Web Security
 excerpt_separator: <!--more-->
+lang: fr
 ---
 ### Le XSS, CORS, CSRF... Késako?
   

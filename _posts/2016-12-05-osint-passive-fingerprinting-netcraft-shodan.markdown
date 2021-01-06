@@ -1,9 +1,10 @@
 ---
 layout: post
-title:  "Passive Gathering Information - Netcraft and Shodan"
+title:  "Prise d'empreinte passive - Netcraft et Shodan"
 date:   2016-12-05
 category: Fingerprint
 excerpt_separator: <!--more-->
+lang: fr
 ---
 Bonjour à tous, 
   

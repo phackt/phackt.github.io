@@ -4,6 +4,7 @@ title:  "OSCP: une première étape"
 date:   2017-02-17
 category: Certification
 excerpt_separator: <!--more-->
+lang: fr
 ---
 Bonjour à tous,
   

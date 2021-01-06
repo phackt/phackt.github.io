@@ -4,6 +4,7 @@ title:  "XSS, CORS, CSRF (Partie 2)"
 date:   2016-08-15
 category: Web Security
 excerpt_separator: <!--more-->
+lang: fr
 ---
 ### XSS  et vol de cookies par la pratique.  
   

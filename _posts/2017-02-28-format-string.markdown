@@ -1,9 +1,10 @@
 ---
 layout: post
-title:  "Format String with GDB"
+title:  "Format String avec GDB"
 date:   2017-02-28
 category: Binary
 excerpt_separator: <!--more-->
+lang: fr
 ---
 Bonjour à tous,  
   

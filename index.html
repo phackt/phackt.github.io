@@ -5,12 +5,18 @@ title: Home
 <div class="posts">
   {% for post in paginator.posts %}
   <div class="post">
+    <div style="float:right; margin-top:2px; margin-right:2px">
+      {% if post.lang == 'fr' %}
+        <img src="{{ site.url }}/public/images/icons/drapeau_fr.png">
+      {% else %}
+        <img src="{{ site.url }}/public/images/icons/drapeau_uk.png">
+      {% endif %}
+    </div>
     <h1 class="post-title">
       <a href="{{ post.url | absolute_url }}">
         {{ post.title }}
       </a>
     </h1>
-
     <span class="post-date">{{ post.date | date_to_string }}</span>
 
     {{ post.excerpt }}

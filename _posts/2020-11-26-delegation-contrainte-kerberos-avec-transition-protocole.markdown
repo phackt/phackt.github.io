@@ -4,6 +4,7 @@ title:  "Délégation contrainte Kerberos avec transition de protocole"
 date:   2020-10-04
 category: Pentesting
 excerpt_separator: <!--more-->
+lang: fr
 ---  
 *P.S: an english version will be translated soon.*    
 
