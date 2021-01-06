@@ -70,8 +70,12 @@ La machine ```srv$``` fait tourner un service ```SA``` sur lequel un utilisateur
   
 C'est ici qu'intervient la **délégation contrainte avec transition de protocole**. Cette dernière va tout de même permettre le "double saut" et autoriser ```SA``` à demander un ticket de service pour ```SB``` en prenant l'identité de l'utilisateur *whatever*.  
   
-```SB``` est soit dans le champs **msDS-AllowedToDelegateTo** de ```SA```, soit ```SA``` est dans le champs **msds-allowedtoactonbehalfofotheridentity** de ```SB``` (Resource-Based Constrained Delegation).  
-  
+```SB``` est soit dans le champs **msDS-AllowedToDelegateTo** de ```SA```:  
+<img class="dropshadowclass" src="{{ site.url }}/public/images/t2a4d/msds_a2d2.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
+
+Soit ```SA``` est dans le champs **msds-allowedtoactonbehalfofotheridentity** de ```SB``` (Resource-Based Constrained Delegation).  
+<img class="dropshadowclass" src="{{ site.url }}/public/images/t2a4d/msds_actonbehalf.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">    
+
 Cette délégation va faire intervenir les extensions de protocole **ServiceForUserToSelf** et **ServiceForUserToProxy** :  
  1. **S4U2Self** va simuler l'authentification kerberos et donc la demande de ticket de service pour ```SA``` pour l'utilisateur *whatever*.  
    ```SA``` va en quelque sorte demander un ticket de service pour lui-même pour un utilisateur arbitraire.  

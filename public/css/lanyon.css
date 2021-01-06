@@ -561,3 +561,10 @@ a.pagination-item:hover {
 .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .sidebar {
   box-shadow: -.25rem 0 .5rem rgba(0,0,0,.1);
 }
+
+.dropshadowclass {
+  border: solid 1px #CCC;
+  -moz-box-shadow: 5px 5px 0px #999;
+  -webkit-box-shadow: 5px 5px 0px #999;
+  box-shadow: 5px 5px 0px #999;
+}
