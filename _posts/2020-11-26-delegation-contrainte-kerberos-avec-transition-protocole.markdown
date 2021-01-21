@@ -6,7 +6,7 @@ category: Pentesting
 excerpt_separator: <!--more-->
 lang: fr
 ---  
-*P.S: an english version will be translated soon.*    
+*P.S: an english version will be available soon.*    
 
 Bonjour,  
 
