@@ -4,15 +4,15 @@ title: Tools
 permalink: /tools/
 ---
   
-### [Invoke-Recon](https://github.com/phackt/Invoke-Recon) (#ActiveDirectory)
+### [Invoke-Recon](https://github.com/phackt/Invoke-Recon) *#ActiveDirectory*
   
 <img class="dropshadowclass" src="{{ site.url }}/public/images/tools/invoke_recon.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">  
     
-### [CORScanner](https://github.com/chenjj/CORScanner) (#Web)
+### [CORScanner](https://github.com/chenjj/CORScanner) *#Web*
   
 <img class="dropshadowclass" src="{{ site.url }}/public/images/tools/corscanner.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">  
 
-### [Bounty-Automation](#) (#Web)
+### [Bounty-Automation](#) *#Web*
 
 Not released yet.  
 It aims at automating the discovery of subdomains and common vulnerabilities thanks to many tools orchestrated thanks to [Apache Airflow](https://airflow.apache.org/).  
