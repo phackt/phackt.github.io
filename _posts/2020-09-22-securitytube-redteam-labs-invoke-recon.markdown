@@ -120,42 +120,7 @@ Now let's talk a bit about an interesting part, what kind of tools did i have on
 And last but not least, as i said previously this journey was a good opportunity to gather a lot of my recon commands in one single Powershell tool: [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
 
 Believe me, if you are doing this lab and want to pass this cert, [Invoke-Recon](https://github.com/phackt/Invoke-Recon) + [BloodHound](https://github.com/BloodHoundAD/BloodHound) will be the perfect journey companions. *Invoke-Recon* has been developed based on the *Advanced Red Team Lab*.  
-
-## Invoke-recon
-
-Give a try to [Invoke-Recon](https://github.com/phackt/Invoke-Recon) and let me know, i'm still developping this tool, and i will introduce it later in a next blog post.
-But if you are already asking yourself what kind of stuff you can enumerate with it:  
-
-### Domain Enumeration  
-
- - Find all DCs (check if ADWS are accessible in order to be able to use the Active Directory powershell module)
- - Password domain policy
- - Domains / forests trusts
- - All domain users / groups / computers
- - Privileged users with RID >= 1000 (recursive lookups for nested members of privileged groups, not AdminCount = 1 to avoid orphans)
- - Users / computers / Managed Service Accounts with unconstrained (T4D) and constrained delegation (also look for constrained delegation with protocol transition (T2A4D))
- - Services with msDS-AllowedToActOnBehalfOfOtherIdentity
- - Exchange servers
- - Users with mailboxes
-
-### Quick Wins  
-
-- Exchange vulnerable to PrivExchange and CVE-2020-0688  
-- Computers with deprecated OS
-- Users with Kerberos PreAuth disables (AS_REP Roasting)
-- Kerberoastable users
-- Principals (RID >= 1000) with Replicating Directory Changes / Replicating Directory Changes All
-
-### MSSQL Enumeration  
-
-- Enumerates MSSQL instances (looking for SPN service class MSSQL)
-- Find MSSQL instances accessible within current security context and get their versions
-- Find linked servers from each accessible MSSQL instances
-- Bruteforce common credentials
-- Look for xp_cmdshell enabled through linked servers of each accessible instances
-- Audit each accessible MSSQL Instances for common high impact vulnerabilities and weak configurations
-
-
+  
 # More to come
 
 To keep on talking about AD enumeration, i would like to share with you some of my [Cypher queries](https://phackt.com/pentesting-bloodhound-cypher-queries) i use with **BloodHound** to spot some very interesting stuff during an engagement. I will also dive a bit more into [Invoke-Recon](https://github.com/phackt/Invoke-Recon).  
