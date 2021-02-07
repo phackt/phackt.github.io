@@ -6,8 +6,6 @@ category: Pentesting
 excerpt_separator: <!--more-->
 lang: fr
 ---  
-*P.S: an english version will be available soon.*    
-
 Bonjour,  
 
 Aujourd'hui nous allons parler de l'exploitation des extensions de protocole Kerberos [S4U2Self](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/02636893-7a1f-4357-af9a-b672e3e3de13) et [S4U2Proxy](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/bde93b0e-f3c9-4ddf-9f44-e1453be7af5a) afin d'impersonifier un utilisateur privilégié du domaine.  
