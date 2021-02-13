@@ -4,25 +4,50 @@ title: Home
 ---
 <div class="posts">
   {% for post in paginator.posts %}
-  <div class="post">
-    <div style="float:right; margin-top:5px; margin-right:2px">
-      {% if post.lang == 'fr' %}
-        <img src="{{ site.url }}/public/images/icons/drapeau_fr.png">
-      {% else %}
-        <img src="{{ site.url }}/public/images/icons/drapeau_uk.png">
-      {% endif %}
-    </div>
-    <h1 class="post-title">
-      <a href="{{ post.url | absolute_url }}">
-        {{ post.title }}
-      </a>
-    </h1>
-    <span class="post-date">{{ post.date | date_to_string }}</span>
 
-    {{ post.excerpt }}
-    <a href="{{ post.url | absolute_url }}">Read more ...</a>
-    <hr>
-  </div>
+    {% if post.translated != true %}
+    <div class="post">
+
+        <!-- French will be the default -->
+        {% if post.lang == 'en' %}
+          <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
+            <a href="{{ post.url | absolute_url }}">
+              <img src="{{ site.url }}/public/images/icons/drapeau_uk.png">
+            </a>
+          </div>
+
+          <!-- Waiting for real i8n -->
+          {% if post.has_translation %}
+            <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
+              <a href="{{ post.url | absolute_url | regex_replace_once: '-[a-zA-Z]+$', '-fr' }}">
+                <img src="{{ site.url }}/public/images/icons/drapeau_fr.png">
+              </a>
+            </div>
+          {% endif %}
+        {% endif %}
+
+        {% if post.lang == 'fr' %}
+          <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
+            <a href="{{ post.url | absolute_url }}">
+              <img src="{{ site.url }}/public/images/icons/drapeau_fr.png">
+            </a>
+          </div>
+        {% endif %}
+
+
+
+      <h1 class="post-title">
+        <a href="{{ post.url | absolute_url }}">
+          {{ post.title }}
+        </a>
+      </h1>
+      <span class="post-date">{{ post.date | date_to_string }}</span>
+
+      {{ post.excerpt }}
+      <a href="{{ post.url | absolute_url }}">Read more ...</a>
+      <hr>
+    </div>
+    {% endif %}
   {% endfor %}
 </div>
 
