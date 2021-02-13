@@ -7,8 +7,10 @@ layout: default
   {% if page.lang == lang_trad %}
     {% assign lang_trad = "fr" %}
   {% endif%}
+  {% assign rep_1 = page.lang | append: '-' %}
+  {% assign rep_2 = lang_trad | append: '-' %}
   <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
-    <a href="{{ page.url | absolute_url | regex_replace_once: '-[a-zA-Z]+$', '-' | append: lang_trad }}">
+    <a href="{{ page.url | absolute_url | replace_first: rep_1, rep_2 }}">
       <img src="{{ site.url }}/public/images/icons/drapeau_{{ lang_trad }}.png">
     </a>
   </div>

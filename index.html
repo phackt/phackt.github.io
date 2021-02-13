@@ -19,7 +19,7 @@ title: Home
           <!-- Waiting for real i8n -->
           {% if post.has_translation %}
             <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
-              <a href="{{ post.url | absolute_url | regex_replace_once: '-[a-zA-Z]+$', '-fr' }}">
+              <a href="{{ post.url | absolute_url | replace_first: 'en-','fr-'  }}">
                 <img src="{{ site.url }}/public/images/icons/drapeau_fr.png">
               </a>
             </div>
