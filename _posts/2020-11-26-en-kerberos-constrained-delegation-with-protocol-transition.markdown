@@ -77,13 +77,13 @@ Or ```SA``` is in the **msDS-AllowedToActOnBehalfOfOtherIdentity** field of ```S
 This delegation will involve the protocol extensions **ServiceForUserToSelf** and **ServiceForUserToProxy** :  
  1. **S4U2Self** will simulate the kerberos authentication and thus the service ticket request for the user *whatever*.  
    ```SA``` will somehow request a service ticket for itself for an arbitrary user.  
-   The result is a *forwardable* ```T,sa``` service ticket that can then be passed to the **S4U2Proxy** mechanism, the latter used for classical constrained delegation.  
+   The result is a *forwardable* ```T_SA``` service ticket that can then be passed to the **S4U2Proxy** mechanism, the latter used for classical constrained delegation.  
 
- 2. **S4U2Proxy** will use ```T,sa``` as a proof of *whatever* authentication to ```SA``` in order to obtain a *forwarded* service ticket for ```SB```.
+ 2. **S4U2Proxy** will use ```T_SA``` as a proof of *whatever* authentication to ```SA``` in order to obtain a *forwarded* service ticket for ```SB```.
 
  3. The arbitrary user *whatever* connects to the service ```SB```.
 
-If the ```T2A4D``` service account running ```SA``` has been compromised, we can generate a ```T,sa``` for an arbitrary account (Domain Administrator) for an authorized service (**msDS-AllowedToDelegateTo** or **msds-AllowedToActOnBehalfOfOtherIdentity** if resource-based).  
+If the ```T2A4D``` service account running ```SA``` has been compromised, we can generate a ```T_SA``` for an arbitrary account (Domain Administrator) for an authorized service (**msDS-AllowedToDelegateTo** or **msds-AllowedToActOnBehalfOfOtherIdentity** if resource-based).  
 
 The [SPNs](https://beta.hackndo.com/service-principal-name-spn/) being interchangeable (unencrypted part of the service ticket), it is possible to modify it by another SPN of the same service account (ex: using the service class *CIFS*, which gives us the SPN *CIFS/DC* instead of *TIME/DC*).  
 

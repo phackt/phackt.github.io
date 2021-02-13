@@ -77,13 +77,13 @@ Soit ```SA``` est dans le champs **msDS-AllowedToActOnBehalfOfOtherIdentity** de
 Cette délégation va faire intervenir les extensions de protocole **ServiceForUserToSelf** et **ServiceForUserToProxy** :  
  1. **S4U2Self** va simuler l'authentification kerberos et donc la demande de ticket de service pour ```SA``` pour l'utilisateur *whatever*.  
    ```SA``` va en quelque sorte demander un ticket de service pour lui-même pour un utilisateur arbitraire.  
-   Il en résulte un ticket de service ```T,sa``` *forwardable* qui pourra ensuite être passé au mécanisme de **S4U2Proxy**, ce dernier utilisé pour la délégation contrainte classique.  
+   Il en résulte un ticket de service ```T_SA``` *forwardable* qui pourra ensuite être passé au mécanisme de **S4U2Proxy**, ce dernier utilisé pour la délégation contrainte classique.  
 
- 2. **S4U2Proxy** va utiliser ```T,sa``` comme preuve de l'authentification de *whatever* auprès de ```SA``` et ainsi récupérer un ticket de service *forwarded* pour ```SB```.
+ 2. **S4U2Proxy** va utiliser ```T_SA``` comme preuve de l'authentification de *whatever* auprès de ```SA``` et ainsi récupérer un ticket de service *forwarded* pour ```SB```.
 
  3. L'utilisateur arbitraire *whatever* se connecte au service ```SB```
 
-Si le compte de service ```T2A4D``` faisant tourner ```SA``` a été compromis, nous pouvons générer un ```T,sa``` pour un compte arbitraire (Administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
+Si le compte de service ```T2A4D``` faisant tourner ```SA``` a été compromis, nous pouvons générer un ```T_SA``` pour un compte arbitraire (Administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
 
 Les [SPNs](https://beta.hackndo.com/service-principal-name-spn/) étant interchangeables (partie non chiffrée du ticket de service), il est possible de modifier ce dernier par un autre SPN du même compte de service (ex: en utilisant la classe de service *CIFS*, ce qui nous donne le SPN *CIFS/DC* au lieu de *TIME/DC*).  
 
