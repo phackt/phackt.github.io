@@ -78,6 +78,8 @@ This delegation will involve the protocol extensions **ServiceForUserToSelf** an
  1. **S4U2Self** will simulate the kerberos authentication and thus the service ticket request for the user *whatever*.  
    ```SA``` will somehow request a service ticket for itself for an arbitrary user.  
    The result is a *forwardable* ```T_SA``` service ticket that can then be passed to the **S4U2Proxy** mechanism, the latter used for classical constrained delegation.  
+     
+   Please note that the *forwardable* flag is necessary and will be set if the delegating account is marked as [TRUSTED_TO_AUTH_FOR_DELEGATION](https://docs.microsoft.com/fr-fr/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties).  
 
  2. **S4U2Proxy** will use ```T_SA``` as a proof of *whatever* authentication to ```SA``` in order to obtain a *forwarded* service ticket for ```SB```.
 
