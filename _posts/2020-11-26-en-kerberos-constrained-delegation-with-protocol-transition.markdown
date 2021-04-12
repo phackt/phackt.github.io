@@ -79,13 +79,38 @@ This delegation will involve the protocol extensions **ServiceForUserToSelf** an
    ```SA``` will somehow request a service ticket for itself for an arbitrary user.  
    The result is a *forwardable* ```T_SA``` service ticket that can then be passed to the **S4U2Proxy** mechanism, the latter used for classical constrained delegation.  
    
-    Please note that the *forwardable* flag is necessary and will be set if the delegating account is marked as [TRUSTED_TO_AUTH_FOR_DELEGATION](https://docs.microsoft.com/fr-fr/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties).  
+    Please note that the *forwardable* flag is necessary and will be set if the delegating service account ```SA``` is marked as [TRUSTED_TO_AUTH_FOR_DELEGATION](https://docs.microsoft.com/fr-fr/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties).  
 
  2. **S4U2Proxy** will use ```T_SA``` as a proof of *whatever* authentication to ```SA``` in order to obtain a *forwarded* service ticket for ```SB```.
 
  3. The arbitrary user *whatever* connects to the service ```SB```.
 
-If the ```T2A4D``` service account running ```SA``` has been compromised, we can generate a ```T_SA``` for an arbitrary account (Domain Administrator) for an authorized service (**msDS-AllowedToDelegateTo** or **msds-AllowedToActOnBehalfOfOtherIdentity** if resource-based).  
+<p class="note">
+<b>Note about TRUSTED_TO_AUTH_FOR_DELEGATION :</b>
+<br><br>
+The <b>S4U2Proxy</b> mechanism will need a "forwardable" service ticket.<br><br>
+Since <a href="https://support.microsoft.com/en-us/topic/kb4598347-managing-deployment-of-kerberos-s4u-changes-for-cve-2020-17049-569d60b7-3267-e2b0-7d9b-e46d770332ab">KB4598347</a>, the KDC will no more check the forwadable flag in the provided service ticket PAC but will directly look into the directory for the following conditions to be met to allow the S4U2Proxy mechanism ;<br><br>
+<span>
+- Is the "delegating" service legit to delegate (so here is <i>SA</i> marked as <b>TRUSTED_TO_AUTH_FOR_DELEGATION</b>) ?<br>
+- Is the "delegated" account (impersonated user) not a member of the <b>Protected Users</b> group and is not marked as "<b>Account is sensitive and cannot be delegated</b>" (NOT_DELEGATED), so is the account allowed to be delegated ?  <br>
+</span>
+<br>
+If you heard about the <b><a href="https://www.alsid.com/crb_article/kerberos-delegation/">Resource-Based Constrained Delegation attack</a></b>, you can wonder why having the <i>writeProperty</i> right on a computer account is so bad ?  
+<br><br>
+Ok so first of all you can write the <b>msds-AllowedToActOnBehalfOfOtherIdentity</b> property with the SID of a principal you control, but ;
+<br><br>
+- Is this principal, the one that you just added to "msds-AllowedToActOnBehalfOfOtherIdentity", marked as TRUSTED_TO_AUTH_FOR_DELEGATION, so are you really legit to delegate your impersonated user ?
+<br><br>
+In many cases this principal is not marked as TRUSTED_TO_AUTH_FOR_DELEGATION and you can not set this value as we will see later if you are not a privileged domain user.  
+<br><br>
+So why the S4U2Proxy is still working ? ; for this special case of <b>Resource-Based Constrained Delegation</b>, it seems that the KDC <b>only checks if the delegated user is OK for delegation</b>, but the service (or here the principal you added to "msds-AllowedToActOnBehalfOfOtherIdentity") is not checked anymore to be legit to delegate (is it marked as TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
+<br><br>
+And why this is so interesting, because Microsoft decided that this is a feature, not a bug, and it's still working on a fully patched Windows Server 2019 domain controller.</b>  
+<br><br>
+<img class="dropshadowclass" src="{{ site.url }}/public/images/t2a4d/twitter_rbcd.png">
+</p>
+
+Now let's get back to our scenario, if the ```T2A4D``` service account running ```SA``` has been compromised, we can generate a ```T_SA``` for an arbitrary account (Domain Administrator) for an authorized service (**msDS-AllowedToDelegateTo** or **msds-AllowedToActOnBehalfOfOtherIdentity** if resource-based).  
 
 The [SPNs](https://beta.hackndo.com/service-principal-name-spn/) being interchangeable (unencrypted part of the service ticket), it is possible to modify it by another SPN of the same service account (ex: using the service class *CIFS*, which gives us the SPN *CIFS/DC* instead of *TIME/DC*).  
 

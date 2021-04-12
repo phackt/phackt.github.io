@@ -568,3 +568,18 @@ a.pagination-item:hover {
   -webkit-box-shadow: 5px 5px 0px #999;
   box-shadow: 5px 5px 0px #999;
 }
+
+.note
+{
+     -moz-border-radius: 6px;
+     -webkit-border-radius: 6px;
+     background-color: #f0f7fb;
+     background-image: url(../images/icons/note-icon.png);
+     background-position: 9px 0px;
+     background-repeat: no-repeat;
+     border: solid 1px #3498db;
+     border-radius: 6px;
+     line-height: 18px;
+     overflow: hidden;
+     padding: 15px 60px;
+}

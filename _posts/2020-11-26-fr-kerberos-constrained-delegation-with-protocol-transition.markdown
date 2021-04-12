@@ -79,7 +79,7 @@ Cette délégation va faire intervenir les extensions de protocole **ServiceForU
    ```SA``` va en quelque sorte demander un ticket de service pour lui-même pour un utilisateur arbitraire.  
    Il en résulte un ticket de service ```T_SA``` *forwardable* qui pourra ensuite être passé au mécanisme de **S4U2Proxy**, ce dernier utilisé pour la délégation contrainte classique.  
    
-    Notez que le flag *forwardable* est nécessaire et sera positionné si le compte faisant la délégation est marqué comme [TRUSTED_TO_AUTH_FOR_DELEGATION](https://docs.microsoft.com/fr-fr/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties).  
+    Notez que le flag *forwardable* est nécessaire et sera positionné si le compte de service ```SA``` faisant la délégation est marqué comme [TRUSTED_TO_AUTH_FOR_DELEGATION](https://docs.microsoft.com/fr-fr/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties).  
 
  2. **S4U2Proxy** va utiliser ```T_SA``` comme preuve de l'authentification de *whatever* auprès de ```SA``` et ainsi récupérer un ticket de service *forwarded* pour ```SB```.
 
