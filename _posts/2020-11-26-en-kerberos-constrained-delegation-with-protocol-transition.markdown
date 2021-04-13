@@ -105,7 +105,7 @@ In many cases this principal is not marked as TRUSTED_TO_AUTH_FOR_DELEGATION and
 <br><br>
 So why the S4U2Proxy is still working for the RBCD ? ; for this special case of <b>Resource-Based Constrained Delegation</b>, it seems that the KDC <b>only checks if the delegated user is OK to be delegated</b> (not protected users, not NOT_DELEG), but the service (or here the principal which you edited the "msds-AllowedToActOnBehalfOfOtherIdentity" property) is not checked anymore to be legit to delegate (is it marked as TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
 <br><br>
-And why this is so interesting, because Microsoft decided that this is a feature, not a bug, and this attack (RBCD) is still working on a fully patched Windows Server 2019 domain controller.</b>  
+And why this is so interesting, because Microsoft decided that this is a feature, not a bug, so as a consequence this attack (RBCD) is still working on a fully patched Windows Server 2019 domain controller.</b>  
 <br><br>
 <img class="dropshadowclass" src="{{ site.url }}/public/images/t2a4d/twitter_rbcd.png">
 </p>

@@ -105,7 +105,7 @@ La plupart du temps ce principal ne sera pas identifié comme TRUSTED_TO_AUTH_FO
 <br><br>
 Donc pourquoi le mécanisme de S4U2Proxy fonctionne toujours dans le cas de la RBCD ? ; pour ce cas spécial de la <b>délégation contrainte basée sur la ressource</b>, il semble que le KDC <b>vérifie seulement si l'utilisateur impersonnifié est autorisé à être délégué</b> (non Protected Users, non NOT_DELEG), mais que le service (ou plutôt le principal dont vous avez édité la propriété "msds-AllowedToActOnBehalfOfOtherIdentity") n'est plus vérifié comme étant autorisé "à déléguer" (est-il identifié comme TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
 <br><br>
-Et pourquoi est-ce intéressant, car selon Microsoft il s'agit d'une fonctionnalité et non d'un bug, et cette attaque (RBCD) fonctionne toujours sur un contrôleur de domain Windows Server 2019 à jour.</b>  
+Et pourquoi est-ce intéressant, car selon Microsoft il s'agit d'une fonctionnalité et non d'un bug, rendant cette attaque (RBCD) toujours fonctionnelle sur un contrôleur de domaine Windows Server 2019 à jour.</b>  
 <br><br>
 <img class="dropshadowclass" src="{{ site.url }}/public/images/t2a4d/twitter_rbcd.png">
 </p>
