@@ -95,7 +95,7 @@ Since <a href="https://support.microsoft.com/en-us/topic/kb4598347-managing-depl
 - Is the "delegated" account (impersonated user) not a member of the <b>Protected Users</b> group and is not marked as "<b>Account is sensitive and cannot be delegated</b>" (NOT_DELEGATED), so is the account allowed to be delegated ?  <br>
 </span>
 <br>
-If you heard about the <b><a href="https://www.alsid.com/crb_article/kerberos-delegation/">Resource-Based Constrained Delegation attack</a></b>, you can wonder why having the <i>writeProperty</i> right on a computer account is so bad ?  
+If you heard about the <b><a href="https://www.alsid.com/crb_article/kerberos-delegation/">Resource-Based Constrained Delegation attack</a></b> (RBCD), you can wonder why if a trustee has the <i>writeProperty</i> right on a computer account it is so bad ?  
 <br><br>
 Ok so first of all you can write the <b>msds-AllowedToActOnBehalfOfOtherIdentity</b> property with the SID of a principal you control, but ;
 <br><br>
@@ -103,9 +103,9 @@ Ok so first of all you can write the <b>msds-AllowedToActOnBehalfOfOtherIdentity
 <br><br>
 In many cases this principal is not marked as TRUSTED_TO_AUTH_FOR_DELEGATION and you can not set this value as we will see later if you are not a privileged domain user.  
 <br><br>
-So why the S4U2Proxy is still working ? ; for this special case of <b>Resource-Based Constrained Delegation</b>, it seems that the KDC <b>only checks if the delegated user is OK for delegation</b>, but the service (or here the principal you added to "msds-AllowedToActOnBehalfOfOtherIdentity") is not checked anymore to be legit to delegate (is it marked as TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
+So why the S4U2Proxy is still working for the RBCD ? ; for this special case of <b>Resource-Based Constrained Delegation</b>, it seems that the KDC <b>only checks if the delegated user is OK to be delegated</b> (not protected users, not NOT_DELEG), but the service (or here the principal which you edited the "msds-AllowedToActOnBehalfOfOtherIdentity" property) is not checked anymore to be legit to delegate (is it marked as TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
 <br><br>
-And why this is so interesting, because Microsoft decided that this is a feature, not a bug, and it's still working on a fully patched Windows Server 2019 domain controller.</b>  
+And why this is so interesting, because Microsoft decided that this is a feature, not a bug, and this attack (RBCD) is still working on a fully patched Windows Server 2019 domain controller.</b>  
 <br><br>
 <img class="dropshadowclass" src="{{ site.url }}/public/images/t2a4d/twitter_rbcd.png">
 </p>

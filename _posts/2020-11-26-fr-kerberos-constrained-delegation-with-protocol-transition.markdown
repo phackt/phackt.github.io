@@ -79,13 +79,38 @@ Cette délégation va faire intervenir les extensions de protocole **ServiceForU
    ```SA``` va en quelque sorte demander un ticket de service pour lui-même pour un utilisateur arbitraire.  
    Il en résulte un ticket de service ```T_SA``` *forwardable* qui pourra ensuite être passé au mécanisme de **S4U2Proxy**, ce dernier utilisé pour la délégation contrainte classique.  
    
-    Notez que le flag *forwardable* est nécessaire et sera positionné si le compte de service ```SA``` faisant la délégation est marqué comme [TRUSTED_TO_AUTH_FOR_DELEGATION](https://docs.microsoft.com/fr-fr/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties).  
+    Notez que le flag *forwardable* est nécessaire et sera positionné si le compte de service ```SA``` faisant la délégation est identifié comme [TRUSTED_TO_AUTH_FOR_DELEGATION](https://docs.microsoft.com/fr-fr/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties).  
 
  2. **S4U2Proxy** va utiliser ```T_SA``` comme preuve de l'authentification de *whatever* auprès de ```SA``` et ainsi récupérer un ticket de service *forwarded* pour ```SB```.
 
  3. L'utilisateur arbitraire *whatever* se connecte au service ```SB```
 
-Si le compte de service ```T2A4D``` faisant tourner ```SA``` a été compromis, nous pouvons générer un ```T_SA``` pour un compte arbitraire (Administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
+<p class="note">
+<b>Note sur TRUSTED_TO_AUTH_FOR_DELEGATION :</b>
+<br><br>
+Le mécanisme <b>S4U2Proxy</b> nécessite un ticket de service "forwardable".<br><br>
+Depuis le <a href="https://support.microsoft.com/en-us/topic/kb4598347-managing-deployment-of-kerberos-s4u-changes-for-cve-2020-17049-569d60b7-3267-e2b0-7d9b-e46d770332ab">KB4598347</a>, le KDC ne vérifie plus que le flag "forwardable" est présent dans la PAC du ticket de service, mais regarde directement les propriétés des objets concernés dans l'annuaire pour vérifier que les conditions suivantes sont réunies pour le S4U2Proxy ;<br><br>
+<span>
+- Est-ce que le service qui "délègue" est bien autorisé à déléguer (donc ici est-ce que <i>SA</i> est identifié comme <b>TRUSTED_TO_AUTH_FOR_DELEGATION</b>) ?<br>
+- Est-ce que le compte "délégué" (l'utilisateur impersonnifié) n'est ni un membre du groupe <b>Protected Users</b>, et ni identifié comme "<b>Le compte est sensible et ne peut être délégué</b>" (NOT_DELEGATED), donc est-ce que ce compte est autorisé à être délégué ?  <br>
+</span>
+<br>
+SI vous avez entendu parlé de l'attaque utilisant la <b><a href="https://www.alsid.com/crb_article/kerberos-delegation/">délégation contrainte basée sur la ressource</a></b> (RBCD), vous pouvez vous demander pouquoi être tiers de confiance pour le droit <i>writeProperty</i> sur un compte machine est si mauvais ?  
+<br><br>
+Premièrement vous serez en mesure d'écrire la propriété <b>msds-AllowedToActOnBehalfOfOtherIdentity</b> avec le SID d'un principal que vous controllez, mais ;
+<br><br>
+- Est-ce que ce principal, celui que vous venez juste d'ajouter à "msds-AllowedToActOnBehalfOfOtherIdentity", est identifié comme TRUSTED_TO_AUTH_FOR_DELEGATION, donc est-il réellement autorisé à déléguer votre utilisateur impersonnifié ?
+<br><br>
+La plupart du temps ce principal ne sera pas identifié comme TRUSTED_TO_AUTH_FOR_DELEGATION et vous ne pourrez pas positionner cette valeur sans être un utilisateur privilégié du domaine comme nous le verrons par la suite.  
+<br><br>
+Donc pourquoi le mécanisme de S4U2Proxy fonctionne toujours dans le cas de la RBCD ? ; pour ce cas spécial de la <b>délégation contrainte basée sur la ressource</b>, il semble que le KDC <b>vérifie seulement si l'utilisateur impersonnifié est autorisé à être délégué</b> (non Protected Users, non NOT_DELEG), mais que le service (ou plutôt le principal dont vous avez édité la propriété "msds-AllowedToActOnBehalfOfOtherIdentity") n'est plus vérifié comme étant autorisé "à déléguer" (est-il identifié comme TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
+<br><br>
+Et pourquoi est-ce intéressant, car selon Microsoft il s'agit d'une fonctionnalité et non d'un bug, et cette attaque (RBCD) fonctionne toujours sur un contrôleur de domain Windows Server 2019 à jour.</b>  
+<br><br>
+<img class="dropshadowclass" src="{{ site.url }}/public/images/t2a4d/twitter_rbcd.png">
+</p>
+
+Retournons à nos moutons. Si le compte de service ```T2A4D``` faisant tourner ```SA``` a été compromis, nous pouvons générer un ```T_SA``` pour un compte arbitraire (Administrateur du domaine) pour un service autorisé (voir **msDS-AllowedToDelegateTo** ou **msds-AllowedToActOnBehalfOfOtherIdentity**).  
 
 Les [SPNs](https://beta.hackndo.com/service-principal-name-spn/) étant interchangeables (partie non chiffrée du ticket de service), il est possible de modifier ce dernier par un autre SPN du même compte de service (ex: en utilisant la classe de service *CIFS*, ce qui nous donne le SPN *CIFS/DC* au lieu de *TIME/DC*).  
 
