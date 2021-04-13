@@ -92,7 +92,7 @@ Le mécanisme <b>S4U2Proxy</b> nécessite un ticket de service "forwardable".<br
 Depuis le <a href="https://support.microsoft.com/en-us/topic/kb4598347-managing-deployment-of-kerberos-s4u-changes-for-cve-2020-17049-569d60b7-3267-e2b0-7d9b-e46d770332ab">KB4598347</a>, le KDC ne vérifie plus que le flag "forwardable" est présent dans la PAC du ticket de service, mais regarde directement les propriétés des objets concernés dans l'annuaire pour vérifier que les conditions suivantes sont réunies pour le S4U2Proxy ;<br><br>
 <span>
 - Est-ce que le service qui "délègue" est bien autorisé à déléguer (donc ici est-ce que <i>SA</i> est identifié comme <b>TRUSTED_TO_AUTH_FOR_DELEGATION</b>) ?<br>
-- Est-ce que le compte "délégué" (l'utilisateur impersonnifié) n'est ni un membre du groupe <b>Protected Users</b>, et ni identifié comme "<b>Le compte est sensible et ne peut être délégué</b>" (NOT_DELEGATED), donc est-ce que ce compte est autorisé à être délégué ?  <br>
+- Est-ce que le compte "délégué" (l'utilisateur impersonnifié) n'est ni un membre du groupe <b>Protected Users</b>, ni identifié comme "<b>Le compte est sensible et ne peut être délégué</b>" (NOT_DELEGATED), donc est-ce que ce compte est autorisé à être délégué ?  <br>
 </span>
 <br>
 SI vous avez entendu parlé de l'attaque utilisant la <b><a href="https://www.alsid.com/crb_article/kerberos-delegation/">délégation contrainte basée sur la ressource</a></b> (RBCD), vous pouvez vous demander pouquoi être tiers de confiance pour le droit <i>writeProperty</i> sur un compte machine est si mauvais ?  
