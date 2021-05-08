@@ -107,7 +107,7 @@ prepare-commit-msg: Used to determine if a merge commit will introduce a history
  - [Trufflehog Github Action](https://github.com/marketplace/actions/trufflehog-actions-scan)
 
 
-<u>The GITHUB.COM scanning project :</u>  
+<u>GITHUB scanning project :</u>  
 
 Github has a project which aims at monitoring leaked third parties tokens from your repositories: [https://help.github.com/en/github/administering-a-repository/about-secret-scanning](https://help.github.com/en/github/administering-a-repository/about-secret-scanning).  
 
