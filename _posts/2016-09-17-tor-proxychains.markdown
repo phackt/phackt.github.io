@@ -18,7 +18,7 @@ apt-get install tor
 apt-get install proxychains
 ```
   
-Tor écoute par défaut sur le port **9050**. Editer le fichier */etc/tor/torrc* et décommentez la ligne ```SOCKSPort 9050```.  
+Tor écoute par défaut sur le port **9050**. Editer le fichier */etc/tor/torrc* et décommentez la ligne ```SOCKSPort 9050```  
   
 Lancer ensuite TOR as a service:  ```service tor start```  
   
@@ -129,8 +129,8 @@ La librairie partagée *libproxychains.so.3* n'a pas été trouvée. La variable
 Editez le fichier */usr/bin/proxychains* et remplacez  
 ```export LD_PRELOAD=libproxychains.so.3```  
 par  
-```export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libproxychains.so.3```.  
+```export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libproxychains.so.3```  
   
-Au besoin effectuez un ```locate libproxychains.so.3```.  
+Au besoin effectuez un ```locate libproxychains.so.3```  
   
 Je vous dis à très bientôt!
