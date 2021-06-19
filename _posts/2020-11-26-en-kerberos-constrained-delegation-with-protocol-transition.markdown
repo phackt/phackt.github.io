@@ -431,8 +431,8 @@ Now all you have to do is to go back to our [Exploitation](#Exploitation) sectio
 
 ## SeEnableDelegationPrivilege
 
-We can also create a backdoor for a user by assigning him the ```SeEnableDelegationPrivilege```, so that this user can set the ```TRUSTED_TO_AUTH_FOR_DELEGATION``` on another resource. However, we will also need the necessary rights to write the ```msDS-AllowedToDelegateTo``` field.  
-
+We can also create a backdoor for a user by assigning him the ```SeEnableDelegationPrivilege```, so that this user can set the ```TRUSTED_TO_AUTH_FOR_DELEGATION``` and write the ```msDS-AllowedToDelegateTo``` field on another resource ([https://www.harmj0y.net/blog/activedirectory/the-most-dangerous-user-right-you-probably-have-never-heard-of/](https://www.harmj0y.net/blog/activedirectory/the-most-dangerous-user-right-you-probably-have-never-heard-of/)).   
+  
 # The End
 
 Feel free to comment / ask your questions. You can also contact me on [Twitter](https://twitter.com/phackt_ul).  

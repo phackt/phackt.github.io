@@ -430,8 +430,8 @@ Maintenant vous n'avez plus qu'à retourner sur notre section [Exploitation](#Ex
 
 ## SeEnableDelegationPrivilege
 
-Nous pouvons également créer une porte dérobée sur un utilisateur en lui attribuant le privilège ```SeEnableDelegationPrivilege```, cet utilisateur pouvant ainsi positionner le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` sur une autre ressource. Cependant, nous aurons également besoin des droits nécessaires pour écrire le champs ```msDS-AllowedToDelegateTo```.  
-
+Nous pouvons également créer une porte dérobée sur un utilisateur en lui attribuant le privilège ```SeEnableDelegationPrivilege```, cet utilisateur pouvant ainsi positionner le ```TRUSTED_TO_AUTH_FOR_DELEGATION``` et écrire le champs ```msDS-AllowedToDelegateTo```sur une autre ressource ([https://www.harmj0y.net/blog/activedirectory/the-most-dangerous-user-right-you-probably-have-never-heard-of/](https://www.harmj0y.net/blog/activedirectory/the-most-dangerous-user-right-you-probably-have-never-heard-of/)).  
+  
 # The End
 
 N'hésitez pas à commenter / poser vos questions. Vous pouvez également me contacter sur [Twitter](https://twitter.com/phackt_ul).  
