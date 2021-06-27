@@ -66,7 +66,7 @@ OR
 
 No mention to DnsAdmins here, even if we know that being member of DnsAdmins <i class="fa fa-long-arrow-right" aria-hidden="true"></i> compromised domain. By the way think about a managed Azure ADDS environment which provides a delegated administration group (AAD DC Administrators), does something bad may happen if this group is added to DnsAdmins ? ...   
   
-Fortunately, we can manually set a security group to be targeted by the SDProp mechanism thanks to the cmdlet ```Set-ADSyncRestrictedPermissions``` from the AdSyncConfig.psm1 module. This is part of the recommendations shared by this [Active Directory guide](https://www.cert.ssi.gouv.fr/uploads/guide-ad.html#dnsadmins).  
+At least we can manually set ACEs as restricted as the AdminSDHolder ones thanks to the cmdlet ```Set-ADSyncRestrictedPermissions``` from the AdSyncConfig.psm1 module. This is part of the recommendations shared by this [Active Directory guide](https://www.cert.ssi.gouv.fr/uploads/guide-ad.html#dnsadmins).  
 <p class="note">
 The AzureADConnect.msi package can be downloaded from <a href="https://go.microsoft.com/fwlink/?LinkId=615771">https://go.microsoft.com/fwlink/?LinkId=615771</a>.<br><br>
 The AdSyncConfig.psm1 module may be extracted from the Azure AD Connect installer with msiexec:<br>
@@ -91,23 +91,18 @@ In the ```DC=DomainDnsZones``` naming context, on every zone you wish to delegat
 
 ## DnsAdmins security descriptor
 ### Owner
-Make sure the group is owned by Domain Admins (should be the case after the SDProp has been executed).  
+Make sure the group is owned by Domain Admins ; 
 <img class="dropshadowclass" src="{{ site.url }}/public/images/dnsadmins/owner_dnsadmins.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
   
-*N.B: Note that with the ```DACL_PROTECTED``` property, the security descriptor will block inheritable ACEs.*  
-  
 ### ACL
-Setting a ```Deny``` ACE forbidding ```Everyone``` for the ```WRITE_OWNER``` right is a good idea but it will be overriden by the SDProp.  
-Remember that being owner of an object provides the ```WRITE_DAC``` and ```READ_CONTROL``` over the object.  
-
-So finally how to protect the DnsAdmins group thanks to the SDProp mechanism, using the AdSyncConfig.psm1 module ? ;
+Set rights at least as strict as the AdminSDHolder ones ;
 ```powershell
 Import-Module "C:\Program Files\Microsoft Azure Active Directory Connect\AdSyncConfig\AdSyncConfig.psm1"
 $credential = Get-Credential
 Set-ADSyncRestrictedPermissions -ADConnectorAccountDN "CN=DnsAdmins,CN=Users,DC=phackt,DC=local" -Credential $credential
 ```
   
-Then you can check :
+You can check that DnsAdmins is blocking inheritable ACEs ;
 ```powershell
 Get-ADSyncObjectsWithInheritanceDisabled -SearchBase "CN=DnsAdmins,CN=Users,DC=phackt,DC=local" -ObjectClass '*'
 
@@ -119,4 +114,8 @@ ObjectSID         : S-1-5-21-3816950244-2414788102-2833019223-1101
 sAMAccountName    : DnsAdmins
 ```
   
-
+Also you can set a ```Deny``` ACE forbidding ```Everyone``` for the ```WRITE_OWNER``` right is a good idea.  
+Remember that being owner of an object provides the ```WRITE_DAC``` and ```READ_CONTROL``` over the object.  
+  
+Thanks folks for reading,
+Cheers.
