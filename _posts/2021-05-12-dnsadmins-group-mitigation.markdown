@@ -114,7 +114,7 @@ ObjectSID         : S-1-5-21-3816950244-2414788102-2833019223-1101
 sAMAccountName    : DnsAdmins
 ```
   
-Also you can set a ```Deny``` ACE forbidding ```Everyone``` for the ```WRITE_OWNER``` right is a good idea.  
+Also you can set a ```Deny``` ACE forbidding ```Everyone``` for the ```WRITE_OWNER``` right.  
 Remember that being owner of an object provides the ```WRITE_DAC``` and ```READ_CONTROL``` over the object.  
   
 Thanks folks for reading,
