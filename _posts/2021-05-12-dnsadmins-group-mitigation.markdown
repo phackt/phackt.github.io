@@ -64,9 +64,9 @@ OR
     )
 ```
 
-No mention to DnsAdmins here, even if we know that being member of DnsAdmins <i class="fa fa-long-arrow-right" aria-hidden="true"></i> compromised domain. By the way think about a managed Azure ADDS environment which provides a delegated administration group (AAD DC Administrators), does something bad may happen if this group is added to DnsAdmins ? ...   
+No mention to DnsAdmins here, even if we know that being member of DnsAdmins <i class="fa fa-long-arrow-right" aria-hidden="true"></i> compromised domain.  
   
-At least we can manually set ACEs as restricted as the AdminSDHolder ones thanks to the cmdlet ```Set-ADSyncRestrictedPermissions``` from the AdSyncConfig.psm1 module. This is part of the recommendations shared by this [Active Directory guide](https://www.cert.ssi.gouv.fr/uploads/guide-ad.html#dnsadmins).  
+At least we can manually set ACEs as restricted as the AdminSDHolder ones thanks to the cmdlet ```Set-ADSyncRestrictedPermissions``` from the ```AdSyncConfig.psm1``` module. This is part of the recommendations shared by this [Active Directory guide](https://www.cert.ssi.gouv.fr/uploads/guide-ad.html#dnsadmins).  
 <p class="note">
 The AzureADConnect.msi package can be downloaded from <a href="https://go.microsoft.com/fwlink/?LinkId=615771">https://go.microsoft.com/fwlink/?LinkId=615771</a>.<br><br>
 The AdSyncConfig.psm1 module may be extracted from the Azure AD Connect installer with msiexec:<br>
@@ -80,18 +80,21 @@ Keep the DnsAdmins group empty, prefer a delegation group to manage your DNS ser
   
 - STEP 1: ALLOW ACCESS TO RPC USED BY DNS MANAGEMENT MMC SNAP-INS  
 
-In the domain naming context, under the ```CN=System``` container, set the following access rights on the ```CN=MicrosoftDNS``` container for the trustee delegation group ;
+In the domain naming context, under the ```CN=System``` container, set the following access rights on the ```CN=MicrosoftDNS``` container for your trustee delegation group ;
 <img class="dropshadowclass" src="{{ site.url }}/public/images/dnsadmins/step1.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
 
 
 - STEP 2: ALLOW DNS ZONE MODIFICATIONS  
   
-In the ```DC=DomainDnsZones``` naming context, on every zone you wish to delegate management, enable inheritance and set the following access rights on the ```CN=MicrosoftDNS``` container for the trustee delegation group ;
+In the ```DC=DomainDnsZones``` naming context, on every zone you wish to delegate management, enable inheritance and set the following access rights on the ```CN=MicrosoftDNS``` container for your trustee delegation group ;
 <img class="dropshadowclass" src="{{ site.url }}/public/images/dnsadmins/step2.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
 
 ## DnsAdmins security descriptor
+This is an overview of the DnsAdmins security descriptor ;  
+<img class="dropshadowclass" src="{{ site.url }}/public/images/dnsadmins/dnsadmins_sd_orig.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
+  
 ### Owner
-Make sure the group is owned by Domain Admins ; 
+The group should be changed, DnsAdmins should be owned by Domain Admins ; 
 <img class="dropshadowclass" src="{{ site.url }}/public/images/dnsadmins/owner_dnsadmins.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
   
 ### ACL
@@ -102,7 +105,7 @@ $credential = Get-Credential
 Set-ADSyncRestrictedPermissions -ADConnectorAccountDN "CN=DnsAdmins,CN=Users,DC=phackt,DC=local" -Credential $credential
 ```
   
-You can check that DnsAdmins is blocking inheritable ACEs ;
+You can check that the DnsAdmins security descriptor is blocking inheritable ACEs ;
 ```powershell
 Get-ADSyncObjectsWithInheritanceDisabled -SearchBase "CN=DnsAdmins,CN=Users,DC=phackt,DC=local" -ObjectClass '*'
 
@@ -112,10 +115,28 @@ ObjectClass       : group
 ObjectGUID        : 54d747e8-f9c2-461b-b8f2-5cc0b99249cc
 ObjectSID         : S-1-5-21-3816950244-2414788102-2833019223-1101
 sAMAccountName    : DnsAdmins
-```
+``` 
   
-Also you can set a ```Deny``` ACE forbidding ```Everyone``` for the ```WRITE_OWNER``` right.  
-Remember that being owner of an object provides the ```WRITE_DAC``` and ```READ_CONTROL``` over the object.  
+You should get a security descriptor which should look like this ;  
+<img class="dropshadowclass" src="{{ site.url }}/public/images/dnsadmins/dnsadmins_sd_after.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
   
-Thanks folks for reading,
+<p class="note">
+The <code>DACL_PROTECTED</code> parameter shows that the descriptor is blocking inheritable ACEs
+</p>
+  
+As you see it is a way more restrictive than the original AdminSDHolder security descriptor shown below ;  
+<img class="dropshadowclass" src="{{ site.url }}/public/images/dnsadmins/adminsdholder_sd.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
+  
+Also you can set on the DnsAdmins group a ```Deny``` ACE forbidding ```Everyone``` for the ```WRITE_OWNER``` right (remember that being owner of an object provides the ```WRITE_DAC``` and ```READ_CONTROL``` over the object).  
+
+However if you do this remember that replaying the ```Set-ADSyncRestrictedPermissions``` cmdlet will reset the DACL and delete this ACE (on the other hand you could update the AdSyncConfig.psm1 module to match your needs).  
+  
+# Conclusion
+Firstly i thought it was possible to add a new security group to be targeted by the SDProp mechanism but no, it's not (and as i was said, it's not for tomorrow). At least we can manually set some restricted rights on it. Also i'm having a look at creating a routine which will frequently override the DnsAdmins ```ntSecurityDescriptor``` based on the AdminSDHolder one to simulate the SDProp mechanism.  
+  
+DnsAdmins is one of the so many ways an attacker can gain control of your Active Directory. If you are looking for a complete Active Directory security assessment checklist : [https://www.cert.ssi.gouv.fr/uploads/guide-ad.html](https://www.cert.ssi.gouv.fr/uploads/guide-ad.html).  
+  
+By the way think about a managed Azure ADDS environment which provides a delegated administration group (AAD DC Administrators), does something bad may happen if this group is added to DnsAdmins ? ...   
+  
+Thanks folks for reading,  
 Cheers.
