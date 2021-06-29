@@ -22,10 +22,10 @@ Additionally, permissions inheritance is disabled on protected groups and accoun
 Inheritance is disabled on the AdminSDHolder object so that permission changes to the parent objects do not change the permissions of AdminSDHolder.<br><br>  
 </p>
 
-This last sentence makes sense because the security descriptor that is written to protect objects is stored in the ```nTSecurityDescriptor``` attribute on the ```AdminSDHolder``` object in Active Directory. The AdminSDHolder object is of class
+This last sentence makes sense because the security descriptor used as a template to protect sensitive groups and users is stored in the ```nTSecurityDescriptor``` attribute from the ```AdminSDHolder``` object in Active Directory. The AdminSDHolder object is of class
 container and has a DN of ```CN=AdminSDHolder,CN=System,<Domain NC DN>```.  
   
-Even if this is not a post about detailing the SDProp mechanism, why is this important ? Because this security mechanism called [Security Descriptor Propagator](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/05c8a4b6-43aa-49f7-8c31-df3ac72230f3) (SDProp) aims at cutting any potential control paths to these **Protected Groups** as they are highly privileged.  
+Even if this is not a post about detailing the SDProp mechanism, why is this important ? Because this security mechanism called [Security Descriptor Propagator](https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/05c8a4b6-43aa-49f7-8c31-df3ac72230f3) (SDProp) aims at cutting any potential control paths to these **Protected Users and Groups** as they are highly privileged.  
   
 Unfortunately, DnsAdmins is not targeted by this security mechanism <i class="fa fa-frown-o" aria-hidden="true"></i>.  
   
@@ -127,16 +127,14 @@ The <code>DACL_PROTECTED</code> parameter shows that the descriptor is blocking 
 As you see it is a way more restrictive than the original AdminSDHolder security descriptor shown below ;  
 <img class="dropshadowclass" src="{{ site.url }}/public/images/dnsadmins/adminsdholder_sd.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
   
-Also you can set on the DnsAdmins group a ```Deny``` ACE forbidding ```Everyone``` for the ```WRITE_OWNER``` right (remember that being owner of an object provides the ```WRITE_DAC``` and ```READ_CONTROL``` over the object).  
+Also you can set, on the DnsAdmins group, a ```Deny``` ACE forbidding ```Everyone``` for the ```WRITE_OWNER``` right (remember that being owner of an object provides the ```WRITE_DAC``` and ```READ_CONTROL``` over the object).  
 
 However if you do this remember that replaying the ```Set-ADSyncRestrictedPermissions``` cmdlet will reset the DACL and delete this ACE (on the other hand you could update the AdSyncConfig.psm1 module to match your needs).  
   
 # Conclusion
-Firstly i thought it was possible to add a new security group to be targeted by the SDProp mechanism but no, it's not (and as i was said, it's not for tomorrow). At least we can manually set some restricted rights on it. Also i'm having a look at creating a routine which will frequently override the DnsAdmins ```ntSecurityDescriptor``` based on the AdminSDHolder one to simulate the SDProp mechanism.  
+Firstly i thought it was possible to add a new security group to be targeted by the SDProp mechanism but no, it's not (and as i was said, it's not for tomorrow). At least we can manually set some restricted rights on it. Also i'm having a look at creating a routine which will frequently override the DnsAdmins ```ntSecurityDescriptor``` based on the AdminSDHolder one to simulate the SDProp mechanism for custom groups.  
   
 DnsAdmins is one of the so many ways an attacker can gain control of your Active Directory. If you are looking for a complete Active Directory security assessment checklist : [https://www.cert.ssi.gouv.fr/uploads/guide-ad.html](https://www.cert.ssi.gouv.fr/uploads/guide-ad.html).  
-  
-By the way think about a managed Azure ADDS environment which provides a delegated administration group (AAD DC Administrators), does something bad may happen if this group is added to DnsAdmins ? ...   
-  
+    
 Thanks folks for reading,  
 Cheers.
