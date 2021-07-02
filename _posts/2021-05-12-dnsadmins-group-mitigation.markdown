@@ -135,7 +135,7 @@ However if you do this remember that replaying the ```Set-ADSyncRestrictedPermis
 As seen previously, deleting the DnsAdmins ```RIGHT_DS_WRITE_PROPERTY_EXTENDED``` right for the MicrosoftDNS container will prevent an attacker from writing the registry key to set the path of an arbitrary DLL to be loaded by the DNS service.  
 <img class="dropshadowclass" src="{{ site.url }}/public/images/dnsadmins/withoutextwrite.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
   
-However i don't know what is the impact if you benefits from the Microsoft support and if they need to exceptionally perform a maintenance operation, from DnsAdmins, which needs this right.  
+However i don't know what is the impact if you benefits from the Microsoft support and if they need to exceptionally perform a maintenance operation, from DnsAdmins, which needs this right (nevertheless i never faced this situation).  
   
 # Conclusion
 Firstly i thought it was possible to add a new security group to be targeted by the SDProp mechanism but no, it's not (and as i was said, it's not for tomorrow). At least we can manually set some restricted rights on it. Also i'm having a look at creating a routine which will frequently override the DnsAdmins ```ntSecurityDescriptor``` based on the AdminSDHolder one to simulate the SDProp mechanism for custom groups.  
