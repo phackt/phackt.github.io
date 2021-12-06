@@ -141,6 +141,8 @@ However i don't know what is the impact if you benefits from the Microsoft suppo
 Firstly i thought it was possible to add a new security group to be targeted by the SDProp mechanism but no, it's not (and as i was said, it's not for tomorrow). At least we can manually set some restricted rights on it. Also i'm having a look at creating a routine which will frequently override the DnsAdmins ```ntSecurityDescriptor``` based on the AdminSDHolder one to simulate the SDProp mechanism for custom groups.  
   
 DnsAdmins is one of the so many ways an attacker can gain control of your Active Directory. If you are looking for a complete Active Directory security assessment checklist : [https://www.cert.ssi.gouv.fr/uploads/guide-ad.html](https://www.cert.ssi.gouv.fr/uploads/guide-ad.html).  
-    
+  
+\[UPDATE 2021/12/06\]: According to this [article](https://blog.0patch.com/2021/11/micropatch-for-remote-code-execution-by.html), it seems that the issue has been finally fixed by Microsoft.  
+  
 Thanks folks for reading,  
 Cheers.
