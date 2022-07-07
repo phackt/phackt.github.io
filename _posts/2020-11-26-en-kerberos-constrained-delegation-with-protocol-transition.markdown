@@ -103,7 +103,7 @@ Ok so first of all you can write the <b>msds-AllowedToActOnBehalfOfOtherIdentity
 <br><br>
 In many cases this principal is not marked as TRUSTED_TO_AUTH_FOR_DELEGATION and you can not set this value as we will see later if you are not a privileged domain user.  
 <br><br>
-So why the the RBCD attack is working ? ; for this special case of <b>Resource-Based Constrained Delegation</b>, it seems that the KDC <b>only checks if the delegated user is OK to be delegated</b> (not protected users, not NOT_DELEG), but the service (or here the principal which you edited the "msds-AllowedToActOnBehalfOfOtherIdentity" property) is not checked anymore to be legit to run the protocol transition (is it marked as TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
+So why the the RBCD attack is working ? ; for this special case of <b>Resource-Based Constrained Delegation</b>, it seems that the KDC <b>only checks if the delegated user is OK to be delegated</b> (not protected users, not NOT_DELEG), but the service (or here the principal which you edited the "msds-AllowedToActOnBehalfOfOtherIdentity" property) is not checked anymore to be legitimate to run the protocol transition (is it marked as TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
 <br><br>
 And why this is so interesting, because Microsoft decided that this is a feature, not a bug, so as a consequence this attack (RBCD) is still working on a fully patched Windows Server 2019 domain controller.</b>  
 <br><br>
