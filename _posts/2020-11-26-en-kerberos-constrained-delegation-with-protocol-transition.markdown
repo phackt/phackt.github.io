@@ -91,7 +91,7 @@ This delegation will involve the protocol extensions **ServiceForUserToSelf** an
 The <b>S4U2Proxy</b> mechanism will need a "forwardable" service ticket obtained thanks to S4U2Self mechanism. Note that the flag TRUSTED_TO_AUTH_FOR_DELEGATION is only used for the protocol transition, no flag is set with the classical constrained delegation.<br><br>
 Since <a href="https://support.microsoft.com/en-us/topic/kb4598347-managing-deployment-of-kerberos-s4u-changes-for-cve-2020-17049-569d60b7-3267-e2b0-7d9b-e46d770332ab">KB4598347</a>, the KDC will no more check the forwadable flag in the provided service ticket PAC but will directly look into the directory for the right conditions to be met to allow the S4U mechanism ;<br><br>
 <span>
-- Is the "delegating" service legitimate for protocol transition (so here is <i>SA</i> marked as <b>TRUSTED_TO_AUTH_FOR_DELEGATION</b>) ?<br>
+- Is the "delegating" service legitimate to run the protocol transition (so here is <i>SA</i> marked as <b>TRUSTED_TO_AUTH_FOR_DELEGATION</b>) ?<br>
 - Is the "delegated" account (impersonated user) not a member of the <b>Protected Users</b> group and is not marked as "<b>Account is sensitive and cannot be delegated</b>" (NOT_DELEGATED), so is the account allowed to be delegated ?  <br>
 </span>
 <br>
