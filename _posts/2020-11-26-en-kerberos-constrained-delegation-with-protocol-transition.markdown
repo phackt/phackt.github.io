@@ -66,7 +66,7 @@ We are going to compromise a machine ```srv$``` with the attribute [useraccountc
 
 The machine ```srv$``` runs a service ```SA``` on which a user *whatever* authenticates using another mechanism than Kerberos (e.g. a web application with NTLM or basic authentication). In this case, ```SA``` (or the web application) did not get any service ticket proving authentication from *whatever* to ```SA```. This service ticket is normally used by the ``S4U2Proxy`` mechanism in order to carry out the classical constrained delegation.  
 
-This is where the **constrained delegation with protocol transition** comes in. The latter will still allow the "double jump" and allow ```SA``` to request a service ticket for ```SB``` by taking the identity of the user *whatever*.  
+This is where the **constrained delegation with protocol transition** comes in. The latter will still allow the "double hop" and allow ```SA``` to request a service ticket for ```SB``` by taking the identity of the user *whatever*.  
 
 ```SB``` is either in the **msDS-AllowedToDelegateTo** field of ```SA```:  
 <img class="dropshadowclass" src="{{ site.url }}/public/images/t2a4d/msds_a2d2.png" style="margin-top:1.5rem;margin-bottom:1.5rem;">
@@ -88,10 +88,10 @@ This delegation will involve the protocol extensions **ServiceForUserToSelf** an
 <p class="note">
 <b>Note about TRUSTED_TO_AUTH_FOR_DELEGATION :</b>
 <br><br>
-The <b>S4U2Proxy</b> mechanism will need a "forwardable" service ticket.<br><br>
-Since <a href="https://support.microsoft.com/en-us/topic/kb4598347-managing-deployment-of-kerberos-s4u-changes-for-cve-2020-17049-569d60b7-3267-e2b0-7d9b-e46d770332ab">KB4598347</a>, the KDC will no more check the forwadable flag in the provided service ticket PAC but will directly look into the directory for the following conditions to be met to allow the S4U2Proxy mechanism ;<br><br>
+The <b>S4U2Proxy</b> mechanism will need a "forwardable" service ticket obtained thanks to S4U2Self mechanism. Note that the flag TRUSTED_TO_AUTH_FOR_DELEGATION is only used for the protocol transition, no flag is set with the classical constrained delegation.<br><br>
+Since <a href="https://support.microsoft.com/en-us/topic/kb4598347-managing-deployment-of-kerberos-s4u-changes-for-cve-2020-17049-569d60b7-3267-e2b0-7d9b-e46d770332ab">KB4598347</a>, the KDC will no more check the forwadable flag in the provided service ticket PAC but will directly look into the directory for the right conditions to be met to allow the S4U mechanism ;<br><br>
 <span>
-- Is the "delegating" service legit to delegate (so here is <i>SA</i> marked as <b>TRUSTED_TO_AUTH_FOR_DELEGATION</b>) ?<br>
+- Is the "delegating" service legitimate to delegate (so here is <i>SA</i> marked as <b>TRUSTED_TO_AUTH_FOR_DELEGATION</b>) ?<br>
 - Is the "delegated" account (impersonated user) not a member of the <b>Protected Users</b> group and is not marked as "<b>Account is sensitive and cannot be delegated</b>" (NOT_DELEGATED), so is the account allowed to be delegated ?  <br>
 </span>
 <br>
@@ -99,11 +99,11 @@ If you heard about the <b><a href="https://www.alsid.com/crb_article/kerberos-de
 <br><br>
 Ok so first of all you can write the <b>msds-AllowedToActOnBehalfOfOtherIdentity</b> property with the SID of a principal you control, but ;
 <br><br>
-- Is this principal, the one that you just added to "msds-AllowedToActOnBehalfOfOtherIdentity", marked as TRUSTED_TO_AUTH_FOR_DELEGATION, so are you really legit to delegate your impersonated user ?
+- Is this principal, the one that you just added to "msds-AllowedToActOnBehalfOfOtherIdentity", marked as TRUSTED_TO_AUTH_FOR_DELEGATION, so are you really legitimate to impersonate your user and run the S4U protocol extensions ?
 <br><br>
 In many cases this principal is not marked as TRUSTED_TO_AUTH_FOR_DELEGATION and you can not set this value as we will see later if you are not a privileged domain user.  
 <br><br>
-So why the S4U2Proxy is still working for the RBCD ? ; for this special case of <b>Resource-Based Constrained Delegation</b>, it seems that the KDC <b>only checks if the delegated user is OK to be delegated</b> (not protected users, not NOT_DELEG), but the service (or here the principal which you edited the "msds-AllowedToActOnBehalfOfOtherIdentity" property) is not checked anymore to be legit to delegate (is it marked as TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
+So why the the RBCD attack is working ? ; for this special case of <b>Resource-Based Constrained Delegation</b>, it seems that the KDC <b>only checks if the delegated user is OK to be delegated</b> (not protected users, not NOT_DELEG), but the service (or here the principal which you edited the "msds-AllowedToActOnBehalfOfOtherIdentity" property) is not checked anymore to be legit to run the protocol transition (is it marked as TRUSTED_TO_AUTH_FOR_DELEGATION ?, aka T2A4D).<b>
 <br><br>
 And why this is so interesting, because Microsoft decided that this is a feature, not a bug, so as a consequence this attack (RBCD) is still working on a fully patched Windows Server 2019 domain controller.</b>  
 <br><br>
