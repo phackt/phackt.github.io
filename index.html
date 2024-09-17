@@ -3,6 +3,7 @@ layout: default
 title: Home
 ---
 <div class="posts">
+  {% if paginator.page == 1 %}
   <!-- Static links to others medium -->
   <div class="post">
       <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
@@ -43,7 +44,8 @@ title: Home
       <a href="https://medium.com/tenable-techblog/how-to-mimic-kerberos-protocol-transition-using-reflective-rbcd-a4984bb7c4cb">Read more ...</a>
       <hr>
   </div>
-  
+  {% endif %}
+
   {% for post in paginator.posts %}
 
     {% if post.translated != true %}
