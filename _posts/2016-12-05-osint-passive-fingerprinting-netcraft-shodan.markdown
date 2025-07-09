@@ -2,7 +2,7 @@
 layout: post
 title:  "Prise d'empreinte passive - Netcraft et Shodan"
 date:   2016-12-05
-category: Fingerprint
+category: OSINT
 excerpt_separator: <!--more-->
 lang: fr
 ---
