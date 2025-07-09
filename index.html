@@ -4,66 +4,29 @@ title: Home
 ---
 <div class="posts">
   {% if paginator.page == 1 %}
-  <!-- Static links to others medium -->
-  <div class="post">
-      <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
-        <a href="https://medium.com/tenable-techblog/iot-firmware-emulation-and-device-fingerprinting-challenges-09e26b9b7fae">
-          <img src="{{ site.url }}/public/images/icons/drapeau_en.png">
-        </a>
-      </div>
+    <!-- Static links to others medium -->
     
-      <h1 class="post-title">
-      <a href="https://medium.com/tenable-techblog/iot-firmware-emulation-and-device-fingerprinting-challenges-09e26b9b7fae">
-          IoT firmware emulation and device fingerprinting challenges
-        </a>
-      </h1>
-      <span class="post-date">06 Aug 2024</span>
+    {% for item in site.data.links.medium_articles %}
+      <div class="post">
+        <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
+          <a href="{{ item.url }}">
+            <img src="{{ site.url }}/public/images/icons/drapeau_en.png">
+          </a>
+        </div>
+      
+        <h1 class="post-title">
+        <a href="{{ item.url }}">
+            {{ item.title }}
+          </a>
+        </h1>
+        <span class="post-date">06 Aug 2024</span>
 
-      Gathering information on a device could be tricky if you don’t have direct access to exposed services like SNMP, HTTP, FTP, or any other ports or protocols, ...
-      <br>
-      <a href="https://medium.com/tenable-techblog/iot-firmware-emulation-and-device-fingerprinting-challenges-09e26b9b7fae">Read more ...</a>
-      <hr>
-  </div>
-  
-  <div class="post">
-      <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
-        <a href="https://medium.com/tenable-techblog/silo-or-not-silo-that-is-the-question-d0141d0cbb78">
-          <img src="{{ site.url }}/public/images/icons/drapeau_en.png">
-        </a>
+        {{ item.description }}
+        <br>
+        <a href="{{ item.url }}">Read more ...</a>
+        <hr>
       </div>
-    
-      <h1 class="post-title">
-      <a href="https://medium.com/tenable-techblog/silo-or-not-silo-that-is-the-question-d0141d0cbb78">
-          Should a Tier 0 WSUS be put in a silo or not ?
-        </a>
-      </h1>
-      <span class="post-date">18 Jan 2023</span>
-
-      The question was: should I put my WSUS server into my T0 silo? Even if people are familiar with the concepts of Active Directory Tiering, ...
-      <br>
-      <a href="https://medium.com/tenable-techblog/silo-or-not-silo-that-is-the-question-d0141d0cbb78">Read more ...</a>
-      <hr>
-  </div>
-
-  <div class="post">
-      <div style="margin-left:5px; float:right; margin-top:5px; margin-right:2px">
-        <a href="https://medium.com/tenable-techblog/how-to-mimic-kerberos-protocol-transition-using-reflective-rbcd-a4984bb7c4cb">
-          <img src="{{ site.url }}/public/images/icons/drapeau_en.png">
-        </a>
-      </div>
-    
-      <h1 class="post-title">
-      <a href="https://medium.com/tenable-techblog/how-to-mimic-kerberos-protocol-transition-using-reflective-rbcd-a4984bb7c4cb">
-          How to mimic Kerberos protocol transition using reflective RBCD
-        </a>
-      </h1>
-      <span class="post-date">07 Nov 2022</span>
-
-      As I am often looking for misconfigurations dealing with Kerberos delegation, I realize that I was missing an interesting element while playing with the Kerberos protocol extensions S4U2Self and S4U2Proxy.
-      <br>
-      <a href="https://medium.com/tenable-techblog/how-to-mimic-kerberos-protocol-transition-using-reflective-rbcd-a4984bb7c4cb">Read more ...</a>
-      <hr>
-  </div>
+    {% endfor %}
   {% endif %}
 
   {% for post in paginator.posts %}

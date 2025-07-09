@@ -34,3 +34,16 @@ gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 gem 'jekyll-sitemap'
 gem 'jekyll-paginate'
 gem 'jekyll-seo-tag'
+
+gem 'thor', '>= 1.2.0'
+
+gem "logger"
+gem "csv"
+gem "base64"
+gem "bigdecimal"
+
+group :jekyll_plugins do
+  gem "webrick"
+end
+
+
