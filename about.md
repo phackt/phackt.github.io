@@ -8,7 +8,7 @@ Welcome on this blog.
 
 <br/>
 **Who am i ?**  
-I am working in this fascinating field for several years and i'm gaining more and more expertise each day as a full-time pentester.  
+I am working in this fascinating field for several years as a pentester/security engineer.  
 I also love sport, art, music, traveling and socializing.  
   
 I'm contributing to various open-source infosec projects ([mitmproxy](https://github.com/mitmproxy/mitmproxy), [windapsearch](https://github.com/ropnop/windapsearch), [PowerUpSQL](https://github.com/NetSPI/PowerUpSQL), [CORScanner](https://github.com/chenjj/CORScanner), ...). Check my [github](https://github.com/phackt).  
