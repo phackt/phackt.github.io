@@ -4,7 +4,6 @@ title:  "Kerberos constrained delegation with protocol transition"
 date:   2020-11-27
 category: Pentesting
 excerpt_separator: <!--more-->
-has_translation: true
 lang: en
 ---  
 Hello,  
